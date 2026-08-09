@@ -233,6 +233,35 @@ main {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
 }
 
+/* Entrance animations — content is visible by default; motion is pure
+   enhancement so nothing depends on client JS to be seen. */
+@keyframes vp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: vp-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Scroll-triggered reveal for cards, guarded by @supports so browsers
+     without scroll-driven animations simply show the cards (base state). */
+  @supports (animation-timeline: view()) {
+    .reveal-on-scroll {
+      animation: vp-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
 .site-header {
   min-height: 104px;
   display: flex;
