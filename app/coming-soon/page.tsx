@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ArrowLink } from '@/components/ArrowLink'
 
 export const metadata: Metadata = {
-  title: 'Coming Soon: Victoria Panacci',
+  title: 'Coming Soon',
   description: 'Something new is on the way. Connect with me on LinkedIn in the meantime.',
 }
 
@@ -16,10 +16,10 @@ export default function ComingSoon() {
         <div className="hero-copy reveal">
           <p className="eyebrow">Victoria Panacci</p>
           <h1>
-            Scheming <em>in progress</em>
+            Scheming <em>in progress</em>.
           </h1>
           <p className="hero-body">
-            Portfolio coming soon. In the meantime:
+            Portfolio coming soon.
           </p>
           <ArrowLink href="https://www.linkedin.com/in/panacci">
             Connect on LinkedIn
