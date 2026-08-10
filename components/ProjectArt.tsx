@@ -4,6 +4,7 @@ const artLabel: Record<ProjectArtType, string> = {
   cashier: 'Cashier experience preview',
   mobile: 'Mobile product preview',
   system: 'Design system preview',
+  imaging: 'Medical image redaction preview',
 }
 
 export function ProjectArt({ type }: { type: ProjectArtType }) {
@@ -65,6 +66,22 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
             </div>
             <div className="system-row">
               Inputs <span>→</span>
+            </div>
+          </>
+        )}
+        {type === 'imaging' && (
+          <>
+            <div className="scan-toolbar">
+              <span>Redact</span>
+              <span>Audit</span>
+            </div>
+            <div className="scan-frame">
+              <div className="scan-image" />
+              <div className="redaction-box redaction-box--a" />
+              <div className="redaction-box redaction-box--b" />
+            </div>
+            <div className="scan-status">
+              PHI removed · 3 of 3 <span>✓</span>
             </div>
           </>
         )}

@@ -411,7 +411,7 @@ h2 em {
 }
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border: 1px solid var(--line);
 }
 .project-card {
@@ -582,6 +582,83 @@ h2 em {
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 9px;
+}
+.project-art--imaging .project-art__surface {
+  transform: rotate(-6deg) scale(1.02);
+  padding: 20px;
+  border-radius: 18px 18px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.scan-toolbar {
+  display: flex;
+  gap: 6px;
+}
+.scan-toolbar span {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.scan-toolbar span:first-child {
+  background: rgba(217, 123, 114, 0.16);
+  border-color: rgba(217, 123, 114, 0.4);
+  color: #f2d7cc;
+}
+.scan-frame {
+  position: relative;
+  flex: 1;
+  min-height: 128px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: repeating-linear-gradient(
+    118deg,
+    rgba(217, 123, 114, 0.07) 0 7px,
+    rgba(13, 9, 18, 0.55) 7px 17px
+  );
+}
+.scan-image {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(233, 162, 125, 0.24),
+    transparent 62%
+  );
+}
+.redaction-box {
+  position: absolute;
+  background: #050308;
+  border: 1px solid rgba(217, 123, 114, 0.5);
+  border-radius: 3px;
+}
+.redaction-box--a {
+  top: 22%;
+  left: 16%;
+  width: 36%;
+  height: 13%;
+}
+.redaction-box--b {
+  top: 55%;
+  left: 40%;
+  width: 30%;
+  height: 11%;
+}
+.scan-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: #d59887;
+}
+.scan-status span {
+  color: var(--rose);
+  font-size: 12px;
 }
 .project-copy {
   margin-top: auto;

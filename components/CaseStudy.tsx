@@ -71,7 +71,17 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
         <div className="cs-solution">
           <h2 className="cs-h2">
-            Meet <em>DribbleCollect</em>.
+            {cs.solution.heading ? (
+              <>
+                {cs.solution.heading.lead}
+                <em>{cs.solution.heading.em}</em>
+                {cs.solution.heading.tail}
+              </>
+            ) : (
+              <>
+                Meet <em>DribbleCollect</em>.
+              </>
+            )}
           </h2>
           <div>
             <p className="cs-section__lead">{cs.solution.lead}</p>
@@ -114,7 +124,17 @@ export function CaseStudy({ project }: { project: Project }) {
           <i />
         </div>
         <h2 className="cs-h2">
-          Four voices, one <em>fragile chain</em> of data.
+          {cs.discovery.heading ? (
+            <>
+              {cs.discovery.heading.lead}
+              <em>{cs.discovery.heading.em}</em>
+              {cs.discovery.heading.tail}
+            </>
+          ) : (
+            <>
+              Four voices, one <em>fragile chain</em> of data.
+            </>
+          )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
         {cs.discovery.media ? <CaseStudyMedia media={cs.discovery.media} /> : null}
