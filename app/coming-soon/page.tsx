@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { ArrowLink } from '@/components/ArrowLink'
-import { SiteHeader } from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'Coming Soon — Victoria Panacci',
@@ -11,9 +10,8 @@ export default function ComingSoon() {
   return (
     <main>
       <div className="grain" aria-hidden="true" />
-      <SiteHeader />
 
-      <section className="hero shell" style={{ minHeight: 'calc(100vh - 104px)' }}>
+      <section className="hero shell" style={{ minHeight: '100vh' }}>
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
           <p className="eyebrow">Victoria Panacci</p>
