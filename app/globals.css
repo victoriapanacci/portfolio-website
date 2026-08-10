@@ -411,7 +411,7 @@ h2 em {
 }
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border: 1px solid var(--line);
 }
 .project-card {
@@ -582,6 +582,83 @@ h2 em {
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 9px;
+}
+.project-art--imaging .project-art__surface {
+  transform: rotate(-6deg) scale(1.02);
+  padding: 20px;
+  border-radius: 18px 18px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.scan-toolbar {
+  display: flex;
+  gap: 6px;
+}
+.scan-toolbar span {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.scan-toolbar span:first-child {
+  background: rgba(217, 123, 114, 0.16);
+  border-color: rgba(217, 123, 114, 0.4);
+  color: #f2d7cc;
+}
+.scan-frame {
+  position: relative;
+  flex: 1;
+  min-height: 128px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: repeating-linear-gradient(
+    118deg,
+    rgba(217, 123, 114, 0.07) 0 7px,
+    rgba(13, 9, 18, 0.55) 7px 17px
+  );
+}
+.scan-image {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(233, 162, 125, 0.24),
+    transparent 62%
+  );
+}
+.redaction-box {
+  position: absolute;
+  background: #050308;
+  border: 1px solid rgba(217, 123, 114, 0.5);
+  border-radius: 3px;
+}
+.redaction-box--a {
+  top: 22%;
+  left: 16%;
+  width: 36%;
+  height: 13%;
+}
+.redaction-box--b {
+  top: 55%;
+  left: 40%;
+  width: 30%;
+  height: 11%;
+}
+.scan-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: #d59887;
+}
+.scan-status span {
+  color: var(--rose);
+  font-size: 12px;
 }
 .project-copy {
   margin-top: auto;
@@ -1037,6 +1114,7 @@ h2 em {
 .cs-panel {
   padding: 32px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
 .cs-panel h3 {
@@ -1085,6 +1163,86 @@ h2 em {
   padding-top: 2px;
 }
 
+/* Solution as bold principle cards (full-width, no empty column) */
+.cs-section__lead--wide {
+  max-width: 760px;
+}
+.cs-principles {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.cs-principle {
+  position: relative;
+  padding: 40px 32px 36px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(
+    160deg,
+    rgba(74, 28, 47, 0.24),
+    rgba(255, 255, 255, 0.012)
+  );
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+}
+.cs-principle::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--rose), transparent);
+  opacity: 0.55;
+}
+.cs-principle:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 123, 114, 0.42);
+}
+.cs-principle__num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 46px;
+  line-height: 1;
+  color: var(--rose);
+  letter-spacing: -0.03em;
+  margin-bottom: 22px;
+}
+.cs-principle h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 14px;
+  color: #f5e7de;
+}
+.cs-principle p {
+  margin: 0;
+  color: #c8bdb8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Shared hover lift for content cards, so the page feels crafted, not static */
+.cs-finding,
+.cs-objective,
+.cs-sprint,
+.cs-outcome,
+.cs-phase {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+}
+.cs-finding:hover,
+.cs-objective:hover,
+.cs-sprint:hover,
+.cs-outcome:hover,
+.cs-phase:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 123, 114, 0.36);
+}
+
 /* Process — numbered steps */
 .cs-process {
   list-style: none;
@@ -1093,6 +1251,8 @@ h2 em {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
 }
 .cs-step {
   padding: 30px 26px 40px;
@@ -1177,6 +1337,7 @@ h2 em {
   gap: 22px;
   padding: 30px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
 .cs-finding__num {
@@ -1210,6 +1371,7 @@ h2 em {
 .cs-objective {
   padding: 34px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: linear-gradient(
     145deg,
     rgba(74, 28, 47, 0.28),
@@ -1242,6 +1404,7 @@ h2 em {
 .cs-sprint {
   padding: 28px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
 .cs-sprint h3 {
@@ -1262,8 +1425,9 @@ h2 em {
 /* Metrics band */
 .cs-metrics-wrap {
   margin: 88px 0 8px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
   background: linear-gradient(
     180deg,
     rgba(74, 28, 47, 0.16),
@@ -1307,6 +1471,7 @@ h2 em {
 .cs-outcome {
   padding: 32px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
 .cs-outcome h3 {
@@ -1351,6 +1516,7 @@ h2 em {
   gap: 40px;
   padding: 34px;
   border: 1px solid var(--line);
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
 .cs-phase__head {
@@ -1399,6 +1565,7 @@ h2 em {
 .cs-validation {
   padding: 48px;
   border: 1px solid rgba(217, 123, 114, 0.28);
+  border-radius: 22px;
   background: linear-gradient(
     145deg,
     rgba(74, 28, 47, 0.32),
@@ -1563,6 +1730,9 @@ h2 em {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+  .cs-principles {
+    grid-template-columns: 1fr;
+  }
   .cs-metric {
     padding: 40px 18px;
   }
@@ -1612,8 +1782,9 @@ h2 em {
   .cs-panel,
   .cs-objective,
   .cs-sprint,
-  .cs-outcome {
-    padding: 24px;
+  .cs-outcome,
+  .cs-principle {
+    padding: 28px 24px;
   }
   .quick-link a {
     gap: 18px;

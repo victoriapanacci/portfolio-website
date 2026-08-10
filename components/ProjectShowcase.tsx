@@ -7,7 +7,7 @@ type Props = {
   variant?: 'full' | 'quick'
   /** Kicker label shown above the section. */
   kicker?: string
-  /** Slug to exclude from the list — used on a project page to hide the current project. */
+  /** Slug to exclude from the list, used on a project page to hide the current project. */
   excludeSlug?: string
 }
 

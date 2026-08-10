@@ -18,9 +18,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const project = getProject(slug)
-  if (!project) return { title: 'Case study — Victoria Panacci' }
+  if (!project) return { title: 'Case study | Victoria Panacci' }
   return {
-    title: `${project.title} — Victoria Panacci`,
+    title: `${project.title} | Victoria Panacci`,
     description: project.caseStudy?.summary ?? project.description,
   }
 }
@@ -56,7 +56,7 @@ export default async function ProjectPage({
         </section>
       )}
 
-      {/* Quick links back to the other project cards — same source of truth as home */}
+      {/* Quick links back to the other project cards, same source of truth as home */}
       <ProjectShowcase
         variant="quick"
         kicker="Explore more work"

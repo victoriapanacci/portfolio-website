@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Victoria Panacci — Senior Product Designer',
+  title: 'Victoria Panacci | Senior Product Designer',
   description:
     'Senior Product Designer focused on high-trust, complex digital products.',
   generator: 'v0.app',

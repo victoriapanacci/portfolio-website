@@ -7,6 +7,18 @@ export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
   if (!cs) return null
 
+  const solutionHeading = cs.solution.heading ? (
+    <>
+      {cs.solution.heading.lead}
+      <em>{cs.solution.heading.em}</em>
+      {cs.solution.heading.tail}
+    </>
+  ) : (
+    <>
+      Meet <em>DribbleCollect</em>.
+    </>
+  )
+
   return (
     <article className="cs">
       {/* Breadcrumb back link */}
@@ -69,52 +81,80 @@ export function CaseStudy({ project }: { project: Project }) {
           <span>The solution</span>
           <i />
         </div>
-        <div className="cs-solution">
-          <h2 className="cs-h2">
-            Meet <em>DribbleCollect</em>.
-          </h2>
-          <div>
-            <p className="cs-section__lead">{cs.solution.lead}</p>
-            <ul className="cs-check-list">
-              {cs.solution.points.map((point) => (
-                <li key={point} className="reveal-on-scroll">
-                  <span className="cs-check" aria-hidden="true">
-                    →
-                  </span>
-                  {point}
+        {cs.solution.principles ? (
+          <div className="cs-principles-block">
+            <h2 className="cs-h2">{solutionHeading}</h2>
+            <p className="cs-section__lead cs-section__lead--wide">
+              {cs.solution.lead}
+            </p>
+            <ol className="cs-principles">
+              {cs.solution.principles.map((p, i) => (
+                <li key={p.title} className="cs-principle reveal-on-scroll">
+                  <span className="cs-principle__num">{`0${i + 1}`}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
-        </div>
+        ) : (
+          <div className="cs-solution">
+            <h2 className="cs-h2">{solutionHeading}</h2>
+            <div>
+              <p className="cs-section__lead">{cs.solution.lead}</p>
+              <ul className="cs-check-list">
+                {(cs.solution.points ?? []).map((point) => (
+                  <li key={point} className="reveal-on-scroll">
+                    <span className="cs-check" aria-hidden="true">
+                      →
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         {cs.solution.media ? <CaseStudyMedia media={cs.solution.media} /> : null}
       </section>
 
-      {/* Process */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>How we got there</span>
-          <i />
-        </div>
-        <ol className="cs-process">
-          {cs.process.map((step) => (
-            <li key={step.index} className="cs-step reveal-on-scroll">
-              <span className="cs-step__index">{step.index}</span>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {/* Process (optional) */}
+      {cs.process ? (
+        <section className="cs-section shell">
+          <div className="cs-kicker">
+            <span>How we got there</span>
+            <i />
+          </div>
+          <ol className="cs-process">
+            {cs.process.map((step) => (
+              <li key={step.index} className="cs-step reveal-on-scroll">
+                <span className="cs-step__index">{step.index}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
 
       {/* Discovery */}
       <section className="cs-section shell">
         <div className="cs-kicker">
-          <span>Step 01 — Listening</span>
+          <span>The research</span>
           <i />
         </div>
         <h2 className="cs-h2">
-          Four voices, one <em>fragile chain</em> of data.
+          {cs.discovery.heading ? (
+            <>
+              {cs.discovery.heading.lead}
+              <em>{cs.discovery.heading.em}</em>
+              {cs.discovery.heading.tail}
+            </>
+          ) : (
+            <>
+              Four voices, one <em>fragile chain</em> of data.
+            </>
+          )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
         {cs.discovery.media ? <CaseStudyMedia media={cs.discovery.media} /> : null}
@@ -131,38 +171,42 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       </section>
 
-      {/* Objectives */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>Step 02 — Defining goals</span>
-          <i />
-        </div>
-        <div className="cs-objectives">
-          {cs.objectives.map((o) => (
-            <div key={o.label} className="cs-objective reveal-on-scroll">
-              <span className="cs-objective__label">{o.label}</span>
-              <p>{o.title}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Objectives (optional) */}
+      {cs.objectives ? (
+        <section className="cs-section shell">
+          <div className="cs-kicker">
+            <span>Defining success</span>
+            <i />
+          </div>
+          <div className="cs-objectives">
+            {cs.objectives.map((o) => (
+              <div key={o.label} className="cs-objective reveal-on-scroll">
+                <span className="cs-objective__label">{o.label}</span>
+                <p>{o.title}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      {/* Sprints */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>Step 03 — Prototyping in sprints</span>
-          <i />
-        </div>
-        <p className="cs-section__lead">{cs.sprints.lead}</p>
-        <div className="cs-sprints">
-          {cs.sprints.items.map((s) => (
-            <div key={s.title} className="cs-sprint reveal-on-scroll">
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Sprints (optional) */}
+      {cs.sprints ? (
+        <section className="cs-section shell">
+          <div className="cs-kicker">
+            <span>Prototyping in sprints</span>
+            <i />
+          </div>
+          <p className="cs-section__lead">{cs.sprints.lead}</p>
+          <div className="cs-sprints">
+            {cs.sprints.items.map((s) => (
+              <div key={s.title} className="cs-sprint reveal-on-scroll">
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Metrics band */}
       <section className="cs-metrics-wrap">
@@ -179,7 +223,7 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Outcomes */}
       <section className="cs-section shell">
         <div className="cs-kicker">
-          <span>Step 04 — The outcome</span>
+          <span>The outcome</span>
           <i />
         </div>
         <h2 className="cs-h2">
@@ -199,43 +243,47 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       </section>
 
-      {/* Launch */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>Build to launch</span>
-          <i />
-        </div>
-        <div className="cs-launch">
-          {cs.launch.map((l) => (
-            <div key={l.phase} className="cs-phase reveal-on-scroll">
-              <div className="cs-phase__head">
-                <span className="cs-phase__name">{l.phase}</span>
-                <span className="cs-phase__tag">{l.tag}</span>
-              </div>
-              <p className="cs-phase__body">{l.body}</p>
-              <p className="cs-phase__feedback">
-                <span>Feedback loop</span>
-                {l.feedback}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Validation */}
-      <section className="cs-section shell">
-        <div className="cs-validation reveal-on-scroll">
+      {/* Launch (optional) */}
+      {cs.launch ? (
+        <section className="cs-section shell">
           <div className="cs-kicker">
-            <span>Outcome &amp; validation</span>
+            <span>Build to launch</span>
             <i />
           </div>
-          {cs.validation.map((v) => (
-            <p key={v} className="cs-validation__line">
-              {v}
-            </p>
-          ))}
-        </div>
-      </section>
+          <div className="cs-launch">
+            {cs.launch.map((l) => (
+              <div key={l.phase} className="cs-phase reveal-on-scroll">
+                <div className="cs-phase__head">
+                  <span className="cs-phase__name">{l.phase}</span>
+                  <span className="cs-phase__tag">{l.tag}</span>
+                </div>
+                <p className="cs-phase__body">{l.body}</p>
+                <p className="cs-phase__feedback">
+                  <span>Feedback loop</span>
+                  {l.feedback}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* Validation (optional) */}
+      {cs.validation ? (
+        <section className="cs-section shell">
+          <div className="cs-validation reveal-on-scroll">
+            <div className="cs-kicker">
+              <span>Outcome &amp; validation</span>
+              <i />
+            </div>
+            {cs.validation.map((v) => (
+              <p key={v} className="cs-validation__line">
+                {v}
+              </p>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Learnings */}
       <section className="cs-section shell">

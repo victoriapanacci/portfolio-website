@@ -1,4 +1,7 @@
-export type ProjectArtType = 'cashier' | 'mobile' | 'system'
+export type ProjectArtType = 'cashier' | 'mobile' | 'system' | 'imaging'
+
+/** Optional custom section heading: `{lead}<em>{em}</em>{tail}`. */
+export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
 
 export type CaseStudyImage = {
   src: string
@@ -20,26 +23,34 @@ export type CaseStudy = {
     points: { title: string; body: string }[]
   }
   solution: {
+    /** Overrides the default "Meet DribbleCollect." heading. */
+    heading?: CaseStudyHeading
     lead: string
-    points: string[]
+    /** Checklist rows. Used when a media artifact accompanies the solution. */
+    points?: string[]
+    /** Bold, numbered principle cards. Used when there is no media artifact. */
+    principles?: { title: string; body: string }[]
     media?: CaseStudyImage
   }
-  process: { index: string; title: string; body: string }[]
   discovery: {
+    /** Overrides the default "Four voices…" heading. */
+    heading?: CaseStudyHeading
     lead: string
     findings: { title: string; body: string }[]
     media?: CaseStudyImage
   }
-  objectives: { label: string; title: string }[]
-  sprints: {
+  metrics: { value: string; label: string }[]
+  outcomes: { objective: string; points: string[] }[]
+  learnings: string[]
+  /** Optional sections. Omit any of these to keep a case study tight. */
+  process?: { index: string; title: string; body: string }[]
+  objectives?: { label: string; title: string }[]
+  sprints?: {
     lead: string
     items: { title: string; body: string }[]
   }
-  metrics: { value: string; label: string }[]
-  outcomes: { objective: string; points: string[] }[]
-  launch: { phase: string; tag: string; body: string; feedback: string }[]
-  learnings: string[]
-  validation: string[]
+  launch?: { phase: string; tag: string; body: string; feedback: string }[]
+  validation?: string[]
 }
 
 export type Project = {
@@ -73,15 +84,15 @@ export const projects: Project[] = [
     art: 'mobile',
     caseStudy: {
       summary:
-        'ePRO — Electronic Patient Reported Outcomes — are the backbone of every clinical trial, documenting how a drug or device actually affects the people taking it. When our industry-leading EDC could no longer carry that weight, I designed and shipped DribbleCollect: a fully 21 CFR Part 11 compliant ePRO you can download wherever you get your apps.',
+        'ePRO (Electronic Patient Reported Outcomes) are the backbone of every clinical trial, documenting how a drug or device actually affects the people taking it. When our industry-leading EDC could no longer carry that weight, I designed and shipped DribbleCollect: a fully 21 CFR Part 11 compliant ePRO you can download wherever you get your apps.',
       meta: [
         { label: 'Role', value: 'Lead Product Designer + Product Manager' },
         { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Engineer, 1 QA (part-time)' },
         { label: 'Tools', value: 'Figma, Axosoft, Capacitor, AWS' },
-        { label: 'Timeline', value: '6 Months — MVP to GA' },
+        { label: 'Timeline', value: '6 Months, MVP to GA' },
       ],
       intro:
-        'ClearQ was an industry-leading EDC for running clinical trials — and it was quietly losing the room. Clients kept surfacing the same two truths: the interface was fighting the people using it, and the architecture had nowhere left to grow. I owned both the product and the design, which meant I could not hide a usability problem behind a roadmap, or a roadmap problem behind a redesign. I had to solve the whole thing.',
+        'ClearQ was an industry-leading EDC for running clinical trials, and it was quietly losing the room. Clients kept surfacing the same two truths: the interface was fighting the people using it, and the architecture had nowhere left to grow. I owned both the product and the design, which meant I could not hide a usability problem behind a roadmap, or a roadmap problem behind a redesign. I had to solve the whole thing.',
       problem: {
         lead: 'Two failures compounded each other. A brittle experience produced bad data, and a rigid back-end made it impossible to fix the experience without a rebuild.',
         points: [
@@ -96,7 +107,7 @@ export const projects: Project[] = [
         ],
       },
       solution: {
-        lead: 'DribbleCollect answered both failures at once — a rebuilt experience on top of a rebuilt foundation.',
+        lead: 'DribbleCollect answered both failures at once: a rebuilt experience on top of a rebuilt foundation.',
         points: [
           'Innovative AI voice-to-text data entry, fully 21 CFR Part 11 compliant',
           'An expansive UX flow engineered against drop-offs, confusion, and disengagement',
@@ -105,10 +116,10 @@ export const projects: Project[] = [
         ],
         media: {
           src: '/figma/epro-voice-to-text.webp',
-          alt: 'Two annotated DribbleCollect questionnaire screens — transcription pane closed and open — with accessibility, interaction, and content callouts documenting the voice-to-text flow.',
-          eyebrow: 'Voice-to-text — annotated flow',
+          alt: 'Two annotated DribbleCollect questionnaire screens (transcription pane closed and open) with accessibility, interaction, and content callouts documenting the voice-to-text flow.',
+          eyebrow: 'Voice-to-text: annotated flow',
           caption:
-            'The signature feature: an LLM-powered voice-to-text pane that dictates questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire — every interaction annotated for accessibility, interaction, and content decisions, and built 21 CFR Part 11 compliant.',
+            'The signature feature: an LLM-powered voice-to-text pane that dictates questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire. Every interaction is annotated for accessibility, interaction, and content decisions, and built 21 CFR Part 11 compliant.',
           variant: 'plate',
         },
       },
@@ -116,7 +127,7 @@ export const projects: Project[] = [
         {
           index: '01',
           title: 'Understand the pain points and technical limits',
-          body: 'Get honest about where the legacy tool was failing — and why the architecture made those failures unavoidable.',
+          body: 'Get honest about where the legacy tool was failing, and why the architecture made those failures unavoidable.',
         },
         {
           index: '02',
@@ -130,12 +141,12 @@ export const projects: Project[] = [
         },
         {
           index: '04',
-          title: 'Build to launch — MVP, Beta, GA',
+          title: 'Build to launch: MVP, Beta, GA',
           body: 'Stage the rollout so every release earned its way to the next audience.',
         },
       ],
       discovery: {
-        lead: 'Through questionnaires, informal interviews, and usability testing, four voices came through clearly — each one a different stakeholder in the same fragile chain of data.',
+        lead: 'Through questionnaires, informal interviews, and usability testing, four voices came through clearly, each one a different stakeholder in the same fragile chain of data.',
         findings: [
           {
             title: 'Patients value tools that respect their time',
@@ -143,7 +154,7 @@ export const projects: Project[] = [
           },
           {
             title: 'Site staff need to spend time on care, not tech support',
-            body: 'Staff burned hours troubleshooting errors with patients who simply could not get the tool to work — time stolen directly from patient care.',
+            body: 'Staff burned hours troubleshooting errors with patients who simply could not get the tool to work, time stolen directly from patient care.',
           },
           {
             title: 'Data must be reliable the first time',
@@ -151,13 +162,13 @@ export const projects: Project[] = [
           },
           {
             title: 'The platform should inspire confidence, not doubt',
-            body: 'Leadership needed a product that made sponsors want to come back — and feel certain about the money they were investing.',
+            body: 'Leadership needed a product that made sponsors want to come back, and feel certain about the money they were investing.',
           },
         ],
         media: {
           src: '/figma/epro-journey-map.webp',
-          alt: 'Experience map of the legacy ePRO across five stages — Onboarding, First Use, Daily Use, Missed Entry, and End of Study — with an emotion curve declining from confident to abandoned.',
-          eyebrow: 'Experience map — the legacy tool',
+          alt: 'Experience map of the legacy ePRO across five stages (Onboarding, First Use, Daily Use, Missed Entry, and End of Study) with an emotion curve declining from confident to abandoned.',
+          eyebrow: 'Experience map: the legacy tool',
           caption:
             'Mapping the legacy experience made the stakes undeniable: confidence at onboarding decayed into frustration at the first error and outright abandonment by the end of the study. Every dip was a data point at risk.',
           variant: 'plate',
@@ -194,7 +205,7 @@ export const projects: Project[] = [
           },
           {
             title: 'Form entry & voice-to-text capture',
-            body: 'Tested Siri, ChatGPT, and Amazon Transcribe Medical — Siri offered the best balance of usability and cost for our audience.',
+            body: 'Tested Siri, ChatGPT, and Amazon Transcribe Medical. Siri offered the best balance of usability and cost for our audience.',
           },
           {
             title: 'Autosave, progress & feedback',
@@ -253,13 +264,13 @@ export const projects: Project[] = [
         {
           phase: 'MVP',
           tag: 'Minimum viable product',
-          body: 'Launched bare-bones prototypes to one dedicated client and a select group of users to confirm we were solving a real need. Because the need came from a direct client request, this stage felt redundant — a candid lesson that removing it could have saved real time.',
+          body: 'Launched bare-bones prototypes to one dedicated client and a select group of users to confirm we were solving a real need. Because the need came from a direct client request, this stage felt redundant: a candid lesson that removing it could have saved real time.',
           feedback: 'Micro-surveys surfaced naturally as users moved through the flow, plus a report-a-bug option.',
         },
         {
           phase: 'Beta',
           tag: 'Three therapeutic areas',
-          body: 'Reached three clients across different therapeutic areas. This wider release was crucial — it refined usability and uncovered edge cases we had not anticipated, shaping a far more resilient product.',
+          body: 'Reached three clients across different therapeutic areas. This wider release was crucial: it refined usability and uncovered edge cases we had not anticipated, shaping a far more resilient product.',
           feedback: 'Tagged micro-surveys, an embedded feedback widget, and user-panel invites for deeper usability testing.',
         },
         {
@@ -275,7 +286,7 @@ export const projects: Project[] = [
       ],
       learnings: [
         'Effective communication is essential in complex projects to avoid costly misinterpretations.',
-        'Prioritization and trade-offs are not optional — they are how you actually meet a deadline.',
+        'Prioritization and trade-offs are not optional; they are how you actually meet a deadline.',
         'Designing for accessibility from the start benefits every user, not only those with disabilities.',
       ],
     },
@@ -288,6 +299,121 @@ export const projects: Project[] = [
     description:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
     art: 'system',
+  },
+  {
+    slug: 'confidence-in-a-regulated-industry',
+    index: '04',
+    title: 'Selling Confidence in a Regulated Industry',
+    category: 'Clinical Imaging / FDA-Regulated SaaS',
+    description:
+      'A net-new medical-image redaction tool built inside FDA-regulated clinical-trial software, trading slow, manual work for auditable automation without surrendering human control.',
+    art: 'imaging',
+    caseStudy: {
+      summary:
+        'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) must be removed. I designed a net-new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one, halving review sessions while keeping human reviewers in final control.',
+      meta: [
+        { label: 'Role', value: 'Product Designer, end-to-end ownership' },
+        { label: 'Team', value: '1 PD/PM, 2 Engineers, 1 QA' },
+        { label: 'Product', value: 'Fusion Imaging Module (FDA-regulated)' },
+        { label: 'Timeline', value: '6 Months' },
+      ],
+      intro:
+        'Fusion was hitting a scaling wall. Redacting PHI from medical images, the gate every clinical image must pass before a regulator ever sees it, was still done by hand, one file at a time, across teams scattered around the world. A single study could carry close to 100,000 images. I owned the design end-to-end, which meant the real problem was never just speed: it was making automation trustworthy enough for an FDA-regulated review.',
+      problem: {
+        lead: 'The redaction workflow was a scaling bottleneck: slow, error-prone, and costly in exactly the place a regulated product can least afford mistakes.',
+        points: [
+          {
+            title: 'A manual process that could not scale',
+            body: 'Every image was redacted by hand, each requiring specialized software just to open and edit. As studies approached 100,000 images, the workload grew far faster than any team could staff for.',
+          },
+          {
+            title: 'Distributed teams, fragile output',
+            body: 'Redaction teams worked globally, moving between several disconnected programs. Every tool switch and handoff was another chance for PHI to slip through, or for a valid image to be over-redacted.',
+          },
+        ],
+      },
+      solution: {
+        heading: { lead: 'Three principles that made automation ', em: 'trustworthy', tail: '.' },
+        lead: 'Before designing a single screen, I set the rules automation had to obey. Drawn from Axiom’s product vision, they let me move fast without trading away the confidence a regulated review depends on, and gave the whole team one consistent way to judge every tradeoff.',
+        principles: [
+          {
+            title: 'Human authority over automation',
+            body: 'Reviewers keep final control at every critical moment, so a regulatory board can validate the tool no matter how much it automates.',
+          },
+          {
+            title: 'Trust before speed',
+            body: 'No efficiency gain is worth compromising confidence or auditability. Speed only counts once the output can be trusted.',
+          },
+          {
+            title: 'Reversibility as safety',
+            body: 'Every automated action stays reviewable and fully undoable, so no single click can quietly put patient data at risk.',
+          },
+        ],
+      },
+      discovery: {
+        heading: { lead: 'Two users, one ', em: 'unforgiving', tail: ' standard.' },
+        lead: 'To ground a net-new tool, I ran a full research phase: 34 questionnaires, 14 interviews, and 7 shadowing sessions watching people redact images in their real environment. Three truths shaped everything that followed.',
+        findings: [
+          {
+            title: 'Data managers live and die by efficiency',
+            body: 'They have to confirm every trace of PHI is gone across enormous volumes of images, all while hopping between separate, specialized programs.',
+          },
+          {
+            title: 'Site users need speed above all',
+            body: 'They upload images and need to get in and out of the EDC fast, because they are managing real patients in real time.',
+          },
+          {
+            title: 'The FDA sets the floor, not the ceiling',
+            body: 'With most clients US-based, the FDA rules for electronic signatures and audit trails became the non-negotiable standard behind every decision.',
+          },
+        ],
+      },
+      metrics: [
+        { value: '50%', label: 'reduction in review session time' },
+        { value: '<1%', label: 'false-negative rate on redaction' },
+        { value: '<3', label: 'clicks to review & redact an image' },
+        { value: '100%', label: 'auditable actions, on every page' },
+      ],
+      outcomes: [
+        {
+          objective: 'A blind review portal inside Fusion',
+          points: [
+            'Built a net-new portal within the Fusion eClinical Suite dedicated to redacting medical images.',
+            'Blinded users can view, read, redact, and audit every image without ever leaving Fusion.',
+          ],
+        },
+        {
+          objective: 'Redaction in under three clicks',
+          points: [
+            'Replaced the download → redact locally → re-upload loop with in-platform review.',
+            'Using AWS Rekognition, AWS Medical Transcribe, and the built-in LeadTools medical viewer, users clear PHI across many image instances at once in under three clicks.',
+          ],
+        },
+        {
+          objective: 'Auditable and reversible by design',
+          points: [
+            'A full audit trail is accessible from every page in the workflow.',
+            'Reviewers retain authority at defined control points, and every automated action stays reviewable and undoable.',
+          ],
+        },
+        {
+          objective: 'Ready to scale',
+          points: [
+            'Optimized web responsiveness and compatibility down to web tablet.',
+            'Broke scalability into phases so scope stayed honest without capping future growth.',
+          ],
+        },
+      ],
+      validation: [
+        'The shipped module cut redaction sessions in half, held the false-negative rate under 1%, and put a full audit trail on every page, proving efficiency and regulatory trust were never a tradeoff.',
+        'By keeping reviewers in authority at every control point, the tool earned the confidence of both internal teams and the regulatory boards it was built to satisfy.',
+      ],
+      learnings: [
+        'In a regulated product, trust is a design material. Auditability and reversibility have to be designed in from the first sketch, not bolted on at the end.',
+        'Clear principles turn ambiguity into decisions. Naming “human authority,” “trust before speed,” and “reversibility” up front let me disqualify slick ideas that quietly added risk.',
+        'Constraints sharpen the work. With UI changes off the table, focusing purely on workflow and reviewer decision-making produced a faster, safer tool than a full redesign would have.',
+      ],
+    },
   },
 ]
 
