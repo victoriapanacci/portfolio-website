@@ -1,5 +1,16 @@
 export type ProjectArtType = 'cashier' | 'mobile' | 'system'
 
+export type CaseStudyImage = {
+  src: string
+  alt: string
+  /** Short rose eyebrow tag shown above the frame, e.g. "User journey map". */
+  eyebrow?: string
+  /** Descriptive caption shown beneath the frame. */
+  caption?: string
+  /** 'plate' = light matted artifact (screens, boards). 'bleed' = wide framed panel. */
+  variant?: 'plate' | 'bleed'
+}
+
 export type CaseStudy = {
   summary: string
   meta: { label: string; value: string }[]
@@ -11,11 +22,13 @@ export type CaseStudy = {
   solution: {
     lead: string
     points: string[]
+    media?: CaseStudyImage
   }
   process: { index: string; title: string; body: string }[]
   discovery: {
     lead: string
     findings: { title: string; body: string }[]
+    media?: CaseStudyImage
   }
   objectives: { label: string; title: string }[]
   sprints: {
@@ -90,6 +103,14 @@ export const projects: Project[] = [
           'A modular back-end that runs independently, with a streamlined API',
           'A refreshed, accessible UI patients could trust on the first try',
         ],
+        media: {
+          src: '/figma/epro-voice-to-text.webp',
+          alt: 'Two annotated DribbleCollect questionnaire screens — transcription pane closed and open — with accessibility, interaction, and content callouts documenting the voice-to-text flow.',
+          eyebrow: 'Voice-to-text — annotated flow',
+          caption:
+            'The signature feature: an LLM-powered voice-to-text pane that dictates questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire — every interaction annotated for accessibility, interaction, and content decisions, and built 21 CFR Part 11 compliant.',
+          variant: 'plate',
+        },
       },
       process: [
         {
@@ -133,6 +154,14 @@ export const projects: Project[] = [
             body: 'Leadership needed a product that made sponsors want to come back — and feel certain about the money they were investing.',
           },
         ],
+        media: {
+          src: '/figma/epro-journey-map.webp',
+          alt: 'Experience map of the legacy ePRO across five stages — Onboarding, First Use, Daily Use, Missed Entry, and End of Study — with an emotion curve declining from confident to abandoned.',
+          eyebrow: 'Experience map — the legacy tool',
+          caption:
+            'Mapping the legacy experience made the stakes undeniable: confidence at onboarding decayed into frustration at the first error and outright abandonment by the end of the study. Every dip was a data point at risk.',
+          variant: 'plate',
+        },
       },
       objectives: [
         {

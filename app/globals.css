@@ -1123,6 +1123,49 @@ h2 em {
   line-height: 1.65;
 }
 
+/* Framed media — screenshots, boards, renders */
+.cs-media {
+  margin: 48px 0 0;
+}
+.cs-media__eyebrow {
+  color: #e98475;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 16px;
+}
+.cs-media__frame {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #f6f2ec, #e9e1d6);
+  padding: clamp(16px, 3vw, 40px);
+  box-shadow: 0 40px 80px -48px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+.cs-media__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(31, 18, 22, 0.06);
+}
+.cs-media__caption {
+  margin: 20px 0 0;
+  color: #b9aead;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 760px;
+}
+.cs-media--bleed .cs-media__frame {
+  padding: 0;
+  background: rgba(255, 255, 255, 0.015);
+}
+.cs-media--bleed .cs-media__img {
+  border-radius: 15px;
+  box-shadow: none;
+}
+
 /* Discovery findings */
 .cs-findings {
   display: grid;

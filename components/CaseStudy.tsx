@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
+import { CaseStudyMedia } from './CaseStudyMedia'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -86,6 +87,7 @@ export function CaseStudy({ project }: { project: Project }) {
             </ul>
           </div>
         </div>
+        {cs.solution.media ? <CaseStudyMedia media={cs.solution.media} /> : null}
       </section>
 
       {/* Process */}
@@ -115,6 +117,7 @@ export function CaseStudy({ project }: { project: Project }) {
           Four voices, one <em>fragile chain</em> of data.
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
+        {cs.discovery.media ? <CaseStudyMedia media={cs.discovery.media} /> : null}
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (
             <div key={f.title} className="cs-finding reveal-on-scroll">
