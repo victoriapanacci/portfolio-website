@@ -34,7 +34,7 @@ export default function Home() {
       <div className="grain" aria-hidden="true" />
       <header className="site-header shell">
         <a className="monogram" href="#top" aria-label="Victoria Panacci home">
-          VP
+          Victoria Panacci
         </a>
         <nav aria-label="Primary navigation" className="desktop-nav">
           <a href="#work">Work</a>
