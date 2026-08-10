@@ -26,10 +26,12 @@ export type CaseStudy = {
     /** Overrides the default "Meet DribbleCollect." heading. */
     heading?: CaseStudyHeading
     lead: string
-    points: string[]
+    /** Checklist rows. Used when a media artifact accompanies the solution. */
+    points?: string[]
+    /** Bold, numbered principle cards. Used when there is no media artifact. */
+    principles?: { title: string; body: string }[]
     media?: CaseStudyImage
   }
-  process: { index: string; title: string; body: string }[]
   discovery: {
     /** Overrides the default "Four voices…" heading. */
     heading?: CaseStudyHeading
@@ -37,16 +39,18 @@ export type CaseStudy = {
     findings: { title: string; body: string }[]
     media?: CaseStudyImage
   }
-  objectives: { label: string; title: string }[]
-  sprints: {
+  metrics: { value: string; label: string }[]
+  outcomes: { objective: string; points: string[] }[]
+  learnings: string[]
+  /** Optional sections. Omit any of these to keep a case study tight. */
+  process?: { index: string; title: string; body: string }[]
+  objectives?: { label: string; title: string }[]
+  sprints?: {
     lead: string
     items: { title: string; body: string }[]
   }
-  metrics: { value: string; label: string }[]
-  outcomes: { objective: string; points: string[] }[]
-  launch: { phase: string; tag: string; body: string; feedback: string }[]
-  learnings: string[]
-  validation: string[]
+  launch?: { phase: string; tag: string; body: string; feedback: string }[]
+  validation?: string[]
 }
 
 export type Project = {
@@ -306,17 +310,17 @@ export const projects: Project[] = [
     art: 'imaging',
     caseStudy: {
       summary:
-        'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) must be removed. I designed a net-new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one — halving review sessions while keeping human reviewers in final control.',
+        'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) must be removed. I designed a net-new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one, halving review sessions while keeping human reviewers in final control.',
       meta: [
-        { label: 'Role', value: 'Product Designer — end-to-end ownership' },
+        { label: 'Role', value: 'Product Designer, end-to-end ownership' },
         { label: 'Team', value: '1 PD/PM, 2 Engineers, 1 QA' },
-        { label: 'Product', value: 'Fusion — Imaging Module (FDA-regulated)' },
+        { label: 'Product', value: 'Fusion Imaging Module (FDA-regulated)' },
         { label: 'Timeline', value: '6 Months' },
       ],
       intro:
-        'Fusion was hitting a scaling wall. Redacting PHI from medical images — the gate every clinical image must pass before a regulator ever sees it — was still done by hand, one file at a time, across teams scattered around the world. A single study could carry close to 100,000 images. I owned the design end-to-end, which meant the real problem was never just speed: it was making automation trustworthy enough for an FDA-regulated review.',
+        'Fusion was hitting a scaling wall. Redacting PHI from medical images, the gate every clinical image must pass before a regulator ever sees it, was still done by hand, one file at a time, across teams scattered around the world. A single study could carry close to 100,000 images. I owned the design end-to-end, which meant the real problem was never just speed: it was making automation trustworthy enough for an FDA-regulated review.',
       problem: {
-        lead: 'The redaction workflow was a scaling bottleneck — slow, error-prone, and costly in exactly the place a regulated product can least afford mistakes.',
+        lead: 'The redaction workflow was a scaling bottleneck: slow, error-prone, and costly in exactly the place a regulated product can least afford mistakes.',
         points: [
           {
             title: 'A manual process that could not scale',
@@ -324,92 +328,43 @@ export const projects: Project[] = [
           },
           {
             title: 'Distributed teams, fragile output',
-            body: 'Redaction teams were not centralized — they worked globally, moving between several disconnected programs. Every tool switch and handoff was another chance for PHI to slip through, or for a valid image to be over-redacted.',
+            body: 'Redaction teams worked globally, moving between several disconnected programs. Every tool switch and handoff was another chance for PHI to slip through, or for a valid image to be over-redacted.',
           },
         ],
       },
       solution: {
         heading: { lead: 'Three principles that made automation ', em: 'trustworthy', tail: '.' },
-        lead: 'Before designing a single screen, I set the rules automation had to obey. Drawn from Axiom’s product vision, these principles let me move fast without trading away the confidence a regulated review depends on — and gave the whole team a consistent way to judge every tradeoff.',
-        points: [
-          'Human authority over automation — reviewers keep final control at every critical moment, so an IRB can validate the tool no matter how much it automates.',
-          'Trust before speed — no efficiency gain is worth compromising confidence or auditability.',
-          'Reversibility as safety — every automated action must be reviewable and fully undoable.',
+        lead: 'Before designing a single screen, I set the rules automation had to obey. Drawn from Axiom’s product vision, they let me move fast without trading away the confidence a regulated review depends on, and gave the whole team one consistent way to judge every tradeoff.',
+        principles: [
+          {
+            title: 'Human authority over automation',
+            body: 'Reviewers keep final control at every critical moment, so a regulatory board can validate the tool no matter how much it automates.',
+          },
+          {
+            title: 'Trust before speed',
+            body: 'No efficiency gain is worth compromising confidence or auditability. Speed only counts once the output can be trusted.',
+          },
+          {
+            title: 'Reversibility as safety',
+            body: 'Every automated action stays reviewable and fully undoable, so no single click can quietly put patient data at risk.',
+          },
         ],
       },
-      process: [
-        {
-          index: '01',
-          title: 'Empathize',
-          body: 'Sit with the people doing redaction today — questionnaires, interviews, and shadowing — to understand the work before touching a solution.',
-        },
-        {
-          index: '02',
-          title: 'Define',
-          body: 'Translate management, user, and FDA needs into measurable success criteria the whole team could build against.',
-        },
-        {
-          index: '03',
-          title: 'Ideate',
-          body: 'Run workshops — Crazy 8s, user journeys, SCAMPER, constraint expansion — to map the data flow and pressure-test ideas.',
-        },
-        {
-          index: '04',
-          title: 'Prototype & Test',
-          body: 'Disqualify iterations against non-negotiables, then test high-fidelity prototypes with real users and an A/B launch.',
-        },
-      ],
       discovery: {
         heading: { lead: 'Two users, one ', em: 'unforgiving', tail: ' standard.' },
-        lead: 'To reduce the ambiguity of a net-new tool, I ran a full empathize phase: 34 questionnaires, 14 user interviews, and 7 shadowing sessions watching people redact images in their real environment. Four truths shaped everything that followed.',
+        lead: 'To ground a net-new tool, I ran a full research phase: 34 questionnaires, 14 interviews, and 7 shadowing sessions watching people redact images in their real environment. Three truths shaped everything that followed.',
         findings: [
           {
             title: 'Data managers live and die by efficiency',
-            body: 'Their job is to ensure all PHI is removed while reviewing enormous volumes of images — and they do it while constantly hopping between separate, specialized programs.',
+            body: 'They have to confirm every trace of PHI is gone across enormous volumes of images, all while hopping between separate, specialized programs.',
           },
           {
             title: 'Site users need speed above all',
-            body: 'They upload images and need to get in and out of the EDC as fast as possible, because they are managing patients in real time.',
+            body: 'They upload images and need to get in and out of the EDC fast, because they are managing real patients in real time.',
           },
           {
             title: 'The FDA sets the floor, not the ceiling',
-            body: 'Most of Axiom’s clients are US-based, so the FDA’s rules for electronic signatures and audit trails became the non-negotiable gold standard for every decision.',
-          },
-          {
-            title: 'The work — not the interface — was the target',
-            body: 'UI changes were explicitly out of scope per leadership. The design effort had to live entirely in workflow, interaction logic, and reviewer decision-making inside a legacy EDC.',
-          },
-        ],
-      },
-      objectives: [
-        { label: 'Success criteria 01', title: 'Reduce review session time by 40%' },
-        { label: 'Success criteria 02', title: '100% auditability on every action' },
-        { label: 'Success criteria 03', title: 'Reviewers retain full authority at defined control points' },
-        { label: 'Success criteria 04', title: 'Automation never enables a false negative' },
-        { label: 'Success criteria 05', title: 'Full scalability to web, compatible on web tablet' },
-      ],
-      sprints: {
-        lead: 'I ran the work as focused design-thinking sprints, so each stage could be deeply understood before intentionally moving to the next — turning an ambiguous, net-new problem into a sequence of answerable questions.',
-        items: [
-          {
-            title: 'Empathize — field research',
-            body: '34 questionnaires, 14 interviews, and 7 shadowing sessions built a true picture of the data manager and site-user workflows.',
-          },
-          {
-            title: 'Define — requirements',
-            body: 'Turned management, user, product, and FDA needs into five concrete, gradeable success criteria.',
-          },
-          {
-            title: 'Ideate — workshops',
-            body: 'Crazy 8s, user journeys, SCAMPER, and constraint expansion mapped the data flow and surfaced the current-state pain points.',
-          },
-          {
-            title: 'Prototype — exclusion rounds',
-            body: 'Sorted concepts into non-negotiables and negotiables, disqualifying iterations against the success criteria before stakeholder review.',
-          },
-          {
-            title: 'Test — with real users',
-            body: 'Narrowed by feature, built three high-fidelity Figma prototypes, and ran fresh shadow interviews watching internal users work with them.',
+            body: 'With most clients US-based, the FDA rules for electronic signatures and audit trails became the non-negotiable standard behind every decision.',
           },
         ],
       },
