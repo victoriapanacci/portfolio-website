@@ -1,6 +1,3 @@
-'use client'
-
-import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowLink } from '@/components/ArrowLink'
 import { ProjectCard } from '@/components/ProjectCard'
 
@@ -32,7 +29,6 @@ const projects = [
 ]
 
 export default function Home() {
-  const reduce = useReducedMotion()
   return (
     <main>
       <div className="grain" aria-hidden="true" />
@@ -54,12 +50,7 @@ export default function Home() {
 
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 18 }}
-          animate={reduce ? {} : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="hero-copy"
-        >
+        <div className="hero-copy reveal">
           <p className="eyebrow">
             Senior Product Designer
             <br />
@@ -73,7 +64,7 @@ export default function Home() {
             scale meet.
           </p>
           <ArrowLink href="#work">Explore my work</ArrowLink>
-        </motion.div>
+        </div>
       </section>
 
       <section id="work" className="work shell">

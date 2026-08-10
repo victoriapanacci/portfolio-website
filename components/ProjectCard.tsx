@@ -1,6 +1,3 @@
-'use client'
-
-import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowLink } from './ArrowLink'
 
 type Project = {
@@ -85,15 +82,8 @@ function ProjectArt({ type }: { type: Project['art'] }) {
 }
 
 export function ProjectCard({ project }: { project: Project }) {
-  const reduce = useReducedMotion()
   return (
-    <motion.article
-      initial={reduce ? false : { opacity: 0, y: 22 }}
-      whileInView={reduce ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-      className="project-card group"
-    >
+    <article className="project-card reveal-on-scroll group">
       <div className="project-index">{project.index}</div>
       <ProjectArt type={project.art} />
       <div className="project-copy">
@@ -103,6 +93,6 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="project-description">{project.description}</p>
         <ArrowLink href="#">View case study</ArrowLink>
       </div>
-    </motion.article>
+    </article>
   )
 }
