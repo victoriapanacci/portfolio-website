@@ -37,7 +37,11 @@ export function CaseStudy({ project }: { project: Project }) {
           <p className="cs-summary">{cs.summary}</p>
         </div>
         <div className="cs-hero__art reveal">
-          <ProjectArt type={project.art} />
+          {cs.heroMedia ? (
+            <CaseStudyMedia media={cs.heroMedia} className="cs-media--hero" />
+          ) : (
+            <ProjectArt type={project.art} />
+          )}
         </div>
       </header>
 
@@ -241,6 +245,12 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
+        {cs.outcomesMedia
+          ? (Array.isArray(cs.outcomesMedia)
+              ? cs.outcomesMedia
+              : [cs.outcomesMedia]
+            ).map((m) => <CaseStudyMedia key={m.src} media={m} />)
+          : null}
       </section>
 
       {/* Launch (optional) */}

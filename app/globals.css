@@ -1025,6 +1025,12 @@ h2 em {
   border: 1px solid var(--line);
   border-radius: 16px;
 }
+.cs-media--hero {
+  margin: 0;
+}
+.cs-media--hero .cs-media__eyebrow {
+  margin-top: 0;
+}
 
 /* Meta bar */
 .cs-meta {

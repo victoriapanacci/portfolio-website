@@ -17,6 +17,8 @@ export type CaseStudyImage = {
 export type CaseStudy = {
   summary: string
   meta: { label: string; value: string }[]
+  /** Optional framed artifact shown in the hero, in place of the generated art. */
+  heroMedia?: CaseStudyImage
   intro: string
   problem: {
     lead: string
@@ -41,6 +43,8 @@ export type CaseStudy = {
   }
   metrics: { value: string; label: string }[]
   outcomes: { objective: string; points: string[] }[]
+  /** Optional framed artifact(s) closing the outcome section. */
+  outcomesMedia?: CaseStudyImage | CaseStudyImage[]
   learnings: string[]
   /** Optional sections. Omit any of these to keep a case study tight. */
   process?: { index: string; title: string; body: string }[]

@@ -7,11 +7,19 @@ import type { CaseStudyImage } from '@/lib/projects'
  * and boards feeling native to the warm-ink / rose aesthetic instead of
  * dropping raw white artboards onto the dark background.
  */
-export function CaseStudyMedia({ media }: { media: CaseStudyImage }) {
+export function CaseStudyMedia({
+  media,
+  className,
+}: {
+  media: CaseStudyImage
+  className?: string
+}) {
   const variant = media.variant ?? 'plate'
 
   return (
-    <figure className={`cs-media cs-media--${variant} reveal-on-scroll`}>
+    <figure
+      className={`cs-media cs-media--${variant} reveal-on-scroll${className ? ` ${className}` : ''}`}
+    >
       {media.eyebrow ? (
         <figcaption className="cs-media__eyebrow">{media.eyebrow}</figcaption>
       ) : null}
