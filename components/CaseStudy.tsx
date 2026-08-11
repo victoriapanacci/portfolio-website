@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
-import { CaseStudyMedia } from './CaseStudyMedia'
+import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -119,7 +119,7 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           </div>
         )}
-        {cs.solution.media ? <CaseStudyMedia media={cs.solution.media} /> : null}
+        <CaseStudyMediaGroup media={cs.solution.media} />
       </section>
 
       {/* Process (optional) */}
@@ -161,7 +161,7 @@ export function CaseStudy({ project }: { project: Project }) {
           )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
-        {cs.discovery.media ? <CaseStudyMedia media={cs.discovery.media} /> : null}
+        <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (
             <div key={f.title} className="cs-finding reveal-on-scroll">
@@ -245,12 +245,7 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
-        {cs.outcomesMedia
-          ? (Array.isArray(cs.outcomesMedia)
-              ? cs.outcomesMedia
-              : [cs.outcomesMedia]
-            ).map((m) => <CaseStudyMedia key={m.src} media={m} />)
-          : null}
+        <CaseStudyMediaGroup media={cs.outcomesMedia} />
       </section>
 
       {/* Launch (optional) */}

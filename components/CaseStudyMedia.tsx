@@ -39,3 +39,23 @@ export function CaseStudyMedia({
     </figure>
   )
 }
+
+/**
+ * Renders one artifact or a stacked group of them. Accepts a single image,
+ * an array, or undefined, so any case-study section can carry visuals.
+ */
+export function CaseStudyMediaGroup({
+  media,
+}: {
+  media?: CaseStudyImage | CaseStudyImage[]
+}) {
+  if (!media) return null
+  const items = Array.isArray(media) ? media : [media]
+  return (
+    <>
+      {items.map((m) => (
+        <CaseStudyMedia key={m.src} media={m} />
+      ))}
+    </>
+  )
+}

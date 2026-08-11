@@ -32,14 +32,14 @@ export type CaseStudy = {
     points?: string[]
     /** Bold, numbered principle cards. Used when there is no media artifact. */
     principles?: { title: string; body: string }[]
-    media?: CaseStudyImage
+    media?: CaseStudyImage | CaseStudyImage[]
   }
   discovery: {
     /** Overrides the default "Four voices…" heading. */
     heading?: CaseStudyHeading
     lead: string
     findings: { title: string; body: string }[]
-    media?: CaseStudyImage
+    media?: CaseStudyImage | CaseStudyImage[]
   }
   metrics: { value: string; label: string }[]
   outcomes: { objective: string; points: string[] }[]
@@ -321,6 +321,14 @@ export const projects: Project[] = [
         { label: 'Product', value: 'Fusion Imaging Module (FDA-regulated)' },
         { label: 'Timeline', value: '6 Months' },
       ],
+      heroMedia: {
+        src: '/work/deid/hero-mri.png',
+        alt: 'A wall of brain MRI scans on a radiology lightbox.',
+        variant: 'bleed',
+        eyebrow: 'The material',
+        caption:
+          'Every study runs on images like these. Each one has to have its protected health information removed before a regulator can see it.',
+      },
       intro:
         'Every medical image has to have its protected health information removed before a regulator sees it. At Fusion that redaction was done by hand, one file at a time, across teams in different parts of the world, and a single study could hold close to 100,000 images. The real problem was never just speed. It was making automation trustworthy enough to hold up in an FDA-regulated review.',
       problem: {
@@ -353,6 +361,29 @@ export const projects: Project[] = [
             body: 'Every automated action stays reviewable and fully undoable, so no single click can quietly put patient data at risk.',
           },
         ],
+        media: [
+          {
+            src: '/work/deid/redaction-compare.png',
+            alt: 'Wireframe of the redaction screen showing original and redacted image tabs beside the DICOM tags panel.',
+            eyebrow: 'Original vs. redacted, side by side',
+            caption:
+              'Reviewers compare the original and redacted image, and its DICOM tags, in one view. Nothing is removed or kept without a person confirming it.',
+          },
+          {
+            src: '/work/deid/records-edit.png',
+            alt: 'Wireframe of the records table with per-row actions and an edit-image panel for changing status or replacing a file.',
+            eyebrow: 'Managing records in bulk',
+            caption:
+              'One table tracks every image by status, subject, and form, with inline actions to approve, reject, or replace a file.',
+          },
+          {
+            src: '/work/deid/validation-flow.png',
+            alt: 'Flowchart of the redesigned de-identification workflow branching into approved, rejected for site error, and rejected for redaction fail.',
+            eyebrow: 'The automated path, still reviewed',
+            caption:
+              'Automation clears PHI, but a data manager validates every result and can approve it, reject it, or send it back before it reaches the eCRF.',
+          },
+        ],
       },
       discovery: {
         heading: { lead: 'Two users and one ', em: 'regulatory', tail: ' standard.' },
@@ -369,6 +400,22 @@ export const projects: Project[] = [
           {
             title: 'FDA rules were the baseline requirement',
             body: 'With most clients based in the US, the FDA rules for electronic signatures and audit trails became the standard behind every decision.',
+          },
+        ],
+        media: [
+          {
+            src: '/work/deid/legacy-workflow.png',
+            alt: 'Hand-drawn diagram of the manual redaction path, moving each image between ClearBlue and RadiANT by hand.',
+            eyebrow: 'Before: the manual path we mapped',
+            caption:
+              'The existing process. A de-identifier moved each image between ClearBlue and RadiANT by hand, removed PHI, then re-uploaded it. Every handoff was a chance for data to slip.',
+          },
+          {
+            src: '/work/deid/review-roles.png',
+            alt: 'Flowchart of the review steps for site users, data managers, and study monitors.',
+            eyebrow: 'Who touches the data',
+            caption:
+              'Site users, data managers, and study monitors review the same records at different stages. The tool had to serve all three without slowing any of them down.',
           },
         ],
       },
@@ -404,6 +451,13 @@ export const projects: Project[] = [
           ],
         },
       ],
+      outcomesMedia: {
+        src: '/work/deid/fusion-portal.png',
+        alt: 'The live de-identify screen inside the Fusion eClinical Suite, showing a records table and page actions.',
+        eyebrow: 'Shipped: the de-identify module in Fusion',
+        caption:
+          'The live de-identify screen inside the Fusion eClinical Suite, where blinded reviewers process images without leaving the platform.',
+      },
       validation: [
         'The module cut redaction sessions roughly in half and kept the false-negative rate under 1%, with a full audit trail on every page. Because reviewers kept authority at every control point, it earned the confidence of both internal teams and the regulatory boards it had to satisfy.',
       ],
