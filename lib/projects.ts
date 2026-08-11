@@ -84,7 +84,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'trust-in-every-transaction',
+    slug: 'cashier',
     index: '01',
     title: 'Designing Trust Into Every Transaction',
     category: 'Sportsbook & Casino',
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'design-systems-that-scale',
+    slug: 'system',
     index: '03',
     title: 'Designing Systems That Scale',
     category: 'Design System / Platform',
@@ -263,7 +263,7 @@ export const projects: Project[] = [
     art: 'system',
   },
   {
-    slug: 'confidence-in-a-regulated-industry',
+    slug: 'deid',
     index: '04',
     title: 'Selling Confidence in a Regulated Industry',
     category: 'Clinical Imaging / FDA-Regulated SaaS',
