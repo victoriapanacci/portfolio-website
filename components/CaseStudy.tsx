@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
 import { CaseStudyMedia } from './CaseStudyMedia'
+import { CaseStudyPrototype } from './CaseStudyPrototype'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -115,6 +116,9 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           </div>
         )}
+        {cs.solution.prototype ? (
+          <CaseStudyPrototype prototype={cs.solution.prototype} />
+        ) : null}
         {cs.solution.media ? <CaseStudyMedia media={cs.solution.media} /> : null}
       </section>
 
@@ -122,7 +126,7 @@ export function CaseStudy({ project }: { project: Project }) {
       {cs.process ? (
         <section className="cs-section shell">
           <div className="cs-kicker">
-            <span>How we got there</span>
+            <span>Prototyping in sprints</span>
             <i />
           </div>
           <ol className="cs-process">
