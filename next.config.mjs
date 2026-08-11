@@ -6,16 +6,18 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/',
-          destination: '/coming-soon',
-        },
-      ],
-    }
-  },
+  // Temporarily disabled so the real home page serves at "/" while you work on it.
+  // Re-enable this to gate the site behind the coming-soon splash again.
+  // async rewrites() {
+  //   return {
+  //     beforeFiles: [
+  //       {
+  //         source: '/',
+  //         destination: '/coming-soon',
+  //       },
+  //     ],
+  //   }
+  // },
 }
 
 export default nextConfig
