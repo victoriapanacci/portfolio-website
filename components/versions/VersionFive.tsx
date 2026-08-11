@@ -44,7 +44,7 @@ export function VersionFive() {
           {[...disciplines, ...disciplines].map((d, i) => (
             <span key={i}>
               {d}
-              <i>✦</i>
+              <i aria-hidden="true" />
             </span>
           ))}
         </div>
