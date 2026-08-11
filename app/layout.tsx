@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Victoria Panacci | Senior Product Designer',
   description:
-    'Senior Product Designer focused on high-trust, complex digital products.',
+    'Victoria Panacci is a senior product designer in Toronto who turns complex, data-heavy workflows into products that feel simple to use.',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -21,10 +21,11 @@ export default function Home() {
             I design for the <em>complicated</em> parts.
           </h1>
           <p className="hero-body">
-            I work where user trust, technical complexity, and organizational
-            scale meet.
+            I take complex, data-heavy workflows and turn them into products
+            that feel simple to use. The complexity stays underneath, where the
+            people using the product don&rsquo;t have to carry it.
           </p>
-          <ArrowLink href="#work">Explore my work</ArrowLink>
+          <ArrowLink href="#work">See the work</ArrowLink>
         </div>
       </section>
 

@@ -7,15 +7,16 @@ export function SiteFooter() {
       <div className="footer shell">
         <div className="footer-cta">
           <h2>
-            Let&rsquo;s create <em>meaningful impact</em> together.
+            Let&rsquo;s talk about the <em>hard part</em>.
           </h2>
           <div className="footer-message">
             <p>
-              I&rsquo;m always open to new opportunities and interesting
-              conversations.
+              If you&rsquo;re working through a complicated problem, I&rsquo;d
+              like to hear about it. I&rsquo;m open to new roles and
+              collaborations.
             </p>
             <ArrowLink href="mailto:hello@victoriapanacci.com">
-              Start a conversation
+              Let&rsquo;s talk
             </ArrowLink>
           </div>
         </div>
