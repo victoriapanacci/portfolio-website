@@ -318,7 +318,7 @@ export const projects: Project[] = [
         { label: 'Timeline', value: '6 Months' },
       ],
       intro:
-        'Fusion had a scaling problem. Before any medical image reaches an external regulatory board, every piece of protected health information has to be removed, and that redaction was still done by hand, one file at a time, by teams working in different parts of the world. A single study could contain close to 100,000 images. Because I owned the design from start to finish, it became clear early on that the real problem was not only speed. It was making automation trustworthy enough to hold up in an FDA-regulated review.',
+        'Every medical image has to have its protected health information removed before a regulator sees it. At Fusion that redaction was done by hand, one file at a time, across teams in different parts of the world, and a single study could hold close to 100,000 images. The real problem was never just speed. It was making automation trustworthy enough to hold up in an FDA-regulated review.',
       problem: {
         lead: 'The redaction workflow was where the product slowed down. It was manual, error-prone, and expensive, and mistakes carried real consequences because this was the step that removed protected health information before a regulator saw it.',
         points: [
@@ -378,35 +378,30 @@ export const projects: Project[] = [
         {
           objective: 'A blind review portal inside Fusion',
           points: [
-            'Built a net-new portal within the Fusion eClinical Suite dedicated to redacting medical images.',
-            'Blinded users can view, read, redact, and audit every image without ever leaving Fusion.',
+            'Blinded reviewers view, read, redact, and audit every image without leaving Fusion.',
           ],
         },
         {
           objective: 'Redaction in under three clicks',
           points: [
-            'Replaced the download → redact locally → re-upload loop with in-platform review.',
-            'Using AWS Rekognition, AWS Medical Transcribe, and the built-in LeadTools medical viewer, users clear PHI across many image instances at once in under three clicks.',
+            'AWS Rekognition, AWS Medical Transcribe, and the LeadTools medical viewer clear PHI across many image instances at once, retiring the old download, redact locally, and re-upload loop.',
           ],
         },
         {
           objective: 'Auditable and reversible by design',
           points: [
-            'A full audit trail is accessible from every page in the workflow.',
-            'Reviewers retain authority at defined control points, and every automated action stays reviewable and undoable.',
+            'A full audit trail sits on every page, and every automated action stays reviewable and undoable.',
           ],
         },
         {
           objective: 'Ready to scale',
           points: [
-            'Optimized web responsiveness and compatibility down to web tablet.',
-            'Broke scalability into phases so scope stayed honest without capping future growth.',
+            'Responsive down to web tablet, with scalability phased so scope stayed honest.',
           ],
         },
       ],
       validation: [
-        'The shipped module cut redaction sessions roughly in half, kept the false-negative rate under 1%, and put a full audit trail on every page. Efficiency and regulatory trust did not have to compete.',
-        'Because reviewers kept authority at every control point, the tool earned the confidence of both internal teams and the regulatory boards it was built to satisfy.',
+        'The module cut redaction sessions roughly in half and kept the false-negative rate under 1%, with a full audit trail on every page. Because reviewers kept authority at every control point, it earned the confidence of both internal teams and the regulatory boards it had to satisfy.',
       ],
       learnings: [
         'In a regulated product, trust is a design material. Auditability and reversibility have to be designed in from the first sketch, not bolted on at the end.',
