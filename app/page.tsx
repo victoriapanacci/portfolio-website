@@ -18,7 +18,7 @@ export default function Home() {
             Based in Toronto
           </p>
           <h1>
-            I design for the <em>complicated</em> parts.
+            I design for the complicated parts.
           </h1>
           <p className="hero-body">
             I work where user trust, technical complexity, and organizational
