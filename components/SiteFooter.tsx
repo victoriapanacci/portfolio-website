@@ -28,7 +28,7 @@ export function SiteFooter() {
           </div>
           <div>
             <span>LinkedIn</span>
-            <a href="#">linkedin.com/in/vpanacci</a>
+            <a href="#">linkedin.com/in/panacci</a>
           </div>
         </div>
         <div className="footer-bottom">
