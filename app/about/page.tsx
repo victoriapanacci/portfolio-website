@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { ArrowLink } from '@/components/ArrowLink'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -92,17 +91,6 @@ export default function AboutPage() {
           <h1 className="cs-title">
             I design for the <em>complicated</em> parts.
           </h1>
-          <p className="cs-summary">
-            I am a Senior Product Designer based in Toronto. I work where user
-            trust, technical complexity, and organizational scale meet, most
-            often in regulated and early-stage products where the right decision
-            is rarely the obvious one.
-          </p>
-          <div className="about-hero__cta">
-            <ArrowLink href="mailto:panaccivictoria@gmail.com">
-              Get in touch
-            </ArrowLink>
-          </div>
         </div>
       </section>
 
