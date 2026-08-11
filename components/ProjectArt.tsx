@@ -50,22 +50,26 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
         )}
         {type === 'system' && (
           <>
-            <div className="type-sample">Aa</div>
-            <div className="swatches">
-              <i />
-              <i />
-              <i />
-              <i />
-              <i />
+            <div className="system-head">
+              <div className="type-sample">Aa</div>
+              <div className="swatches">
+                <i />
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
             </div>
-            <div className="system-row">
-              Typography <span>→</span>
-            </div>
-            <div className="system-row">
-              Buttons <span>→</span>
-            </div>
-            <div className="system-row">
-              Inputs <span>→</span>
+            <div className="system-rows">
+              <div className="system-row">
+                Typography <span>→</span>
+              </div>
+              <div className="system-row">
+                Buttons <span>→</span>
+              </div>
+              <div className="system-row">
+                Inputs <span>→</span>
+              </div>
             </div>
           </>
         )}

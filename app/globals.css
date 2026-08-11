@@ -540,25 +540,29 @@ h2 em {
 }
 .project-art--system .project-art__surface {
   transform: rotate(-5deg);
-  padding: 26px;
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  grid-template-rows: auto auto 1fr;
-  gap: 15px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.system-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 .type-sample {
   font-family: var(--font-serif);
-  font-size: 82px;
-  line-height: 0.9;
-  grid-row: span 2;
+  font-size: 62px;
+  line-height: 1;
 }
 .swatches {
   display: flex;
   gap: 8px;
 }
 .swatches i {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #633547;
 }
@@ -574,13 +578,19 @@ h2 em {
 .swatches i:nth-child(5) {
   background: #d8b3a8;
 }
-.system-row {
-  grid-column: 2;
+.system-rows {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+.system-row {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 11px 12px;
   font-size: 9px;
 }
 .project-art--imaging .project-art__surface {
