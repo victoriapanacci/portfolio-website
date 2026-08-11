@@ -66,9 +66,9 @@ const education = [
   },
   {
     credential: 'Non-Degree Courses',
-    detail: 'Google Coursera UX Design Program',
-    note: 'Intro to UX P. I & II, Information Architecture & Content Strategy @ University of Toronto (2018).',
-    year: '2020',
+    detail: 'University of Toronto',
+    note: 'Intro to UX P. I & II, Information Architecture & Content Strategy.',
+    year: '2018',
   },
   {
     credential: 'Bachelor of Arts',
