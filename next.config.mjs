@@ -6,16 +6,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/',
-          destination: '/coming-soon',
-        },
-      ],
-    }
-  },
 }
 
 export default nextConfig

@@ -14,6 +14,22 @@ export type CaseStudyImage = {
   variant?: 'plate' | 'bleed'
 }
 
+/** Interactive embed (e.g. a live Figma prototype) framed inside a case study. */
+export type CaseStudyPrototype = {
+  /** Embeddable URL, e.g. an embed.figma.com/proto/... link. */
+  src: string
+  /** Accessible iframe title. */
+  title: string
+  /** Short rose eyebrow tag shown above the frame. */
+  eyebrow?: string
+  /** Descriptive caption shown beneath the frame. */
+  caption?: string
+  /** Direct link to open the prototype in a new tab (fallback). */
+  href?: string
+  /** CSS aspect-ratio for the frame, e.g. "16 / 10". Defaults to "16 / 10". */
+  aspect?: string
+}
+
 export type CaseStudy = {
   summary: string
   meta: { label: string; value: string }[]
@@ -33,6 +49,8 @@ export type CaseStudy = {
     /** Bold, numbered principle cards. Used when there is no media artifact. */
     principles?: { title: string; body: string }[]
     media?: CaseStudyImage | CaseStudyImage[]
+    /** Interactive prototype embedded as the solution centerpiece. */
+    prototype?: CaseStudyPrototype
   }
   discovery: {
     /** Overrides the default "Four voices…" heading. */
@@ -84,89 +102,72 @@ export const projects: Project[] = [
     title: 'Building a Mobile Product from a Legacy Platform',
     category: 'Healthcare / ePRO',
     description:
-      'Transforming a legacy ePRO platform into a modern, scalable mobile experience for patients and researchers.',
+      'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
     art: 'mobile',
     caseStudy: {
       summary:
-        'ePRO (Electronic Patient Reported Outcomes) are the backbone of every clinical trial, documenting how a drug or device actually affects the people taking it. When our industry-leading EDC could no longer carry that weight, I designed and shipped DribbleCollect: a fully 21 CFR Part 11 compliant ePRO you can download wherever you get your apps.',
+        'ePRO (Electronic Patient Reported Outcomes) data records how a drug or device actually affects the people taking it, which makes it central to every clinical trial. Our EDC could no longer support that work well, so I designed and shipped DribbleCollect: a 21 CFR Part 11 compliant ePRO patients can download from the app store.',
       meta: [
-        { label: 'Role', value: 'Lead Product Designer + Product Manager' },
-        { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Engineer, 1 QA (part-time)' },
+        { label: 'Role', value: 'Lead Product Designer + PM' },
+        { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Eng, 1 QA' },
         { label: 'Tools', value: 'Figma, Axosoft, Capacitor, AWS' },
         { label: 'Timeline', value: '6 Months, MVP to GA' },
       ],
       intro:
-        'ClearQ was an industry-leading EDC for running clinical trials, and it was quietly losing the room. Clients kept surfacing the same two truths: the interface was fighting the people using it, and the architecture had nowhere left to grow. I owned both the product and the design, which meant I could not hide a usability problem behind a roadmap, or a roadmap problem behind a redesign. I had to solve the whole thing.',
+        'ClearQ was an established EDC for running clinical trials, and it was steadily losing clients. The interface fought the people using it, and the architecture had no room left to grow. I owned both the product and the design, so I could not treat those as separate problems. A brittle experience produced bad data, and a rigid back-end made the experience impossible to fix without a rebuild.',
       problem: {
-        lead: 'Two failures compounded each other. A brittle experience produced bad data, and a rigid back-end made it impossible to fix the experience without a rebuild.',
+        lead: 'Two failures compounded each other, in exactly the place a clinical trial can least afford it: the data itself.',
         points: [
           {
             title: 'An interface working against its users',
-            body: 'High error rates, high drop-offs, and instructions nobody could follow. Every point of friction in a clinical trial is a data point at risk.',
+            body: 'Error rates and drop-offs were high, and the instructions were hard to follow. Every point of friction was another chance to lose reliable data.',
           },
           {
             title: 'A back-end with no room to move',
-            body: 'Limited scalability, no ability to operate independently, and no API. The platform could not integrate, extend, or grow with the trials it served.',
+            body: 'Limited scalability, no independent operation, and no API. The platform could not integrate with other systems or grow alongside the trials it supported.',
           },
         ],
       },
       solution: {
-        lead: 'DribbleCollect answered both failures at once: a rebuilt experience on top of a rebuilt foundation.',
+        lead: 'DribbleCollect answered both failures at once: a rebuilt experience on a rebuilt foundation. The prototype below is the real flow, from secure login through voice-to-text capture. Move through it the way a patient would.',
+        prototype: {
+          src: 'https://embed.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013&embed-host=share',
+          href: 'https://www.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013',
+          title: 'Interactive DribbleCollect prototype',
+          eyebrow: 'Interactive prototype',
+          aspect: '9 / 16',
+          caption:
+            'The DribbleCollect prototype: a 3-step login and reporting flow with LLM-powered voice-to-text entry, built 21 CFR Part 11 compliant. Tap through it live.',
+        },
         points: [
-          'Innovative AI voice-to-text data entry, fully 21 CFR Part 11 compliant',
-          'An expansive UX flow engineered against drop-offs, confusion, and disengagement',
-          'A modular back-end that runs independently, with a streamlined API',
-          'A refreshed, accessible UI patients could trust on the first try',
+          'AI voice-to-text data entry, built 21 CFR Part 11 compliant',
+          'A 3-step login and reporting flow that cut task time',
+          'A modular back-end that runs independently, with its own API',
+          'An accessible UI, localized for multinational trials',
         ],
         media: {
           src: '/figma/epro-voice-to-text.webp',
           alt: 'Two annotated DribbleCollect questionnaire screens (transcription pane closed and open) with accessibility, interaction, and content callouts documenting the voice-to-text flow.',
           eyebrow: 'Voice-to-text: annotated flow',
           caption:
-            'The signature feature: an LLM-powered voice-to-text pane that dictates questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire. Every interaction is annotated for accessibility, interaction, and content decisions, and built 21 CFR Part 11 compliant.',
+            'The signature feature, annotated. An LLM-powered pane reads questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire. I tested Siri, ChatGPT, and Amazon Transcribe Medical; Siri gave the best balance of usability and cost for this audience.',
           variant: 'plate',
         },
       },
-      process: [
-        {
-          index: '01',
-          title: 'Understand the pain points and technical limits',
-          body: 'Get honest about where the legacy tool was failing, and why the architecture made those failures unavoidable.',
-        },
-        {
-          index: '02',
-          title: 'Define specific goals and a plan to reach them',
-          body: 'Translate vague frustration into measurable objectives the whole team could build toward.',
-        },
-        {
-          index: '03',
-          title: 'Prototype and pressure-test solutions',
-          body: 'Break the problem into focused sprints, then test, iterate, and refine against real concerns.',
-        },
-        {
-          index: '04',
-          title: 'Build to launch: MVP, Beta, GA',
-          body: 'Stage the rollout so every release earned its way to the next audience.',
-        },
-      ],
       discovery: {
-        lead: 'Through questionnaires, informal interviews, and usability testing, four voices came through clearly, each one a different stakeholder in the same fragile chain of data.',
+        lead: 'Questionnaires, interviews, and usability testing surfaced three voices in the same fragile chain of data. Mapping the legacy experience made the stakes undeniable.',
         findings: [
           {
-            title: 'Patients value tools that respect their time',
-            body: 'When an ePRO notification arrives, patients often have to stop, sit down, and give ten minutes of undivided attention to fill each questionnaire by hand. Invasive tools get abandoned.',
+            title: 'Patients abandon tools that waste their time',
+            body: 'Each questionnaire meant stopping to give ten minutes of undivided attention by hand. When it felt invasive, patients simply stopped responding.',
           },
           {
             title: 'Site staff need to spend time on care, not tech support',
-            body: 'Staff burned hours troubleshooting errors with patients who simply could not get the tool to work, time stolen directly from patient care.',
+            body: 'Staff burned hours troubleshooting errors for patients who could not get the tool to work, time taken directly from patient care.',
           },
           {
-            title: 'Data must be reliable the first time',
-            body: 'Data managers wrestled with lost, incomplete, or non-compliant entries. The tool needed to be as un-manual as possible while still capturing accurate readings.',
-          },
-          {
-            title: 'The platform should inspire confidence, not doubt',
-            body: 'Leadership needed a product that made sponsors want to come back, and feel certain about the money they were investing.',
+            title: 'Data has to be reliable the first time',
+            body: 'Data managers wrestled with lost, incomplete, and non-compliant entries. Capture had to be near-effortless without sacrificing accuracy.',
           },
         ],
         media: {
@@ -174,57 +175,32 @@ export const projects: Project[] = [
           alt: 'Experience map of the legacy ePRO across five stages (Onboarding, First Use, Daily Use, Missed Entry, and End of Study) with an emotion curve declining from confident to abandoned.',
           eyebrow: 'Experience map: the legacy tool',
           caption:
-            'Mapping the legacy experience made the stakes undeniable: confidence at onboarding decayed into frustration at the first error and outright abandonment by the end of the study. Every dip was a data point at risk.',
+            'Confidence at onboarding decayed into frustration at the first error and abandonment by the end of the study. Every dip on that curve was a data point at risk.',
           variant: 'plate',
         },
       },
-      objectives: [
+      process: [
         {
-          label: 'Objective 01',
-          title: 'Achieve seamless regulatory compliance for AI-driven data capture',
+          index: '01',
+          title: 'Onboarding & secure login',
+          body: 'Weighed Okta 2FA and Google Authenticator to earn trust at the first step, then simplified the path down to a 3-step login and reporting flow.',
         },
         {
-          label: 'Objective 02',
-          title: 'Maximize usability and engagement through intelligent UX design',
+          index: '02',
+          title: 'Voice-to-text capture',
+          body: 'Tested Siri, ChatGPT, and Amazon Transcribe Medical against usability and cost. Siri won for this audience and became the core of natural-language entry.',
         },
         {
-          label: 'Objective 03',
-          title: 'Champion inclusive, accessible design with scalable support',
+          index: '03',
+          title: 'Autosave, progress & sync',
+          body: 'Built a sync process that saved data accurately and showed users their progress, resolving longstanding fears about lost entries.',
         },
         {
-          label: 'Objective 04',
-          title: 'Build a future-ready modular architecture for scalable growth',
+          index: '04',
+          title: 'Accessibility & onboarding support',
+          body: 'Iterated the UI against WCAG 2.1 AA and added an introductory video, so low-tech-literacy patients felt at ease from day one.',
         },
       ],
-      sprints: {
-        lead: 'I broke the work into focused sprints. Each one took a single concern, so we could test, iterate, and refine practical solutions instead of guessing at the whole picture.',
-        items: [
-          {
-            title: 'Onboarding & account management',
-            body: 'Explored secure login options like Okta 2FA and Google Authenticator to earn trust from the very first step.',
-          },
-          {
-            title: 'Home & navigation',
-            body: 'Presented critical information clearly, so users with low tech literacy could navigate with confidence.',
-          },
-          {
-            title: 'Form entry & voice-to-text capture',
-            body: 'Tested Siri, ChatGPT, and Amazon Transcribe Medical. Siri offered the best balance of usability and cost for our audience.',
-          },
-          {
-            title: 'Autosave, progress & feedback',
-            body: 'Built a sync process that saved data accurately and reassured users, resolving longstanding concerns about lost progress.',
-          },
-          {
-            title: 'Accessibility & inclusive design',
-            body: 'Tested multiple tools and iterated on the UI so everyone could interact with the app comfortably.',
-          },
-          {
-            title: 'Training & in-app support',
-            body: 'Designed an introductory video so brand-new users felt at ease from day one.',
-          },
-        ],
-      },
       metrics: [
         { value: '40%', label: 'reduction in average task time' },
         { value: '3-step', label: 'login & reporting flow' },
@@ -233,65 +209,51 @@ export const projects: Project[] = [
       ],
       outcomes: [
         {
-          objective: 'Seamless regulatory compliance',
+          objective: 'Compliant by design',
           points: [
-            'Built automatic audit trails, time-stamped entries, and electronic signature validation directly into the workflow.',
-            'Ran mock FDA inspections during QA to prove compliance before any client release.',
+            'Built audit trails, time-stamped entries, and e-signature validation into the workflow.',
+            'Ran mock FDA inspections during QA to prove 21 CFR Part 11 compliance before any client release.',
           ],
         },
         {
-          objective: 'Usability & engagement',
+          objective: 'Usable & inclusive',
           points: [
-            'Ran usability tests with low-tech-literacy patients to surface real friction points.',
-            'Simplified the journey to a 3-step login and reporting flow, cutting average task time by 40%.',
-            'Added AI-driven natural language input so patients could record symptoms in plain language or by voice.',
+            'Cut average task time 40% with a 3-step flow, validated with low-tech-literacy patients.',
+            'Applied WCAG 2.1 AA and localized into English, French, and Spanish for multinational trials.',
           ],
         },
         {
-          objective: 'Inclusive, accessible design',
+          objective: 'Built to scale',
           points: [
-            'Applied WCAG 2.1 AA standards: large targets, screen reader support, and high-contrast modes.',
-            'Localized into English, French, and Spanish to support multinational trials.',
-            'Built modular templates so new questionnaires inherit accessibility features automatically.',
-          ],
-        },
-        {
-          objective: 'Future-ready architecture',
-          points: [
-            'Developed a microservices back-end with secure, real-time API connections to major EDC systems.',
-            'Shipped a questionnaire builder so sponsors could add PRO modules in under 24 hours.',
-            'Structured the architecture to handle both demo prototypes and full-scale deployments.',
+            'Shipped a microservices back-end with real-time API connections to major EDC systems.',
+            'Added a questionnaire builder so sponsors could stand up a new PRO module in under 24 hours.',
           ],
         },
       ],
       launch: [
         {
           phase: 'MVP',
-          tag: 'Minimum viable product',
-          body: 'Launched bare-bones prototypes to one dedicated client and a select group of users to confirm we were solving a real need. Because the need came from a direct client request, this stage felt redundant: a candid lesson that removing it could have saved real time.',
-          feedback: 'Micro-surveys surfaced naturally as users moved through the flow, plus a report-a-bug option.',
+          tag: 'One client',
+          body: 'Shipped to one dedicated client to confirm the need was real. Since the need came from a direct client request, this stage felt redundant, a candid lesson that skipping it could have saved time.',
+          feedback: 'In-flow micro-surveys and a report-a-bug option.',
         },
         {
           phase: 'Beta',
           tag: 'Three therapeutic areas',
-          body: 'Reached three clients across different therapeutic areas. This wider release was crucial: it refined usability and uncovered edge cases we had not anticipated, shaping a far more resilient product.',
-          feedback: 'Tagged micro-surveys, an embedded feedback widget, and user-panel invites for deeper usability testing.',
+          body: 'Widened to three clients across therapeutic areas. This is where the product got resilient: it uncovered edge cases we had not anticipated.',
+          feedback: 'Tagged micro-surveys, an embedded widget, and user-panel testing.',
         },
         {
           phase: 'GA',
           tag: 'General availability',
-          body: 'Launched publicly with systems for continuous monitoring, so we could respond rapidly to real-world usage and evolving needs.',
-          feedback: 'Sporadic thumbs-up / thumbs-down experience ratings, triggered at random and on every new feature rollout.',
+          body: 'Launched publicly at 80% client satisfaction, with continuous monitoring so we could respond to real usage quickly.',
+          feedback: 'Randomized thumbs-up / thumbs-down ratings on every rollout.',
         },
       ],
-      validation: [
-        'The final deployed product earned 80% client satisfaction, with sponsors citing reduced patient drop-off and faster integrations.',
-        'Feedback confirmed compliance, usability, inclusivity, and scalability worked together to deliver a solution greater than the sum of its parts.',
-      ],
       learnings: [
-        'Effective communication is essential in complex projects to avoid costly misinterpretations.',
-        'Prioritization and trade-offs are not optional; they are how you actually meet a deadline.',
-        'Designing for accessibility from the start benefits every user, not only those with disabilities.',
+        'On a project this complex, clear communication mattered more than I expected. Small misreadings were expensive to fix later.',
+        'Prioritization and trade-offs were not optional. They were how the team actually met the deadline.',
+        'Designing for accessibility from the start made the product better for everyone, not only for users with disabilities.',
       ],
     },
   },

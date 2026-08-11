@@ -14,7 +14,7 @@ export function SiteFooter() {
               I&rsquo;m always open to new opportunities and interesting
               conversations.
             </p>
-            <ArrowLink href="mailto:hello@victoriapanacci.com">
+            <ArrowLink href="mailto:panaccivictoria@gmail.com">
               Start a conversation
             </ArrowLink>
           </div>
@@ -22,21 +22,13 @@ export function SiteFooter() {
         <div className="footer-meta" id="about">
           <div>
             <span>Email</span>
-            <a href="mailto:hello@victoriapanacci.com">
-              hello@victoriapanacci.com
+            <a href="mailto:panaccivictoria@gmail.com">
+              panaccivictoria@gmail.com
             </a>
-          </div>
-          <div>
-            <span>Location</span>
-            <p>Toronto, Canada</p>
           </div>
           <div>
             <span>LinkedIn</span>
             <a href="#">linkedin.com/in/vpanacci</a>
-          </div>
-          <div>
-            <span>Resume</span>
-            <a href="#">View PDF</a>
           </div>
         </div>
         <div className="footer-bottom">
