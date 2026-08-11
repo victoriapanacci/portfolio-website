@@ -24,11 +24,11 @@ export default function Home() {
             I work where user trust, technical complexity, and organizational
             scale meet.
           </p>
-          <ArrowLink href="#work">Explore my work</ArrowLink>
+          <ArrowLink href="#work">Featured Projects</ArrowLink>
         </div>
       </section>
 
-      <ProjectShowcase variant="full" kicker="Featured work" />
+      <ProjectShowcase variant="full" kicker="Featured projects" />
 
       <SiteFooter />
     </main>
