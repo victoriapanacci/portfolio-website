@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const principles = [
   'I frame ambiguous, high-stakes problems before jumping to solutions.',
-  'I am fluent as a design engineer, I canbuild and ship production ready code using AI tools.',
+  'I am fluent as a design engineer, I canbuild and ship production ready code using AI tools. I can read, modify, and maintain code.',
   'I design within real technical, regulatory, and organizational constraints.',
   'I work best in close collaboration with product, engineering, and leadership, so the tradeoffs stay explicit.',
 
