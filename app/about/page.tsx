@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 
 const principles = [
   'I frame ambiguous, high-stakes problems before jumping to solutions.',
+  'I am fluent as a design engineer, I canbuild and ship production ready code using AI tools.',
   'I design within real technical, regulatory, and organizational constraints.',
   'I work best in close collaboration with product, engineering, and leadership, so the tradeoffs stay explicit.',
-  'I build scalable systems that hold usability, safety, and speed at the same time.',
+
 ]
 
 const experience = [
@@ -61,13 +62,13 @@ const education = [
   {
     credential: 'Ontario College Graduate Certificate',
     detail: 'Interactive Media Management @ George Brown College',
-    note: "Dean's List.",
+    note: "Dean's List",
     year: '2020',
   },
   {
     credential: 'Non-Degree Courses',
     detail: 'University of Toronto',
-    note: 'Intro to UX P. I & II, Information Architecture & Content Strategy.',
+    note: 'Intro to UX P. I & II, Information Architecture & Content Strategy',
     year: '2018',
   },
   {
@@ -89,7 +90,7 @@ export default function AboutPage() {
         <div className="about-hero__copy reveal">
           <p className="cs-eyebrow">About</p>
           <h1 className="cs-title">
-            I design for the <em>complicated</em> parts.
+            I design for the <em>complicated</em> parts
           </h1>
         </div>
       </section>
