@@ -80,11 +80,11 @@ export const projects: Project[] = [
     title: 'Building a Mobile Product from a Legacy Platform',
     category: 'Healthcare / ePRO',
     description:
-      'Transforming a legacy ePRO platform into a modern, scalable mobile experience for patients and researchers.',
+      'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
     art: 'mobile',
     caseStudy: {
       summary:
-        'ePRO (Electronic Patient Reported Outcomes) are the backbone of every clinical trial, documenting how a drug or device actually affects the people taking it. When our industry-leading EDC could no longer carry that weight, I designed and shipped DribbleCollect: a fully 21 CFR Part 11 compliant ePRO you can download wherever you get your apps.',
+        'ePRO (Electronic Patient Reported Outcomes) data records how a drug or device actually affects the people taking it, which makes it central to every clinical trial. Our EDC could no longer support that work well, so I designed and shipped DribbleCollect: a 21 CFR Part 11 compliant ePRO that patients can download from the app store.',
       meta: [
         { label: 'Role', value: 'Lead Product Designer + Product Manager' },
         { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Engineer, 1 QA (part-time)' },
@@ -92,26 +92,26 @@ export const projects: Project[] = [
         { label: 'Timeline', value: '6 Months, MVP to GA' },
       ],
       intro:
-        'ClearQ was an industry-leading EDC for running clinical trials, and it was quietly losing the room. Clients kept surfacing the same two truths: the interface was fighting the people using it, and the architecture had nowhere left to grow. I owned both the product and the design, which meant I could not hide a usability problem behind a roadmap, or a roadmap problem behind a redesign. I had to solve the whole thing.',
+        'ClearQ was an established EDC for running clinical trials, and it was steadily losing clients. They kept raising the same two problems: the interface fought the people using it, and the architecture had no room left to grow. I owned both the product and the design, so I could not treat the usability issues and the platform limits as separate problems. I had to solve both together.',
       problem: {
         lead: 'Two failures compounded each other. A brittle experience produced bad data, and a rigid back-end made it impossible to fix the experience without a rebuild.',
         points: [
           {
             title: 'An interface working against its users',
-            body: 'High error rates, high drop-offs, and instructions nobody could follow. Every point of friction in a clinical trial is a data point at risk.',
+            body: 'Error rates and drop-offs were high, and the instructions were hard to follow. In a clinical trial, every point of friction is another chance to lose reliable data.',
           },
           {
             title: 'A back-end with no room to move',
-            body: 'Limited scalability, no ability to operate independently, and no API. The platform could not integrate, extend, or grow with the trials it served.',
+            body: 'The platform had limited scalability, could not operate independently, and had no API. It could not integrate with other systems or grow alongside the trials it supported.',
           },
         ],
       },
       solution: {
         lead: 'DribbleCollect answered both failures at once: a rebuilt experience on top of a rebuilt foundation.',
         points: [
-          'Innovative AI voice-to-text data entry, fully 21 CFR Part 11 compliant',
-          'An expansive UX flow engineered against drop-offs, confusion, and disengagement',
-          'A modular back-end that runs independently, with a streamlined API',
+          'AI voice-to-text data entry, built to be 21 CFR Part 11 compliant',
+          'A UX flow designed to reduce drop-offs and confusion',
+          'A modular back-end that runs independently, with its own API',
           'A refreshed, accessible UI patients could trust on the first try',
         ],
         media: {
@@ -177,19 +177,19 @@ export const projects: Project[] = [
       objectives: [
         {
           label: 'Objective 01',
-          title: 'Achieve seamless regulatory compliance for AI-driven data capture',
+          title: 'Meet regulatory compliance for AI-driven data capture',
         },
         {
           label: 'Objective 02',
-          title: 'Maximize usability and engagement through intelligent UX design',
+          title: 'Improve usability and engagement across the questionnaire flow',
         },
         {
           label: 'Objective 03',
-          title: 'Champion inclusive, accessible design with scalable support',
+          title: 'Make the product accessible, with support that scales',
         },
         {
           label: 'Objective 04',
-          title: 'Build a future-ready modular architecture for scalable growth',
+          title: 'Build a modular architecture that could grow with new trials',
         },
       ],
       sprints: {
@@ -229,7 +229,7 @@ export const projects: Project[] = [
       ],
       outcomes: [
         {
-          objective: 'Seamless regulatory compliance',
+          objective: 'Regulatory compliance',
           points: [
             'Built automatic audit trails, time-stamped entries, and electronic signature validation directly into the workflow.',
             'Ran mock FDA inspections during QA to prove compliance before any client release.',
@@ -252,7 +252,7 @@ export const projects: Project[] = [
           ],
         },
         {
-          objective: 'Future-ready architecture',
+          objective: 'Modular architecture',
           points: [
             'Developed a microservices back-end with secure, real-time API connections to major EDC systems.',
             'Shipped a questionnaire builder so sponsors could add PRO modules in under 24 hours.',
@@ -285,9 +285,9 @@ export const projects: Project[] = [
         'Feedback confirmed compliance, usability, inclusivity, and scalability worked together to deliver a solution greater than the sum of its parts.',
       ],
       learnings: [
-        'Effective communication is essential in complex projects to avoid costly misinterpretations.',
-        'Prioritization and trade-offs are not optional; they are how you actually meet a deadline.',
-        'Designing for accessibility from the start benefits every user, not only those with disabilities.',
+        'On a project this complex, clear communication mattered more than I expected. Small misreadings were expensive to fix later.',
+        'Prioritization and trade-offs were not optional. They were how the team actually met the deadline.',
+        'Designing for accessibility from the start made the product better for everyone, not only for users with disabilities.',
       ],
     },
   },
