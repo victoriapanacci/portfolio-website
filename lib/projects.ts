@@ -88,17 +88,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'cashier',
-    index: '01',
-    title: 'Designing Trust Into Every Transaction',
-    category: 'Sportsbook & Casino',
-    description:
-      'Reimagining the cashier experience to drive trust, conversion, and loyalty in a high-stakes environment.',
-    art: 'cashier',
-  },
-  {
     slug: 'epro',
-    index: '02',
+    index: '01',
     title: 'Building a Mobile Product from a Legacy Platform',
     category: 'Healthcare / ePRO',
     description:
@@ -258,17 +249,8 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'system',
-    index: '03',
-    title: 'Designing Systems That Scale',
-    category: 'Design System / Platform',
-    description:
-      'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
-    art: 'system',
-  },
-  {
     slug: 'deid',
-    index: '04',
+    index: '02',
     title: 'Automating Medical-Image Redaction Without Losing Human Control',
     category: 'Clinical Imaging / FDA-Regulated SaaS',
     description:
@@ -375,6 +357,24 @@ export const projects: Project[] = [
         'Constraints sharpen the work. With UI changes off the table, focusing purely on workflow and reviewer decision-making produced a faster, safer tool than a full redesign would have.',
       ],
     },
+  },
+  {
+    slug: 'cashier',
+    index: '03',
+    title: 'Designing Trust Into Every Transaction',
+    category: 'Sportsbook & Casino',
+    description:
+      'Reimagining the cashier experience to drive trust, conversion, and loyalty in a high-stakes environment.',
+    art: 'cashier',
+  },
+  {
+    slug: 'system',
+    index: '04',
+    title: 'Designing Systems That Scale',
+    category: 'Design System / Platform',
+    description:
+      'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
+    art: 'system',
   },
 ]
 
