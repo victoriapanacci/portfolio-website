@@ -617,24 +617,26 @@ h2 em {
 }
 .system-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 16px;
 }
 .type-sample {
   font-family: var(--font-serif);
-  font-size: 62px;
+  font-size: 56px;
   line-height: 1;
 }
 .swatches {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .swatches i {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #633547;
+  flex: none;
 }
 .swatches i:nth-child(2) {
   background: #8b4957;
