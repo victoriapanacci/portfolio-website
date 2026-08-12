@@ -17,8 +17,8 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <p>
-            Designed under supervision of Mordecai the cat. He says hi and would
-            like a raise. 2026, All Rights Reserved.
+            Designed under supervision of Mordecai the cat. He says meow and
+            would like a raise. 2026, All Rights Reserved.
           </p>
           <a href="#top" aria-label="Back to top">
             ↑
