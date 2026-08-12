@@ -374,7 +374,7 @@ main {
   padding: 76px 0 120px;
 }
 .hero-copy {
-  max-width: 620px;
+  max-width: 780px;
   z-index: 2;
 }
 .eyebrow,
@@ -916,7 +916,7 @@ h2 em {
     padding: 68px 0 96px;
   }
   .hero-copy {
-    max-width: 620px;
+    max-width: 780px;
   }
   .hero-light {
     width: 560px;
