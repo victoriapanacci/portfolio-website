@@ -4,8 +4,7 @@ import type { CaseStudyPrototype as CaseStudyPrototypeType } from '@/lib/project
  * Embeds an interactive prototype (e.g. a live Figma proto) inside the
  * case-study design system. Mirrors the CaseStudyMedia plate aesthetic:
  * a hairline-bordered frame with a rose eyebrow tag and caption. The iframe
- * is lazy-loaded and titled for accessibility, with an "Open in Figma" link
- * as a fallback when the embed is blocked.
+ * is lazy-loaded and titled for accessibility.
  */
 export function CaseStudyPrototype({
   prototype,
@@ -28,20 +27,9 @@ export function CaseStudyPrototype({
           allowFullScreen
         />
       </div>
-      <figcaption className="cs-proto__caption">
-        {prototype.caption ? <span>{prototype.caption}</span> : null}
-        {prototype.href ? (
-          <a
-            className="cs-proto__link"
-            href={prototype.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open in Figma
-            <span aria-hidden="true"> ↗</span>
-          </a>
-        ) : null}
-      </figcaption>
+      {prototype.caption ? (
+        <figcaption className="cs-proto__caption">{prototype.caption}</figcaption>
+      ) : null}
     </figure>
   )
 }
