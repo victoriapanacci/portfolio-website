@@ -369,14 +369,14 @@ main {
 }
 
 .hero {
-  min-height: 690px;
+  min-height: 620px;
   display: grid;
-  grid-template-columns: 7fr 5fr;
+  grid-template-columns: 1fr;
   align-items: center;
   padding: 76px 0 120px;
 }
 .hero-copy {
-  max-width: 770px;
+  max-width: 780px;
   z-index: 2;
 }
 .eyebrow,
@@ -405,7 +405,7 @@ h1 {
   max-width: 760px;
 }
 .hero h1 {
-  font-size: clamp(84px, 8.8vw, 146px);
+  font-size: clamp(58px, 7.5vw, 88px);
   max-width: none;
 }
 h1 em,
@@ -505,8 +505,11 @@ h2 em {
 }
 .project-index {
   font-family: var(--font-serif);
-  font-size: 29px;
-  color: var(--rose);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
   position: relative;
   z-index: 2;
 }
@@ -754,7 +757,7 @@ h2 em {
   z-index: 3;
 }
 .project-copy h3 {
-  font-size: clamp(27px, 2.4vw, 40px);
+  font-size: clamp(19px, 1.68vw, 28px);
   line-height: 1;
   margin: 0;
   letter-spacing: -0.02em;
@@ -767,14 +770,10 @@ h2 em {
   font-weight: 600;
 }
 
-/* Salmon pills — used for card categories and the hero eyebrow. */
+/* Category / eyebrow labels — plain text, no pill container. */
 .pill {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(217, 123, 114, 0.14);
-  border: 1px solid rgba(217, 123, 114, 0.4);
   color: var(--peach);
   font-size: 11px;
   font-weight: 600;
@@ -793,7 +792,6 @@ h2 em {
 .pill--eyebrow {
   margin: 0 0 28px;
   font-size: 12px;
-  padding: 8px 16px;
 }
 .short-rule {
   width: 30px;
@@ -920,7 +918,7 @@ h2 em {
     padding: 68px 0 96px;
   }
   .hero-copy {
-    max-width: 620px;
+    max-width: 780px;
   }
   .hero-light {
     width: 560px;
@@ -958,7 +956,7 @@ h2 em {
     height: 360px;
   }
   .project-copy h3 {
-    font-size: clamp(38px, 5.4vw, 52px);
+    font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
   }
   .project-description {
@@ -1053,7 +1051,7 @@ h2 em {
     margin: -10px -16px 12px;
   }
   .project-copy h3 {
-    font-size: clamp(40px, 12vw, 56px);
+    font-size: clamp(28px, 8.4vw, 39px);
   }
   .project-description {
     font-size: 15px;
@@ -1823,8 +1821,11 @@ h2 em {
 }
 .quick-link__index {
   font-family: var(--font-serif);
-  font-size: 26px;
-  color: var(--rose);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
   flex-shrink: 0;
 }
 .quick-link__body {
