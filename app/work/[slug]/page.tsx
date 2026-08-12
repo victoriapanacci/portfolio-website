@@ -20,7 +20,7 @@ export async function generateMetadata({
   const project = getProject(slug)
   if (!project) return { title: 'Case study | Victoria Panacci' }
   return {
-    title: `${project.title} | Victoria Panacci`,
+    title: `VP: ${project.title}`,
     description: project.caseStudy?.summary ?? project.description,
   }
 }
