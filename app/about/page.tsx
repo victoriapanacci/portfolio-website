@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -21,7 +22,7 @@ const experience = [
   {
     role: 'Senior Product Designer',
     company: 'madhaus.io',
-    period: 'September 2025 to Present',
+    period: 'April 2026 - Present',
     points: [
       'Built two design systems that became shared product-building tools, enabling teams outside design to prototype independently and significantly reducing time from concept to validation',
       'Lead end-to-end design across sportsbook, casino, cashier, and account experiences, working directly with product and engineering from strategy through implementation',
@@ -85,6 +86,22 @@ export default function AboutPage() {
       <div className="grain" aria-hidden="true" />
       <SiteHeader />
 
+      {/* Breadcrumb back link, same pattern as the case study pages */}
+      <div className="shell">
+        <Link
+          href="/"
+          className="group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70"
+        >
+          <span
+            aria-hidden="true"
+            className="text-base font-light text-rose transition-transform duration-300 group-hover:-translate-x-1"
+          >
+            ←
+          </span>
+          <span>Back to Home</span>
+        </Link>
+      </div>
+
       <section id="top" className="about-hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="about-hero__copy reveal">
@@ -92,6 +109,10 @@ export default function AboutPage() {
           <h1 className="cs-title">
             I make complexity feel invisible
           </h1>
+          <p className="cs-summary">
+            I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
+          </p>
+          <p className="cs-eyebrow about-hero__now">Currently designing at madhaus.io</p>
         </div>
       </section>
 

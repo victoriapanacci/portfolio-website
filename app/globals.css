@@ -1958,6 +1958,10 @@ h2 em {
 .about-hero__cta {
   margin-top: 40px;
 }
+/* Eyebrow sitting under the hero description rather than above the title */
+.about-hero__now {
+  margin: 28px 0 0;
+}
 
 .about-section {
   padding: 40px 0;
@@ -2092,14 +2096,15 @@ h2 em {
 .about-edu__year {
   font-family: var(--font-serif);
   font-size: 22px;
-  color: var(--rose);
+  color: var(--cream);
 }
+/* Same eyebrow treatment as .cs-eyebrow */
 .about-edu__credential {
   margin: 0 0 6px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: #e98c7a;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--peach);
   font-weight: 600;
 }
 .about-edu__detail {
