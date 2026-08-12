@@ -333,7 +333,7 @@ main {
   flex-direction: column;
   padding: 10px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--plum) 94%, black);
+  background: color-mix(in srgb, var(--color-plum) 94%, black);
   border: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
   box-shadow: 0 24px 60px rgba(6, 3, 10, 0.55);
   z-index: 20;
