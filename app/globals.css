@@ -1071,29 +1071,6 @@ h2 em {
   position: relative;
   padding-top: 8px;
 }
-.cs-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
-  color: #efaa92;
-  transition: color 0.25s ease;
-}
-.cs-back:hover {
-  color: var(--rose);
-}
-.cs-back span {
-  font-size: 15px;
-  transition: transform 0.3s ease;
-}
-.cs-back:hover span {
-  transform: translateX(-4px);
-}
-
 /* Hero */
 .cs-hero {
   display: grid;
@@ -1103,19 +1080,19 @@ h2 em {
   padding: 40px 0 64px;
 }
 .cs-eyebrow {
-  color: #e98475;
+  color: var(--peach);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin: 0 0 22px;
 }
 .cs-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(46px, 5.4vw, 82px);
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+  font-size: clamp(40px, 4.6vw, 66px);
+  line-height: 1;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 .cs-summary {
@@ -1152,11 +1129,11 @@ h2 em {
   border-bottom: 1px solid var(--line);
 }
 .cs-meta__item dt {
-  color: #e98c7a;
-  font-size: 10px;
+  color: var(--peach);
+  font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 10px;
 }
 .cs-meta__item dd {
@@ -1202,8 +1179,8 @@ h2 em {
   max-width: 780px;
 }
 .cs-h2 em {
-  color: var(--rose);
-  font-style: italic;
+  color: var(--cream);
+  font-style: normal;
 }
 .cs-section__lead {
   color: #d3c8c3;
@@ -1323,7 +1300,7 @@ h2 em {
   font-family: var(--font-serif);
   font-size: 46px;
   line-height: 1;
-  color: var(--rose);
+  color: var(--cream);
   letter-spacing: -0.03em;
   margin-bottom: 22px;
 }
@@ -1381,7 +1358,7 @@ h2 em {
 .cs-step__index {
   font-family: var(--font-serif);
   font-size: 30px;
-  color: var(--rose);
+  color: var(--cream);
   display: block;
   margin-bottom: 26px;
 }
@@ -1405,11 +1382,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-media__eyebrow {
-  color: #e98475;
-  font-size: 11px;
+  color: var(--peach);
+  font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 16px;
 }
 .cs-media__frame {
@@ -1448,11 +1425,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-proto__eyebrow {
-  color: #e98475;
-  font-size: 11px;
+  color: var(--peach);
+  font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 16px;
 }
 .cs-proto__frame {
@@ -1514,7 +1491,7 @@ h2 em {
 .cs-finding__num {
   font-family: var(--font-serif);
   font-size: 26px;
-  color: var(--rose);
+  color: var(--cream);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -1622,7 +1599,7 @@ h2 em {
   font-family: var(--font-serif);
   font-size: clamp(44px, 5vw, 68px);
   line-height: 1;
-  color: var(--rose);
+  color: var(--cream);
   letter-spacing: -0.03em;
 }
 .cs-metric__label {
@@ -1698,7 +1675,7 @@ h2 em {
 .cs-phase__name {
   font-family: var(--font-serif);
   font-size: 38px;
-  color: var(--rose);
+  color: var(--cream);
   line-height: 1;
 }
 .cs-phase__tag {
@@ -1777,7 +1754,7 @@ h2 em {
 .cs-learnings li span {
   font-family: var(--font-serif);
   font-size: 26px;
-  color: var(--rose);
+  color: var(--cream);
   flex-shrink: 0;
 }
 .cs-learnings li p {
@@ -1842,11 +1819,11 @@ h2 em {
   letter-spacing: -0.02em;
 }
 .quick-link__category {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: #e98475;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--peach);
 }
 .quick-link__arrow {
   font-size: 24px;
