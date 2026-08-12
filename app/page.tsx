@@ -19,7 +19,7 @@ export default function Home() {
             I make complexity <br />
             feel invisible
           </h1>
-          <ArrowLink href="#work">Featured Projects</ArrowLink>
+          <ArrowLink href="#work" className="mt-14">Featured Projects</ArrowLink>
         </div>
       </section>
 
