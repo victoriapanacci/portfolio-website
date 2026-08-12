@@ -90,7 +90,7 @@ export default function AboutPage() {
         <div className="about-hero__copy reveal">
           <p className="cs-eyebrow">About</p>
           <h1 className="cs-title">
-            I design for the <em>complicated</em> parts
+            I make complexity feel invisible
           </h1>
         </div>
       </section>
