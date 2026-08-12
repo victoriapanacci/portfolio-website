@@ -475,11 +475,7 @@ h2 em {
 .section-kicker i {
   height: 1px;
   flex: 1;
-  background: linear-gradient(
-    90deg,
-    rgba(217, 123, 114, 0.55),
-    rgba(242, 232, 220, 0.06)
-  );
+  background: var(--line);
 }
 .project-grid {
   display: grid;
