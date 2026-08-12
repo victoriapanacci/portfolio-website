@@ -24,8 +24,6 @@ export type CaseStudyPrototype = {
   eyebrow?: string
   /** Descriptive caption shown beneath the frame. */
   caption?: string
-  /** Direct link to open the prototype in a new tab (fallback). */
-  href?: string
   /** CSS aspect-ratio for the frame, e.g. "16 / 10". Defaults to "16 / 10". */
   aspect?: string
 }
@@ -60,6 +58,8 @@ export type CaseStudy = {
     media?: CaseStudyImage | CaseStudyImage[]
   }
   metrics: { value: string; label: string }[]
+  /** Overrides the default "Every objective, delivered." heading. */
+  outcomesHeading?: CaseStudyHeading
   outcomes: { objective: string; points: string[] }[]
   /** Optional framed artifact(s) closing the outcome section. */
   outcomesMedia?: CaseStudyImage | CaseStudyImage[]
@@ -123,7 +123,6 @@ export const projects: Project[] = [
         lead: 'DribbleCollect answered both failures at once: a rebuilt experience on a rebuilt foundation. The prototype below is the real flow, from secure login through voice-to-text capture. Move through it the way a patient would.',
         prototype: {
           src: 'https://embed.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013&embed-host=share',
-          href: 'https://www.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013',
           title: 'Interactive DribbleCollect prototype',
           eyebrow: 'Interactive prototype',
           aspect: '9 / 16',
@@ -198,26 +197,27 @@ export const projects: Project[] = [
         { value: '<24hrs', label: 'to add a new PRO module' },
         { value: '80%', label: 'client satisfaction at launch' },
       ],
+      outcomesHeading: { lead: 'Every objective, ', em: 'delivered' },
       outcomes: [
         {
           objective: 'Compliant by design',
           points: [
-            'Built audit trails, time-stamped entries, and e-signature validation into the workflow.',
-            'Ran mock FDA inspections during QA to prove 21 CFR Part 11 compliance before any client release.',
+            'Built audit trails, time-stamped entries, and e-signature validation into the workflow',
+            'Ran mock FDA inspections during QA to prove 21 CFR Part 11 compliance before any client release',
           ],
         },
         {
           objective: 'Usable & inclusive',
           points: [
-            'Cut average task time 40% with a 3-step flow, validated with low-tech-literacy patients.',
-            'Applied WCAG 2.1 AA and localized into English, French, and Spanish for multinational trials.',
+            'Cut average task time 40% with a 3-step flow, validated with low-tech-literacy patients',
+            'Applied WCAG 2.1 AA and localized into English, French, and Spanish for multinational trials',
           ],
         },
         {
           objective: 'Built to scale',
           points: [
-            'Shipped a microservices back-end with real-time API connections to major EDC systems.',
-            'Added a questionnaire builder so sponsors could stand up a new PRO module in under 24 hours.',
+            'Shipped a microservices back-end with real-time API connections to major EDC systems',
+            'Added a questionnaire builder so sponsors could stand up a new PRO module in under 24 hours',
           ],
         },
       ],
@@ -226,19 +226,19 @@ export const projects: Project[] = [
           phase: 'MVP',
           tag: 'One client',
           body: 'Shipped to one dedicated client to confirm the need was real. Since the need came from a direct client request, this stage felt redundant, a candid lesson that skipping it could have saved time.',
-          feedback: 'In-flow micro-surveys and a report-a-bug option.',
+          feedback: 'In-flow micro-surveys and a report-a-bug option',
         },
         {
           phase: 'Beta',
           tag: 'Three therapeutic areas',
           body: 'Widened to three clients across therapeutic areas. This is where the product got resilient: it uncovered edge cases we had not anticipated.',
-          feedback: 'Tagged micro-surveys, an embedded widget, and user-panel testing.',
+          feedback: 'Tagged micro-surveys, an embedded widget, and user-panel testing',
         },
         {
           phase: 'GA',
           tag: 'General availability',
           body: 'Launched publicly at 80% client satisfaction, with continuous monitoring so we could respond to real usage quickly.',
-          feedback: 'Randomized thumbs-up / thumbs-down ratings on every rollout.',
+          feedback: 'Randomized thumbs-up / thumbs-down ratings on every rollout',
         },
       ],
       learnings: [
