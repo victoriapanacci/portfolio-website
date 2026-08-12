@@ -270,10 +270,9 @@ main {
   z-index: 10;
 }
 .monogram {
-  font-family: var(--font-serif);
-  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
   color: #efaa92;
-  letter-spacing: 0.02em;
 }
 .desktop-nav {
   display: flex;
@@ -973,8 +972,9 @@ h2 em {
   .site-header {
     min-height: 78px;
   }
-  .monogram {
-    font-size: 24px;
+  .monogram svg {
+    width: 22px;
+    height: 22px;
   }
   .eyebrow {
     font-size: 10px;
