@@ -12,13 +12,13 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
+          <p className="eyebrow">
+            Senior Product Designer in Toronto
+          </p>
           <h1>
             I make complexity <br />
             feel invisible
           </h1>
-          <p className="eyebrow">
-            Senior Product Designer in Toronto
-          </p>
           <ArrowLink href="#work">Featured Projects</ArrowLink>
         </div>
       </section>
