@@ -448,6 +448,16 @@ h2 em {
   mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
 }
 
+.about {
+  padding: 10px 0 70px;
+}
+.about-summary {
+  max-width: 720px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #d1c6c2;
+  margin: 0;
+}
 .work {
   padding: 10px 0 120px;
 }
