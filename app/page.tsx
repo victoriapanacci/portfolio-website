@@ -15,9 +15,9 @@ export default function Home() {
           <p className="eyebrow">
             Senior Product Designer in Toronto
           </p>
-          <h1>
+          <h2>
             I make complexity feel invisible
-          </h1>
+          </h2>
           <p className="hero-body">
             Where user trust, innovation, and organizational scale meet
           </p>
