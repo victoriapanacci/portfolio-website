@@ -16,12 +16,10 @@ export default function Home() {
             Senior Product Designer in Toronto
           </p>
           <h1>
-            I make complexity feel invisible
+            I make complexity <br />
+            feel invisible
           </h1>
-          <p className="hero-body">
-            Where user trust, innovation, and organizational scale meet
-          </p>
-          <ArrowLink href="#work">Featured Projects</ArrowLink>
+          <ArrowLink href="#work" className="mt-14">Featured Projects</ArrowLink>
         </div>
       </section>
 
