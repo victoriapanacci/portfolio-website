@@ -14,6 +14,9 @@ node_modules
 .next/
 .DS_Store
 
+# Next.js auto-generated TypeScript declarations
+next-env.d.ts
+
 # Next.js auto-generated AI agent rules
 AGENTS.md
 CLAUDE.md
