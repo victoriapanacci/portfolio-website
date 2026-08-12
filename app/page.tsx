@@ -19,11 +19,18 @@ export default function Home() {
             I make complexity <br />
             feel invisible
           </h1>
-          <p className="hero-body">
-            I&apos;m a senior product designer in Toronto who turns complex, data-heavy workflows into products that feel simple, working across gaming, clinical technology, and consumer software from early discovery through shipped product.
-          </p>
           <ArrowLink href="#work" className="mt-14">Featured Projects</ArrowLink>
         </div>
+      </section>
+
+      <section id="about" className="about shell reveal-on-scroll">
+        <div className="section-kicker">
+          <span>Who am I?</span>
+          <i />
+        </div>
+        <p className="about-summary">
+          I&apos;m a senior product designer in Toronto who turns complex, data-heavy workflows into products that feel simple, working across gaming, clinical technology, and consumer software from early discovery through shipped product.
+        </p>
       </section>
 
       <ProjectShowcase variant="full" kicker="Featured projects" />
