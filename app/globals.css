@@ -453,9 +453,9 @@ h2 em {
 }
 .about-summary {
   max-width: 720px;
-  font-size: 22px;
-  line-height: 1.6;
-  color: #ded4cf;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #d1c6c2;
   margin: 0;
 }
 .work {
