@@ -1103,11 +1103,11 @@ h2 em {
   padding: 40px 0 64px;
 }
 .cs-eyebrow {
-  color: #e98475;
+  color: var(--peach);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin: 0 0 22px;
 }
 .cs-title {
