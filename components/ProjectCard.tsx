@@ -12,7 +12,17 @@ export function ProjectCard({ project }: { project: Project }) {
       <ProjectArt type={project.art} />
       <div className="project-copy">
         <h3>{project.title}</h3>
-        <p className="project-category">{project.category}</p>
+        <ul className="project-pills" aria-label="Categories">
+          {project.category
+            .split('/')
+            .map((tag) => tag.trim())
+            .filter(Boolean)
+            .map((tag) => (
+              <li key={tag} className="pill">
+                {tag}
+              </li>
+            ))}
+        </ul>
         <div className="short-rule" />
         <p className="project-description">{project.description}</p>
         <ArrowLink href={href}>
