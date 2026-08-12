@@ -16,7 +16,8 @@ export default function Home() {
             Senior Product Designer in Toronto
           </p>
           <h1>
-            I make complexity feel invisible
+            I make complexity <br />
+            feel invisible
           </h1>
           <p className="hero-body">
             Where user trust, innovation, and organizational scale meet
