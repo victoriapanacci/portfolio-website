@@ -752,7 +752,9 @@ h2 em {
   font-size: 12px;
 }
 .project-copy {
-  margin-top: auto;
+  /* Copy sits directly under the art so any extra card height falls below it. */
+  margin-top: 0;
+  margin-bottom: auto;
   position: relative;
   z-index: 3;
 }
