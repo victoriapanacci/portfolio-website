@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
-import { CaseStudyMedia } from './CaseStudyMedia'
+import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
 
 export function CaseStudy({ project }: { project: Project }) {
@@ -38,7 +38,11 @@ export function CaseStudy({ project }: { project: Project }) {
           <p className="cs-summary">{cs.summary}</p>
         </div>
         <div className="cs-hero__art reveal">
-          <ProjectArt type={project.art} />
+          {cs.heroMedia ? (
+            <CaseStudyMedia media={cs.heroMedia} className="cs-media--hero" />
+          ) : (
+            <ProjectArt type={project.art} />
+          )}
         </div>
       </header>
 
@@ -119,7 +123,7 @@ export function CaseStudy({ project }: { project: Project }) {
         {cs.solution.prototype ? (
           <CaseStudyPrototype prototype={cs.solution.prototype} />
         ) : null}
-        {cs.solution.media ? <CaseStudyMedia media={cs.solution.media} /> : null}
+        <CaseStudyMediaGroup media={cs.solution.media} />
       </section>
 
       {/* Process (optional) */}
@@ -161,7 +165,7 @@ export function CaseStudy({ project }: { project: Project }) {
           )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
-        {cs.discovery.media ? <CaseStudyMedia media={cs.discovery.media} /> : null}
+        <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (
             <div key={f.title} className="cs-finding reveal-on-scroll">
@@ -245,6 +249,7 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
+        <CaseStudyMediaGroup media={cs.outcomesMedia} />
       </section>
 
       {/* Launch (optional) */}

@@ -33,6 +33,8 @@ export type CaseStudyPrototype = {
 export type CaseStudy = {
   summary: string
   meta: { label: string; value: string }[]
+  /** Optional framed artifact shown in the hero, in place of the generated art. */
+  heroMedia?: CaseStudyImage
   intro: string
   problem: {
     lead: string
@@ -46,7 +48,7 @@ export type CaseStudy = {
     points?: string[]
     /** Bold, numbered principle cards. Used when there is no media artifact. */
     principles?: { title: string; body: string }[]
-    media?: CaseStudyImage
+    media?: CaseStudyImage | CaseStudyImage[]
     /** Interactive prototype embedded as the solution centerpiece. */
     prototype?: CaseStudyPrototype
   }
@@ -55,10 +57,12 @@ export type CaseStudy = {
     heading?: CaseStudyHeading
     lead: string
     findings: { title: string; body: string }[]
-    media?: CaseStudyImage
+    media?: CaseStudyImage | CaseStudyImage[]
   }
   metrics: { value: string; label: string }[]
   outcomes: { objective: string; points: string[] }[]
+  /** Optional framed artifact(s) closing the outcome section. */
+  outcomesMedia?: CaseStudyImage | CaseStudyImage[]
   learnings: string[]
   /** Optional sections. Omit any of these to keep a case study tight. */
   process?: { index: string; title: string; body: string }[]
@@ -265,14 +269,14 @@ export const projects: Project[] = [
   {
     slug: 'deid',
     index: '04',
-    title: 'Selling Confidence in a Regulated Industry',
+    title: 'Automating Medical-Image Redaction Without Losing Human Control',
     category: 'Clinical Imaging / FDA-Regulated SaaS',
     description:
-      'A net-new medical-image redaction tool built inside FDA-regulated clinical-trial software, trading slow, manual work for auditable automation without surrendering human control.',
+      'A new medical-image redaction tool built inside FDA-regulated clinical-trial software. It replaced slow, manual work with auditable automation while keeping reviewers in control.',
     art: 'imaging',
     caseStudy: {
       summary:
-        'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) must be removed. I designed a net-new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one, halving review sessions while keeping human reviewers in final control.',
+        'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) has to be removed. I designed a new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one. It cut review sessions roughly in half while keeping human reviewers in final control.',
       meta: [
         { label: 'Role', value: 'Product Designer, end-to-end ownership' },
         { label: 'Team', value: '1 PD/PM, 2 Engineers, 1 QA' },
@@ -280,13 +284,13 @@ export const projects: Project[] = [
         { label: 'Timeline', value: '6 Months' },
       ],
       intro:
-        'Fusion was hitting a scaling wall. Redacting PHI from medical images, the gate every clinical image must pass before a regulator ever sees it, was still done by hand, one file at a time, across teams scattered around the world. A single study could carry close to 100,000 images. I owned the design end-to-end, which meant the real problem was never just speed: it was making automation trustworthy enough for an FDA-regulated review.',
+        'Every medical image has to have its protected health information removed before a regulator sees it. At Fusion that redaction was done by hand, one file at a time, across teams in different parts of the world, and a single study could hold close to 100,000 images. The real problem was never just speed. It was making automation trustworthy enough to hold up in an FDA-regulated review.',
       problem: {
-        lead: 'The redaction workflow was a scaling bottleneck: slow, error-prone, and costly in exactly the place a regulated product can least afford mistakes.',
+        lead: 'The redaction workflow was where the product slowed down. It was manual, error-prone, and expensive, and mistakes carried real consequences because this was the step that removed protected health information before a regulator saw it.',
         points: [
           {
             title: 'A manual process that could not scale',
-            body: 'Every image was redacted by hand, each requiring specialized software just to open and edit. As studies approached 100,000 images, the workload grew far faster than any team could staff for.',
+            body: 'Every image was redacted by hand, and each one required specialized software just to open and edit. As studies approached 100,000 images, the work grew faster than any team could reasonably staff for.',
           },
           {
             title: 'Distributed teams, fragile output',
@@ -296,7 +300,7 @@ export const projects: Project[] = [
       },
       solution: {
         heading: { lead: 'Three principles that made automation ', em: 'trustworthy', tail: '.' },
-        lead: 'Before designing a single screen, I set the rules automation had to obey. Drawn from Axiom’s product vision, they let me move fast without trading away the confidence a regulated review depends on, and gave the whole team one consistent way to judge every tradeoff.',
+        lead: 'Before designing a single screen, I defined the rules the automation had to follow. They were grounded in Axiom’s product vision, and they let the team move quickly without giving up the confidence a regulated review depends on. They also gave everyone one consistent way to judge a tradeoff.',
         principles: [
           {
             title: 'Human authority over automation',
@@ -313,20 +317,20 @@ export const projects: Project[] = [
         ],
       },
       discovery: {
-        heading: { lead: 'Two users, one ', em: 'unforgiving', tail: ' standard.' },
-        lead: 'To ground a net-new tool, I ran a full research phase: 34 questionnaires, 14 interviews, and 7 shadowing sessions watching people redact images in their real environment. Three truths shaped everything that followed.',
+        heading: { lead: 'Two users and one ', em: 'regulatory', tail: ' standard.' },
+        lead: 'To ground a new tool in reality, I ran a full research phase: 34 questionnaires, 14 interviews, and 7 shadowing sessions watching people redact images in their own environment. Three findings shaped the decisions that followed.',
         findings: [
           {
-            title: 'Data managers live and die by efficiency',
-            body: 'They have to confirm every trace of PHI is gone across enormous volumes of images, all while hopping between separate, specialized programs.',
+            title: 'Data managers are measured by efficiency',
+            body: 'They have to confirm every trace of PHI is gone across enormous volumes of images, all while moving between separate, specialized programs.',
           },
           {
             title: 'Site users need speed above all',
             body: 'They upload images and need to get in and out of the EDC fast, because they are managing real patients in real time.',
           },
           {
-            title: 'The FDA sets the floor, not the ceiling',
-            body: 'With most clients US-based, the FDA rules for electronic signatures and audit trails became the non-negotiable standard behind every decision.',
+            title: 'FDA rules were the baseline requirement',
+            body: 'With most clients based in the US, the FDA rules for electronic signatures and audit trails became the standard behind every decision.',
           },
         ],
       },
@@ -340,35 +344,30 @@ export const projects: Project[] = [
         {
           objective: 'A blind review portal inside Fusion',
           points: [
-            'Built a net-new portal within the Fusion eClinical Suite dedicated to redacting medical images.',
-            'Blinded users can view, read, redact, and audit every image without ever leaving Fusion.',
+            'Blinded reviewers view, read, redact, and audit every image without leaving Fusion.',
           ],
         },
         {
           objective: 'Redaction in under three clicks',
           points: [
-            'Replaced the download → redact locally → re-upload loop with in-platform review.',
-            'Using AWS Rekognition, AWS Medical Transcribe, and the built-in LeadTools medical viewer, users clear PHI across many image instances at once in under three clicks.',
+            'AWS Rekognition, AWS Medical Transcribe, and the LeadTools medical viewer clear PHI across many image instances at once, retiring the old download, redact locally, and re-upload loop.',
           ],
         },
         {
           objective: 'Auditable and reversible by design',
           points: [
-            'A full audit trail is accessible from every page in the workflow.',
-            'Reviewers retain authority at defined control points, and every automated action stays reviewable and undoable.',
+            'A full audit trail sits on every page, and every automated action stays reviewable and undoable.',
           ],
         },
         {
           objective: 'Ready to scale',
           points: [
-            'Optimized web responsiveness and compatibility down to web tablet.',
-            'Broke scalability into phases so scope stayed honest without capping future growth.',
+            'Responsive down to web tablet, with scalability phased so scope stayed honest.',
           ],
         },
       ],
       validation: [
-        'The shipped module cut redaction sessions in half, held the false-negative rate under 1%, and put a full audit trail on every page, proving efficiency and regulatory trust were never a tradeoff.',
-        'By keeping reviewers in authority at every control point, the tool earned the confidence of both internal teams and the regulatory boards it was built to satisfy.',
+        'The module cut redaction sessions roughly in half and kept the false-negative rate under 1%, with a full audit trail on every page. Because reviewers kept authority at every control point, it earned the confidence of both internal teams and the regulatory boards it had to satisfy.',
       ],
       learnings: [
         'In a regulated product, trust is a design material. Auditability and reversibility have to be designed in from the first sketch, not bolted on at the end.',
