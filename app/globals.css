@@ -1152,11 +1152,11 @@ h2 em {
   border-bottom: 1px solid var(--line);
 }
 .cs-meta__item dt {
-  color: #e98c7a;
-  font-size: 10px;
+  color: #e78f7e;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
   margin-bottom: 10px;
 }
 .cs-meta__item dd {
@@ -1202,8 +1202,8 @@ h2 em {
   max-width: 780px;
 }
 .cs-h2 em {
-  color: var(--rose);
-  font-style: italic;
+  color: var(--cream);
+  font-style: normal;
 }
 .cs-section__lead {
   color: #d3c8c3;
@@ -1405,11 +1405,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-media__eyebrow {
-  color: #e98475;
-  font-size: 11px;
+  color: #e78f7e;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
   margin-bottom: 16px;
 }
 .cs-media__frame {
@@ -1448,11 +1448,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-proto__eyebrow {
-  color: #e98475;
-  font-size: 11px;
+  color: #e78f7e;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
   margin-bottom: 16px;
 }
 .cs-proto__frame {

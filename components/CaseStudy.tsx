@@ -33,7 +33,6 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Hero */}
       <header className="cs-hero shell">
         <div className="cs-hero__copy reveal">
-          <p className="cs-eyebrow">{project.category}</p>
           <h1 className="cs-title">{project.title}</h1>
           <p className="cs-summary">{cs.summary}</p>
         </div>
