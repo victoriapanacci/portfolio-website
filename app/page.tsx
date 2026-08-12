@@ -19,6 +19,7 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
+          <p className="pill pill--eyebrow">Victoria Panacci, Senior Product Designer</p>
           <h1>
             I make complexity <br />
             feel invisible

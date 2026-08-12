@@ -371,7 +371,7 @@ export const projects: Project[] = [
     slug: 'system',
     index: '04',
     title: 'Designing Systems That Scale',
-    category: 'Design System / Platform',
+    category: 'Design System',
     description:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
     art: 'system',
