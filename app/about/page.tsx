@@ -4,14 +4,14 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
-  title: 'About | Victoria Panacci',
+  title: 'VP: About',
   description:
     'How I work, where I have worked, and what I studied. Senior Product Designer based in Toronto, designing within real technical, regulatory, and organizational constraints.',
 }
 
 const principles = [
   'I frame ambiguous, high-stakes problems before jumping to solutions.',
-  'I am fluent as a design engineer, I canbuild and ship production ready code using AI tools. I can read, modify, and maintain code.',
+  'I can build and ship production ready code using AI tools. I can read, modify, and maintain code.',
   'I design within real technical, regulatory, and organizational constraints.',
   'I work best in close collaboration with product, engineering, and leadership, so the tradeoffs stay explicit.',
 
@@ -21,39 +21,39 @@ const experience = [
   {
     role: 'Senior Product Designer',
     company: 'madhaus.io',
-    period: 'September 2025 — Present',
+    period: 'September 2025 to Present',
     points: [
-      'Sole product designer inside a 0-to-1 startup, owning the design vision from research through shipped interface.',
-      'Built the end-to-end design system and the structures the product grows on, so early decisions could scale instead of being redone.',
-      'Prototyped and shipped in code with Claude, Cursor, and v0, using AI tooling to compress the earliest, most uncertain stages of design.',
+      'Built two design systems that became shared product-building tools, enabling teams outside design to prototype independently and significantly reducing time from concept to validation',
+      'Lead end-to-end design across sportsbook, casino, cashier, and account experiences, working directly with product and engineering from strategy through implementation',
+      'Use technical fluency and AI-assisted development to prototype, build, and deploy web experiences, bringing design closer to production and accelerating iteration',
     ],
   },
   {
     role: 'Product Designer (Innovation Associate II)',
-    company: 'Axiom Real-Time Metrics — acquired by Sitero',
-    period: 'April 2022 — September 2025',
+    company: 'Axiom Real-Time Metrics, acquired by Sitero in July 2025',
+    period: 'April 2022 to September 2025',
     points: [
-      'Designed and led core product experiences for regulated clinical-trial management software, including AI-assisted medical image redaction and EDC workflows.',
-      'Worked closely with product and engineering to ship high-impact, enterprise-grade features.',
-      'Drove $15M into the sales pipeline through demos and client communication.',
+      'Translated complex clinical and regulatory workflows into intuitive product experiences, partnering with engineering, QA, and clinical SMEs from discovery through launch',
+      'Led the design and delivery of a first-of-its-kind DICOM redaction workflow, reducing manual review effort by ~50% while meeting regulatory audit requirements',
+      'Drove $15M into the sales pipeline through demos and client communication',
+      'Rebuilt a legacy ePRO experience into a standalone mobile product supported by a scalable design system',
     ],
   },
   {
     role: 'UI/UX Designer',
     company: 'Victoria Panacci Design',
-    period: 'August 2019 — April 2022',
+    period: 'August 2019 to April 2022',
     points: [
-      'Delivered lean UX and product design for eCommerce brands and digital creators.',
-      'Improved usability and conversion while building brand and platform experiences that could scale.',
+      'Designed and shipped digital products for 15+ early-stage businesses across eCommerce, hospitality, and technology',
+      'Created MVPs, prototypes, workflows, and design systems that reduced time-to-launch by 30%+ and increased engagement and conversion',
     ],
   },
   {
     role: 'Marketing Associate',
     company: 'Bingemans',
-    period: 'August 2017 — August 2019',
+    period: 'August 2017 to August 2019',
     points: [
-      'Sole designer managing 13 brand properties across digital, print, and social.',
-      'Delivered creative work that drove ROI, engagement, and community growth. Some of it is still in use in 2026.',
+      'Sole designer supporting 13 brand properties across digital, web, social, and print, including launches for new entertainment and hospitality brands',
     ],
   },
 ]
