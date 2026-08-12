@@ -2031,10 +2031,13 @@ h2 em {
   letter-spacing: -0.02em;
   color: var(--cream);
 }
+/* Same eyebrow treatment as .cs-eyebrow */
 .about-job__company {
-  margin: 0 0 6px;
-  font-size: 14px;
-  color: var(--rose);
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--peach);
   font-weight: 600;
 }
 .about-job__period {
