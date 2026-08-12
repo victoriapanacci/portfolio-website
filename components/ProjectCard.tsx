@@ -23,7 +23,6 @@ export function ProjectCard({ project }: { project: Project }) {
               </li>
             ))}
         </ul>
-        <div className="short-rule" />
         <p className="project-description">{project.description}</p>
         <ArrowLink href={href}>
           {hasStudy ? 'View case study' : 'Coming soon'}
