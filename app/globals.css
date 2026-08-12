@@ -1152,11 +1152,11 @@ h2 em {
   border-bottom: 1px solid var(--line);
 }
 .cs-meta__item dt {
-  color: #e78f7e;
+  color: var(--peach);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 10px;
 }
 .cs-meta__item dd {
@@ -1405,11 +1405,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-media__eyebrow {
-  color: #e78f7e;
+  color: var(--peach);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 16px;
 }
 .cs-media__frame {
@@ -1448,11 +1448,11 @@ h2 em {
   margin: 48px 0 0;
 }
 .cs-proto__eyebrow {
-  color: #e78f7e;
+  color: var(--peach);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   margin-bottom: 16px;
 }
 .cs-proto__frame {
