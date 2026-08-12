@@ -16,7 +16,7 @@ export function CaseStudy({ project }: { project: Project }) {
     </>
   ) : (
     <>
-      Meet <em>DribbleCollect</em>.
+      Meet <em>DribbleCollect</em>
     </>
   )
 
@@ -34,7 +34,7 @@ export function CaseStudy({ project }: { project: Project }) {
           >
             ←
           </span>
-          <span>Back to all work</span>
+          <span>Back to All Work</span>
         </Link>
       </div>
 
@@ -167,7 +167,7 @@ export function CaseStudy({ project }: { project: Project }) {
             </>
           ) : (
             <>
-              Four voices, one <em>fragile chain</em> of data.
+              Four voices, one <em>fragile chain</em> of data
             </>
           )}
         </h2>
@@ -242,7 +242,17 @@ export function CaseStudy({ project }: { project: Project }) {
           <i />
         </div>
         <h2 className="cs-h2">
-          Every objective, <em>delivered</em>.
+          {cs.outcomesHeading ? (
+            <>
+              {cs.outcomesHeading.lead}
+              <em>{cs.outcomesHeading.em}</em>
+              {cs.outcomesHeading.tail}
+            </>
+          ) : (
+            <>
+              Every objective, <em>delivered</em>.
+            </>
+          )}
         </h2>
         <div className="cs-outcomes">
           {cs.outcomes.map((o) => (
