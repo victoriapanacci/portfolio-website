@@ -13,16 +13,13 @@ export default function Home() {
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
           <p className="eyebrow">
-            Senior Product Designer
-            <br />
-            Based in Toronto
+            Senior Product Designer in Toronto
           </p>
           <h1>
-            I design for the complicated parts.
+            I make complexity feel invisible
           </h1>
           <p className="hero-body">
-            I work where user trust, technical complexity, and organizational
-            scale meet.
+            Where user trust, innovation, and organizational scale meet
           </p>
           <ArrowLink href="#work">Featured Projects</ArrowLink>
         </div>
