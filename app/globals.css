@@ -829,6 +829,31 @@ h2 em {
 .footer {
   padding: 0 0 28px;
 }
+.footer-intro {
+  position: relative;
+  z-index: 2;
+  padding: 72px 0 44px;
+}
+/* Same voice as the hero headline, a step down in scale.
+   Scoped through .footer so it beats the older `.footer h2` sizing. */
+.footer .footer-title {
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 900px;
+  margin: 0;
+}
+.footer .footer-title a {
+  color: var(--rose);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: color 0.25s ease;
+}
+.footer .footer-title a:hover,
+.footer .footer-title a:focus-visible {
+  color: var(--peach);
+}
 .footer-cta {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -967,6 +992,9 @@ h2 em {
   .footer {
     padding-top: 60px;
   }
+  .footer-intro {
+    padding: 16px 0 36px;
+  }
   .footer-cta {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -1059,6 +1087,14 @@ h2 em {
   }
   .footer h2 {
     font-size: clamp(46px, 13vw, 64px);
+  }
+  .footer-intro {
+    padding: 8px 0 30px;
+  }
+  .footer .footer-title {
+    font-size: clamp(26px, 7.4vw, 34px);
+    line-height: 1.18;
+    text-underline-offset: 4px;
   }
   .footer-meta {
     grid-template-columns: 1fr;
