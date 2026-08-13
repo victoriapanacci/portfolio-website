@@ -26,18 +26,6 @@ export function SiteFooter() {
             .
           </h2>
         </div>
-        <div className="footer-meta" id="about">
-          <div>
-            <span>Email</span>
-            <a href="mailto:panaccivictoria@gmail.com">
-              panaccivictoria@gmail.com
-            </a>
-          </div>
-          <div>
-            <span>LinkedIn</span>
-            <a href="#">linkedin.com/in/panacci</a>
-          </div>
-        </div>
         <div className="footer-bottom">
           <p>
             Designed under supervision of Mordecai the cat. He says meow and

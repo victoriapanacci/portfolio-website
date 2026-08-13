@@ -832,7 +832,8 @@ h2 em {
 .footer-intro {
   position: relative;
   z-index: 2;
-  padding: 72px 0 44px;
+  padding: 72px 0 52px;
+  border-bottom: 1px solid var(--line);
 }
 /* Same voice as the hero headline, a step down in scale.
    Scoped through .footer so it beats the older `.footer h2` sizing. */
@@ -877,29 +878,6 @@ h2 em {
   color: #ddd1cb;
   line-height: 1.7;
   margin: 0 0 24px;
-}
-.footer-meta {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px;
-  margin-top: 0;
-  padding: 34px 0;
-  border-bottom: 1px solid var(--line);
-}
-.footer-meta span {
-  display: block;
-  font-family: var(--font-serif);
-  color: #f5f0ed;
-  font-size: 20px;
-  line-height: 1.1;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-.footer-meta a,
-.footer-meta p {
-  color: #d7cbc5;
-  margin: 0;
-  font-size: 13px;
 }
 .footer-bottom {
   min-height: 88px;
@@ -1003,11 +981,6 @@ h2 em {
     font-size: clamp(54px, 9vw, 80px);
     max-width: 640px;
   }
-  .footer-meta {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 30px;
-    margin-top: 0;
-  }
   .footer-bottom {
     grid-template-columns: 1fr auto;
     row-gap: 20px;
@@ -1095,9 +1068,6 @@ h2 em {
     font-size: clamp(26px, 7.4vw, 34px);
     line-height: 1.18;
     text-underline-offset: 4px;
-  }
-  .footer-meta {
-    grid-template-columns: 1fr;
   }
 }
 
