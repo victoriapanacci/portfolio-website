@@ -36,7 +36,7 @@ export function SiteHeader() {
   return (
     <header className="site-header shell">
       <Link className="monogram" href="/">
-        Victoria Panacci: Senior Product Designer
+        Victoria Panacci
       </Link>
       <nav aria-label="Primary navigation" className="desktop-nav">
         {navLinks.map((link) => (

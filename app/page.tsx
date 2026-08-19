@@ -19,12 +19,9 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <h1>
-            I make complexity <br />
-            feel invisible
-          </h1>
+          <h1>Experienced product designer that makes complexity feel invisible</h1>
           <p className="hero-body">
-            I&apos;m a senior product designer in Toronto who turns complex, data-heavy workflows into products that feel simple, working across gaming, clinical technology, and consumer software from early discovery through shipped product.
+            I use my extensive experience in UX design, communications, and product to understand why and act strategically. In a world where virtually anyone can build, the decisions that save you money long term are getting to the need as fast as possible.
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>
