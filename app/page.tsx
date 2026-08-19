@@ -21,7 +21,7 @@ export default function Home() {
         <div className="hero-copy reveal">
           <h1>Experienced product designer that makes complexity feel invisible</h1>
           <p className="hero-body">
-            I use my extensive experience in UX design, communications, and product to understand why and act strategically. In a world where virtually anyone can build, the decisions that save you money long term are getting to the need as fast as possible.
+            In a world where anyone can ship, the costliest mistake is shipping the wrong thing. I use design, research, and product strategy to get to the real need fast
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>
