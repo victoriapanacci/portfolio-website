@@ -19,13 +19,9 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <p className="pill pill--eyebrow">Victoria Panacci, Senior Product Designer</p>
-          <h1>
-            I make complexity <br />
-            feel invisible
-          </h1>
+          <h1>Experienced product designer that makes complexity feel invisible</h1>
           <p className="hero-body">
-            I&apos;m a senior product designer in Toronto who turns complex, data-heavy workflows into products that feel simple, working across gaming, clinical technology, and consumer software from early discovery through shipped product.
+            In a world where anyone can ship, the costliest mistake is shipping the wrong thing. I use design, research, and product strategy to get to the real need fast
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>
