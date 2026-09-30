@@ -388,11 +388,11 @@ export const projects: Project[] = [
       intro:
         'The whole brief was one sentence: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. When I asked what better meant, the answer was “just do it.” So the first job was deciding what better meant. My answer: a user should never wonder whether their money moved.',
       problem: {
-        lead: 'The cashier lived inside Fortris. Users left our product, walked a four-step wizard against a 30-minute timer, and copied a one-time address by hand. Every step asked for trust and gave nothing back. Nobody in house owned it, so nobody could fix it.',
+        lead: 'The cashier was a Fortris iframe dropped into our account page. Users picked a “wallet” that was really a coin, typed a dollar amount under a red warning that the wrong network would lose their money, then copied a one-time address by hand. Redeeming ran through a second vendor’s ID check with a button that said “click this when finished.” Every step asked for trust and gave nothing back. Nobody in house owned it, so nobody could fix it.',
         points: [
           {
             title: 'A vendor flow we could not touch',
-            body: 'Every transaction ran on Fortris screens. Any fix was a vendor ticket. In house was the only way to own errors and measure anything.',
+            body: 'Every transaction ran on Fortris screens inside our shell, in their monospace type and their copy. Any fix was a vendor ticket. In house was the only way to own errors and measure anything.',
           },
           {
             title: 'Two weeks, a PM new to crypto, and a second project',
@@ -400,11 +400,11 @@ export const projects: Project[] = [
           },
         ],
         media: {
-          src: '/work/cashier/before-fortris-deposit.png',
-          alt: 'Three screens from the Fortris deposit flow: USD amount entry with preset chips, a timed one-time address step, and a QR code scan step with an Open Bitcoin Wallet button.',
-          eyebrow: 'Current state · Fortris deposit flow',
+          src: '/work/cashier/before-cashier.png',
+          alt: 'Four screens from the vendor cashier as it sat inside the account page: the account hub with Buy Coins and Redeem Cash, a Choose Your Wallet grid of six coins, a Deposit Using Bitcoin form with a red network warning, and a Document ID Verification iframe on the redeem path.',
+          eyebrow: 'Current state · the vendor cashier inside our account page',
           caption:
-            'Three of the four vendor steps: pick an amount, wait on a timed one-time address, scan a QR code into a separate wallet app. Every step is a place to make a mistake, and none of it was ours.',
+            'Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks. None of it was ours to change.',
           variant: 'bleed',
         },
       },
