@@ -34,15 +34,35 @@ export function CaseStudy({ project }: { project: Project }) {
             <p className="cs-section__lead cs-section__lead--wide">
               {cs.solution.lead}
             </p>
-            <ol className="cs-principles">
-              {cs.solution.principles.map((p, i) => (
-                <li key={p.title} className="cs-principle reveal-on-scroll">
-                  <span className="cs-principle__num">{`0${i + 1}`}</span>
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </li>
-              ))}
-            </ol>
+            {cs.solution.principles.some((p) => p.media) ? (
+              <ol className="cs-decisions">
+                {cs.solution.principles.map((p, i) => (
+                  <li key={p.title} className="cs-decision reveal-on-scroll">
+                    <div className="cs-decision__copy">
+                      <span className="cs-decision__num">{`0${i + 1}`}</span>
+                      <h3>{p.title}</h3>
+                      <p>{p.body}</p>
+                    </div>
+                    {p.media ? (
+                      <CaseStudyMedia
+                        media={p.media}
+                        className="cs-decision__media"
+                      />
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <ol className="cs-principles">
+                {cs.solution.principles.map((p, i) => (
+                  <li key={p.title} className="cs-principle reveal-on-scroll">
+                    <span className="cs-principle__num">{`0${i + 1}`}</span>
+                    <h3>{p.title}</h3>
+                    <p>{p.body}</p>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         ) : (
           <div className="cs-solution">
@@ -107,6 +127,23 @@ export function CaseStudy({ project }: { project: Project }) {
       </section>
     </>
   )
+
+  const pivotSection = cs.pivot ? (
+    <section className="cs-section shell">
+      <div className="cs-kicker">
+        <span>{cs.pivot.kicker}</span>
+        <i />
+      </div>
+      <div className="cs-pivot reveal-on-scroll">
+        {(Array.isArray(cs.pivot.body) ? cs.pivot.body : [cs.pivot.body]).map(
+          (para) => (
+            <p key={para}>{para}</p>
+          ),
+        )}
+      </div>
+      <CaseStudyMediaGroup media={cs.pivot.media} />
+    </section>
+  ) : null
 
   return (
     <article className="cs">
@@ -188,6 +225,9 @@ export function CaseStudy({ project }: { project: Project }) {
       </section>
 
       {cs.researchFirst ? discoverySection : solutionSection}
+
+      {/* Pivot (optional) */}
+      {pivotSection}
 
       {/* Process (optional) */}
       {cs.process ? (

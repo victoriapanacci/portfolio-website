@@ -52,11 +52,21 @@ export type CaseStudy = {
     lead: string
     /** Checklist rows. Used when a media artifact accompanies the solution. */
     points?: string[]
-    /** Bold, numbered principle cards. Used when there is no media artifact. */
-    principles?: { title: string; body: string }[]
+    /**
+     * Bold, numbered principle cards. Used when there is no media artifact.
+     * Give a principle its own `media` to render every principle as a row
+     * with its proof artifact beside it.
+     */
+    principles?: { title: string; body: string; media?: CaseStudyImage }[]
     media?: CaseStudyImage | CaseStudyImage[]
     /** Interactive prototype embedded as the solution centerpiece. */
     prototype?: CaseStudyPrototype
+  }
+  /** Optional turning-point section rendered between research and solution. */
+  pivot?: {
+    kicker: string
+    body: string | string[]
+    media?: CaseStudyImage | CaseStudyImage[]
   }
   discovery: {
     /** Overrides the default "Four voices…" heading. */
@@ -405,8 +415,8 @@ export const projects: Project[] = [
       },
       researchFirst: true,
       discovery: {
-        heading: { lead: 'The address field was where ', em: 'trust broke', tail: '.' },
-        lead: 'I ran a short round of user research before the timeline could swallow it. People did not want to paste a wallet address. They wanted to connect a wallet and be done. Leadership said they did not care and wanted a nice screen. I mapped the redeem journey anyway.',
+        heading: { lead: 'Trust wavered with no indication of what was happening, ', em: 'and when', tail: '.' },
+        lead: 'At this stage of the project, my priority was time to completion. The journey felt linear and I was trying to make it as fast as possible. My intent was to preserve some of the standard state to retain user familiarity.',
         media: {
           src: '/work/cashier/journey-map-redeem.png',
           alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
@@ -422,65 +432,68 @@ export const projects: Project[] = [
             title: 'Redemption is the retention moment',
             body: 'Deposit gets a user in. Redeem decides whether they come back. A failed withdrawal reads as theft, not a bug, and half our users were new to crypto.',
           },
-          {
-            title: 'My first pass missed the wallet integration',
-            body: 'Under timeline pressure I built the first flow on the vendor’s manual model. Validation showed the wallet connection was the whole point, so I redid it.',
-          },
         ],
+      },
+      pivot: {
+        kicker: 'The revelation in the middle of work',
+        body: 'When running user research on my first-pass prototype, I hit a bit of a revelation: users did not want to manually enter a wallet, and breaking up the flow lost them. Several users suggested connecting their existing wallets instead. That ended up being the glaringly obvious solution.',
+        media: {
+          src: '/work/cashier/flow-wallet-connected.png',
+          alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
+          caption:
+            'The flow after that round. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
+        },
       },
       solution: {
         heading: { lead: 'Trust at ', em: 'every step', tail: ', from wallet to confirmation.' },
-        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. This was 0→1, but it was also functional UI: every state a transaction can be in got a screen that answers “what just happened?” Four decisions carried it, each with an artifact below.',
+        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. This was 0→1, but it was also functional UI: every state a transaction can be in got a screen that answers “what just happened?” Four decisions carried it, each shown with the screen that proves it.',
         principles: [
           {
             title: 'Make mistakes hard: wallet first',
-            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives. Proof: the corrected flow below.',
+            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives, not the default.',
+            media: {
+              src: '/work/cashier/deck-wallet-first.png',
+              alt: 'Design review slide showing the wallet picker with MetaMask connected and three annotations: making it hard to make a mistake, manual override still available, state change at completion.',
+              caption: 'The wallet picker as I presented it to leadership. The manual link stays, but it is no longer the first thing you see.',
+              variant: 'bleed',
+            },
           },
           {
             title: 'No surprises: the net amount before anything moves',
-            body: 'The review sheet lists the fee, what arrives, and when. Nothing moves until the user confirms in their wallet. Proof: the hero.',
+            body: 'The review sheet lists the fee, what arrives, and when. Nothing moves until the user confirms in their wallet. If the amount plus fee exceeds the balance, the form says so in place and explains what MAX will send.',
+            media: {
+              src: '/work/cashier/decision-review.png',
+              alt: 'Two screens: the withdrawal review sheet listing fee, amount received, and arrival time with a note that nothing moves until confirmed in the wallet, and the amount form showing an inline error that the amount plus network fee exceeds the balance.',
+              caption: 'Review sheet and the insufficient-balance state. Same numbers in both places, so the user never meets a fee for the first time after the fact.',
+              variant: 'bleed',
+            },
           },
           {
             title: 'Never silent: feedback while money is in flight',
-            body: 'Pending shows a live confirmation count and an explorer link, never a spinner. Latency is out of our control. Silence is not. Proof: the pending states.',
+            body: 'Pending shows a live confirmation count and an explorer link, never a spinner. Latency is out of our control. Silence is not.',
+            media: {
+              src: '/work/cashier/decision-inflight.png',
+              alt: 'Two screens: the withdrawal-on-its-way state showing pending with one of three confirmations and a transaction link, and a slow-network state reading Confirming 1 of 3, taking longer than usual, funds are safe, view on blockchain.',
+              caption: 'Pending, and pending for longer than expected. Both states show the confirmation count and a link to verify on chain.',
+              variant: 'bleed',
+            },
           },
           {
             title: 'Failure is a state, not an error message',
-            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen that restates the facts and offers confirm or revert. Proof: the failure board.',
-          },
-        ],
-        media: [
-          {
-            src: '/work/cashier/flow-wallet-connected.png',
-            alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
-            caption:
-              'The flow after validation. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
-          },
-          {
-            src: '/work/cashier/deck-wallet-first.png',
-            alt: 'Design review slide titled What This Looks Like, showing the wallet picker with MetaMask connected and three annotations: making it hard to make a mistake, manual override still available, state change at completion.',
-            caption:
-              'The wallet picker as I presented it to leadership. The manual link stays, but it is no longer the first thing you see.',
-            variant: 'bleed',
-          },
-          {
-            src: '/work/cashier/deck-happy-path.png',
-            alt: 'Design review slide showing the withdrawal form, review sheet, and pending state, annotated with verifiability at every step and feedback while money is in flight.',
-            variant: 'bleed',
-          },
-          {
-            src: '/work/cashier/deck-failures.png',
-            alt: 'Design review slide titled Things Go Wrong, showing three failure states: user cancels in wallet, user has insufficient funds, and the network is taking a long time.',
-            caption:
-              'Three failures, three screens. Each one restates the most important information, shows that the status changed, and gives a way to confirm or revert.',
-            variant: 'bleed',
+            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen that restates the facts and offers confirm or revert.',
+            media: {
+              src: '/work/cashier/deck-failures.png',
+              alt: 'Design review slide titled Things Go Wrong, showing three failure states: user cancels in wallet, user has insufficient funds, and the network is taking a long time.',
+              caption: 'Three failures, three screens. Each one restates the most important information, shows that the status changed, and gives a way to confirm or revert.',
+              variant: 'bleed',
+            },
           },
         ],
       },
       metrics: [
         { value: '4', label: 'wallet integrations at handoff, MetaMask first' },
         { value: '3 taps', label: 'for a repeat withdrawal, amount to wallet approval' },
-        { value: '2 wks', label: 'from a one-line brief to handoff' },
+        { value: '3', label: 'failure states designed before the happy path shipped' },
         { value: '0', label: 'production data. Handed off complete, launch unconfirmed' },
       ],
       outcomesHeading: { lead: 'Handed off ', em: 'complete', tail: '. Launch unconfirmed.' },

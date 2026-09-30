@@ -1325,6 +1325,72 @@ h2 em {
   line-height: 1.7;
 }
 
+/* Decisions — each principle sits beside the artifact that proves it */
+.cs-decisions {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.cs-decision {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: start;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cs-decision__copy {
+  position: sticky;
+  top: 96px;
+}
+.cs-decision__num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 46px;
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: -0.03em;
+  margin-bottom: 22px;
+}
+.cs-decision h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 0 0 14px;
+  color: #f5e7de;
+  max-width: 420px;
+}
+.cs-decision p {
+  margin: 0;
+  color: #c8bdb8;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 460px;
+}
+.cs-decision .cs-decision__media {
+  margin: 0;
+}
+
+/* Pivot — the turning point, set as a single pull paragraph */
+.cs-pivot {
+  padding: 8px 0 0 32px;
+  border-left: 2px solid var(--rose);
+  max-width: 900px;
+}
+.cs-pivot p {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: #eadfd8;
+  margin: 0;
+}
+.cs-pivot p + p {
+  margin-top: 18px;
+}
+
 /* Shared hover lift for content cards, so the page feels crafted, not static */
 .cs-finding,
 .cs-objective,
@@ -1472,6 +1538,9 @@ h2 em {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+}
+.cs-media + .cs-findings {
+  margin-top: 48px;
 }
 .cs-finding {
   display: flex;
@@ -1878,6 +1947,17 @@ h2 em {
   }
   .cs-principles {
     grid-template-columns: 1fr;
+  }
+  .cs-decision {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 40px 0;
+  }
+  .cs-decision__copy {
+    position: static;
+  }
+  .cs-pivot {
+    padding-left: 20px;
   }
   .cs-metric {
     padding: 40px 18px;
