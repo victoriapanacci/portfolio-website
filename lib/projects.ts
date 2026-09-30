@@ -440,7 +440,7 @@ export const projects: Project[] = [
         principles: [
           {
             title: 'Make mistakes hard: wallet first',
-            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives. Proof: the two flows below.',
+            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives. Proof: the corrected flow below.',
           },
           {
             title: 'No surprises: the net amount before anything moves',
@@ -457,18 +457,11 @@ export const projects: Project[] = [
         ],
         media: [
           {
-            src: '/work/cashier/flow-first-pass.png',
-            alt: 'First-pass flowchart: select deposit or withdraw, choose a coin, enter an amount, complete the transaction manually, with a KYC branch on withdraw.',
-            eyebrow: 'Flow · first pass, built on the vendor’s manual model',
-            caption:
-              'What I drew before validation. The wallet never appears. Placeholder export, higher-resolution version to follow.',
-          },
-          {
             src: '/work/cashier/flow-wallet-connected.png',
             alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
-            eyebrow: 'Flow · corrected, wallet connected',
+            eyebrow: 'Flow · wallet connected',
             caption:
-              'The redo. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
+              'The flow after validation. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
           },
           {
             src: '/work/cashier/deck-wallet-first.png',
@@ -497,7 +490,7 @@ export const projects: Project[] = [
       metrics: [
         { value: '4', label: 'wallet integrations at handoff, MetaMask first' },
         { value: '3 taps', label: 'for a repeat withdrawal, amount to wallet approval' },
-        { value: 'TBD', label: 'time to transact and error rate, measured in testing, numbers to follow' },
+        { value: '2 wks', label: 'from a one-line brief to handoff' },
         { value: '0', label: 'production data. Handed off complete, launch unconfirmed' },
       ],
       outcomesHeading: { lead: 'Handed off ', em: 'complete', tail: '. Launch unconfirmed.' },
