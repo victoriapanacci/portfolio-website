@@ -465,10 +465,10 @@ export const projects: Project[] = [
           },
           {
             src: '/work/cashier/flow-wallet-connected.png',
-            alt: 'Corrected flowchart: purchase or redeem, payment selection, a KYC gate on redeem, two-factor authentication, then the in-house cashier and confirmation screen.',
+            alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
             eyebrow: 'Flow · corrected, wallet connected',
             caption:
-              'The redo. Redeem passes a KYC gate and two-factor check before the connected wallet takes over. Placeholder export, higher-resolution version to follow.',
+              'The redo. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
           },
           {
             src: '/work/cashier/deck-wallet-first.png',
