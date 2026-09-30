@@ -1328,6 +1328,25 @@ h2 em {
   line-height: 1.7;
 }
 
+/* Media grid — several small artifacts side by side under one caption */
+.cs-media-grid {
+  margin: 48px 0 0;
+}
+.cs-media-grid__items {
+  display: grid;
+  grid-template-columns: repeat(var(--cs-media-cols, 2), minmax(0, 1fr));
+  gap: 20px;
+}
+.cs-media-grid .cs-media {
+  margin: 0;
+}
+.cs-media-grid .cs-media__frame {
+  border-radius: 12px;
+}
+.cs-media-grid .cs-media__img {
+  border-radius: 11px;
+}
+
 /* Decisions — each principle sits beside the artifact that proves it */
 .cs-decisions {
   list-style: none;
@@ -1955,6 +1974,10 @@ h2 em {
     grid-template-columns: 1fr;
     gap: 28px;
     padding: 40px 0;
+  }
+  .cs-media-grid__items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
   .cs-decision__copy {
     position: static;

@@ -43,6 +43,10 @@ export type CaseStudy = {
     points: { title: string; body: string }[]
     /** Optional artifact(s) shown beneath the problem panels, e.g. the current state. */
     media?: CaseStudyImage | CaseStudyImage[]
+    /** Lay several media items out side by side instead of stacked. */
+    mediaColumns?: 2 | 3 | 4
+    /** One caption for the whole media grid. */
+    mediaCaption?: string
   }
   /** Render the research section before the solution. Use when the insight has to land before the decisions. */
   researchFirst?: boolean
@@ -405,13 +409,31 @@ export const projects: Project[] = [
           'The brief, in total, was: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. The first job was to decide what “better” meant. To me, that was making sure the user never had to wonder whether their money moved.',
         ],
         points: [],
-        media: {
-          src: '/work/cashier/before-cashier.png',
-          alt: 'Four screens from the vendor cashier as it sat inside the account page: the account hub with Buy Coins and Redeem Cash, a Choose Your Wallet grid of six coins, a Deposit Using Bitcoin form with a red network warning, and a Document ID Verification iframe on the redeem path.',
-          caption:
-            'Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks. None of it was ours to change.',
-          variant: 'bleed',
-        },
+        mediaColumns: 4,
+        mediaCaption:
+          'Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks. None of it was ours to change.',
+        media: [
+          {
+            src: '/work/cashier/before-1-account.png',
+            alt: 'Account hub with balances and Buy Coins and Redeem Cash buttons.',
+            variant: 'bleed',
+          },
+          {
+            src: '/work/cashier/before-2-choose-wallet.png',
+            alt: 'Vendor screen titled Choose Your Wallet showing a grid of six coins: BTC, SOL, ETH, USDC, LTC, BCH.',
+            variant: 'bleed',
+          },
+          {
+            src: '/work/cashier/before-3-deposit.png',
+            alt: 'Vendor Deposit Using Bitcoin form with a dollar amount, purchase limits, and a red warning that other networks will lose funds.',
+            variant: 'bleed',
+          },
+          {
+            src: '/work/cashier/before-4-id-verification.png',
+            alt: 'Document ID Verification iframe from a second vendor on the redeem path, with a button reading complete the verification process and click this button when finished.',
+            variant: 'bleed',
+          },
+        ],
       },
       researchFirst: true,
       discovery: {

@@ -46,11 +46,34 @@ export function CaseStudyMedia({
  */
 export function CaseStudyMediaGroup({
   media,
+  columns,
+  caption,
 }: {
   media?: CaseStudyImage | CaseStudyImage[]
+  /** Lay the items out side by side in this many columns. */
+  columns?: 2 | 3 | 4
+  /** One caption beneath the whole grid. */
+  caption?: string
 }) {
   if (!media) return null
   const items = Array.isArray(media) ? media : [media]
+  if (columns && items.length > 1) {
+    return (
+      <figure
+        className="cs-media-grid reveal-on-scroll"
+        style={{ '--cs-media-cols': columns } as React.CSSProperties}
+      >
+        <div className="cs-media-grid__items">
+          {items.map((m) => (
+            <CaseStudyMedia key={m.src} media={m} />
+          ))}
+        </div>
+        {caption ? (
+          <figcaption className="cs-media__caption">{caption}</figcaption>
+        ) : null}
+      </figure>
+    )
+  }
   return (
     <>
       {items.map((m) => (

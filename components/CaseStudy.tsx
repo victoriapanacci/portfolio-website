@@ -221,7 +221,11 @@ export function CaseStudy({ project }: { project: Project }) {
             ))}
           </div>
         ) : null}
-        <CaseStudyMediaGroup media={cs.problem.media} />
+        <CaseStudyMediaGroup
+          media={cs.problem.media}
+          columns={cs.problem.mediaColumns}
+          caption={cs.problem.mediaCaption}
+        />
       </section>
 
       {cs.researchFirst ? discoverySection : solutionSection}
