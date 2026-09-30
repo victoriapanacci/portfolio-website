@@ -37,7 +37,11 @@ export type CaseStudy = {
   problem: {
     lead: string
     points: { title: string; body: string }[]
+    /** Optional artifact(s) shown beneath the problem panels, e.g. the current state. */
+    media?: CaseStudyImage | CaseStudyImage[]
   }
+  /** Render the research section before the solution. Use when the insight has to land before the decisions. */
+  researchFirst?: boolean
   solution: {
     /** Overrides the default "Meet DribbleCollect." heading. */
     heading?: CaseStudyHeading
@@ -361,11 +365,173 @@ export const projects: Project[] = [
   {
     slug: 'cashier',
     index: '03',
-    title: 'Designing Trust Into Every Transaction',
-    category: 'Sportsbook & Casino',
+    title: 'Turning a One-Line Brief Into a Wallet-First Crypto Cashier',
+    category: 'Sportsbook & Casino / Crypto Payments',
     description:
-      'Reimagining the cashier experience to drive trust, conversion, and loyalty in a high-stakes environment.',
+      'A sportsbook ran crypto deposits and withdrawals through a third-party cashier. In two weeks I designed an in-house replacement that connects a wallet instead of asking users to paste an address.',
     art: 'cashier',
+    caseStudy: {
+      summary:
+        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement that connects a wallet instead of asking users to paste an address. Handed off complete. I was let go before launch, so production results are unknown.',
+      meta: [
+        { label: 'Role', value: 'Senior Product Designer' },
+        { label: 'Team', value: '1 Designer, 1 PM, Leadership' },
+        { label: 'Tools', value: 'Figma, Claude, Paper.io, GitHub' },
+        { label: 'Timeline', value: '2 Weeks to Handoff' },
+      ],
+      heroMedia: {
+        src: '/work/cashier/hero-withdraw.png',
+        alt: 'Two screens from the new withdrawal flow: the amount form with a saved MetaMask wallet, and the review sheet showing fee, amount received, and arrival time.',
+        eyebrow: 'New withdrawal flow, at handoff',
+        variant: 'bleed',
+      },
+      intro:
+        'The whole brief was one sentence: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. When I asked what better meant, the answer was “just do it.” So the first job was finding the problem.',
+      problem: {
+        lead: 'The cashier lived inside Fortris. Users left our product, walked a four-step wizard against a 30-minute timer, and copied a one-time address by hand. Nobody in house owned it, so nobody could fix it.',
+        points: [
+          {
+            title: 'A vendor flow we could not touch',
+            body: 'Every transaction ran on Fortris screens. Any fix was a vendor ticket. In house was the only way to own errors and measure anything.',
+          },
+          {
+            title: 'Two weeks, a PM new to crypto, and a second project',
+            body: 'Leadership wanted screens fast and said research could wait. My PM was learning crypto alongside me. I was also building Approvely, a package tool on the CRM. Nothing was fixed except the deadline.',
+          },
+        ],
+        media: {
+          src: '/work/cashier/before-fortris-deposit.png',
+          alt: 'Three screens from the Fortris deposit flow: USD amount entry with preset chips, a timed one-time address step, and a QR code scan step with an Open Bitcoin Wallet button.',
+          eyebrow: 'Current state · Fortris deposit flow',
+          caption:
+            'Three of the four vendor steps: pick an amount, wait on a timed one-time address, scan a QR code into a separate wallet app. Every step is a place to make a mistake, and none of it was ours.',
+          variant: 'bleed',
+        },
+      },
+      researchFirst: true,
+      discovery: {
+        heading: { lead: 'The address field was the ', em: 'real problem', tail: '.' },
+        lead: 'I ran a short round of user research before the timeline could swallow it. People did not want to paste a wallet address. They wanted to connect a wallet and be done. Leadership said they did not care and wanted a nice screen. I mapped the redeem journey anyway.',
+        media: {
+          src: '/work/cashier/journey-map-redeem.png',
+          alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
+          eyebrow: 'Journey map · redeeming through the vendor flow',
+          caption:
+            'The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them. Placeholder export, higher-resolution version to follow.',
+        },
+        findings: [
+          {
+            title: 'Manual address entry is where mistakes happen',
+            body: 'A pasted address has no undo. The map shows confusion at the network step and a give-up mid-transaction.',
+          },
+          {
+            title: 'Redemption is the retention moment',
+            body: 'Deposit gets a user in. Redeem decides whether they come back. A failed withdrawal reads as theft, not a bug.',
+          },
+          {
+            title: 'My first pass missed the wallet integration',
+            body: 'Under timeline pressure I built the first flow on the vendor’s manual model. Validation showed the wallet connection was the whole point, so I redid it.',
+          },
+        ],
+      },
+      solution: {
+        heading: { lead: 'Connect the wallet, then ', em: 'get out of the way', tail: '.' },
+        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. Four decisions carried the design, each with an artifact below.',
+        principles: [
+          {
+            title: 'Wallet-first entry, manual as override',
+            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives. Proof: the two flows below.',
+          },
+          {
+            title: 'Show the net amount before anything moves',
+            body: 'The review sheet lists the fee, what arrives, and when. Nothing moves until the user confirms in their wallet. Proof: the hero.',
+          },
+          {
+            title: 'Feedback while money is in flight',
+            body: 'Pending shows a live confirmation count and an explorer link, never a spinner. Latency is out of our control. Silence is not. Proof: the pending states.',
+          },
+          {
+            title: 'Design the failures first',
+            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen with a way to confirm or revert. Proof: the failure board.',
+          },
+        ],
+        media: [
+          {
+            src: '/work/cashier/flow-first-pass.png',
+            alt: 'First-pass flowchart: select deposit or withdraw, choose a coin, enter an amount, complete the transaction manually, with a KYC branch on withdraw.',
+            eyebrow: 'Flow · first pass, built on the vendor’s manual model',
+            caption:
+              'What I drew before validation. The wallet never appears. Placeholder export, higher-resolution version to follow.',
+          },
+          {
+            src: '/work/cashier/flow-wallet-connected.png',
+            alt: 'Corrected flowchart: purchase or redeem, payment selection, a KYC gate on redeem, two-factor authentication, then the in-house cashier and confirmation screen.',
+            eyebrow: 'Flow · corrected, wallet connected',
+            caption:
+              'The redo. Redeem passes a KYC gate and two-factor check before the connected wallet takes over. Placeholder export, higher-resolution version to follow.',
+          },
+          {
+            src: '/work/cashier/deck-wallet-first.png',
+            alt: 'Design review slide titled What This Looks Like, showing the wallet picker with MetaMask connected and three annotations: making it hard to make a mistake, manual override still available, state change at completion.',
+            eyebrow: 'Review deck · wallet-first entry',
+            caption:
+              'The wallet picker as I presented it to leadership. The manual link stays, but it is no longer the first thing you see.',
+            variant: 'bleed',
+          },
+          {
+            src: '/work/cashier/deck-happy-path.png',
+            alt: 'Design review slide showing the withdrawal form, review sheet, and pending state, annotated with verifiability at every step and feedback while money is in flight.',
+            eyebrow: 'Review deck · verifiability and in-flight feedback',
+            variant: 'bleed',
+          },
+          {
+            src: '/work/cashier/deck-failures.png',
+            alt: 'Design review slide titled Things Go Wrong, showing three failure states: user cancels in wallet, user has insufficient funds, and the network is taking a long time.',
+            eyebrow: 'Review deck · things go wrong',
+            caption:
+              'Three failures, three screens. Each one restates the most important information, shows that the status changed, and gives a way to confirm or revert.',
+            variant: 'bleed',
+          },
+        ],
+      },
+      metrics: [
+        { value: '4', label: 'wallet integrations at handoff, MetaMask first' },
+        { value: '3 taps', label: 'for a repeat withdrawal, amount to wallet approval' },
+        { value: 'TBD', label: 'time to transact and error rate, measured in testing, numbers to follow' },
+        { value: '0', label: 'production data. Handed off complete, launch unconfirmed' },
+      ],
+      outcomesHeading: { lead: 'Handed off ', em: 'complete', tail: '. Launch unconfirmed.' },
+      outcomes: [
+        {
+          objective: 'What shipped to handoff',
+          points: [
+            'BTC deposit and withdrawal, wallet-first with a manual override.',
+            'Four wallets: MetaMask, Coinbase Wallet, WalletConnect, Phantom.',
+            'ID verification and a KYC gate on redeem.',
+            'Every failure state designed, not just the happy path.',
+          ],
+        },
+        {
+          objective: 'What I can and cannot claim',
+          points: [
+            'Clicks and time to transact were tested on prototypes, not in production. Error rate I could design for, not prove.',
+            'I was let go after handoff. I do not know whether it launched, and I would rather say that than invent a number.',
+          ],
+        },
+      ],
+      outcomesMedia: {
+        src: '/work/cashier/handoff-flow-map.png',
+        alt: 'Flow map of the handoff build: account hub, wallet picker, deposit screens with QR code, and the ID verification and redeem screens, connected with arrows.',
+        eyebrow: 'Handoff · full flow map',
+        caption:
+          'Deposit, ID verification, and redeem, connected end to end. Placeholder export, higher-resolution version to follow.',
+        variant: 'bleed',
+      },
+      learnings: [
+        'Push back harder when research gets cut. The research I did anyway caught the missed wallet integration. Doing it first would have saved the rework.',
+        'Get the metrics into production before handoff. A number nobody can see after you leave is a number that never existed.',
+      ],
+    },
   },
   {
     slug: 'system',

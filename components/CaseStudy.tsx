@@ -20,6 +20,94 @@ export function CaseStudy({ project }: { project: Project }) {
     </>
   )
 
+  const solutionSection = (
+    <>
+      {/* Solution */}
+      <section className="cs-section shell">
+        <div className="cs-kicker">
+          <span>The solution</span>
+          <i />
+        </div>
+        {cs.solution.principles ? (
+          <div className="cs-principles-block">
+            <h2 className="cs-h2">{solutionHeading}</h2>
+            <p className="cs-section__lead cs-section__lead--wide">
+              {cs.solution.lead}
+            </p>
+            <ol className="cs-principles">
+              {cs.solution.principles.map((p, i) => (
+                <li key={p.title} className="cs-principle reveal-on-scroll">
+                  <span className="cs-principle__num">{`0${i + 1}`}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : (
+          <div className="cs-solution">
+            <h2 className="cs-h2">{solutionHeading}</h2>
+            <div>
+              <p className="cs-section__lead">{cs.solution.lead}</p>
+              <ul className="cs-check-list">
+                {(cs.solution.points ?? []).map((point) => (
+                  <li key={point} className="reveal-on-scroll">
+                    <span className="cs-check" aria-hidden="true">
+                      →
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+        {cs.solution.prototype ? (
+          <CaseStudyPrototype prototype={cs.solution.prototype} />
+        ) : null}
+        <CaseStudyMediaGroup media={cs.solution.media} />
+      </section>
+    </>
+  )
+
+  const discoverySection = (
+    <>
+      {/* Discovery */}
+      <section className="cs-section shell">
+        <div className="cs-kicker">
+          <span>The research</span>
+          <i />
+        </div>
+        <h2 className="cs-h2">
+          {cs.discovery.heading ? (
+            <>
+              {cs.discovery.heading.lead}
+              <em>{cs.discovery.heading.em}</em>
+              {cs.discovery.heading.tail}
+            </>
+          ) : (
+            <>
+              Four voices, one <em>fragile chain</em> of data
+            </>
+          )}
+        </h2>
+        <p className="cs-section__lead">{cs.discovery.lead}</p>
+        <CaseStudyMediaGroup media={cs.discovery.media} />
+        <div className="cs-findings">
+          {cs.discovery.findings.map((f, i) => (
+            <div key={f.title} className="cs-finding reveal-on-scroll">
+              <span className="cs-finding__num">{`0${i + 1}`}</span>
+              <div>
+                <h3>{f.title}</h3>
+                <p>{f.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  )
+
   return (
     <article className="cs">
       {/* Breadcrumb back link */}
@@ -85,53 +173,10 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
+        <CaseStudyMediaGroup media={cs.problem.media} />
       </section>
 
-      {/* Solution */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>The solution</span>
-          <i />
-        </div>
-        {cs.solution.principles ? (
-          <div className="cs-principles-block">
-            <h2 className="cs-h2">{solutionHeading}</h2>
-            <p className="cs-section__lead cs-section__lead--wide">
-              {cs.solution.lead}
-            </p>
-            <ol className="cs-principles">
-              {cs.solution.principles.map((p, i) => (
-                <li key={p.title} className="cs-principle reveal-on-scroll">
-                  <span className="cs-principle__num">{`0${i + 1}`}</span>
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        ) : (
-          <div className="cs-solution">
-            <h2 className="cs-h2">{solutionHeading}</h2>
-            <div>
-              <p className="cs-section__lead">{cs.solution.lead}</p>
-              <ul className="cs-check-list">
-                {(cs.solution.points ?? []).map((point) => (
-                  <li key={point} className="reveal-on-scroll">
-                    <span className="cs-check" aria-hidden="true">
-                      →
-                    </span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-        {cs.solution.prototype ? (
-          <CaseStudyPrototype prototype={cs.solution.prototype} />
-        ) : null}
-        <CaseStudyMediaGroup media={cs.solution.media} />
-      </section>
+      {cs.researchFirst ? discoverySection : solutionSection}
 
       {/* Process (optional) */}
       {cs.process ? (
@@ -152,39 +197,7 @@ export function CaseStudy({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      {/* Discovery */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>The research</span>
-          <i />
-        </div>
-        <h2 className="cs-h2">
-          {cs.discovery.heading ? (
-            <>
-              {cs.discovery.heading.lead}
-              <em>{cs.discovery.heading.em}</em>
-              {cs.discovery.heading.tail}
-            </>
-          ) : (
-            <>
-              Four voices, one <em>fragile chain</em> of data
-            </>
-          )}
-        </h2>
-        <p className="cs-section__lead">{cs.discovery.lead}</p>
-        <CaseStudyMediaGroup media={cs.discovery.media} />
-        <div className="cs-findings">
-          {cs.discovery.findings.map((f, i) => (
-            <div key={f.title} className="cs-finding reveal-on-scroll">
-              <span className="cs-finding__num">{`0${i + 1}`}</span>
-              <div>
-                <h3>{f.title}</h3>
-                <p>{f.body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {cs.researchFirst ? solutionSection : discoverySection}
 
       {/* Objectives (optional) */}
       {cs.objectives ? (
