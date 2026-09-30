@@ -365,14 +365,14 @@ export const projects: Project[] = [
   {
     slug: 'cashier',
     index: '03',
-    title: 'Turning a One-Line Brief Into a Wallet-First Crypto Cashier',
-    category: 'Sportsbook & Casino / Crypto Payments',
+    title: 'Designing Trust Into Every Step of a Crypto Transaction',
+    category: 'Sportsbook / Crypto Payments / 0→1',
     description:
-      'A sportsbook ran crypto deposits and withdrawals through a third-party cashier. In two weeks I designed an in-house replacement that connects a wallet instead of asking users to paste an address.',
+      'A one-line brief, two weeks, and a vendor cashier nobody trusted. I designed an in-house crypto cashier from zero, with every state built to answer one question: did my money move?',
     art: 'cashier',
     caseStudy: {
       summary:
-        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement that connects a wallet instead of asking users to paste an address. Handed off complete. I was let go before launch, so production results are unknown.',
+        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement from zero, built so a user knows where their money is at every step. Handed off complete. I was let go before launch, so production results are unknown.',
       meta: [
         { label: 'Role', value: 'Senior Product Designer' },
         { label: 'Team', value: '1 Designer, 1 PM, Leadership' },
@@ -386,9 +386,9 @@ export const projects: Project[] = [
         variant: 'bleed',
       },
       intro:
-        'The whole brief was one sentence: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. When I asked what better meant, the answer was “just do it.” So the first job was finding the problem.',
+        'The whole brief was one sentence: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. When I asked what better meant, the answer was “just do it.” So the first job was deciding what better meant. My answer: a user should never wonder whether their money moved.',
       problem: {
-        lead: 'The cashier lived inside Fortris. Users left our product, walked a four-step wizard against a 30-minute timer, and copied a one-time address by hand. Nobody in house owned it, so nobody could fix it.',
+        lead: 'The cashier lived inside Fortris. Users left our product, walked a four-step wizard against a 30-minute timer, and copied a one-time address by hand. Every step asked for trust and gave nothing back. Nobody in house owned it, so nobody could fix it.',
         points: [
           {
             title: 'A vendor flow we could not touch',
@@ -410,7 +410,7 @@ export const projects: Project[] = [
       },
       researchFirst: true,
       discovery: {
-        heading: { lead: 'The address field was the ', em: 'real problem', tail: '.' },
+        heading: { lead: 'The address field was where ', em: 'trust broke', tail: '.' },
         lead: 'I ran a short round of user research before the timeline could swallow it. People did not want to paste a wallet address. They wanted to connect a wallet and be done. Leadership said they did not care and wanted a nice screen. I mapped the redeem journey anyway.',
         media: {
           src: '/work/cashier/journey-map-redeem.png',
@@ -426,7 +426,7 @@ export const projects: Project[] = [
           },
           {
             title: 'Redemption is the retention moment',
-            body: 'Deposit gets a user in. Redeem decides whether they come back. A failed withdrawal reads as theft, not a bug.',
+            body: 'Deposit gets a user in. Redeem decides whether they come back. A failed withdrawal reads as theft, not a bug, and half our users were new to crypto.',
           },
           {
             title: 'My first pass missed the wallet integration',
@@ -435,24 +435,24 @@ export const projects: Project[] = [
         ],
       },
       solution: {
-        heading: { lead: 'Connect the wallet, then ', em: 'get out of the way', tail: '.' },
-        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. Four decisions carried the design, each with an artifact below.',
+        heading: { lead: 'Trust at ', em: 'every step', tail: ', from wallet to confirmation.' },
+        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. This was 0→1, but it was also functional UI: every state a transaction can be in got a screen that answers “what just happened?” Four decisions carried it, each with an artifact below.',
         principles: [
           {
-            title: 'Wallet-first entry, manual as override',
+            title: 'Make mistakes hard: wallet first',
             body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives. Proof: the two flows below.',
           },
           {
-            title: 'Show the net amount before anything moves',
+            title: 'No surprises: the net amount before anything moves',
             body: 'The review sheet lists the fee, what arrives, and when. Nothing moves until the user confirms in their wallet. Proof: the hero.',
           },
           {
-            title: 'Feedback while money is in flight',
+            title: 'Never silent: feedback while money is in flight',
             body: 'Pending shows a live confirmation count and an explorer link, never a spinner. Latency is out of our control. Silence is not. Proof: the pending states.',
           },
           {
-            title: 'Design the failures first',
-            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen with a way to confirm or revert. Proof: the failure board.',
+            title: 'Failure is a state, not an error message',
+            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen that restates the facts and offers confirm or revert. Proof: the failure board.',
           },
         ],
         media: [
