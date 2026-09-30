@@ -417,7 +417,7 @@ export const projects: Project[] = [
           alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
           eyebrow: 'Journey map · redeeming through the vendor flow',
           caption:
-            'The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them. Placeholder export, higher-resolution version to follow.',
+            'The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them.',
         },
         findings: [
           {
