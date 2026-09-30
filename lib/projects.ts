@@ -33,9 +33,13 @@ export type CaseStudy = {
   meta: { label: string; value: string }[]
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
-  intro: string
+  /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
+  intro?: string
   problem: {
-    lead: string
+    /** Overrides the default "The problem" kicker. */
+    kicker?: string
+    /** One paragraph, or several. */
+    lead: string | string[]
     points: { title: string; body: string }[]
     /** Optional artifact(s) shown beneath the problem panels, e.g. the current state. */
     media?: CaseStudyImage | CaseStudyImage[]
@@ -372,7 +376,7 @@ export const projects: Project[] = [
     art: 'cashier',
     caseStudy: {
       summary:
-        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement from zero, built so a user knows where their money is at every step. Handed off complete. I was let go before launch, so production results are unknown.',
+        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement from zero, built so a user knows where their money is at every step.',
       meta: [
         { label: 'Role', value: 'Senior Product Designer' },
         { label: 'Team', value: '1 Designer, 1 PM, Leadership' },
@@ -382,27 +386,18 @@ export const projects: Project[] = [
       heroMedia: {
         src: '/work/cashier/hero-withdraw.png',
         alt: 'Two screens from the new withdrawal flow: the amount form with a saved MetaMask wallet, and the review sheet showing fee, amount received, and arrival time.',
-        eyebrow: 'New withdrawal flow, at handoff',
         variant: 'bleed',
       },
-      intro:
-        'The whole brief was one sentence: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. When I asked what better meant, the answer was “just do it.” So the first job was deciding what better meant. My answer: a user should never wonder whether their money moved.',
       problem: {
-        lead: 'The cashier was a Fortris iframe dropped into our account page. Users picked a “wallet” that was really a coin, typed a dollar amount under a red warning that the wrong network would lose their money, then copied a one-time address by hand. Redeeming ran through a second vendor’s ID check with a button that said “click this when finished.” Every step asked for trust and gave nothing back. Nobody in house owned it, so nobody could fix it.',
-        points: [
-          {
-            title: 'A vendor flow we could not touch',
-            body: 'Every transaction ran on Fortris screens inside our shell, in their monospace type and their copy. Any fix was a vendor ticket. In house was the only way to own errors and measure anything.',
-          },
-          {
-            title: 'Two weeks, a PM new to crypto, and a second project',
-            body: 'Leadership wanted screens fast and said research could wait. My PM was learning crypto alongside me. I was also building Approvely, a package tool on the CRM. Nothing was fixed except the deadline.',
-          },
+        kicker: 'The problem & the brief',
+        lead: [
+          'The current state was a Fortris iframe dropped into an account page. Users picked a “wallet” that was really a coin. Everything had to be typed by hand, hopping between many apps. The most high-stakes part of the transaction, KYC, was dropped randomly in the middle of it. Every step of the way asked for trust, and every step caused uncertainty.',
+          'The brief, in total, was: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. The first job was to decide what “better” meant. To me, that was making sure the user never had to wonder whether their money moved.',
         ],
+        points: [],
         media: {
           src: '/work/cashier/before-cashier.png',
           alt: 'Four screens from the vendor cashier as it sat inside the account page: the account hub with Buy Coins and Redeem Cash, a Choose Your Wallet grid of six coins, a Deposit Using Bitcoin form with a red network warning, and a Document ID Verification iframe on the redeem path.',
-          eyebrow: 'Current state · the vendor cashier inside our account page',
           caption:
             'Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks. None of it was ours to change.',
           variant: 'bleed',
@@ -415,7 +410,6 @@ export const projects: Project[] = [
         media: {
           src: '/work/cashier/journey-map-redeem.png',
           alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
-          eyebrow: 'Journey map · redeeming through the vendor flow',
           caption:
             'The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them.',
         },
@@ -459,14 +453,12 @@ export const projects: Project[] = [
           {
             src: '/work/cashier/flow-wallet-connected.png',
             alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
-            eyebrow: 'Flow · wallet connected',
             caption:
               'The flow after validation. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
           },
           {
             src: '/work/cashier/deck-wallet-first.png',
             alt: 'Design review slide titled What This Looks Like, showing the wallet picker with MetaMask connected and three annotations: making it hard to make a mistake, manual override still available, state change at completion.',
-            eyebrow: 'Review deck · wallet-first entry',
             caption:
               'The wallet picker as I presented it to leadership. The manual link stays, but it is no longer the first thing you see.',
             variant: 'bleed',
@@ -474,13 +466,11 @@ export const projects: Project[] = [
           {
             src: '/work/cashier/deck-happy-path.png',
             alt: 'Design review slide showing the withdrawal form, review sheet, and pending state, annotated with verifiability at every step and feedback while money is in flight.',
-            eyebrow: 'Review deck · verifiability and in-flight feedback',
             variant: 'bleed',
           },
           {
             src: '/work/cashier/deck-failures.png',
             alt: 'Design review slide titled Things Go Wrong, showing three failure states: user cancels in wallet, user has insufficient funds, and the network is taking a long time.',
-            eyebrow: 'Review deck · things go wrong',
             caption:
               'Three failures, three screens. Each one restates the most important information, shows that the status changed, and gives a way to confirm or revert.',
             variant: 'bleed',

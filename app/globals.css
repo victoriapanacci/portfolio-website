@@ -1192,6 +1192,9 @@ h2 em {
   max-width: 640px;
   margin: 0 0 40px;
 }
+.cs-section__lead + .cs-section__lead {
+  margin-top: -22px;
+}
 .cs-lede {
   font-family: var(--font-serif);
   font-size: clamp(24px, 2.7vw, 34px);

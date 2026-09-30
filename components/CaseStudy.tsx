@@ -153,26 +153,37 @@ export function CaseStudy({ project }: { project: Project }) {
         </dl>
       </div>
 
-      {/* Intro / lede */}
-      <section className="cs-section shell">
-        <p className="cs-lede reveal-on-scroll">{cs.intro}</p>
-      </section>
+      {/* Intro / lede (optional) */}
+      {cs.intro ? (
+        <section className="cs-section shell">
+          <p className="cs-lede reveal-on-scroll">{cs.intro}</p>
+        </section>
+      ) : null}
 
       {/* Problem */}
       <section className="cs-section shell">
         <div className="cs-kicker">
-          <span>The problem</span>
+          <span>{cs.problem.kicker ?? 'The problem'}</span>
           <i />
         </div>
-        <p className="cs-section__lead">{cs.problem.lead}</p>
-        <div className="cs-two-col">
-          {cs.problem.points.map((p) => (
-            <div key={p.title} className="cs-panel reveal-on-scroll">
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-            </div>
-          ))}
-        </div>
+        {(Array.isArray(cs.problem.lead)
+          ? cs.problem.lead
+          : [cs.problem.lead]
+        ).map((para) => (
+          <p key={para} className="cs-section__lead">
+            {para}
+          </p>
+        ))}
+        {cs.problem.points.length ? (
+          <div className="cs-two-col">
+            {cs.problem.points.map((p) => (
+              <div key={p.title} className="cs-panel reveal-on-scroll">
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
         <CaseStudyMediaGroup media={cs.problem.media} />
       </section>
 
