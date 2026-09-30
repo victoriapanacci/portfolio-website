@@ -519,14 +519,6 @@ export const projects: Project[] = [
           ],
         },
       ],
-      outcomesMedia: {
-        src: '/work/cashier/handoff-flow-map.png',
-        alt: 'Flow map of the handoff build: account hub, wallet picker, deposit screens with QR code, and the ID verification and redeem screens, connected with arrows.',
-        eyebrow: 'Handoff · full flow map',
-        caption:
-          'Deposit, ID verification, and redeem, connected end to end. Placeholder export, higher-resolution version to follow.',
-        variant: 'bleed',
-      },
       learnings: [
         'Push back harder when research gets cut. The research I did anyway caught the missed wallet integration. Doing it first would have saved the rework.',
         'Get the metrics into production before handoff. A number nobody can see after you leave is a number that never existed.',
