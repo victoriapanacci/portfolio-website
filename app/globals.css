@@ -1108,6 +1108,15 @@ h2 em {
 .cs-hero__art {
   position: relative;
 }
+/* Stacked hero: copy on top, artifact full width beneath, like a banner */
+.cs-hero--stacked {
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.cs-hero--stacked .cs-hero__art {
+  width: 100%;
+}
 .cs-hero__art .project-art {
   height: 440px;
   margin: 0;

@@ -43,6 +43,8 @@ export type CaseStudy = {
   meta: { label: string; value: string }[]
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
+  /** 'side' (default) puts the hero art beside the copy; 'stacked' runs it full width beneath. */
+  heroLayout?: 'side' | 'stacked'
   /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
   intro?: string
   problem: {
@@ -414,9 +416,10 @@ export const projects: Project[] = [
         { label: 'Tools', value: 'Figma, Claude, Paper.io, GitHub' },
         { label: 'Timeline', value: '2 weeks to handoff' },
       ],
+      heroLayout: 'stacked',
       heroMedia: {
-        src: '/work/cashier/hero-iphone15.webp',
-        alt: 'Three iPhone 15 frames showing the finished withdrawal flow: the amount form with a saved wallet on the left, the review sheet with fee and net amount in front, and the pending state with a confirmation count on the right.',
+        src: '/work/cashier/hero-banner.webp',
+        alt: 'An iPhone 15 showing the finished review sheet, centred on a wide dark backdrop: amount, destination wallet, network, fee, net amount, arrival time, and a Confirm in wallet button.',
         variant: 'bleed',
       },
       problem: {

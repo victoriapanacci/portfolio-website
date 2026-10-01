@@ -168,7 +168,9 @@ export function CaseStudy({ project }: { project: Project }) {
       </div>
 
       {/* Hero */}
-      <header className="cs-hero shell">
+      <header
+        className={`cs-hero shell${cs.heroLayout === 'stacked' ? ' cs-hero--stacked' : ''}`}
+      >
         <div className="cs-hero__copy reveal">
           <h1 className="cs-title">{project.title}</h1>
           <p className="cs-summary">{cs.summary}</p>
