@@ -7,6 +7,9 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  // Inter's optical-size axis: tighter, higher-contrast glyphs at display
+  // sizes and more open letterforms for 11-12px labels.
+  axes: ['opsz'],
 })
 
 export const metadata: Metadata = {

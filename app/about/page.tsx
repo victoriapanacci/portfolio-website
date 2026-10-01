@@ -15,18 +15,17 @@ const principles = [
   'I can build and ship production ready code using AI tools. I can read, modify, and maintain code.',
   'I design within real technical, regulatory, and organizational constraints.',
   'I work best in close collaboration with product, engineering, and leadership, so the tradeoffs stay explicit.',
-
 ]
 
 const experience = [
   {
     role: 'Senior Product Designer',
     company: 'madhaus.io',
-    period: 'April 2026 - Present',
+    period: 'April 2026 to September 2026',
     points: [
       'Built two design systems that became shared product-building tools, enabling teams outside design to prototype independently and significantly reducing time from concept to validation',
-      'Lead end-to-end design across sportsbook, casino, cashier, and account experiences, working directly with product and engineering from strategy through implementation',
-      'Use technical fluency and AI-assisted development to prototype, build, and deploy web experiences, bringing design closer to production and accelerating iteration',
+      'Led end-to-end design across sportsbook, casino, cashier, and account experiences, working directly with product and engineering from strategy through implementation',
+      'Used technical fluency and AI-assisted development to prototype, build, and deploy web experiences, bringing design closer to production and accelerating iteration',
     ],
   },
   {
@@ -112,7 +111,7 @@ export default function AboutPage() {
           <p className="cs-summary">
             I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
           </p>
-          <p className="cs-eyebrow about-hero__now">Currently designing at madhaus.io</p>
+          <p className="cs-eyebrow about-hero__now">Senior Product Designer based in Toronto</p>
         </div>
       </section>
 
