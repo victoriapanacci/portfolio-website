@@ -474,7 +474,7 @@ export const projects: Project[] = [
           'The current state was a Fortris iframe dropped into an account page.',
           '- Users picked a “wallet” that was really a coin.',
           '- Everything was typed by hand, hopping between apps.',
-          '- KYC, the highest-stakes step, landed randomly in the middle.',
+          '- Identity checks (KYC), the highest-stakes step, landed randomly in the middle.',
           '- Every step asked for trust. Every step caused uncertainty.',
           'The brief, in total: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user.',
           'My first job was deciding what “better” meant. To me: the user never has to wonder whether their money moved.',
@@ -521,10 +521,10 @@ export const projects: Project[] = [
         kicker: 'How do you show trust in UI?',
         heading: { lead: 'Trust is ', em: 'system status', tail: ', shown before the user has to ask.' },
         lead: [
-          'Nielsen Norman’s first heuristic is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means two things on every screen.',
+          'The first of Nielsen Norman Group’s usability heuristics is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means two things on every screen.',
           '- A state: idle, validating, pending, confirmed, or failed.',
           '- A status the user can verify: a confirmation count, a transaction link, a fee shown before commit.',
-          'Three more heuristics did the rest of the work.',
+          'Four more heuristics carried the rest of the work.',
         ],
         findings: [
           {
@@ -544,7 +544,7 @@ export const projects: Project[] = [
             ],
           },
           {
-            title: 'Match between system and real world',
+            title: 'Match between system and the real world',
             body: [
               'Status in the user’s words.',
               '- “Nothing moves until you confirm in your wallet,” not “awaiting signature.”',
@@ -552,7 +552,7 @@ export const projects: Project[] = [
             ],
           },
           {
-            title: 'Help users recognise, diagnose, and recover',
+            title: 'Help users recognize, diagnose, and recover from errors',
             body: [
               'A failure is a state, not a red toast that disappears.',
               '- A plain-language cause.',
@@ -564,7 +564,7 @@ export const projects: Project[] = [
       solution: {
         heading: { lead: 'Four rules, ', em: 'every screen', tail: '.' },
         lead: [
-          'The cashier became functional UI: a system of states, each with a visual indicator and a status, so the user never has to ask what is happening with their money.',
+          'Every screen in the new cashier is a state with a visible status, so nobody has to guess what is happening with their money.',
           'I scoped it tight.',
           '- One coin.',
           '- Four wallets, MetaMask first.',
@@ -575,42 +575,42 @@ export const projects: Project[] = [
           steps: [
             {
               title: 'Error prevention by default',
-              body: 'The first thing a user sees is their detected wallet, already connected. Pasting an address is still possible, but it is a secondary link, not the primary prompt.',
+              body: 'Most mistakes in the old flow came from typing an address. So the screen leads with what the phone already knows.',
               src: '/work/cashier/hero-1-link-wallet.png',
               alt: 'Link a wallet to get paid, with MetaMask detected and connected at the top and a small link to enter an address manually at the bottom.',
               callouts: [
-                { x: 3, y: 31.5, w: 94, h: 11, note: 'The detected wallet is the default. One tap, nothing to type.' },
-                { x: 18, y: 81, w: 64, h: 5, note: 'Manual entry stays as a secondary link for the people who truly need it.' },
+                { x: 3, y: 31.5, w: 94, h: 11, note: 'MetaMask was detected, so it is pre-selected. One tap, nothing to type.' },
+                { x: 18, y: 81, w: 64, h: 5, note: 'Typing an address is still possible, as a secondary link for the few who need it.' },
               ],
             },
             {
               title: 'Decision-making in one state',
-              body: 'Wallet, currency, amount, balance, and fee tier sit on one screen, all editable in place. Nothing is tucked behind a settings page, so nothing has to be remembered.',
+              body: 'Every decision that affects the transaction is made on the screen that shows it. Nothing lives behind a settings page, so nothing has to be remembered.',
               src: '/work/cashier/hero-2-amount.png',
               alt: 'Withdrawal form with the connected wallet, currency, amount with MAX, balance beneath, and three fee tiers.',
               callouts: [
-                { x: 3, y: 24.5, w: 94, h: 9, note: 'The destination wallet is shown and changeable right here.' },
-                { x: 3, y: 48.5, w: 94, h: 23, note: 'Amount, balance, and fee tier side by side. Edit any of them in place.' },
+                { x: 3, y: 24.5, w: 94, h: 9, note: 'The destination wallet, with Change right beside it.' },
+                { x: 3, y: 48.5, w: 94, h: 23, note: 'Amount, balance, and fee tier together. Edit any of them in place.' },
               ],
             },
             {
               title: 'You always know where the money is',
-              body: 'Once sent, the screen does not go quiet. The user can see the confirmation count, the destination, and a link to verify on chain for themselves.',
+              body: 'Once money is in flight, silence reads as failure. The screen keeps answering the only question that matters: where is it now?',
               src: '/work/cashier/screen-pending.png',
               alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved.',
               callouts: [
-                { x: 1, y: 44, w: 98, h: 16, note: 'Pending with a count, the destination, and a link to verify. Status in the user’s words.' },
+                { x: 1, y: 44, w: 98, h: 16, note: 'A pending badge with the confirmation count, the destination, and a link to verify on chain.' },
                 { x: 1, y: 62, w: 98, h: 6.5, note: 'The wallet is saved, and the screen says what that means next time.' },
               ],
             },
             {
               title: 'Guardrails at every corner',
-              body: 'Over the balance, the interface catches the error, not the user. The mistake is impossible to miss and impossible to submit.',
+              body: 'The interface catches the mistake before the user can submit it.',
               src: '/work/cashier/screen-balance-error.png',
               alt: 'Withdrawal form with the amount field outlined in red, a message that amount plus fee exceeds the balance, a note on what MAX sends, and a disabled Review withdrawal button.',
               callouts: [
-                { x: 3, y: 36, w: 94, h: 17.5, note: 'The field says what is wrong and what MAX would send instead.' },
-                { x: 3, y: 86.5, w: 94, h: 7, note: 'The button stays off until the numbers work.' },
+                { x: 3, y: 36, w: 94, h: 17.5, note: 'The field turns red, says what is wrong, and says what MAX would send instead.' },
+                { x: 3, y: 86.5, w: 94, h: 7, note: 'The primary button stays disabled until the numbers work.' },
               ],
             },
           ],
