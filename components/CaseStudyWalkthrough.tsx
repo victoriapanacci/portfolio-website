@@ -61,6 +61,10 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
                 className={`cs-iphone__shot${i === active ? ' is-active' : ''}`}
               />
             ))}
+          </div>
+          <span className="cs-iphone__island" />
+          {/* Pins sit in a layer above the frame so they are never clipped */}
+          <div className="cs-walk__pins">
             {step.callouts.map((c, i) => (
               <span
                 key={`${active}-${i}`}
@@ -76,7 +80,6 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
               </span>
             ))}
           </div>
-          <span className="cs-iphone__island" />
         </div>
       </div>
 

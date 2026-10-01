@@ -1499,14 +1499,23 @@ h2 em {
   width: min(300px, 100%);
   transform: none;
 }
+/* same box as the screen, but above the frame and never clipped */
+.cs-walk__pins {
+  position: absolute;
+  inset: 4.2cqw;
+  pointer-events: none;
+  z-index: 2;
+}
 .cs-walk__pin {
   position: absolute;
   border: 2px solid var(--rose);
   border-radius: 3.2cqw;
-  box-shadow:
-    0 0 0 1px rgba(12, 8, 16, 0.6),
-    0 0 0 999px rgba(8, 12, 22, 0.28);
+  box-shadow: 0 0 0 1px rgba(12, 8, 16, 0.6);
   animation: cs-pin-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+/* dim the rest of the screen from inside the clipped layer instead */
+.cs-walk .cs-iphone__shot.is-active {
+  filter: brightness(0.78);
 }
 .cs-walk__pin i {
   position: absolute;

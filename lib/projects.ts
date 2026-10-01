@@ -537,7 +537,7 @@ export const projects: Project[] = [
         walkthrough: {
           steps: [
             {
-              title: 'Error prevention by default.',
+              title: 'Error prevention by default',
               body: 'The first thing a user sees is their detected wallet, already connected. Pasting an address is still possible, but it is a secondary link below the fold of the decision, not the primary prompt.',
               src: '/work/cashier/hero-1-link-wallet.png',
               alt: 'Link a wallet to get paid, with MetaMask detected and connected at the top and a small link to enter an address manually at the bottom.',
@@ -547,7 +547,7 @@ export const projects: Project[] = [
               ],
             },
             {
-              title: 'Decision-making in one state.',
+              title: 'Decision-making in one state',
               body: 'Wallet, currency, amount, balance, and fee tier are all on one screen and all editable in place. Nothing is tucked behind a settings page, so nothing has to be remembered.',
               src: '/work/cashier/hero-2-amount.png',
               alt: 'Withdrawal form with the connected wallet, currency, amount with MAX, balance beneath, and three fee tiers.',
@@ -557,7 +557,7 @@ export const projects: Project[] = [
               ],
             },
             {
-              title: 'You always know where the money is.',
+              title: 'You always know where the money is',
               body: 'Once sent, the screen does not go quiet. A pending badge carries the confirmation count, the destination is restated, and a transaction link lets the user verify on chain for themselves.',
               src: '/work/cashier/screen-pending.png',
               alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved.',
@@ -567,7 +567,7 @@ export const projects: Project[] = [
               ],
             },
             {
-              title: 'Guardrails at every corner.',
+              title: 'Guardrails at every corner',
               body: 'Over the balance, the field itself turns red with the reason, the helper line explains what MAX would send, and the primary button stays disabled until the numbers work. The error is impossible to miss and impossible to submit.',
               src: '/work/cashier/screen-balance-error.png',
               alt: 'Withdrawal form with the amount field outlined in red, a message that amount plus fee exceeds the balance, a note on what MAX sends, and a disabled Review withdrawal button.',
