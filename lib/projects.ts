@@ -416,7 +416,7 @@ export const projects: Project[] = [
       ],
       heroMedia: {
         src: '/work/cashier/hero-iphone15.webp',
-        alt: 'An iPhone 15 showing the finished review sheet: amount, destination wallet, network, fee, net amount, arrival time, and a Confirm in wallet button.',
+        alt: 'Three iPhone 15 frames showing the finished withdrawal flow: the amount form with a saved wallet on the left, the review sheet with fee and net amount in front, and the pending state with a confirmation count on the right.',
         variant: 'bleed',
       },
       problem: {
