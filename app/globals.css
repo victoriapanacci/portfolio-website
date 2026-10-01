@@ -1340,6 +1340,127 @@ h2 em {
   line-height: 1.7;
 }
 
+/* Animated device mock-up — an iPhone 15 drawn in CSS, screens crossfading */
+.cs-device-stage {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 2 / 1;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0b111c center / cover no-repeat;
+  box-shadow: 0 40px 80px -48px rgba(0, 0, 0, 0.75);
+  display: grid;
+  place-items: center;
+}
+.cs-device-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 12, 22, 0.15), rgba(8, 12, 22, 0.4));
+}
+.cs-iphone {
+  position: relative;
+  height: 82%;
+  aspect-ratio: 430 / 890;
+  container-type: inline-size;
+  border-radius: 15.8cqw;
+  background: linear-gradient(170deg, #2a2528, #17141a);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 60px 90px -40px rgba(0, 0, 0, 0.75),
+    0 24px 40px -24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4%);
+}
+.cs-iphone::before {
+  content: '';
+  position: absolute;
+  inset: 1.2cqw;
+  border-radius: 14.6cqw;
+  background: #08070a;
+}
+.cs-iphone__screen {
+  position: absolute;
+  inset: 4.2cqw;
+  border-radius: 12.1cqw;
+  overflow: hidden;
+  background: #080c16;
+}
+.cs-iphone__shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: translateY(1.5%) scale(1.01);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-iphone__shot.is-active {
+  opacity: 1;
+  transform: none;
+}
+.cs-iphone__island {
+  position: absolute;
+  top: 6.7cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 29.3cqw;
+  height: 8.6cqw;
+  border-radius: 4.3cqw;
+  background: #000;
+}
+.cs-iphone__btn {
+  position: absolute;
+  width: 0.95cqw;
+  border-radius: 0.5cqw;
+  background: #201b1f;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.6);
+}
+.cs-iphone__btn--l1 { left: -0.95cqw; top: 41.4cqw; height: 7.9cqw; }
+.cs-iphone__btn--l2 { left: -0.95cqw; top: 54.9cqw; height: 15.3cqw; }
+.cs-iphone__btn--l3 { left: -0.95cqw; top: 74cqw; height: 15.3cqw; }
+.cs-iphone__btn--r1 { right: -0.95cqw; top: 61cqw; height: 24.2cqw; }
+
+/* state labels under the device */
+.cs-device-steps {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.cs-device-steps button {
+  appearance: none;
+  border: 1px solid rgba(242, 232, 220, 0.14);
+  border-radius: 999px;
+  background: rgba(12, 8, 16, 0.55);
+  color: rgba(242, 232, 220, 0.6);
+  font: 600 12px/1 var(--font-sans);
+  letter-spacing: 0.04em;
+  padding: 10px 14px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.cs-device-steps .is-active button {
+  color: var(--peach);
+  border-color: rgba(233, 162, 125, 0.55);
+  background: rgba(12, 8, 16, 0.8);
+}
+.cs-device-steps button:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+
 /* Media grid — several small artifacts side by side under one caption */
 .cs-media-grid {
   margin: 48px 0 0;
@@ -2010,6 +2131,21 @@ h2 em {
   .cs-media-grid__items {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+  }
+  .cs-device-stage {
+    aspect-ratio: 4 / 5;
+  }
+  .cs-iphone {
+    height: 76%;
+    transform: translateY(-6%);
+  }
+  .cs-device-steps {
+    bottom: 16px;
+    gap: 6px;
+  }
+  .cs-device-steps button {
+    padding: 8px 10px;
+    font-size: 11px;
   }
   .cs-decision__copy {
     position: static;

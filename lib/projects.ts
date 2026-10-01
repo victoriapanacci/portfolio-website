@@ -24,6 +24,15 @@ export type CaseStudyMediaGrid = {
 /** Anything a section can show: one image, or a grid of them. */
 export type CaseStudyMediaItem = CaseStudyImage | CaseStudyMediaGrid
 
+/** An animated device mock-up: screens that cycle inside an iPhone frame. */
+export type CaseStudyDevice = {
+  screens: { src: string; alt: string; label: string }[]
+  /** Optional full-bleed backdrop behind the device. */
+  backdrop?: string
+  /** Milliseconds per screen. Defaults to 3200. */
+  interval?: number
+}
+
 /** Interactive embed (e.g. a live Figma prototype) framed inside a case study. */
 export type CaseStudyPrototype = {
   /** Embeddable URL, e.g. an embed.figma.com/proto/... link. */
@@ -43,6 +52,8 @@ export type CaseStudy = {
   meta: { label: string; value: string }[]
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
+  /** Animated device mock-up in the hero. Takes precedence over heroMedia. */
+  heroDevice?: CaseStudyDevice
   /** 'side' (default) puts the hero art beside the copy; 'stacked' runs it full width beneath. */
   heroLayout?: 'side' | 'stacked'
   /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
@@ -417,10 +428,25 @@ export const projects: Project[] = [
         { label: 'Timeline', value: '2 weeks to handoff' },
       ],
       heroLayout: 'stacked',
-      heroMedia: {
-        src: '/work/cashier/hero-banner.webp',
-        alt: 'An iPhone 15 showing the finished review sheet, centred on a wide dark backdrop: amount, destination wallet, network, fee, net amount, arrival time, and a Confirm in wallet button.',
-        variant: 'bleed',
+      heroDevice: {
+        backdrop: '/work/cashier/hero-backdrop.webp',
+        screens: [
+          {
+            src: '/work/cashier/screen-form.png',
+            label: 'Enter amount',
+            alt: 'Withdrawal form with a saved MetaMask wallet, currency, a dollar amount with MAX, the balance beneath, and three network fee tiers.',
+          },
+          {
+            src: '/work/cashier/screen-review.png',
+            label: 'Review',
+            alt: 'Review sheet listing destination wallet, network, fee, amount received, and arrival time, with a note that nothing moves until confirmed in the wallet.',
+          },
+          {
+            src: '/work/cashier/screen-pending.png',
+            label: 'Pending · 1 of 3',
+            alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination, and a transaction link.',
+          },
+        ],
       },
       problem: {
         kicker: 'The problem & the brief',

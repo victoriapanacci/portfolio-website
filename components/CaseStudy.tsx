@@ -3,6 +3,7 @@ import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
 import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
+import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -176,7 +177,9 @@ export function CaseStudy({ project }: { project: Project }) {
           <p className="cs-summary">{cs.summary}</p>
         </div>
         <div className="cs-hero__art reveal">
-          {cs.heroMedia ? (
+          {cs.heroDevice ? (
+            <CaseStudyDeviceLoop device={cs.heroDevice} />
+          ) : cs.heroMedia ? (
             <CaseStudyMedia media={cs.heroMedia} className="cs-media--hero" />
           ) : (
             <ProjectArt type={project.art} />
