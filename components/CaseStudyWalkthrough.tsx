@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import type { CaseStudyWalkthrough as Walkthrough } from '@/lib/projects'
+import { RichText } from './RichText'
 
 /**
  * A guided tour of how trust shows up in the UI: an iPhone frame with
@@ -111,7 +112,9 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
               <span className="cs-walk__title">{s.title}</span>
             </button>
             <div className="cs-walk__body" hidden={i !== active}>
-              <p>{s.body}</p>
+              <div className="cs-rich">
+                <RichText text={s.body} />
+              </div>
               <ol className="cs-walk__notes">
                 {s.callouts.map((c, j) => (
                   <li key={c.note}>

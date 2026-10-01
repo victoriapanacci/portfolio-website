@@ -37,7 +37,7 @@ export type CaseStudyDevice = {
 export type CaseStudyWalkthrough = {
   steps: {
     title: string
-    body: string
+    body: Prose
     src: string
     alt: string
     /** Pins as percentages of the screen: x, y, width, height. */
@@ -61,8 +61,11 @@ export type CaseStudyPrototype = {
   aspect?: string
 }
 
+/** Prose: one paragraph, or several. Items starting with "- " become bullets. */
+export type Prose = string | string[]
+
 export type CaseStudy = {
-  summary: string
+  summary: Prose
   meta: { label: string; value: string }[]
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
@@ -75,8 +78,7 @@ export type CaseStudy = {
   problem: {
     /** Overrides the default "The problem" kicker. */
     kicker?: string
-    /** One paragraph, or several. */
-    lead: string | string[]
+    lead: Prose
     points: { title: string; body: string }[]
     /** Optional artifact(s) shown beneath the problem panels, e.g. the current state. */
     media?: CaseStudyMediaItem | CaseStudyMediaItem[]
@@ -86,7 +88,7 @@ export type CaseStudy = {
   solution: {
     /** Overrides the default "Meet DribbleCollect." heading. */
     heading?: CaseStudyHeading
-    lead: string
+    lead: Prose
     /** Checklist rows. Used when a media artifact accompanies the solution. */
     points?: string[]
     /**
@@ -112,8 +114,8 @@ export type CaseStudy = {
     kicker?: string
     /** Overrides the default "Four voices…" heading. */
     heading?: CaseStudyHeading
-    lead: string
-    findings: { title: string; body: string }[]
+    lead: Prose
+    findings: { title: string; body: Prose }[]
     media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
   /** Stat band. Omit or leave empty to hide it. */
@@ -127,8 +129,8 @@ export type CaseStudy = {
   /** Closing reflection: a few scenarios worked through, rendered after the outcome. */
   reflection?: {
     kicker: string
-    lead?: string
-    items: { title: string; body: string }[]
+    lead?: Prose
+    items: { title: string; body: Prose }[]
   }
   /** Numbered takeaways. Omit or leave empty to hide the section. */
   learnings?: string[]
@@ -435,8 +437,10 @@ export const projects: Project[] = [
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
     art: 'cashier',
     caseStudy: {
-      summary:
-        'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. The cashier that joined them was a vendor iframe nobody in house could change, so every step asked for trust and gave nothing back. In two weeks I rebuilt it as functional UI: a system of states, each with a visual indicator, so a user never has to ask where their money is.',
+      summary: [
+        'A sportsbook and a crypto wallet never explain themselves to each other. The user stands between them with real money.',
+        'The cashier that joined them was a vendor iframe nobody in house could change. In two weeks I rebuilt it as functional UI: a system of states, each with a visual indicator, so a user never has to ask where their money is.',
+      ],
       meta: [
         { label: 'Role', value: 'Senior product designer' },
         { label: 'Team', value: '1 designer, 1 PM, leadership' },
@@ -467,8 +471,13 @@ export const projects: Project[] = [
       problem: {
         kicker: 'The problem & the brief',
         lead: [
-          'The current state was a Fortris iframe dropped into an account page. Users picked a “wallet” that was really a coin. Everything had to be typed by hand, hopping between many apps. The most high-stakes part of the transaction, KYC, was dropped randomly in the middle of it. Every step of the way asked for trust, and every step caused uncertainty.',
-          'The brief, in total, was: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. The first job was to decide what “better” meant. To me, that was making sure the user never had to wonder whether their money moved.',
+          'The current state was a Fortris iframe dropped into an account page.',
+          '- Users picked a “wallet” that was really a coin.',
+          '- Everything was typed by hand, hopping between apps.',
+          '- KYC, the highest-stakes step, landed randomly in the middle.',
+          '- Every step asked for trust. Every step caused uncertainty.',
+          'The brief, in total: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user.',
+          'My first job was deciding what “better” meant. To me: the user never has to wonder whether their money moved.',
         ],
         points: [],
         media: [
@@ -511,34 +520,62 @@ export const projects: Project[] = [
       discovery: {
         kicker: 'How do you show trust in UI?',
         heading: { lead: 'Trust is ', em: 'system status', tail: ', shown before the user has to ask.' },
-        lead: 'Nielsen Norman’s first heuristic is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means every screen carries a state (idle, validating, pending, confirmed, failed) and a status the user can verify (a confirmation count, a transaction link, a fee shown before commit). Three more heuristics did the rest of the work.',
+        lead: [
+          'Nielsen Norman’s first heuristic is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means two things on every screen.',
+          '- A state: idle, validating, pending, confirmed, or failed.',
+          '- A status the user can verify: a confirmation count, a transaction link, a fee shown before commit.',
+          'Three more heuristics did the rest of the work.',
+        ],
         findings: [
           {
             title: 'Error prevention',
-            body: 'Make the wrong action hard to take. Buttons stay disabled until the inputs are valid, errors appear on the field itself, and the default path protects people who are new.',
+            body: [
+              'Make the wrong action hard to take.',
+              '- Buttons stay disabled until the inputs are valid.',
+              '- Errors appear on the field itself.',
+              '- The default path protects people who are new.',
+            ],
           },
           {
             title: 'Recognition over recall',
-            body: 'The saved wallet, the network, the fee, and the net amount sit on the screen where the decision is made. Nobody should have to remember an address or a fee tier.',
+            body: [
+              'Nobody should have to remember an address or a fee tier.',
+              'The saved wallet, the network, the fee, and the net amount sit on the screen where the decision is made.',
+            ],
           },
           {
             title: 'Match between system and real world',
-            body: 'Status in the user’s words. “Nothing moves until you confirm in your wallet,” not “awaiting signature.” “1 of 3 confirmations,” not a spinner.',
+            body: [
+              'Status in the user’s words.',
+              '- “Nothing moves until you confirm in your wallet,” not “awaiting signature.”',
+              '- “1 of 3 confirmations,” not a spinner.',
+            ],
           },
           {
             title: 'Help users recognise, diagnose, and recover',
-            body: 'A failure is a state with a plain-language cause and one obvious next action, not a red toast that disappears.',
+            body: [
+              'A failure is a state, not a red toast that disappears.',
+              '- A plain-language cause.',
+              '- One obvious next action.',
+            ],
           },
         ],
       },
       solution: {
         heading: { lead: 'Four rules, ', em: 'every screen', tail: '.' },
-        lead: 'The cashier became functional UI: a system of states, each with a visual indicator and a status, so the user never has to ask what is happening with their money. I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. Four rules shaped every screen.',
+        lead: [
+          'The cashier became functional UI: a system of states, each with a visual indicator and a status, so the user never has to ask what is happening with their money.',
+          'I scoped it tight.',
+          '- One coin.',
+          '- Four wallets, MetaMask first.',
+          '- Withdrawal before deposit, because that is where trust broke.',
+          'Four rules shaped every screen. Click through them below.',
+        ],
         walkthrough: {
           steps: [
             {
               title: 'Error prevention by default',
-              body: 'The first thing a user sees is their detected wallet, already connected. Pasting an address is still possible, but it is a secondary link below the fold of the decision, not the primary prompt.',
+              body: 'The first thing a user sees is their detected wallet, already connected. Pasting an address is still possible, but it is a secondary link, not the primary prompt.',
               src: '/work/cashier/hero-1-link-wallet.png',
               alt: 'Link a wallet to get paid, with MetaMask detected and connected at the top and a small link to enter an address manually at the bottom.',
               callouts: [
@@ -548,7 +585,7 @@ export const projects: Project[] = [
             },
             {
               title: 'Decision-making in one state',
-              body: 'Wallet, currency, amount, balance, and fee tier are all on one screen and all editable in place. Nothing is tucked behind a settings page, so nothing has to be remembered.',
+              body: 'Wallet, currency, amount, balance, and fee tier sit on one screen, all editable in place. Nothing is tucked behind a settings page, so nothing has to be remembered.',
               src: '/work/cashier/hero-2-amount.png',
               alt: 'Withdrawal form with the connected wallet, currency, amount with MAX, balance beneath, and three fee tiers.',
               callouts: [
@@ -558,7 +595,7 @@ export const projects: Project[] = [
             },
             {
               title: 'You always know where the money is',
-              body: 'Once sent, the screen does not go quiet. A pending badge carries the confirmation count, the destination is restated, and a transaction link lets the user verify on chain for themselves.',
+              body: 'Once sent, the screen does not go quiet. The user can see the confirmation count, the destination, and a link to verify on chain for themselves.',
               src: '/work/cashier/screen-pending.png',
               alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved.',
               callouts: [
@@ -568,7 +605,7 @@ export const projects: Project[] = [
             },
             {
               title: 'Guardrails at every corner',
-              body: 'Over the balance, the field itself turns red with the reason, the helper line explains what MAX would send, and the primary button stays disabled until the numbers work. The error is impossible to miss and impossible to submit.',
+              body: 'Over the balance, the interface catches the error, not the user. The mistake is impossible to miss and impossible to submit.',
               src: '/work/cashier/screen-balance-error.png',
               alt: 'Withdrawal form with the amount field outlined in red, a message that amount plus fee exceeds the balance, a note on what MAX sends, and a disabled Review withdrawal button.',
               callouts: [
@@ -591,19 +628,40 @@ export const projects: Project[] = [
         items: [
           {
             title: 'The user closes the app mid-transaction',
-            body: 'Money in flight does not wait for the app to be open. I designed the pending state to survive the app closing, with the status mirrored in history and a push notification when it confirmed, so coming back never meant starting over.',
+            body: [
+              'Money in flight does not wait for the app to be open.',
+              '- The pending state survives the app closing.',
+              '- The status is mirrored in history.',
+              '- A push notification closes the loop when it confirms.',
+              'Coming back never means starting over.',
+            ],
           },
           {
             title: 'The connected wallet changes between sessions',
-            body: 'Browser wallets switch accounts silently. I added a wallet-changed state that shows the new address, says plainly that it changed, and asks the user to confirm it or reconnect the previous one. One screen, two safe exits.',
+            body: [
+              'Browser wallets switch accounts silently. I added a wallet-changed state that does three things.',
+              '- Shows the new address.',
+              '- Says plainly that it changed.',
+              '- Asks the user to confirm it or reconnect the previous one.',
+              'One screen, two safe exits.',
+            ],
           },
           {
             title: 'The network fee moves between review and confirm',
-            body: 'Fees are live. If the quoted fee changed before approval, the review sheet re-rendered with the new number rather than letting the wallet show a figure the user had never seen. The rule became: the app never lets a number surprise the user.',
+            body: [
+              'Fees are live.',
+              '- If the quoted fee changed before approval, the review sheet re-rendered with the new number.',
+              '- The wallet never shows a figure the user has not already seen.',
+              'The rule: the app never lets a number surprise the user.',
+            ],
           },
           {
             title: 'Where it ended',
-            body: 'I handed off the full flow with every state specified and tested on prototypes. I was let go before launch, so I cannot report production numbers. What I can say is that the research I was pushed to skip is what caught the biggest miss, the wallet integration, and I would run it first next time.',
+            body: [
+              'I handed off the full flow with every state specified and tested on prototypes.',
+              'I was let go before launch, so I cannot report production numbers.',
+              'What I can say: the research I was pushed to skip caught the biggest miss, the wallet integration. Next time I run it first.',
+            ],
           },
         ],
       },

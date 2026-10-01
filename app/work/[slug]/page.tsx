@@ -21,7 +21,9 @@ export async function generateMetadata({
   if (!project) return { title: 'VP: Case Study' }
   return {
     title: `VP: ${project.title}`,
-    description: project.caseStudy?.summary ?? project.description,
+    description: project.caseStudy
+      ? [project.caseStudy.summary].flat().join(' ')
+      : project.description,
   }
 }
 

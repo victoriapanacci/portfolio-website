@@ -1224,9 +1224,6 @@ h2 em {
   max-width: 640px;
   margin: 0 0 40px;
 }
-.cs-section__lead + .cs-section__lead {
-  margin-top: -22px;
-}
 .cs-lede {
   font-family: var(--font-serif);
   font-size: clamp(24px, 2.7vw, 34px);
@@ -1476,6 +1473,51 @@ h2 em {
 .cs-device-steps button:focus-visible {
   outline: 2px solid var(--rose);
   outline-offset: 2px;
+}
+
+/* Rich prose — short paragraphs and bullet lists inside any text block */
+.cs-rich > p {
+  margin-bottom: 0;
+}
+.cs-rich > :not(:first-child) {
+  margin-top: 14px;
+}
+.cs-rich > h3 + :not(:first-child) {
+  margin-top: 0;
+}
+.cs-rich-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.cs-rich-list li {
+  position: relative;
+  padding-left: 22px;
+}
+.cs-rich-list li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rose);
+}
+.cs-finding .cs-rich-list {
+  color: #c4b9b4;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.cs-walk__body .cs-rich-list {
+  color: #c8bdb8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.cs-walk__body .cs-rich {
+  margin-bottom: 14px;
 }
 
 /* Walkthrough — device with callout pins beside a list of steps */

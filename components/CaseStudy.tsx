@@ -5,6 +5,7 @@ import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
 import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
 import { CaseStudyWalkthrough } from './CaseStudyWalkthrough'
+import { RichText } from './RichText'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -34,9 +35,9 @@ export function CaseStudy({ project }: { project: Project }) {
         {cs.solution.principles || cs.solution.walkthrough ? (
           <div className="cs-principles-block">
             <h2 className="cs-h2">{solutionHeading}</h2>
-            <p className="cs-section__lead cs-section__lead--wide">
-              {cs.solution.lead}
-            </p>
+            <div className="cs-section__lead cs-section__lead--wide cs-rich">
+              <RichText text={cs.solution.lead} />
+            </div>
             {cs.solution.walkthrough ? (
               <CaseStudyWalkthrough walk={cs.solution.walkthrough} />
             ) : null}
@@ -78,7 +79,9 @@ export function CaseStudy({ project }: { project: Project }) {
           <div className="cs-solution">
             <h2 className="cs-h2">{solutionHeading}</h2>
             <div>
-              <p className="cs-section__lead">{cs.solution.lead}</p>
+              <div className="cs-section__lead cs-rich">
+                <RichText text={cs.solution.lead} />
+              </div>
               <ul className="cs-check-list">
                 {(cs.solution.points ?? []).map((point) => (
                   <li key={point} className="reveal-on-scroll">
@@ -123,15 +126,17 @@ export function CaseStudy({ project }: { project: Project }) {
             </>
           )}
         </h2>
-        <p className="cs-section__lead">{cs.discovery.lead}</p>
+        <div className="cs-section__lead cs-rich">
+          <RichText text={cs.discovery.lead} />
+        </div>
         <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (
             <div key={f.title} className="cs-finding reveal-on-scroll">
               <span className="cs-finding__num">{`0${i + 1}`}</span>
-              <div>
+              <div className="cs-rich">
                 <h3>{f.title}</h3>
-                <p>{f.body}</p>
+                <RichText text={f.body} />
               </div>
             </div>
           ))}
@@ -179,7 +184,9 @@ export function CaseStudy({ project }: { project: Project }) {
       <header className={`cs-hero shell${stacked ? ' cs-hero--stacked' : ''}`}>
         <div className="cs-hero__copy reveal">
           <h1 className="cs-title">{project.title}</h1>
-          <p className="cs-summary">{cs.summary}</p>
+          <div className="cs-summary cs-rich">
+            <RichText text={cs.summary} />
+          </div>
         </div>
         {stacked ? (
           <dl className="cs-meta cs-hero__meta reveal">
@@ -229,14 +236,9 @@ export function CaseStudy({ project }: { project: Project }) {
           <span>{cs.problem.kicker ?? 'The problem'}</span>
           <i />
         </div>
-        {(Array.isArray(cs.problem.lead)
-          ? cs.problem.lead
-          : [cs.problem.lead]
-        ).map((para) => (
-          <p key={para} className="cs-section__lead">
-            {para}
-          </p>
-        ))}
+        <div className="cs-section__lead cs-rich">
+          <RichText text={cs.problem.lead} />
+        </div>
         {cs.problem.points.length ? (
           <div className="cs-two-col">
             {cs.problem.points.map((p) => (
@@ -413,15 +415,17 @@ export function CaseStudy({ project }: { project: Project }) {
             <i />
           </div>
           {cs.reflection.lead ? (
-            <p className="cs-section__lead">{cs.reflection.lead}</p>
+            <div className="cs-section__lead cs-rich">
+              <RichText text={cs.reflection.lead} />
+            </div>
           ) : null}
           <div className="cs-findings">
             {cs.reflection.items.map((f, i) => (
               <div key={f.title} className="cs-finding reveal-on-scroll">
                 <span className="cs-finding__num">{`0${i + 1}`}</span>
-                <div>
+                <div className="cs-rich">
                   <h3>{f.title}</h3>
-                  <p>{f.body}</p>
+                  <RichText text={f.body} />
                 </div>
               </div>
             ))}
