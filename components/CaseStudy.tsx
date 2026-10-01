@@ -4,6 +4,7 @@ import { ProjectArt } from './ProjectArt'
 import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
 import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
+import { CaseStudyWalkthrough } from './CaseStudyWalkthrough'
 
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
@@ -118,6 +119,9 @@ export function CaseStudy({ project }: { project: Project }) {
           )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
+        {cs.discovery.walkthrough ? (
+          <CaseStudyWalkthrough walk={cs.discovery.walkthrough} />
+        ) : null}
         <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (

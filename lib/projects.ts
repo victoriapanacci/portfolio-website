@@ -33,6 +33,22 @@ export type CaseStudyDevice = {
   interval?: number
 }
 
+/** A guided tour: screens in an iPhone frame with numbered pins over the regions that matter. */
+export type CaseStudyWalkthrough = {
+  steps: {
+    /** Short pill-style label, e.g. "Select wallet". */
+    label: string
+    title: string
+    body: string
+    src: string
+    alt: string
+    /** Pins as percentages of the screen: x, y, width, height. */
+    callouts: { x: number; y: number; w: number; h: number; note: string }[]
+  }[]
+  /** Milliseconds per step before auto-advancing. Defaults to 5200. */
+  interval?: number
+}
+
 /** Interactive embed (e.g. a live Figma prototype) framed inside a case study. */
 export type CaseStudyPrototype = {
   /** Embeddable URL, e.g. an embed.figma.com/proto/... link. */
@@ -99,6 +115,8 @@ export type CaseStudy = {
     lead: string
     findings: { title: string; body: string }[]
     media?: CaseStudyMediaItem | CaseStudyMediaItem[]
+    /** Interactive walkthrough shown between the lead and the findings. */
+    walkthrough?: CaseStudyWalkthrough
   }
   /** Stat band. Omit or leave empty to hide it. */
   metrics?: { value: string; label: string }[]
@@ -496,6 +514,54 @@ export const projects: Project[] = [
         kicker: 'How do you show trust in UI?',
         heading: { lead: 'Trust is ', em: 'system status', tail: ', shown before the user has to ask.' },
         lead: 'Nielsen Norman’s first heuristic is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means every screen carries a state (idle, validating, pending, confirmed, failed) and a status the user can verify (a confirmation count, a transaction link, a fee shown before commit). Three more heuristics did the rest of the work.',
+        walkthrough: {
+          steps: [
+            {
+              label: 'Select wallet',
+              title: 'No manual entry by default, override only if you need it',
+              body: 'The first thing a user sees is their detected wallet, already connected. Pasting an address is still possible, but it is a secondary link below the fold of the decision, not the primary prompt.',
+              src: '/work/cashier/hero-1-link-wallet.png',
+              alt: 'Link a wallet to get paid, with MetaMask detected and connected at the top and a small link to enter an address manually at the bottom.',
+              callouts: [
+                { x: 3, y: 31.5, w: 94, h: 11, note: 'The detected wallet is the default. One tap, nothing to type.' },
+                { x: 18, y: 81, w: 64, h: 5, note: 'Manual entry stays as a secondary link for the people who truly need it.' },
+              ],
+            },
+            {
+              label: 'Amount & network',
+              title: 'Every decision lives on the screen where the transaction is shown',
+              body: 'Wallet, currency, amount, balance, and fee tier are all on one screen and all editable in place. Nothing is tucked behind a settings page, so nothing has to be remembered.',
+              src: '/work/cashier/hero-2-amount.png',
+              alt: 'Withdrawal form with the connected wallet, currency, amount with MAX, balance beneath, and three fee tiers.',
+              callouts: [
+                { x: 3, y: 24.5, w: 94, h: 9, note: 'The destination wallet is shown and changeable right here.' },
+                { x: 3, y: 48.5, w: 94, h: 23, note: 'Amount, balance, and fee tier side by side. Edit any of them in place.' },
+              ],
+            },
+            {
+              label: 'Confirmation',
+              title: 'The status is live, and it says where the money is',
+              body: 'Once sent, the screen does not go quiet. A pending badge carries the confirmation count, the destination is restated, and a transaction link lets the user verify on chain for themselves.',
+              src: '/work/cashier/screen-pending.png',
+              alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved.',
+              callouts: [
+                { x: 1, y: 44, w: 98, h: 16, note: 'Pending with a count, the destination, and a link to verify. Status in the user’s words.' },
+                { x: 1, y: 62, w: 98, h: 6.5, note: 'The wallet is saved, and the screen says what that means next time.' },
+              ],
+            },
+            {
+              label: 'Error state',
+              title: 'The guardrail catches the mistake, not the user',
+              body: 'Over the balance, the field itself turns red with the reason, the helper line explains what MAX would send, and the primary button stays disabled until the numbers work. The error is impossible to miss and impossible to submit.',
+              src: '/work/cashier/screen-balance-error.png',
+              alt: 'Withdrawal form with the amount field outlined in red, a message that amount plus fee exceeds the balance, a note on what MAX sends, and a disabled Review withdrawal button.',
+              callouts: [
+                { x: 3, y: 36, w: 94, h: 17.5, note: 'The field says what is wrong and what MAX would send instead.' },
+                { x: 3, y: 86.5, w: 94, h: 7, note: 'The button stays off until the numbers work.' },
+              ],
+            },
+          ],
+        },
         findings: [
           {
             title: 'Error prevention',
