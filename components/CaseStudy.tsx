@@ -8,6 +8,7 @@ import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
   if (!cs) return null
+  const stacked = cs.heroLayout === 'stacked'
 
   const solutionHeading = cs.solution.heading ? (
     <>
@@ -169,13 +170,21 @@ export function CaseStudy({ project }: { project: Project }) {
       </div>
 
       {/* Hero */}
-      <header
-        className={`cs-hero shell${cs.heroLayout === 'stacked' ? ' cs-hero--stacked' : ''}`}
-      >
+      <header className={`cs-hero shell${stacked ? ' cs-hero--stacked' : ''}`}>
         <div className="cs-hero__copy reveal">
           <h1 className="cs-title">{project.title}</h1>
           <p className="cs-summary">{cs.summary}</p>
         </div>
+        {stacked ? (
+          <dl className="cs-meta cs-hero__meta reveal">
+            {cs.meta.map((m) => (
+              <div key={m.label} className="cs-meta__item">
+                <dt>{m.label}</dt>
+                <dd>{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
         <div className="cs-hero__art reveal">
           {cs.heroDevice ? (
             <CaseStudyDeviceLoop device={cs.heroDevice} />
@@ -187,17 +196,19 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
-      {/* Meta bar */}
-      <div className="shell">
-        <dl className="cs-meta">
-          {cs.meta.map((m) => (
-            <div key={m.label} className="cs-meta__item">
-              <dt>{m.label}</dt>
-              <dd>{m.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+      {/* Meta bar (side layout only; the stacked hero carries it inline) */}
+      {stacked ? null : (
+        <div className="shell">
+          <dl className="cs-meta">
+            {cs.meta.map((m) => (
+              <div key={m.label} className="cs-meta__item">
+                <dt>{m.label}</dt>
+                <dd>{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
 
       {/* Intro / lede (optional) */}
       {cs.intro ? (
