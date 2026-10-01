@@ -432,19 +432,19 @@ export const projects: Project[] = [
         backdrop: '/work/cashier/hero-backdrop.webp',
         screens: [
           {
-            src: '/work/cashier/screen-form.png',
-            label: 'Enter amount',
-            alt: 'Withdrawal form with a saved MetaMask wallet, currency, a dollar amount with MAX, the balance beneath, and three network fee tiers.',
+            src: '/work/cashier/hero-1-link-wallet.png',
+            label: 'Link a wallet',
+            alt: 'Link a wallet to get paid: a list of wallet extensions with MetaMask detected and connected, Coinbase Wallet, WalletConnect and Phantom, plus a link to enter an address manually.',
           },
           {
-            src: '/work/cashier/screen-review.png',
+            src: '/work/cashier/hero-2-amount.png',
+            label: 'Enter amount',
+            alt: 'Withdrawal form with the connected MetaMask wallet, currency, a dollar amount with MAX, the balance beneath, and three network fee tiers.',
+          },
+          {
+            src: '/work/cashier/hero-3-review.png',
             label: 'Review',
             alt: 'Review sheet listing destination wallet, network, fee, amount received, and arrival time, with a note that nothing moves until confirmed in the wallet.',
-          },
-          {
-            src: '/work/cashier/screen-pending.png',
-            label: 'Pending · 1 of 3',
-            alt: 'Withdrawal on its way, with a pending badge reading 1 of 3 confirmations, the destination, and a transaction link.',
           },
         ],
       },
