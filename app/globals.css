@@ -1113,7 +1113,11 @@ h2 em {
   grid-template-columns: 7fr 4fr;
   column-gap: 64px;
   row-gap: 56px;
-  align-items: end;
+  align-items: start;
+}
+/* line the first meta rule up with the top of the title's cap height */
+.cs-hero--stacked .cs-hero__meta {
+  margin-top: 14px;
 }
 .cs-hero--stacked .cs-hero__art {
   grid-column: 1 / -1;
