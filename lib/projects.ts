@@ -584,58 +584,6 @@ export const projects: Project[] = [
           caption:
             'The flow the screens hang off. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and every path ends on a confirmation screen instead of a copied address.',
         },
-        principles: [
-          {
-            title: 'Guardrails: make the mistake impossible',
-            body: 'The balance and the fee are on screen before anyone types. Exceed them and the field turns red with the reason, MAX explains exactly what it will send, and the button stays off until the numbers work. The interface catches the error, not the user.',
-            media: {
-              grid: [
-                {
-                  src: '/work/cashier/screen-form.png',
-                  alt: 'Withdrawal form with a saved MetaMask wallet, currency, a dollar amount with MAX, the balance shown beneath, and three network fee tiers.',
-                  variant: 'bleed',
-                },
-                {
-                  src: '/work/cashier/screen-balance-error.png',
-                  alt: 'The same form with the amount field outlined in red, an inline message that amount plus network fee exceeds the balance, a note explaining what MAX sends, and the Review withdrawal button disabled.',
-                  variant: 'bleed',
-                },
-              ],
-              columns: 2,
-              caption: 'Balance and fee tiers visible before typing. Over the limit, the field explains why and the button will not go.',
-            },
-          },
-          {
-            title: 'No surprises: every step has an indicator',
-            body: 'Before anything moves, one sheet shows the destination, the network, the fee, the net amount, and the arrival time, with a note that the wallet will open to approve. The user knows what happens next and when, before it happens.',
-            media: {
-              src: '/work/cashier/screen-review.png',
-              alt: 'Review sheet listing destination wallet, network, network fee, amount received in green, and arrival time, with a note that the wallet will open to approve and nothing moves until confirmed there.',
-              variant: 'bleed',
-              caption: 'The review sheet. Every number the wallet is about to show, shown here first.',
-            },
-          },
-          {
-            title: 'Where is my money, on every page',
-            body: 'Once sent, the status is live: a pending badge with the confirmation count, the destination, and a transaction link to verify on chain. A saved-wallet note tells them the next withdrawal is two taps. The user never has to ask.',
-            media: {
-              src: '/work/cashier/screen-pending.png',
-              alt: 'Withdrawal on its way screen with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved for next time.',
-              variant: 'bleed',
-              caption: 'Pending, with a count and a link. Latency is out of our control. Silence is not.',
-            },
-          },
-          {
-            title: 'Failure is a state, not an error message',
-            body: 'If the user cancels in their wallet, the screen says exactly that, confirms that no funds moved, and offers retry or edit. Every failure path ends in a cause and a next action, with the visual cue to match.',
-            media: {
-              src: '/work/cashier/screen-cancelled.png',
-              alt: 'Withdrawal screen after the user cancelled in their wallet, with an info panel reading transaction cancelled in your wallet, no funds moved, retry when ready, and buttons to retry or edit details.',
-              variant: 'bleed',
-              caption: 'Cancelled in wallet. What happened, what it means for the money, and two ways forward.',
-            },
-          },
-        ],
       },
       reflection: {
         kicker: 'Reflection',

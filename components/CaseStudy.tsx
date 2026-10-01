@@ -31,7 +31,7 @@ export function CaseStudy({ project }: { project: Project }) {
           <span>The solution</span>
           <i />
         </div>
-        {cs.solution.principles ? (
+        {cs.solution.principles || cs.solution.walkthrough ? (
           <div className="cs-principles-block">
             <h2 className="cs-h2">{solutionHeading}</h2>
             <p className="cs-section__lead cs-section__lead--wide">
@@ -40,10 +40,12 @@ export function CaseStudy({ project }: { project: Project }) {
             {cs.solution.walkthrough ? (
               <CaseStudyWalkthrough walk={cs.solution.walkthrough} />
             ) : null}
-            {cs.solution.principles.some((p) => p.media) ? (
+            {cs.solution.principles?.some((p) => p.media) ? (
               <CaseStudyMediaGroup media={cs.solution.media} />
             ) : null}
-            {cs.solution.principles.some((p) => p.media) ? (
+            {!cs.solution.principles ? null : cs.solution.principles.some(
+                (p) => p.media,
+              ) ? (
               <ol className="cs-decisions">
                 {cs.solution.principles.map((p, i) => (
                   <li key={p.title} className="cs-decision reveal-on-scroll">
