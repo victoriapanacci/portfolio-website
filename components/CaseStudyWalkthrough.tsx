@@ -17,6 +17,7 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const [reduced, setReduced] = useState(false)
+  const [annotate, setAnnotate] = useState(true)
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -43,7 +44,7 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
   const step = steps[active]
 
   return (
-    <div className="cs-walk reveal-on-scroll">
+    <div className={`cs-walk reveal-on-scroll${annotate ? '' : ' cs-walk--clean'}`}>
       <div className="cs-walk__device">
         <div className="cs-iphone" aria-hidden="true">
           <span className="cs-iphone__btn cs-iphone__btn--l1" />
@@ -65,7 +66,7 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
           <span className="cs-iphone__island" />
           {/* Pins sit in a layer above the frame so they are never clipped */}
           <div className="cs-walk__pins">
-            {step.callouts.map((c, i) => (
+            {annotate && step.callouts.map((c, i) => (
               <span
                 key={`${active}-${i}`}
                 className="cs-walk__pin"
@@ -81,6 +82,18 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
             ))}
           </div>
         </div>
+        <button
+          type="button"
+          className="cs-walk__toggle"
+          role="switch"
+          aria-checked={annotate}
+          onClick={() => setAnnotate((v) => !v)}
+        >
+          <span className="cs-walk__toggle-track" aria-hidden="true">
+            <span className="cs-walk__toggle-thumb" />
+          </span>
+          <span>Annotations {annotate ? 'on' : 'off'}</span>
+        </button>
       </div>
 
       <ol className="cs-walk__steps">
