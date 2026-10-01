@@ -37,6 +37,9 @@ export function CaseStudy({ project }: { project: Project }) {
             <p className="cs-section__lead cs-section__lead--wide">
               {cs.solution.lead}
             </p>
+            {cs.solution.walkthrough ? (
+              <CaseStudyWalkthrough walk={cs.solution.walkthrough} />
+            ) : null}
             {cs.solution.principles.some((p) => p.media) ? (
               <CaseStudyMediaGroup media={cs.solution.media} />
             ) : null}
@@ -119,9 +122,6 @@ export function CaseStudy({ project }: { project: Project }) {
           )}
         </h2>
         <p className="cs-section__lead">{cs.discovery.lead}</p>
-        {cs.discovery.walkthrough ? (
-          <CaseStudyWalkthrough walk={cs.discovery.walkthrough} />
-        ) : null}
         <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f, i) => (

@@ -1538,9 +1538,8 @@ h2 em {
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-areas: 'num label' 'num title';
+  grid-template-areas: 'num title';
   column-gap: 16px;
-  row-gap: 4px;
   align-items: baseline;
   text-align: left;
   padding: 16px 18px;
@@ -1572,13 +1571,6 @@ h2 em {
 }
 .cs-walk__step.is-active .cs-walk__num {
   opacity: 1;
-}
-.cs-walk__label {
-  grid-area: label;
-  color: var(--peach);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
 }
 .cs-walk__title {
   grid-area: title;

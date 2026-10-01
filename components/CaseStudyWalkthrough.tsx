@@ -9,6 +9,9 @@ import type { CaseStudyWalkthrough as Walkthrough } from '@/lib/projects'
  * numbered pins over the exact regions that do the work, and a list of
  * steps beside it. Auto-advances gently until the reader takes over.
  */
+/** Breathing room around each callout, in px, beyond the region it marks. */
+const PIN_PAD = 4
+
 export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
   const { steps, interval = 5200 } = walk
   const [active, setActive] = useState(0)
@@ -63,10 +66,10 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
                 key={`${active}-${i}`}
                 className="cs-walk__pin"
                 style={{
-                  left: `${c.x}%`,
-                  top: `${c.y}%`,
-                  width: `${c.w}%`,
-                  height: `${c.h}%`,
+                  left: `calc(${c.x}% - ${PIN_PAD}px)`,
+                  top: `calc(${c.y}% - ${PIN_PAD}px)`,
+                  width: `calc(${c.w}% + ${PIN_PAD * 2}px)`,
+                  height: `calc(${c.h}% + ${PIN_PAD * 2}px)`,
                 }}
               >
                 <i>{i + 1}</i>
@@ -89,7 +92,6 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
               aria-expanded={i === active}
             >
               <span className="cs-walk__num">{`0${i + 1}`}</span>
-              <span className="cs-walk__label">{s.label}</span>
               <span className="cs-walk__title">{s.title}</span>
             </button>
             <div className="cs-walk__body" hidden={i !== active}>
