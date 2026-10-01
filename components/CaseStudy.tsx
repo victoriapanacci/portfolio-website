@@ -131,9 +131,8 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
         <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
-          {cs.discovery.findings.map((f, i) => (
+          {cs.discovery.findings.map((f) => (
             <div key={f.title} className="cs-finding reveal-on-scroll">
-              <span className="cs-finding__num">{`0${i + 1}`}</span>
               <div className="cs-rich">
                 <h3>{f.title}</h3>
                 <RichText text={f.body} />
@@ -420,9 +419,8 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ) : null}
           <div className="cs-findings">
-            {cs.reflection.items.map((f, i) => (
+            {cs.reflection.items.map((f) => (
               <div key={f.title} className="cs-finding reveal-on-scroll">
-                <span className="cs-finding__num">{`0${i + 1}`}</span>
                 <div className="cs-rich">
                   <h3>{f.title}</h3>
                   <RichText text={f.body} />

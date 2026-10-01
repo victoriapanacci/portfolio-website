@@ -1989,13 +1989,6 @@ h2 em {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.015);
 }
-.cs-finding__num {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  color: var(--cream);
-  line-height: 1;
-  flex-shrink: 0;
-}
 .cs-finding h3 {
   font-family: var(--font-serif);
   font-weight: 400;
