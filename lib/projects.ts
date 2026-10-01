@@ -400,7 +400,7 @@ export const projects: Project[] = [
   {
     slug: 'cashier',
     index: '03',
-    title: 'Designing Trust in Two Ambiguous Systems',
+    title: 'Designing Trust into Ambiguous Systems',
     category: 'Sportsbook / Crypto payments / Functional UI',
     description:
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
