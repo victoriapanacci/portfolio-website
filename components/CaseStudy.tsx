@@ -35,6 +35,9 @@ export function CaseStudy({ project }: { project: Project }) {
               {cs.solution.lead}
             </p>
             {cs.solution.principles.some((p) => p.media) ? (
+              <CaseStudyMediaGroup media={cs.solution.media} />
+            ) : null}
+            {cs.solution.principles.some((p) => p.media) ? (
               <ol className="cs-decisions">
                 {cs.solution.principles.map((p, i) => (
                   <li key={p.title} className="cs-decision reveal-on-scroll">
@@ -44,10 +47,9 @@ export function CaseStudy({ project }: { project: Project }) {
                       <p>{p.body}</p>
                     </div>
                     {p.media ? (
-                      <CaseStudyMedia
-                        media={p.media}
-                        className="cs-decision__media"
-                      />
+                      <div className="cs-decision__media">
+                        <CaseStudyMediaGroup media={p.media} />
+                      </div>
                     ) : null}
                   </li>
                 ))}
@@ -85,7 +87,9 @@ export function CaseStudy({ project }: { project: Project }) {
         {cs.solution.prototype ? (
           <CaseStudyPrototype prototype={cs.solution.prototype} />
         ) : null}
-        <CaseStudyMediaGroup media={cs.solution.media} />
+        {cs.solution.principles?.some((p) => p.media) ? null : (
+          <CaseStudyMediaGroup media={cs.solution.media} />
+        )}
       </section>
     </>
   )
@@ -95,7 +99,7 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Discovery */}
       <section className="cs-section shell">
         <div className="cs-kicker">
-          <span>The research</span>
+          <span>{cs.discovery.kicker ?? 'The research'}</span>
           <i />
         </div>
         <h2 className="cs-h2">
@@ -221,11 +225,7 @@ export function CaseStudy({ project }: { project: Project }) {
             ))}
           </div>
         ) : null}
-        <CaseStudyMediaGroup
-          media={cs.problem.media}
-          columns={cs.problem.mediaColumns}
-          caption={cs.problem.mediaCaption}
-        />
+        <CaseStudyMediaGroup media={cs.problem.media} />
       </section>
 
       {cs.researchFirst ? discoverySection : solutionSection}
@@ -291,19 +291,22 @@ export function CaseStudy({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      {/* Metrics band */}
-      <section className="cs-metrics-wrap">
-        <div className="cs-metrics shell">
-          {cs.metrics.map((m) => (
-            <div key={m.label} className="cs-metric reveal-on-scroll">
-              <span className="cs-metric__value">{m.value}</span>
-              <span className="cs-metric__label">{m.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Metrics band (optional) */}
+      {cs.metrics?.length ? (
+        <section className="cs-metrics-wrap">
+          <div className="cs-metrics shell">
+            {cs.metrics.map((m) => (
+              <div key={m.label} className="cs-metric reveal-on-scroll">
+                <span className="cs-metric__value">{m.value}</span>
+                <span className="cs-metric__label">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      {/* Outcomes */}
+      {/* Outcomes (optional) */}
+      {cs.outcomes?.length ? (
       <section className="cs-section shell">
         <div className="cs-kicker">
           <span>The outcome</span>
@@ -336,6 +339,7 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
         <CaseStudyMediaGroup media={cs.outcomesMedia} />
       </section>
+      ) : null}
 
       {/* Launch (optional) */}
       {cs.launch ? (
@@ -379,21 +383,47 @@ export function CaseStudy({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      {/* Learnings */}
-      <section className="cs-section shell">
-        <div className="cs-kicker">
-          <span>What I took with me</span>
-          <i />
-        </div>
-        <ol className="cs-learnings">
-          {cs.learnings.map((l, i) => (
-            <li key={l} className="reveal-on-scroll">
-              <span aria-hidden="true">{`0${i + 1}`}</span>
-              <p>{l}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {/* Reflection (optional) */}
+      {cs.reflection ? (
+        <section className="cs-section shell">
+          <div className="cs-kicker">
+            <span>{cs.reflection.kicker}</span>
+            <i />
+          </div>
+          {cs.reflection.lead ? (
+            <p className="cs-section__lead">{cs.reflection.lead}</p>
+          ) : null}
+          <div className="cs-findings">
+            {cs.reflection.items.map((f, i) => (
+              <div key={f.title} className="cs-finding reveal-on-scroll">
+                <span className="cs-finding__num">{`0${i + 1}`}</span>
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* Learnings (optional) */}
+      {cs.learnings?.length ? (
+        <section className="cs-section shell">
+          <div className="cs-kicker">
+            <span>What I took with me</span>
+            <i />
+          </div>
+          <ol className="cs-learnings">
+            {cs.learnings.map((l, i) => (
+              <li key={l} className="reveal-on-scroll">
+                <span aria-hidden="true">{`0${i + 1}`}</span>
+                <p>{l}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
     </article>
   )
 }

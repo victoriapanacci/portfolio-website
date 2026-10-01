@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import type { CaseStudyImage } from '@/lib/projects'
+import type { CaseStudyImage, CaseStudyMediaItem } from '@/lib/projects'
 
 /**
  * Frames any case-study image inside the design system: a hairline-bordered
@@ -42,43 +42,38 @@ export function CaseStudyMedia({
 
 /**
  * Renders one artifact or a stacked group of them. Accepts a single image,
- * an array, or undefined, so any case-study section can carry visuals.
+ * a grid of images under one caption, an array of either, or undefined, so
+ * any case-study section can carry visuals.
  */
 export function CaseStudyMediaGroup({
   media,
-  columns,
-  caption,
 }: {
-  media?: CaseStudyImage | CaseStudyImage[]
-  /** Lay the items out side by side in this many columns. */
-  columns?: 2 | 3 | 4
-  /** One caption beneath the whole grid. */
-  caption?: string
+  media?: CaseStudyMediaItem | CaseStudyMediaItem[]
 }) {
   if (!media) return null
   const items = Array.isArray(media) ? media : [media]
-  if (columns && items.length > 1) {
-    return (
-      <figure
-        className="cs-media-grid reveal-on-scroll"
-        style={{ '--cs-media-cols': columns } as React.CSSProperties}
-      >
-        <div className="cs-media-grid__items">
-          {items.map((m) => (
-            <CaseStudyMedia key={m.src} media={m} />
-          ))}
-        </div>
-        {caption ? (
-          <figcaption className="cs-media__caption">{caption}</figcaption>
-        ) : null}
-      </figure>
-    )
-  }
   return (
     <>
-      {items.map((m) => (
-        <CaseStudyMedia key={m.src} media={m} />
-      ))}
+      {items.map((m) =>
+        'grid' in m ? (
+          <figure
+            key={m.grid.map((g) => g.src).join('|')}
+            className="cs-media-grid reveal-on-scroll"
+            style={{ '--cs-media-cols': m.columns } as React.CSSProperties}
+          >
+            <div className="cs-media-grid__items">
+              {m.grid.map((g) => (
+                <CaseStudyMedia key={g.src} media={g} />
+              ))}
+            </div>
+            {m.caption ? (
+              <figcaption className="cs-media__caption">{m.caption}</figcaption>
+            ) : null}
+          </figure>
+        ) : (
+          <CaseStudyMedia key={m.src} media={m} />
+        ),
+      )}
     </>
   )
 }

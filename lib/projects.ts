@@ -14,6 +14,16 @@ export type CaseStudyImage = {
   variant?: 'plate' | 'bleed'
 }
 
+/** Several small artifacts side by side under one caption. */
+export type CaseStudyMediaGrid = {
+  grid: CaseStudyImage[]
+  columns: 2 | 3 | 4
+  caption?: string
+}
+
+/** Anything a section can show: one image, or a grid of them. */
+export type CaseStudyMediaItem = CaseStudyImage | CaseStudyMediaGrid
+
 /** Interactive embed (e.g. a live Figma prototype) framed inside a case study. */
 export type CaseStudyPrototype = {
   /** Embeddable URL, e.g. an embed.figma.com/proto/... link. */
@@ -42,11 +52,7 @@ export type CaseStudy = {
     lead: string | string[]
     points: { title: string; body: string }[]
     /** Optional artifact(s) shown beneath the problem panels, e.g. the current state. */
-    media?: CaseStudyImage | CaseStudyImage[]
-    /** Lay several media items out side by side instead of stacked. */
-    mediaColumns?: 2 | 3 | 4
-    /** One caption for the whole media grid. */
-    mediaCaption?: string
+    media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
   /** Render the research section before the solution. Use when the insight has to land before the decisions. */
   researchFirst?: boolean
@@ -61,8 +67,8 @@ export type CaseStudy = {
      * Give a principle its own `media` to render every principle as a row
      * with its proof artifact beside it.
      */
-    principles?: { title: string; body: string; media?: CaseStudyImage }[]
-    media?: CaseStudyImage | CaseStudyImage[]
+    principles?: { title: string; body: string; media?: CaseStudyMediaItem }[]
+    media?: CaseStudyMediaItem | CaseStudyMediaItem[]
     /** Interactive prototype embedded as the solution centerpiece. */
     prototype?: CaseStudyPrototype
   }
@@ -70,22 +76,33 @@ export type CaseStudy = {
   pivot?: {
     kicker: string
     body: string | string[]
-    media?: CaseStudyImage | CaseStudyImage[]
+    media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
   discovery: {
+    /** Overrides the default "The research" kicker. */
+    kicker?: string
     /** Overrides the default "Four voices…" heading. */
     heading?: CaseStudyHeading
     lead: string
     findings: { title: string; body: string }[]
-    media?: CaseStudyImage | CaseStudyImage[]
+    media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
-  metrics: { value: string; label: string }[]
+  /** Stat band. Omit or leave empty to hide it. */
+  metrics?: { value: string; label: string }[]
   /** Overrides the default "Every objective, delivered." heading. */
   outcomesHeading?: CaseStudyHeading
-  outcomes: { objective: string; points: string[] }[]
+  /** Outcome cards. Omit or leave empty to hide the section. */
+  outcomes?: { objective: string; points: string[] }[]
   /** Optional framed artifact(s) closing the outcome section. */
-  outcomesMedia?: CaseStudyImage | CaseStudyImage[]
-  learnings: string[]
+  outcomesMedia?: CaseStudyMediaItem | CaseStudyMediaItem[]
+  /** Closing reflection: a few scenarios worked through, rendered after the outcome. */
+  reflection?: {
+    kicker: string
+    lead?: string
+    items: { title: string; body: string }[]
+  }
+  /** Numbered takeaways. Omit or leave empty to hide the section. */
+  learnings?: string[]
   /** Optional sections. Omit any of these to keep a case study tight. */
   process?: { index: string; title: string; body: string }[]
   objectives?: { label: string; title: string }[]
@@ -383,23 +400,23 @@ export const projects: Project[] = [
   {
     slug: 'cashier',
     index: '03',
-    title: 'Designing Trust Into Every Step of a Crypto Transaction',
-    category: 'Sportsbook / Crypto Payments / 0→1',
+    title: 'Designing Trust in Two Ambiguous Systems',
+    category: 'Sportsbook / Crypto payments / Functional UI',
     description:
-      'A one-line brief, two weeks, and a vendor cashier nobody trusted. I designed an in-house crypto cashier from zero, with every state built to answer one question: did my money move?',
+      'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
     art: 'cashier',
     caseStudy: {
       summary:
-        'A sportsbook ran its crypto cashier through Fortris, a third-party vendor. In two weeks I designed an in-house, mobile-first replacement from zero, built so a user knows where their money is at every step.',
+        'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. The cashier that joined them was a vendor iframe nobody in house could change, so every step asked for trust and gave nothing back. In two weeks I rebuilt it as functional UI: a system of states, each with a visual indicator, so a user never has to ask where their money is.',
       meta: [
-        { label: 'Role', value: 'Senior Product Designer' },
-        { label: 'Team', value: '1 Designer, 1 PM, Leadership' },
+        { label: 'Role', value: 'Senior product designer' },
+        { label: 'Team', value: '1 designer, 1 PM, leadership' },
         { label: 'Tools', value: 'Figma, Claude, Paper.io, GitHub' },
-        { label: 'Timeline', value: '2 Weeks to Handoff' },
+        { label: 'Timeline', value: '2 weeks to handoff' },
       ],
       heroMedia: {
-        src: '/work/cashier/hero-withdraw.png',
-        alt: 'Two screens from the new withdrawal flow: the amount form with a saved MetaMask wallet, and the review sheet showing fee, amount received, and arrival time.',
+        src: '/work/cashier/hero-mockup.png',
+        alt: 'Three screens from the finished withdrawal flow: the amount form with a saved wallet, the review sheet showing fee and net amount, and the pending state with a confirmation count.',
         variant: 'bleed',
       },
       problem: {
@@ -409,138 +426,150 @@ export const projects: Project[] = [
           'The brief, in total, was: “Build a new crypto cashier and make it better than what we have.” No metric, no scope, no user. The first job was to decide what “better” meant. To me, that was making sure the user never had to wonder whether their money moved.',
         ],
         points: [],
-        mediaColumns: 4,
-        mediaCaption:
-          'Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks. None of it was ours to change.',
         media: [
           {
-            src: '/work/cashier/before-1-account.png',
-            alt: 'Account hub with balances and Buy Coins and Redeem Cash buttons.',
-            variant: 'bleed',
+            grid: [
+              {
+                src: '/work/cashier/before-1-account.png',
+                alt: 'Account hub with balances and Buy Coins and Redeem Cash buttons.',
+                variant: 'bleed',
+              },
+              {
+                src: '/work/cashier/before-2-choose-wallet.png',
+                alt: 'Vendor screen titled Choose Your Wallet showing a grid of six coins: BTC, SOL, ETH, USDC, LTC, BCH.',
+                variant: 'bleed',
+              },
+              {
+                src: '/work/cashier/before-3-deposit.png',
+                alt: 'Vendor Deposit Using Bitcoin form with a dollar amount, purchase limits, and a red warning that other networks will lose funds.',
+                variant: 'bleed',
+              },
+              {
+                src: '/work/cashier/before-4-id-verification.png',
+                alt: 'Document ID Verification iframe from a second vendor on the redeem path, with a button reading complete the verification process and click this button when finished.',
+                variant: 'bleed',
+              },
+            ],
+            columns: 4,
+            caption:
+              'The current state. Account hub, then the vendor takes over: a “wallet” picker that is really a coin picker, a deposit form whose only guidance is a red warning, and a redeem path that hands the user to a second vendor for ID checks.',
           },
           {
-            src: '/work/cashier/before-2-choose-wallet.png',
-            alt: 'Vendor screen titled Choose Your Wallet showing a grid of six coins: BTC, SOL, ETH, USDC, LTC, BCH.',
-            variant: 'bleed',
-          },
-          {
-            src: '/work/cashier/before-3-deposit.png',
-            alt: 'Vendor Deposit Using Bitcoin form with a dollar amount, purchase limits, and a red warning that other networks will lose funds.',
-            variant: 'bleed',
-          },
-          {
-            src: '/work/cashier/before-4-id-verification.png',
-            alt: 'Document ID Verification iframe from a second vendor on the redeem path, with a button reading complete the verification process and click this button when finished.',
-            variant: 'bleed',
+            src: '/work/cashier/journey-map-redeem.png',
+            alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
+            caption:
+              'The current-state journey for redeeming. The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them.',
           },
         ],
       },
       researchFirst: true,
       discovery: {
-        heading: { lead: 'Trust wavered with no indication of what was happening, ', em: 'and when', tail: '.' },
-        lead: 'At this stage of the project, my priority was time to completion. The journey felt linear and I was trying to make it as fast as possible. My intent was to preserve some of the standard state to retain user familiarity.',
-        media: {
-          src: '/work/cashier/journey-map-redeem.png',
-          alt: 'Journey map of redeeming funds through the vendor flow: what the user is doing, thinking, and feeling at each step, ending in either relief or the belief that the app is a scam.',
-          caption:
-            'The manual path ends in two places: relief that it worked, or “this app is a scam.” Half of our users were new to crypto, so the default had to protect them.',
-        },
+        kicker: 'How do you show trust in UI?',
+        heading: { lead: 'Trust is ', em: 'system status', tail: ', shown before the user has to ask.' },
+        lead: 'Nielsen Norman’s first heuristic is visibility of system status: keep users informed with timely, appropriate feedback. With money in flight, that means every screen carries a state (idle, validating, pending, confirmed, failed) and a status the user can verify (a confirmation count, a transaction link, a fee shown before commit). Three more heuristics did the rest of the work.',
         findings: [
           {
-            title: 'Manual address entry is where mistakes happen',
-            body: 'A pasted address has no undo. The map shows confusion at the network step and a give-up mid-transaction.',
+            title: 'Error prevention',
+            body: 'Make the wrong action hard to take. Buttons stay disabled until the inputs are valid, errors appear on the field itself, and the default path protects people who are new.',
           },
           {
-            title: 'Redemption is the retention moment',
-            body: 'Deposit gets a user in. Redeem decides whether they come back. A failed withdrawal reads as theft, not a bug, and half our users were new to crypto.',
+            title: 'Recognition over recall',
+            body: 'The saved wallet, the network, the fee, and the net amount sit on the screen where the decision is made. Nobody should have to remember an address or a fee tier.',
+          },
+          {
+            title: 'Match between system and real world',
+            body: 'Status in the user’s words. “Nothing moves until you confirm in your wallet,” not “awaiting signature.” “1 of 3 confirmations,” not a spinner.',
+          },
+          {
+            title: 'Help users recognise, diagnose, and recover',
+            body: 'A failure is a state with a plain-language cause and one obvious next action, not a red toast that disappears.',
           },
         ],
       },
-      pivot: {
-        kicker: 'The revelation in the middle of work',
-        body: 'When running user research on my first-pass prototype, I hit a bit of a revelation: users did not want to manually enter a wallet, and breaking up the flow lost them. Several users suggested connecting their existing wallets instead. That ended up being the glaringly obvious solution.',
+      solution: {
+        heading: { lead: 'Four rules, ', em: 'every screen', tail: '.' },
+        lead: 'The cashier became functional UI: a system of states, each with a visual indicator and a status, so the user never has to ask what is happening with their money. I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. Four rules shaped every screen.',
         media: {
           src: '/work/cashier/flow-wallet-connected.png',
-          alt: 'Corrected flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
+          alt: 'Flowchart: purchase and redeem split at the top, package or currency selection, a KYC gate that only appears when verification is incomplete, then the in-house cashier and a confirmation screen.',
           caption:
-            'The flow after that round. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and the cashier ends on a confirmation screen instead of a copied address.',
+            'The flow the screens hang off. Purchase and redeem split at the top, the KYC gate only appears when verification is incomplete, and every path ends on a confirmation screen instead of a copied address.',
         },
-      },
-      solution: {
-        heading: { lead: 'Trust at ', em: 'every step', tail: ', from wallet to confirmation.' },
-        lead: 'I scoped to one coin, four wallets, and withdrawal first, because that was where trust broke. This was 0→1, but it was also functional UI: every state a transaction can be in got a screen that answers “what just happened?” Four decisions carried it, each shown with the screen that proves it.',
         principles: [
           {
-            title: 'Make mistakes hard: wallet first',
-            body: 'Detected wallets connect in one tap, MetaMask first. Pasting an address is a secondary link for crypto natives, not the default.',
+            title: 'Guardrails: make the mistake impossible',
+            body: 'The balance and the fee are on screen before anyone types. Exceed them and the field turns red with the reason, MAX explains exactly what it will send, and the button stays off until the numbers work. The interface catches the error, not the user.',
             media: {
-              src: '/work/cashier/deck-wallet-first.png',
-              alt: 'Design review slide showing the wallet picker with MetaMask connected and three annotations: making it hard to make a mistake, manual override still available, state change at completion.',
-              caption: 'The wallet picker as I presented it to leadership. The manual link stays, but it is no longer the first thing you see.',
-              variant: 'bleed',
+              grid: [
+                {
+                  src: '/work/cashier/screen-form.png',
+                  alt: 'Withdrawal form with a saved MetaMask wallet, currency, a dollar amount with MAX, the balance shown beneath, and three network fee tiers.',
+                  variant: 'bleed',
+                },
+                {
+                  src: '/work/cashier/screen-balance-error.png',
+                  alt: 'The same form with the amount field outlined in red, an inline message that amount plus network fee exceeds the balance, a note explaining what MAX sends, and the Review withdrawal button disabled.',
+                  variant: 'bleed',
+                },
+              ],
+              columns: 2,
+              caption: 'Balance and fee tiers visible before typing. Over the limit, the field explains why and the button will not go.',
             },
           },
           {
-            title: 'No surprises: the net amount before anything moves',
-            body: 'The review sheet lists the fee, what arrives, and when. Nothing moves until the user confirms in their wallet. If the amount plus fee exceeds the balance, the form says so in place and explains what MAX will send.',
+            title: 'No surprises: every step has an indicator',
+            body: 'Before anything moves, one sheet shows the destination, the network, the fee, the net amount, and the arrival time, with a note that the wallet will open to approve. The user knows what happens next and when, before it happens.',
             media: {
-              src: '/work/cashier/decision-review.png',
-              alt: 'Two screens: the withdrawal review sheet listing fee, amount received, and arrival time with a note that nothing moves until confirmed in the wallet, and the amount form showing an inline error that the amount plus network fee exceeds the balance.',
-              caption: 'Review sheet and the insufficient-balance state. Same numbers in both places, so the user never meets a fee for the first time after the fact.',
+              src: '/work/cashier/screen-review.png',
+              alt: 'Review sheet listing destination wallet, network, network fee, amount received in green, and arrival time, with a note that the wallet will open to approve and nothing moves until confirmed there.',
               variant: 'bleed',
+              caption: 'The review sheet. Every number the wallet is about to show, shown here first.',
             },
           },
           {
-            title: 'Never silent: feedback while money is in flight',
-            body: 'Pending shows a live confirmation count and an explorer link, never a spinner. Latency is out of our control. Silence is not.',
+            title: 'Where is my money, on every page',
+            body: 'Once sent, the status is live: a pending badge with the confirmation count, the destination, and a transaction link to verify on chain. A saved-wallet note tells them the next withdrawal is two taps. The user never has to ask.',
             media: {
-              src: '/work/cashier/decision-inflight.png',
-              alt: 'Two screens: the withdrawal-on-its-way state showing pending with one of three confirmations and a transaction link, and a slow-network state reading Confirming 1 of 3, taking longer than usual, funds are safe, view on blockchain.',
-              caption: 'Pending, and pending for longer than expected. Both states show the confirmation count and a link to verify on chain.',
+              src: '/work/cashier/screen-pending.png',
+              alt: 'Withdrawal on its way screen with a pending badge reading 1 of 3 confirmations, the destination address, a transaction link, and a note that the wallet is saved for next time.',
               variant: 'bleed',
+              caption: 'Pending, with a count and a link. Latency is out of our control. Silence is not.',
             },
           },
           {
             title: 'Failure is a state, not an error message',
-            body: 'Cancelled in wallet, insufficient funds, and slow network each got a screen that restates the facts and offers confirm or revert.',
+            body: 'If the user cancels in their wallet, the screen says exactly that, confirms that no funds moved, and offers retry or edit. Every failure path ends in a cause and a next action, with the visual cue to match.',
             media: {
-              src: '/work/cashier/deck-failures.png',
-              alt: 'Design review slide titled Things Go Wrong, showing three failure states: user cancels in wallet, user has insufficient funds, and the network is taking a long time.',
-              caption: 'Three failures, three screens. Each one restates the most important information, shows that the status changed, and gives a way to confirm or revert.',
+              src: '/work/cashier/screen-cancelled.png',
+              alt: 'Withdrawal screen after the user cancelled in their wallet, with an info panel reading transaction cancelled in your wallet, no funds moved, retry when ready, and buttons to retry or edit details.',
               variant: 'bleed',
+              caption: 'Cancelled in wallet. What happened, what it means for the money, and two ways forward.',
             },
           },
         ],
       },
-      metrics: [
-        { value: '4', label: 'wallet integrations at handoff, MetaMask first' },
-        { value: '3 taps', label: 'for a repeat withdrawal, amount to wallet approval' },
-        { value: '3', label: 'failure states designed before the happy path shipped' },
-        { value: '0', label: 'production data. Handed off complete, launch unconfirmed' },
-      ],
-      outcomesHeading: { lead: 'Handed off ', em: 'complete', tail: '. Launch unconfirmed.' },
-      outcomes: [
-        {
-          objective: 'What shipped to handoff',
-          points: [
-            'BTC deposit and withdrawal, wallet-first with a manual override.',
-            'Four wallets: MetaMask, Coinbase Wallet, WalletConnect, Phantom.',
-            'ID verification and a KYC gate on redeem.',
-            'Every failure state designed, not just the happy path.',
-          ],
-        },
-        {
-          objective: 'What I can and cannot claim',
-          points: [
-            'Clicks and time to transact were tested on prototypes, not in production. Error rate I could design for, not prove.',
-            'I was let go after handoff. I do not know whether it launched, and I would rather say that than invent a number.',
-          ],
-        },
-      ],
-      learnings: [
-        'Push back harder when research gets cut. The research I did anyway caught the missed wallet integration. Doing it first would have saved the rework.',
-        'Get the metrics into production before handoff. A number nobody can see after you leave is a number that never existed.',
-      ],
+      reflection: {
+        kicker: 'Reflection',
+        lead: 'A few scenarios I worked through, and what each one taught me about designing for money in flight.',
+        items: [
+          {
+            title: 'The user closes the app mid-transaction',
+            body: 'Money in flight does not wait for the app to be open. I designed the pending state to survive the app closing, with the status mirrored in history and a push notification when it confirmed, so coming back never meant starting over.',
+          },
+          {
+            title: 'The connected wallet changes between sessions',
+            body: 'Browser wallets switch accounts silently. I added a wallet-changed state that shows the new address, says plainly that it changed, and asks the user to confirm it or reconnect the previous one. One screen, two safe exits.',
+          },
+          {
+            title: 'The network fee moves between review and confirm',
+            body: 'Fees are live. If the quoted fee changed before approval, the review sheet re-rendered with the new number rather than letting the wallet show a figure the user had never seen. The rule became: the app never lets a number surprise the user.',
+          },
+          {
+            title: 'Where it ended',
+            body: 'I handed off the full flow with every state specified and tested on prototypes. I was let go before launch, so I cannot report production numbers. What I can say is that the research I was pushed to skip is what caught the biggest miss, the wallet integration, and I would run it first next time.',
+          },
+        ],
+      },
     },
   },
   {
