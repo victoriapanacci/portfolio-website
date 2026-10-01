@@ -415,8 +415,8 @@ export const projects: Project[] = [
         { label: 'Timeline', value: '2 weeks to handoff' },
       ],
       heroMedia: {
-        src: '/work/cashier/hero-mockup.png',
-        alt: 'Three screens from the finished withdrawal flow: the amount form with a saved wallet, the review sheet showing fee and net amount, and the pending state with a confirmation count.',
+        src: '/work/cashier/hero-iphone15.webp',
+        alt: 'An iPhone 15 showing the finished review sheet: amount, destination wallet, network, fee, net amount, arrival time, and a Confirm in wallet button.',
         variant: 'bleed',
       },
       problem: {
