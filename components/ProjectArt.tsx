@@ -5,14 +5,22 @@ const artLabel: Record<ProjectArtType, string> = {
   cashier:
     'The question "Where is my money right now?" above a withdrawal state track: Sent, then Pending at one of three confirmations, then Confirmed.',
   mobile:
-    'A spoken patient answer, "I don\'t know, I think sometimes, but I\'m not sure", and the app asking "Did you mean some of the time?" before confirming the answer.',
+    'A spoken patient answer, "I don\'t know, I think sometimes, but I\'m not sure", the app asking "Did you mean some of the time?", and the recorded answer: 3, some of the time.',
   system:
-    'A type sample beside a scale of six bars growing in size, and a row of colour swatches.',
+    'A type ramp of the letters Aa at six sizes on one baseline, and five named colour tokens: plum, wine, rose, peach and cream.',
   imaging:
-    'An MRI series split between the original and a redacted version with patient details blacked out, stamped as reviewed by a human.',
+    'An MRI series split between the original and a redacted version with patient details blacked out, stamped as human reviewed.',
 }
 
 const mri = { src: '/work/deid/hero-mri.png', width: 1180, height: 660 }
+
+const tokens = [
+  { name: 'Plum', hex: '#633547' },
+  { name: 'Wine', hex: '#8b4957' },
+  { name: 'Rose', hex: '#d97b72' },
+  { name: 'Peach', hex: '#e9a27d' },
+  { name: 'Cream', hex: '#f2e8dc' },
+]
 
 export function ProjectArt({ type }: { type: ProjectArtType }) {
   return (
@@ -24,20 +32,16 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
       <div className="project-art__stage" aria-hidden="true">
         {type === 'mobile' && (
           <div className="story story--voice">
-            <p className="voice-bubble voice-bubble--user">
+            <p className="voice-said">
               “I don’t know… I think sometimes, but I’m not sure.”
             </p>
-            <p className="voice-bubble voice-bubble--app">
+            <p className="voice-asked">
               Did you mean <em>some of the time</em>?
             </p>
-            <p className="voice-confirm">
-              <b>✓</b> 3 · Some of the time
+            <p className="voice-logged">
+              <span className="voice-option">3 · Some of the time</span>
+              <span className="voice-note">Recorded</span>
             </p>
-            <div className="voice-wave">
-              {Array.from({ length: 14 }, (_, i) => (
-                <i key={i} style={{ animationDelay: `${(i % 7) * 0.11}s` }} />
-              ))}
-            </div>
           </div>
         )}
 
@@ -87,24 +91,28 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
             </div>
             <span className="redact-label redact-label--l">Original</span>
             <span className="redact-label redact-label--r">Redacted</span>
-            <span className="redact-stamp">Reviewed by a human</span>
+            <span className="redact-stamp">Human reviewed</span>
           </div>
         )}
 
         {type === 'system' && (
           <div className="story story--scale">
-            <span className="scale-type">Aa</span>
-            <ul className="scale-bars">
-              {['8%', '13%', '21%', '34%', '55%', '89%'].map((w) => (
-                <li key={w} style={{ width: w }} />
+            <p className="ramp">
+              <span>Aa</span>
+              <span>Aa</span>
+              <span>Aa</span>
+              <span>Aa</span>
+              <span>Aa</span>
+              <span>Aa</span>
+            </p>
+            <ul className="tokens">
+              {tokens.map((t) => (
+                <li key={t.name}>
+                  <i style={{ background: t.hex }} />
+                  <b>{t.name}</b>
+                  <span>{t.hex}</span>
+                </li>
               ))}
-            </ul>
-            <ul className="scale-swatches">
-              <li />
-              <li />
-              <li />
-              <li />
-              <li />
             </ul>
           </div>
         )}
