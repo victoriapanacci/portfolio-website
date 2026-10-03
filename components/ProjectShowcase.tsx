@@ -45,7 +45,6 @@ export function ProjectShowcase({
             return (
               <li key={project.slug} className="quick-link reveal-on-scroll">
                 <Link href={`/work/${project.slug}`}>
-                  <span className="quick-link__index">{project.index}</span>
                   <span className="quick-link__body">
                     <span className="quick-link__title">{project.title}</span>
                     <span className="quick-link__category">

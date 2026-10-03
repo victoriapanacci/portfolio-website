@@ -5,7 +5,7 @@ const artLabel: Record<ProjectArtType, string> = {
   cashier:
     'Archive card for the cashier project: the real pending-withdrawal screen, "Withdrawal on its way", with a label strip reading project Cashier; status pending, one of three confirmations; handoff in two weeks.',
   mobile:
-    'Research note from the legacy ePRO study: a five-stage patient journey with stage four, missed entry, marked, and the patient\'s words, "I keep getting errors. How do I add a missed entry? I don\'t know how to do this." Mood: frustrated, then abandoned.',
+    'Research note from the legacy ePRO study: a five-stage patient journey with stage four, missed entry, marked, and the words from its stage-four sticky, "I keep getting errors. How do I add a missed entry? I don\'t know how to do this." Mood: frustrated, then abandoned.',
   system:
     'Archive card for the design-systems project: a type ramp of the letters Aa at six sizes and five named colour tokens, with a label strip reading project design systems; where madhaus.io; status in progress.',
   imaging:
@@ -13,6 +13,7 @@ const artLabel: Record<ProjectArtType, string> = {
 }
 
 const mri = { src: '/work/deid/hero-mri.png', width: 1180, height: 660 }
+const mriRedacted = { src: '/work/deid/hero-mri-redacted.png', width: 1180, height: 660 }
 const pending = { src: '/work/cashier/card-pending-status.png', width: 780, height: 470 }
 
 const stages = ['Onboarding', 'First use', 'Daily use', 'Missed entry', 'End of study']
@@ -60,7 +61,7 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
               how to do this.”
             </p>
             <p className="notes-meta">
-              <span>Patient, legacy ePRO study</span>
+              <span>From the patient journey map, legacy ePRO study</span>
               <span>Frustrated, then abandoned</span>
             </p>
           </div>
@@ -74,6 +75,7 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
                 alt=""
                 width={pending.width}
                 height={pending.height}
+                loading="eager"
               />
             </div>
             <LabelStrip
@@ -89,21 +91,20 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
         {type === 'imaging' && (
           <div className="story story--redact">
             <Image
-              src={mri.src}
+              src={mriRedacted.src}
               alt=""
-              width={mri.width}
-              height={mri.height}
-              className="redact-img redact-img--after"
+              width={mriRedacted.width}
+              height={mriRedacted.height}
+              loading="eager"
+              className="redact-img"
             />
-            <span className="redact-bar redact-bar--1" />
-            <span className="redact-bar redact-bar--2" />
-            <span className="redact-bar redact-bar--3" />
             <div className="redact-before">
               <Image
                 src={mri.src}
                 alt=""
                 width={mri.width}
                 height={mri.height}
+                loading="eager"
                 className="redact-img redact-img--before"
               />
             </div>
