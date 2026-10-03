@@ -624,6 +624,17 @@ h2 em {
   white-space: nowrap;
   flex: none;
 }
+/* narrow tiles: stack the source and mood lines instead of wrapping either */
+@container (max-width: 420px) {
+  .notes-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35em;
+  }
+  .notes-meta span + span {
+    text-align: left;
+  }
+}
 
 /* Cashier, Design systems: an archive card with a typed label strip */
 .story--file {
