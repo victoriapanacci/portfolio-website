@@ -21,3 +21,6 @@ tsconfig.tsbuildinfo
 # Next.js auto-generated AI agent rules
 AGENTS.md
 CLAUDE.md
+
+# Impeccable review captures (regenerated per run)
+.impeccable/review/
