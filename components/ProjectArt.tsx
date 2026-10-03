@@ -3,51 +3,16 @@ import type { ProjectArtType } from '@/lib/projects'
 
 const artLabel: Record<ProjectArtType, string> = {
   cashier:
-    'Cashier withdrawal screen: a linked MetaMask wallet, Bitcoin selected, a $250 amount, and network fee tiers.',
+    'The question "Where is my money right now?" above a withdrawal state track: Sent, then Pending at one of three confirmations, then Confirmed.',
   mobile:
-    'Two DribbleCollect questionnaire screens: a vision question with answer options, and the same question with the voice-to-text transcription pane open.',
+    'A spoken patient answer, "I don\'t know, I think sometimes, but I\'m not sure", and the app asking "Did you mean some of the time?" before confirming the answer.',
   system:
-    'Design system sheet: a type sample, colour swatches, primary and secondary buttons, and a text field.',
+    'A type sample beside a scale of six bars growing in size, and a row of colour swatches.',
   imaging:
-    'Fusion redaction viewer: an MRI series with burned-in patient details blacked out and DICOM tag fields.',
+    'An MRI series split between the original and a redacted version with patient details blacked out, stamped as reviewed by a human.',
 }
 
-/** Real screens from each project. */
-const shots = {
-  eproClosed: { src: '/work/epro/card-questionnaire.png', width: 298, height: 646 },
-  eproOpen: { src: '/work/epro/card-voice-to-text.png', width: 298, height: 646 },
-  cashier: { src: '/work/cashier/hero-2-amount.png', width: 780, height: 1688 },
-  mri: { src: '/work/deid/hero-mri.png', width: 1180, height: 660 },
-} as const
-
-type Shot = (typeof shots)[keyof typeof shots]
-
-function Screen({ shot, className }: { shot: Shot; className: string }) {
-  return (
-    <div className={`card-screen ${className}`}>
-      <Image
-        src={shot.src}
-        alt=""
-        width={shot.width}
-        height={shot.height}
-        className="card-screen__img"
-      />
-    </div>
-  )
-}
-
-function WindowBar({ title }: { title: string }) {
-  return (
-    <div className="card-window__bar">
-      <span className="card-window__dots">
-        <i />
-        <i />
-        <i />
-      </span>
-      <span>{title}</span>
-    </div>
-  )
-}
+const mri = { src: '/work/deid/hero-mri.png', width: 1180, height: 660 }
 
 export function ProjectArt({ type }: { type: ProjectArtType }) {
   return (
@@ -58,82 +23,89 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
     >
       <div className="project-art__stage" aria-hidden="true">
         {type === 'mobile' && (
-          <>
-            <Screen shot={shots.eproClosed} className="card-screen--a" />
-            <Screen shot={shots.eproOpen} className="card-screen--b" />
-          </>
-        )}
-
-        {type === 'cashier' && (
-          <Screen shot={shots.cashier} className="card-screen--solo" />
-        )}
-
-        {type === 'imaging' && (
-          <div className="card-window">
-            <WindowBar title="Fusion · De-identify" />
-            <div className="card-window__body">
-              <div className="scan-tabs">
-                <span>Original</span>
-                <span className="is-active">Redacted</span>
-              </div>
-              <div className="scan-frame">
-                <Image
-                  src={shots.mri.src}
-                  alt=""
-                  width={shots.mri.width}
-                  height={shots.mri.height}
-                  className="scan-image"
-                />
-                <div className="redaction-box redaction-box--a" />
-                <div className="redaction-box redaction-box--b" />
-                <div className="redaction-box redaction-box--c" />
-              </div>
-              <ul className="scan-tags">
-                <li>
-                  PatientName <b />
-                </li>
-                <li>
-                  StudyDate <b />
-                </li>
-                <li>
-                  Institution <b />
-                </li>
-                <li>
-                  PatientID <b />
-                </li>
-              </ul>
+          <div className="story story--voice">
+            <p className="voice-bubble voice-bubble--user">
+              “I don’t know… I think sometimes, but I’m not sure.”
+            </p>
+            <p className="voice-bubble voice-bubble--app">
+              Did you mean <em>some of the time</em>?
+            </p>
+            <p className="voice-confirm">
+              <b>✓</b> 3 · Some of the time
+            </p>
+            <div className="voice-wave">
+              {Array.from({ length: 14 }, (_, i) => (
+                <i key={i} style={{ animationDelay: `${(i % 7) * 0.11}s` }} />
+              ))}
             </div>
           </div>
         )}
 
-        {type === 'system' && (
-          <div className="card-window card-window--system">
-            <WindowBar title="Foundations" />
-            <div className="card-window__body">
-              <div className="sys-type">
-                <span className="sys-type__sample">Aa</span>
-                <span className="sys-swatches">
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                </span>
-              </div>
-              <div className="sys-row">
-                <span className="sys-btn sys-btn--primary">Continue</span>
-                <span className="sys-btn">Cancel</span>
-              </div>
-              <div className="sys-field">
-                <span className="sys-field__label">Email</span>
-                <span className="sys-field__value">victoria@studio.co</span>
-              </div>
-              <div className="sys-row">
-                <span className="sys-chip">Default</span>
-                <span className="sys-chip is-on">Selected</span>
-                <span className="sys-chip">Disabled</span>
-              </div>
+        {type === 'cashier' && (
+          <div className="story story--states">
+            <p className="states-title">
+              Where is <em>my money</em> right now?
+            </p>
+            <ol className="states-track">
+              <li className="is-done">
+                <i />
+                <span>Sent</span>
+              </li>
+              <li className="is-active">
+                <i />
+                <span>Pending · 1/3</span>
+              </li>
+              <li>
+                <i />
+                <span>Confirmed</span>
+              </li>
+            </ol>
+          </div>
+        )}
+
+        {type === 'imaging' && (
+          <div className="story story--redact">
+            <Image
+              src={mri.src}
+              alt=""
+              width={mri.width}
+              height={mri.height}
+              className="redact-img redact-img--after"
+            />
+            <span className="redact-bar redact-bar--1" />
+            <span className="redact-bar redact-bar--2" />
+            <span className="redact-bar redact-bar--3" />
+            <span className="redact-bar redact-bar--4" />
+            <div className="redact-before">
+              <Image
+                src={mri.src}
+                alt=""
+                width={mri.width}
+                height={mri.height}
+                className="redact-img"
+              />
             </div>
+            <span className="redact-label redact-label--l">Original</span>
+            <span className="redact-label redact-label--r">Redacted</span>
+            <span className="redact-stamp">Reviewed by a human</span>
+          </div>
+        )}
+
+        {type === 'system' && (
+          <div className="story story--scale">
+            <span className="scale-type">Aa</span>
+            <ul className="scale-bars">
+              {['8%', '13%', '21%', '34%', '55%', '89%'].map((w) => (
+                <li key={w} style={{ width: w }} />
+              ))}
+            </ul>
+            <ul className="scale-swatches">
+              <li />
+              <li />
+              <li />
+              <li />
+              <li />
+            </ul>
           </div>
         )}
       </div>
