@@ -1,33 +1,47 @@
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import type { Project } from '@/lib/projects'
-import { ArrowLink } from './ArrowLink'
-import { ProjectArt } from './ProjectArt'
+import { DeviceFrame } from './DeviceFrame'
+import { Icon } from './Icon'
+import { Reveal } from './Reveal'
+import { TagChips } from './TagChips'
 
-export function ProjectCard({ project }: { project: Project }) {
+type Props = {
+  project: Project
+  /** Stagger offset in seconds, so a grid of cards fades in one after another. */
+  delay?: number
+}
+
+/**
+ * One project card: a 4:3 thumbnail in a device frame, the title, a
+ * one-line summary and the project's tag chips. Hovering scales the
+ * device slightly and lifts the card.
+ */
+export function ProjectCard({ project, delay = 0 }: Props) {
   const href = `/work/${project.slug}`
   const hasStudy = Boolean(project.caseStudy)
 
   return (
-    <article className="project-card reveal-on-scroll group">
-      <div className="project-index">{project.index}</div>
-      <ProjectArt type={project.art} />
-      <div className="project-copy">
-        <h3>{project.title}</h3>
-        <ul className="project-pills" aria-label="Categories">
-          {project.category
-            .split('/')
-            .map((tag) => tag.trim())
-            .filter(Boolean)
-            .map((tag) => (
-              <li key={tag} className="pill">
-                {tag}
-              </li>
-            ))}
-        </ul>
-        <p className="project-description">{project.description}</p>
-        <ArrowLink href={href}>
-          {hasStudy ? 'View case study' : 'Coming soon'}
-        </ArrowLink>
+    <Reveal as="article" className="project-card group" delay={delay}>
+      <Link href={href} className="project-card__link" aria-label={project.title}>
+        <DeviceFrame
+          kind={project.device}
+          layout="thumbnail"
+          src={project.thumbnail.src}
+          alt={project.thumbnail.alt}
+        />
+      </Link>
+      <div className="project-card__body">
+        <h3 className="project-card__title">
+          <Link href={href}>{project.title}</Link>
+        </h3>
+        <p className="project-card__summary">{project.summary}</p>
+        <TagChips tags={project.tags} />
+        <Link href={href} className="project-card__cta">
+          <span>{hasStudy ? 'View case study' : 'Coming soon'}</span>
+          <Icon icon={ArrowRight} className="transition-transform duration-200 ease-soft group-hover:translate-x-0.5" />
+        </Link>
       </div>
-    </article>
+    </Reveal>
   )
 }

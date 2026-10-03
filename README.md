@@ -31,3 +31,15 @@ To learn more, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+
+## Adding a case study
+
+Every project lives in `lib/projects.ts`. A project card needs `title`,
+`summary`, `tags`, `device` (`phone` or `browser`) and a `thumbnail`. Adding a
+`caseStudy` object (`hero`, `meta`, `overview`, `problem`, `outcome`, optional
+`images` and `process`) turns the card into a full case study page at
+`/work/<slug>`; `components/CaseStudyLayout.tsx` renders every one in the same
+order, so no component changes are needed.
+
+Design tokens (type scale, spacing, radius, shadow, colours) are defined once
+in the `@theme` block at the top of `app/globals.css`.

@@ -1,20 +1,60 @@
 import Link from 'next/link'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Mail } from 'lucide-react'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { Icon } from './Icon'
 
-type Props = { href: string; children: React.ReactNode; className?: string }
+type Props = {
+  href: string
+  children: React.ReactNode
+  /** 'forward' (default) puts an arrow after the text; 'back' puts one before it. */
+  direction?: 'forward' | 'back' | 'external' | 'mail'
+  variant?: 'primary' | 'outline' | 'ghost'
+  className?: string
+}
 
-export function ArrowLink({ href, children, className = '' }: Props) {
+const icons = {
+  forward: ArrowRight,
+  back: ArrowLeft,
+  external: ArrowUpRight,
+  mail: Mail,
+}
+
+/**
+ * A button-shaped link with a lucide arrow. Used for every call to action
+ * and every back link, so they all share the same pill, height and motion.
+ */
+export function ArrowLink({
+  href,
+  children,
+  direction = 'forward',
+  variant = 'outline',
+  className,
+}: Props) {
+  const external = href.startsWith('http') || href.startsWith('mailto:')
+  const glyph = (
+    <Icon
+      icon={icons[direction]}
+      className={cn(
+        'transition-transform duration-200 ease-soft',
+        direction === 'forward' && 'group-hover/button:translate-x-0.5',
+        direction === 'back' && 'group-hover/button:-translate-x-0.5',
+        direction === 'external' &&
+          'group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5',
+      )}
+    />
+  )
+
   return (
     <Link
       href={href}
-      className={`group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70 ${className}`}
+      className={cn(buttonVariants({ variant }), className)}
+      target={external && !href.startsWith('mailto:') ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
     >
+      {direction === 'back' ? glyph : null}
       <span>{children}</span>
-      <span
-        aria-hidden="true"
-        className="text-base font-light text-rose transition-transform duration-300 group-hover:translate-x-1"
-      >
-        →
-      </span>
+      {direction === 'back' ? null : glyph}
     </Link>
   )
 }

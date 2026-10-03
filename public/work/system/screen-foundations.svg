@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Design system foundations page: type sample, colour swatches, and a component list">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1220"/>
+      <stop offset="1" stop-color="#0e0a12"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <!-- sidebar -->
+  <rect x="0" y="0" width="300" height="1000" fill="#120c17"/>
+  <rect x="300" y="0" width="1" height="1000" fill="#f2e8dc" opacity="0.1"/>
+  <g fill="#f2e8dc" font-family="Inter, system-ui, sans-serif" font-size="20">
+    <text x="40" y="70" font-size="18" font-weight="600" fill="#e9a27d" letter-spacing="4">FOUNDATIONS</text>
+    <text x="40" y="130" opacity="0.95">Typography</text>
+    <text x="40" y="180" opacity="0.6">Colour</text>
+    <text x="40" y="230" opacity="0.6">Spacing</text>
+    <text x="40" y="280" opacity="0.6">Radius &amp; shadow</text>
+    <text x="40" y="360" font-size="18" font-weight="600" fill="#e9a27d" letter-spacing="4">COMPONENTS</text>
+    <text x="40" y="420" opacity="0.6">Buttons</text>
+    <text x="40" y="470" opacity="0.6">Inputs</text>
+    <text x="40" y="520" opacity="0.6">Cards</text>
+    <text x="40" y="570" opacity="0.6">Navigation</text>
+  </g>
+  <!-- type sample -->
+  <text x="380" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="260" fill="#f2e8dc" letter-spacing="-8">Aa</text>
+  <g font-family="Inter, system-ui, sans-serif" fill="#b9aead">
+    <text x="760" y="170" font-size="22">Display / 64 / Serif 400</text>
+    <text x="760" y="215" font-size="22">Heading / 32 / Serif 400</text>
+    <text x="760" y="260" font-size="22">Body / 16 / Sans 400</text>
+    <text x="760" y="305" font-size="22">Label / 12 / Sans 600 / 0.3em</text>
+  </g>
+  <!-- swatches -->
+  <g>
+    <rect x="380" y="400" width="150" height="150" rx="20" fill="#0c0810" stroke="#f2e8dc" stroke-opacity="0.14"/>
+    <rect x="560" y="400" width="150" height="150" rx="20" fill="#18101d" stroke="#f2e8dc" stroke-opacity="0.14"/>
+    <rect x="740" y="400" width="150" height="150" rx="20" fill="#d97b72"/>
+    <rect x="920" y="400" width="150" height="150" rx="20" fill="#e9a27d"/>
+    <rect x="1100" y="400" width="150" height="150" rx="20" fill="#b9aead"/>
+    <rect x="1280" y="400" width="150" height="150" rx="20" fill="#f2e8dc"/>
+  </g>
+  <g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#b9aead">
+    <text x="380" y="590">ink</text>
+    <text x="560" y="590">plum</text>
+    <text x="740" y="590">rose</text>
+    <text x="920" y="590">peach</text>
+    <text x="1100" y="590">muted</text>
+    <text x="1280" y="590">cream</text>
+  </g>
+  <!-- component rows -->
+  <g stroke="#f2e8dc" stroke-opacity="0.14" fill="#ffffff" fill-opacity="0.02">
+    <rect x="380" y="660" width="1050" height="84" rx="20"/>
+    <rect x="380" y="764" width="1050" height="84" rx="20"/>
+    <rect x="380" y="868" width="1050" height="84" rx="20"/>
+  </g>
+  <g font-family="Inter, system-ui, sans-serif" font-size="22" fill="#f2e8dc">
+    <text x="416" y="712">Button / primary, secondary, ghost</text>
+    <text x="416" y="816">Input / text, select, textarea</text>
+    <text x="416" y="920">Card / default, interactive</text>
+  </g>
+  <g fill="#d97b72">
+    <circle cx="1390" cy="702" r="6"/>
+    <circle cx="1390" cy="806" r="6"/>
+    <circle cx="1390" cy="910" r="6"/>
+  </g>
+</svg>

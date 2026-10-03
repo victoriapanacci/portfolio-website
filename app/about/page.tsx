@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { ArrowLink } from '@/components/ArrowLink'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
-import { SiteFooter } from '@/components/SiteFooter'
-import { SiteHeader } from '@/components/SiteHeader'
+import { Reveal } from '@/components/Reveal'
+import { SectionLabel } from '@/components/SectionLabel'
 
 export const metadata: Metadata = {
   title: 'VP: About',
@@ -81,97 +81,87 @@ const education = [
 
 export default function AboutPage() {
   return (
-    <main>
-      <div className="grain" aria-hidden="true" />
-      <SiteHeader />
-
+    <>
       {/* Breadcrumb back link, same pattern as the case study pages */}
       <div className="shell">
-        <Link
-          href="/"
-          className="group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70"
-        >
-          <span
-            aria-hidden="true"
-            className="text-base font-light text-rose transition-transform duration-300 group-hover:-translate-x-1"
-          >
-            ←
-          </span>
-          <span>Back to Home</span>
-        </Link>
+        <ArrowLink href="/" direction="back">
+          Back to home
+        </ArrowLink>
       </div>
 
-      <section id="top" className="about-hero shell">
+      <section className="hero hero--short shell">
         <div className="hero-light" aria-hidden="true" />
-        <div className="about-hero__copy reveal">
-          <h1 className="cs-title">
-            I make complexity feel invisible
-          </h1>
-          <p className="cs-summary">
-            I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
+        <Reveal className="hero-copy">
+          <SectionLabel>About</SectionLabel>
+          <h1 className="hero-title">I make complexity feel invisible</h1>
+          <p className="hero-body">
+            I&apos;m Victoria, I&apos;m a senior product designer. I have a knack
+            for turning complex, data-heavy workflows into products that feel
+            simple. I&apos;ve worked across iGaming, clinical research, SaaS, and
+            consumer tech.
           </p>
-        </div>
+        </Reveal>
       </section>
 
-      <section className="about-section shell" aria-labelledby="how-i-work">
-        <div className="section-kicker">
-          <span id="how-i-work">How I work</span>
-          <i />
-        </div>
+      <section className="section shell" aria-labelledby="how-i-work">
+        <Reveal className="section-head">
+          <SectionLabel id="how-i-work">How I work</SectionLabel>
+        </Reveal>
         <ul className="about-principles">
-          {principles.map((point) => (
-            <li key={point} className="about-principle reveal-on-scroll">
+          {principles.map((point, i) => (
+            <Reveal as="li" key={point} className="about-principle card" delay={i * 0.06}>
               {point}
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
 
-      <section className="about-section shell" aria-labelledby="experience">
-        <div className="section-kicker">
-          <span id="experience">Work experience</span>
-          <i />
-        </div>
+      <section className="section shell" aria-labelledby="experience">
+        <Reveal className="section-head">
+          <SectionLabel id="experience">Work experience</SectionLabel>
+        </Reveal>
         <ol className="about-timeline">
           {experience.map((job) => (
-            <li key={`${job.company}-${job.period}`} className="about-job reveal-on-scroll">
+            <Reveal as="li" key={`${job.company}-${job.period}`} className="about-job">
               <div className="about-job__head">
                 <h3 className="about-job__role">{job.role}</h3>
                 <p className="about-job__company">{job.company}</p>
                 <p className="about-job__period">{job.period}</p>
               </div>
-              <ul className="about-job__points">
+              <ul className="cs-rich-list about-job__points">
                 {job.points.map((point) => (
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </section>
 
-      <section className="about-section shell" aria-labelledby="education">
-        <div className="section-kicker">
-          <span id="education">Education</span>
-          <i />
-        </div>
+      <section className="section shell" aria-labelledby="education">
+        <Reveal className="section-head">
+          <SectionLabel id="education">Education</SectionLabel>
+        </Reveal>
         <ul className="about-education">
-          {education.map((item) => (
-            <li key={item.credential + item.detail} className="about-edu reveal-on-scroll">
+          {education.map((item, i) => (
+            <Reveal
+              as="li"
+              key={item.credential + item.detail}
+              className="about-edu card"
+              delay={i * 0.06}
+            >
               <span className="about-edu__year">{item.year}</span>
               <div className="about-edu__body">
                 <p className="about-edu__credential">{item.credential}</p>
                 <p className="about-edu__detail">{item.detail}</p>
                 <p className="about-edu__note">{item.note}</p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
 
-      <ProjectShowcase variant="quick" kicker="Selected work" />
-
-      <SiteFooter />
-    </main>
+      <ProjectShowcase variant="quick" label="Selected work" title="Case studies" />
+    </>
   )
 }

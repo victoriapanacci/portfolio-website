@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArrowLink } from '@/components/ArrowLink'
-import { CaseStudy } from '@/components/CaseStudy'
+import { CaseStudyLayout } from '@/components/CaseStudyLayout'
+import { DeviceFrame } from '@/components/DeviceFrame'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
-import { SiteFooter } from '@/components/SiteFooter'
-import { SiteHeader } from '@/components/SiteHeader'
+import { Reveal } from '@/components/Reveal'
+import { SectionLabel } from '@/components/SectionLabel'
+import { TagChips } from '@/components/TagChips'
 import { getProject, projects } from '@/lib/projects'
 
 export function generateStaticParams() {
@@ -21,9 +23,7 @@ export async function generateMetadata({
   if (!project) return { title: 'VP: Case Study' }
   return {
     title: `VP: ${project.title}`,
-    description: project.caseStudy
-      ? [project.caseStudy.summary].flat().join(' ')
-      : project.description,
+    description: project.summary,
   }
 }
 
@@ -36,36 +36,46 @@ export default async function ProjectPage({
   const project = getProject(slug)
   if (!project) notFound()
 
-  const hasStudy = Boolean(project.caseStudy)
-
   return (
-    <main>
-      <div className="grain" aria-hidden="true" />
-      <SiteHeader />
-
-      {hasStudy ? (
-        <CaseStudy project={project} />
+    <>
+      {project.caseStudy ? (
+        <CaseStudyLayout project={project} />
       ) : (
-        <section className="cs-placeholder shell" id="top">
-          <p className="cs-eyebrow">{project.category}</p>
-          <h1 className="cs-title">{project.title}</h1>
-          <p className="cs-summary">{project.description}</p>
-          <p className="cs-placeholder__note">
-            This case study is being written. In the meantime, explore my other
-            work below.
-          </p>
-          <ArrowLink href="/#work">Back to all work</ArrowLink>
-        </section>
+        <article className="cs">
+          <div className="shell">
+            <ArrowLink href="/#work" direction="back">
+              Back to all work
+            </ArrowLink>
+          </div>
+          <Reveal as="header" className="cs-hero shell">
+            <DeviceFrame
+              kind={project.device}
+              layout="hero"
+              src={project.thumbnail.src}
+              alt={project.thumbnail.alt}
+              priority
+            />
+          </Reveal>
+          <Reveal className="cs-intro shell">
+            <SectionLabel>Case study {project.index}</SectionLabel>
+            <h1 className="cs-title">{project.title}</h1>
+            <p className="cs-summary">{project.summary}</p>
+            <TagChips tags={project.tags} className="cs-tags" />
+            <p className="cs-placeholder__note">
+              This case study is being written. In the meantime, explore my
+              other work below.
+            </p>
+          </Reveal>
+        </article>
       )}
 
       {/* Quick links back to the other project cards, same source of truth as home */}
       <ProjectShowcase
         variant="quick"
-        kicker="Explore more work"
+        label="Explore more work"
+        title="Other projects"
         excludeSlug={project.slug}
       />
-
-      <SiteFooter />
-    </main>
+    </>
   )
 }

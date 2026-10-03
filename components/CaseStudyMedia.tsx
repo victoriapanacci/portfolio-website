@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import type { CaseStudyImage, CaseStudyMediaItem } from '@/lib/projects'
+import { Reveal } from './Reveal'
+import { SectionLabel } from './SectionLabel'
 
 /**
  * Frames any case-study image inside the design system: a hairline-bordered
- * plate with a rose eyebrow tag and a caption. Keeps real product screenshots
+ * plate with a small label and a caption. Keeps real product screenshots
  * and boards feeling native to the warm-ink / rose aesthetic instead of
  * dropping raw white artboards onto the dark background.
  */
@@ -17,11 +19,14 @@ export function CaseStudyMedia({
   const variant = media.variant ?? 'plate'
 
   return (
-    <figure
-      className={`cs-media cs-media--${variant} reveal-on-scroll${className ? ` ${className}` : ''}`}
+    <Reveal
+      as="figure"
+      className={`cs-media cs-media--${variant}${className ? ` ${className}` : ''}`}
     >
       {media.eyebrow ? (
-        <figcaption className="cs-media__eyebrow">{media.eyebrow}</figcaption>
+        <SectionLabel as="span" className="cs-media__eyebrow">
+          {media.eyebrow}
+        </SectionLabel>
       ) : null}
       <div className="cs-media__frame">
         <Image
@@ -36,7 +41,7 @@ export function CaseStudyMedia({
       {media.caption ? (
         <figcaption className="cs-media__caption">{media.caption}</figcaption>
       ) : null}
-    </figure>
+    </Reveal>
   )
 }
 
@@ -56,9 +61,10 @@ export function CaseStudyMediaGroup({
     <>
       {items.map((m) =>
         'grid' in m ? (
-          <figure
+          <Reveal
+            as="figure"
             key={m.grid.map((g) => g.src).join('|')}
-            className="cs-media-grid reveal-on-scroll"
+            className="cs-media-grid"
             style={{ '--cs-media-cols': m.columns } as React.CSSProperties}
           >
             <div className="cs-media-grid__items">
@@ -69,7 +75,7 @@ export function CaseStudyMediaGroup({
             {m.caption ? (
               <figcaption className="cs-media__caption">{m.caption}</figcaption>
             ) : null}
-          </figure>
+          </Reveal>
         ) : (
           <CaseStudyMedia key={m.src} media={m} />
         ),

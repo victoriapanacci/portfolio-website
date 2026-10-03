@@ -1,12 +1,14 @@
 'use client'
 
 import Link from 'next/link'
+import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { Icon } from './Icon'
 
 const navLinks = [
   { href: '/#work', label: 'Work' },
   { href: '/about', label: 'About' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export function SiteHeader() {
@@ -47,21 +49,19 @@ export function SiteHeader() {
       </nav>
       <div className="mobile-nav" ref={menuRef}>
         <button
-          className={`mobile-menu${open ? ' is-open' : ''}`}
+          className="mobile-menu"
           aria-label={open ? 'Close navigation' : 'Open navigation'}
           aria-expanded={open}
           aria-controls="mobile-nav-menu"
           type="button"
           onClick={() => setOpen((value) => !value)}
         >
-          <span />
-          <span />
-          <span />
+          <Icon icon={open ? X : Menu} className="text-cream" />
         </button>
         <nav
           id="mobile-nav-menu"
           aria-label="Mobile navigation"
-          className={`mobile-nav-menu${open ? ' is-open' : ''}`}
+          className="mobile-nav-menu"
           hidden={!open}
         >
           {navLinks.map((link) => (

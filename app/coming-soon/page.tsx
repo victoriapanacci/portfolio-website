@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import { ArrowLink } from '@/components/ArrowLink'
+import { Reveal } from '@/components/Reveal'
+import { SectionLabel } from '@/components/SectionLabel'
+import { LINKEDIN_URL } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'VP: Coming Soon',
@@ -8,24 +11,18 @@ export const metadata: Metadata = {
 
 export default function ComingSoon() {
   return (
-    <main>
-      <div className="grain" aria-hidden="true" />
-
-      <section className="hero shell" style={{ minHeight: '100vh' }}>
-        <div className="hero-light" aria-hidden="true" />
-        <div className="hero-copy reveal">
-          <p className="eyebrow">Victoria Panacci</p>
-          <h1>
-            Scheming <em>in progress</em>.
-          </h1>
-          <p className="hero-body">
-            Portfolio coming soon.
-          </p>
-          <ArrowLink href="https://www.linkedin.com/in/panacci">
-            Connect on LinkedIn
-          </ArrowLink>
-        </div>
-      </section>
-    </main>
+    <section className="hero hero--tall shell">
+      <div className="hero-light" aria-hidden="true" />
+      <Reveal className="hero-copy">
+        <SectionLabel>Victoria Panacci</SectionLabel>
+        <h1 className="hero-title">
+          Scheming <em>in progress</em>.
+        </h1>
+        <p className="hero-body">Portfolio coming soon.</p>
+        <ArrowLink href={LINKEDIN_URL} direction="external">
+          Connect on LinkedIn
+        </ArrowLink>
+      </Reveal>
+    </section>
   )
 }

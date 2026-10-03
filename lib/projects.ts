@@ -1,4 +1,18 @@
-export type ProjectArtType = 'cashier' | 'mobile' | 'system' | 'imaging'
+/** Prose: one paragraph, or several. Items starting with "- " become bullets. */
+export type Prose = string | string[]
+
+/** Which flat device chrome wraps a project's screenshots. */
+export type DeviceKind = 'phone' | 'browser'
+
+export type ProjectImage = { src: string; alt: string }
+
+/** The four-column metadata strip under every case study title. */
+export type ProjectMeta = {
+  role: string
+  timeline: string
+  team: string
+  tools: string
+}
 
 /** Optional custom section heading: `{lead}<em>{em}</em>{tail}`. */
 export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
@@ -6,11 +20,11 @@ export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
 export type CaseStudyImage = {
   src: string
   alt: string
-  /** Short rose eyebrow tag shown above the frame, e.g. "User journey map". */
+  /** Short label shown above the frame, e.g. "User journey map". */
   eyebrow?: string
   /** Descriptive caption shown beneath the frame. */
   caption?: string
-  /** 'plate' = light matted artifact (screens, boards). 'bleed' = wide framed panel. */
+  /** 'plate' = light matted artifact (screens, boards). 'bleed' = edge-to-edge panel. */
   variant?: 'plate' | 'bleed'
 }
 
@@ -24,16 +38,7 @@ export type CaseStudyMediaGrid = {
 /** Anything a section can show: one image, or a grid of them. */
 export type CaseStudyMediaItem = CaseStudyImage | CaseStudyMediaGrid
 
-/** An animated device mock-up: screens that cycle inside an iPhone frame. */
-export type CaseStudyDevice = {
-  screens: { src: string; alt: string; label: string }[]
-  /** Optional full-bleed backdrop behind the device. */
-  backdrop?: string
-  /** Milliseconds per screen. Defaults to 3200. */
-  interval?: number
-}
-
-/** A guided tour: screens in an iPhone frame with numbered pins over the regions that matter. */
+/** A guided tour: screens in a phone frame with numbered pins over the regions that matter. */
 export type CaseStudyWalkthrough = {
   steps: {
     title: string
@@ -53,7 +58,7 @@ export type CaseStudyPrototype = {
   src: string
   /** Accessible iframe title. */
   title: string
-  /** Short rose eyebrow tag shown above the frame. */
+  /** Short label shown above the frame. */
   eyebrow?: string
   /** Descriptive caption shown beneath the frame. */
   caption?: string
@@ -61,22 +66,16 @@ export type CaseStudyPrototype = {
   aspect?: string
 }
 
-/** Prose: one paragraph, or several. Items starting with "- " become bullets. */
-export type Prose = string | string[]
-
-export type CaseStudy = {
-  summary: Prose
-  meta: { label: string; value: string }[]
-  /** Optional framed artifact shown in the hero, in place of the generated art. */
-  heroMedia?: CaseStudyImage
-  /** Animated device mock-up in the hero. Takes precedence over heroMedia. */
-  heroDevice?: CaseStudyDevice
-  /** 'side' (default) puts the hero art beside the copy; 'stacked' runs it full width beneath. */
-  heroLayout?: 'side' | 'stacked'
-  /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
+/**
+ * The detailed process sections that follow the Overview / Problem / Outcome
+ * blocks. Every section is optional, so a new case study can start with the
+ * summary blocks alone and grow sections over time.
+ */
+export type CaseStudyProcess = {
+  /** Lede paragraph that opens the process. */
   intro?: string
-  problem: {
-    /** Overrides the default "The problem" kicker. */
+  problem?: {
+    /** Overrides the default "The problem" heading. */
     kicker?: string
     lead: Prose
     points: { title: string; body: string }[]
@@ -85,8 +84,8 @@ export type CaseStudy = {
   }
   /** Render the research section before the solution. Use when the insight has to land before the decisions. */
   researchFirst?: boolean
-  solution: {
-    /** Overrides the default "Meet DribbleCollect." heading. */
+  solution?: {
+    /** Overrides the default "The solution" heading. */
     heading?: CaseStudyHeading
     lead: Prose
     /** Checklist rows. Used when a media artifact accompanies the solution. */
@@ -109,10 +108,9 @@ export type CaseStudy = {
     body: string | string[]
     media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
-  discovery: {
-    /** Overrides the default "The research" kicker. */
+  discovery?: {
+    /** Overrides the default "The research" heading. */
     kicker?: string
-    /** Overrides the default "Four voices…" heading. */
     heading?: CaseStudyHeading
     lead: Prose
     findings: { title: string; body: Prose }[]
@@ -134,7 +132,6 @@ export type CaseStudy = {
   }
   /** Numbered takeaways. Omit or leave empty to hide the section. */
   learnings?: string[]
-  /** Optional sections. Omit any of these to keep a case study tight. */
   process?: { index: string; title: string; body: string }[]
   objectives?: { label: string; title: string }[]
   sprints?: {
@@ -145,15 +142,39 @@ export type CaseStudy = {
   validation?: string[]
 }
 
+/**
+ * Everything a case study page needs. `CaseStudyLayout` renders these in a
+ * fixed order (hero, title, meta strip, tags, overview / problem / outcome,
+ * optional gallery, then the process), so adding a case study is only data.
+ */
+export type CaseStudyData = {
+  /** Hero screenshot, shown inside the project's device frame. */
+  hero: ProjectImage
+  meta: ProjectMeta
+  /** Three short blocks that open every case study. */
+  overview: Prose
+  problem: Prose
+  outcome: Prose
+  /** Optional supporting artifacts shown between the summary blocks and the process. */
+  images?: CaseStudyMediaItem[]
+  process?: CaseStudyProcess
+}
+
 export type Project = {
   slug: string
+  /** Display index, e.g. "01". */
   index: string
   title: string
-  category: string
-  description: string
-  art: ProjectArtType
-  /** Present when a full case study story exists for this project. */
-  caseStudy?: CaseStudy
+  /** One line, used on the card and under the case study title. */
+  summary: string
+  /** 3 to 4 short chips, shared by the card and the case study page. */
+  tags: string[]
+  /** Which device frame wraps this project's screenshots. */
+  device: DeviceKind
+  /** Card thumbnail, cropped to 4:3 inside the device frame. */
+  thumbnail: ProjectImage
+  /** Present when a full case study exists. Absent = "coming soon". */
+  caseStudy?: CaseStudyData
 }
 
 export const projects: Project[] = [
@@ -161,19 +182,32 @@ export const projects: Project[] = [
     slug: 'epro',
     index: '01',
     title: 'Building a Mobile Product from a Legacy Platform',
-    category: 'Healthcare / ePRO',
-    description:
+    summary:
       'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
-    art: 'mobile',
+    tags: ['Healthcare', 'ePRO', 'Mobile app', 'Regulated'],
+    device: 'phone',
+    thumbnail: {
+      src: '/work/epro/screen-voice-to-text.png',
+      alt: 'DribbleCollect questionnaire screen with five answer options and the voice-to-text transcription pane open beneath them.',
+    },
     caseStudy: {
-      summary:
+      hero: {
+        src: '/work/epro/screen-voice-to-text.png',
+        alt: 'DribbleCollect questionnaire screen with five answer options and the voice-to-text transcription pane open beneath them.',
+      },
+      meta: {
+        role: 'Lead Product Designer + PM',
+        timeline: '6 months, MVP to GA',
+        team: '1 Designer/PM, 1 Full-stack & Mobile Eng, 1 QA',
+        tools: 'Figma, Axosoft, Capacitor, AWS',
+      },
+      overview:
         'ePRO (Electronic Patient Reported Outcomes) data records how a drug or device actually affects the people taking it, which makes it central to every clinical trial. Our EDC could no longer support that work well, so I designed and shipped DribbleCollect: a 21 CFR Part 11 compliant ePRO patients can download from the app store.',
-      meta: [
-        { label: 'Role', value: 'Lead Product Designer + PM' },
-        { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Eng, 1 QA' },
-        { label: 'Tools', value: 'Figma, Axosoft, Capacitor, AWS' },
-        { label: 'Timeline', value: '6 Months, MVP to GA' },
-      ],
+      problem:
+        'ClearQ was losing clients on two fronts at once. The interface fought the people using it, so error rates and drop-offs were high and reliable data slipped away. The back-end had no room to grow, no API, and no way to integrate with the systems around it.',
+      outcome:
+        'DribbleCollect shipped from MVP to general availability in six months. A 3-step login and reporting flow cut average task time by 40%, sponsors could stand up a new PRO module in under 24 hours, and the product launched at 80% client satisfaction.',
+      process: {
       intro:
         'ClearQ was an established EDC for running clinical trials, and it was steadily losing clients. The interface fought the people using it, and the architecture had no room left to grow. I owned both the product and the design, so I could not treat those as separate problems. A brittle experience produced bad data, and a rigid back-end made the experience impossible to fix without a rebuild.',
       problem: {
@@ -316,25 +350,81 @@ export const projects: Project[] = [
         'Prioritization and trade-offs were not optional. They were how the team actually met the deadline.',
         'Designing for accessibility from the start made the product better for everyone, not only for users with disabilities.',
       ],
+      },
     },
   },
   {
     slug: 'deid',
     index: '02',
     title: 'Automating Medical-Image Redaction Without Losing Human Control',
-    category: 'Clinical Imaging / FDA-Regulated SaaS',
-    description:
-      'A new medical-image redaction tool built inside FDA-regulated clinical-trial software. It replaced slow, manual work with auditable automation while keeping reviewers in control.',
-    art: 'imaging',
+    summary:
+      'A medical-image redaction tool inside FDA-regulated clinical-trial software that replaced slow, manual work with auditable automation.',
+    tags: ['Clinical imaging', 'FDA-regulated', 'SaaS', 'Automation'],
+    device: 'browser',
+    thumbnail: {
+      src: '/work/deid/hero-mri.png',
+      alt: 'A wall of MRI brain scans lit from behind on a light box.',
+    },
     caseStudy: {
-      summary:
+      hero: {
+        src: '/work/deid/hero-mri.png',
+        alt: 'A wall of MRI brain scans lit from behind on a light box.',
+      },
+      meta: {
+        role: 'Product Designer, end-to-end ownership',
+        timeline: '6 months',
+        team: '1 PD/PM, 2 Engineers, 1 QA',
+        tools: 'Figma, AWS Rekognition, LeadTools viewer',
+      },
+      overview:
         'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) has to be removed. I designed a new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one. It cut review sessions roughly in half while keeping human reviewers in final control.',
-      meta: [
-        { label: 'Role', value: 'Product Designer, end-to-end ownership' },
-        { label: 'Team', value: '1 PD/PM, 2 Engineers, 1 QA' },
-        { label: 'Product', value: 'Fusion Imaging Module (FDA-regulated)' },
-        { label: 'Timeline', value: '6 Months' },
+      problem:
+        'Every image was redacted by hand, one file at a time, by teams spread across the world and several disconnected programs. A single study could hold close to 100,000 images, and every handoff was another chance for PHI to slip through or for a valid image to be over-redacted.',
+      outcome:
+        'Redaction sessions were cut roughly in half with a false-negative rate under 1%. Reviewers clear PHI in under three clicks without leaving Fusion, every automated action stays reviewable and undoable, and a full audit trail sits on every page.',
+      images: [
+        {
+          grid: [
+            {
+              src: '/work/deid/fusion-portal.png',
+              alt: 'The legacy Fusion de-identify portal: a grey table of pending DICOM files with approve, reject, and run de-id actions in a sidebar.',
+              variant: 'bleed',
+            },
+            {
+              src: '/work/deid/legacy-workflow.png',
+              alt: 'Hand-drawn flow of the legacy redaction process: a site uploads DICOM, a de-identifier downloads it, redacts in a separate viewer, and re-uploads it.',
+              variant: 'bleed',
+            },
+          ],
+          columns: 2,
+          caption:
+            'The starting point. The legacy portal and the manual loop behind it: download, redact in a separate program, re-upload. Every red marker on the sketch is a handoff where PHI could slip through.',
+        },
+        {
+          grid: [
+            {
+              src: '/work/deid/redaction-compare.png',
+              alt: 'Sketch of the redaction review screen: original and redacted image side by side, DICOM tags in a panel, and approve, reject, and download controls.',
+              variant: 'bleed',
+            },
+            {
+              src: '/work/deid/records-edit.png',
+              alt: 'Sketch of the records table with per-row approve, reject, and edit actions, and an Edit Image dialog for uploading a corrected file.',
+              variant: 'bleed',
+            },
+          ],
+          columns: 2,
+          caption:
+            'Early sketches. Original and redacted side by side with the DICOM tags that drive the automation, and a records table where every row keeps approve, reject, and edit within reach.',
+        },
+        {
+          src: '/work/deid/validation-flow.png',
+          alt: 'Flowchart of the validation path: a data manager validates each redaction, approves it into the eCRF, or rejects it for a site error or a redaction fail and edits it.',
+          caption:
+            'The validation flow. Automation proposes, a data manager validates, and both rejection paths (site error, redaction fail) end with a human decision and an audit entry.',
+        },
       ],
+      process: {
       intro:
         'Every medical image has to have its protected health information removed before a regulator sees it. At Fusion that redaction was done by hand, one file at a time, across teams in different parts of the world, and a single study could hold close to 100,000 images. The real problem was never just speed. It was making automation trustworthy enough to hold up in an FDA-regulated review.',
       problem: {
@@ -426,48 +516,41 @@ export const projects: Project[] = [
         'Clear principles turn ambiguity into decisions. Naming “human authority,” “trust before speed,” and “reversibility” up front let me disqualify slick ideas that quietly added risk.',
         'Constraints sharpen the work. With UI changes off the table, focusing purely on workflow and reviewer decision-making produced a faster, safer tool than a full redesign would have.',
       ],
+      },
     },
   },
   {
     slug: 'cashier',
     index: '03',
     title: 'Designing Trust into Ambiguous Systems',
-    category: 'Sportsbook / Crypto payments / Functional UI',
-    description:
-      'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
-    art: 'cashier',
+    summary:
+      'A crypto cashier for a sportsbook, rebuilt as functional UI so every screen answers one question: where is my money right now?',
+    tags: ['Sportsbook', 'Crypto payments', 'Functional UI', 'Mobile'],
+    device: 'phone',
+    thumbnail: {
+      src: '/work/cashier/hero-2-amount.png',
+      alt: 'Withdrawal form with the connected MetaMask wallet, currency, a dollar amount with MAX, the balance beneath, and three network fee tiers.',
+    },
     caseStudy: {
-      summary: [
+      hero: {
+        src: '/work/cashier/hero-1-link-wallet.png',
+        alt: 'Link a wallet to get paid: a list of wallet extensions with MetaMask detected and connected, Coinbase Wallet, WalletConnect and Phantom, plus a link to enter an address manually.',
+      },
+      meta: {
+        role: 'Senior product designer',
+        timeline: '2 weeks to handoff',
+        team: '1 designer, 1 PM, leadership',
+        tools: 'Figma, Claude, Paper.io, GitHub',
+      },
+      overview: [
         'A sportsbook and a crypto wallet never explain themselves to each other. The user stands between them with real money.',
         'The cashier that joined them was a vendor iframe nobody in house could change. In two weeks I rebuilt it as functional UI: a system of states, each with a visual indicator, so a user never has to ask where their money is.',
       ],
-      meta: [
-        { label: 'Role', value: 'Senior product designer' },
-        { label: 'Team', value: '1 designer, 1 PM, leadership' },
-        { label: 'Tools', value: 'Figma, Claude, Paper.io, GitHub' },
-        { label: 'Timeline', value: '2 weeks to handoff' },
-      ],
-      heroLayout: 'stacked',
-      heroDevice: {
-        backdrop: '/work/cashier/hero-backdrop.webp',
-        screens: [
-          {
-            src: '/work/cashier/hero-1-link-wallet.png',
-            label: 'Link a wallet',
-            alt: 'Link a wallet to get paid: a list of wallet extensions with MetaMask detected and connected, Coinbase Wallet, WalletConnect and Phantom, plus a link to enter an address manually.',
-          },
-          {
-            src: '/work/cashier/hero-2-amount.png',
-            label: 'Enter amount',
-            alt: 'Withdrawal form with the connected MetaMask wallet, currency, a dollar amount with MAX, the balance beneath, and three network fee tiers.',
-          },
-          {
-            src: '/work/cashier/hero-3-review.png',
-            label: 'Review',
-            alt: 'Review sheet listing destination wallet, network, fee, amount received, and arrival time, with a note that nothing moves until confirmed in the wallet.',
-          },
-        ],
-      },
+      problem:
+        'The current state was a vendor iframe dropped into an account page. Users picked a “wallet” that was really a coin, typed everything by hand while hopping between apps, and hit identity checks at random in the middle of the flow. Every step asked for trust and every step caused uncertainty. The brief was only “make it better,” so my first job was deciding what better meant.',
+      outcome:
+        'I handed off the full flow with every state specified and tested on prototypes: one coin, four wallets, withdrawal first, and a visible status on every screen. I was let go before launch, so there are no production numbers, but the research I was pushed to skip caught the biggest miss, the wallet integration.',
+      process: {
       problem: {
         kicker: 'The problem & the brief',
         lead: [
@@ -665,16 +748,21 @@ export const projects: Project[] = [
           },
         ],
       },
+      },
     },
   },
   {
     slug: 'system',
     index: '04',
     title: 'Designing Systems That Scale',
-    category: 'Design System',
-    description:
+    summary:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
-    art: 'system',
+    tags: ['Design system', 'Tokens', 'Components'],
+    device: 'browser',
+    thumbnail: {
+      src: '/work/system/screen-foundations.svg',
+      alt: 'Design system foundations page with a type sample, colour swatches, and a list of components.',
+    },
   },
 ]
 

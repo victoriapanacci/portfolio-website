@@ -3,16 +3,17 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import type { CaseStudyWalkthrough as Walkthrough } from '@/lib/projects'
+import { DeviceFrame } from './DeviceFrame'
 import { RichText } from './RichText'
 
-/**
- * A guided tour of how trust shows up in the UI: an iPhone frame with
- * numbered pins over the exact regions that do the work, and a list of
- * steps beside it. Auto-advances gently until the reader takes over.
- */
 /** Breathing room around each callout, in px, beyond the region it marks. */
 const PIN_PAD = 4
 
+/**
+ * A guided tour of how trust shows up in the UI: a phone frame with
+ * numbered pins over the exact regions that do the work, and a list of
+ * steps beside it. Auto-advances gently until the reader takes over.
+ */
 export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
   const { steps, interval = 5200 } = walk
   const [active, setActive] = useState(0)
@@ -44,45 +45,41 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
 
   const step = steps[active]
 
+  const pins = annotate
+    ? step.callouts.map((c, i) => (
+        <span
+          key={`${active}-${i}`}
+          className="cs-walk__pin"
+          style={{
+            left: `calc(${c.x}% - ${PIN_PAD}px)`,
+            top: `calc(${c.y}% - ${PIN_PAD}px)`,
+            width: `calc(${c.w}% + ${PIN_PAD * 2}px)`,
+            height: `calc(${c.h}% + ${PIN_PAD * 2}px)`,
+          }}
+        >
+          <i>{i + 1}</i>
+        </span>
+      ))
+    : null
+
   return (
-    <div className={`cs-walk reveal-on-scroll${annotate ? '' : ' cs-walk--clean'}`}>
+    <div className={`cs-walk${annotate ? '' : ' cs-walk--clean'}`}>
       <div className="cs-walk__device">
-        <div className="cs-iphone" aria-hidden="true">
-          <span className="cs-iphone__btn cs-iphone__btn--l1" />
-          <span className="cs-iphone__btn cs-iphone__btn--l2" />
-          <span className="cs-iphone__btn cs-iphone__btn--l3" />
-          <span className="cs-iphone__btn cs-iphone__btn--r1" />
-          <div className="cs-iphone__screen">
-            {steps.map((s, i) => (
-              <Image
-                key={s.src}
-                src={s.src}
-                alt=""
-                width={780}
-                height={1688}
-                className={`cs-iphone__shot${i === active ? ' is-active' : ''}`}
-              />
-            ))}
-          </div>
-          <span className="cs-iphone__island" />
-          {/* Pins sit in a layer above the frame so they are never clipped */}
-          <div className="cs-walk__pins">
-            {annotate && step.callouts.map((c, i) => (
-              <span
-                key={`${active}-${i}`}
-                className="cs-walk__pin"
-                style={{
-                  left: `calc(${c.x}% - ${PIN_PAD}px)`,
-                  top: `calc(${c.y}% - ${PIN_PAD}px)`,
-                  width: `calc(${c.w}% + ${PIN_PAD * 2}px)`,
-                  height: `calc(${c.h}% + ${PIN_PAD * 2}px)`,
-                }}
-              >
-                <i>{i + 1}</i>
-              </span>
-            ))}
-          </div>
-        </div>
+        <DeviceFrame kind="phone" layout="inline" className="cs-walk__phone" overlay={pins}>
+          {steps.map((s, i) => (
+            <Image
+              key={s.src}
+              src={s.src}
+              alt=""
+              fill
+              sizes="300px"
+              className={`device__shot device__shot--stacked${i === active ? ' is-active' : ''}`}
+            />
+          ))}
+        </DeviceFrame>
+        <p className="sr-only" aria-live="polite">
+          {step.alt}
+        </p>
         <button
           type="button"
           className="cs-walk__toggle"
