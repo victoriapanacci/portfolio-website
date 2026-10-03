@@ -510,7 +510,7 @@ h2 em {
   border-color: rgba(217, 123, 114, 0.35);
   box-shadow: 0 34px 80px rgba(6, 3, 10, 0.6);
 }
-/* ---------- Project card art: 3:2 evidence tiles ---------- */
+/* ---------- Project card art: field notes on plum ---------- */
 .project-art {
   position: relative;
   aspect-ratio: 3 / 2;
@@ -518,20 +518,20 @@ h2 em {
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #1b1320;
+  background: #3a2436;
   isolation: isolate;
 }
 .project-art--mobile {
   background: #4a2745;
 }
-.project-art--cashier {
-  background: #171a2d;
-}
 .project-art--imaging {
-  background: #0b0a10;
+  background: #2f2234;
+}
+.project-art--cashier {
+  background: #261c30;
 }
 .project-art--system {
-  background: #3a2130;
+  background: #3d2131;
 }
 .project-art__stage {
   position: absolute;
@@ -542,23 +542,22 @@ h2 em {
 .project-card:hover .project-art__stage {
   transform: translateY(-4px);
 }
-.story {
+.note {
   position: absolute;
   inset: 0;
-  font-size: clamp(9px, 3.2cqw, 18px);
-  line-height: 1.25;
-  color: #f2e8dc;
-}
-
-/* ePRO: a research note from the legacy study */
-.story--notes {
   padding: 7% 8% 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1.4em;
+  font-size: clamp(9px, 3.2cqw, 18px);
+  line-height: 1.25;
+  color: #f2e8dc;
 }
-.notes-stages {
+
+/* instrument line: a numbered ruler that names only the marked step */
+.note-ruler,
+.note-tags {
   display: flex;
   gap: 1.6em;
   padding-top: 0.7em;
@@ -566,32 +565,34 @@ h2 em {
   font-size: max(0.6em, 9px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #a79dd1;
-  counter-reset: stage;
+  color: rgba(242, 232, 220, 0.62);
 }
-.notes-stages li {
+.note-ruler {
+  counter-reset: step;
+}
+.note-ruler li {
   position: relative;
-  counter-increment: stage;
+  counter-increment: step;
   white-space: nowrap;
 }
-.notes-stages li::before {
-  content: counter(stage, decimal-leading-zero);
-  color: #c9c1ea;
+.note-ruler li::before {
+  content: counter(step, decimal-leading-zero);
+  color: rgba(242, 232, 220, 0.78);
 }
-.notes-stages li span {
+.note-ruler li span {
   display: none;
 }
-.notes-stages li.is-here span {
+.note-ruler li.is-here {
+  color: #f2e8dc;
+}
+.note-ruler li.is-here::before {
+  color: #f2e8dc;
+}
+.note-ruler li.is-here span {
   display: inline;
   margin-left: 0.5em;
 }
-.notes-stages li.is-here {
-  color: #f2e8dc;
-}
-.notes-stages li.is-here::before {
-  color: #f2e8dc;
-}
-.notes-stages li.is-here::after {
+.note-ruler li.is-here::after {
   content: '';
   position: absolute;
   left: 0;
@@ -600,7 +601,32 @@ h2 em {
   height: 3px;
   background: #f2e8dc;
 }
-.notes-quote {
+
+/* instrument line: DICOM tags with their values blacked out */
+.note-tags {
+  gap: 1.4em;
+  flex-wrap: wrap;
+  row-gap: 0.6em;
+}
+.note-tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  white-space: nowrap;
+}
+.note-tags b {
+  display: inline-block;
+  width: 3.2em;
+  height: 0.85em;
+  background: #06040a;
+  border: 1px solid var(--rose);
+  border-radius: 1px;
+}
+.note-tags li:first-child b {
+  width: 4.6em;
+}
+
+.note-statement {
   margin: 0;
   font-family: var(--font-serif);
   font-size: 1.62em;
@@ -609,194 +635,30 @@ h2 em {
   max-width: 15.5em;
   text-wrap: pretty;
 }
-.notes-meta {
+.note-meta {
   margin-top: -0.3em;
   display: flex;
   justify-content: space-between;
   gap: 1em;
   font-size: max(0.66em, 9px);
   letter-spacing: 0.06em;
-  color: #c9c1ea;
+  color: rgba(242, 232, 220, 0.72);
 }
-.notes-meta span + span {
+.note-meta span + span {
   text-align: right;
   color: #f2e8dc;
   white-space: nowrap;
   flex: none;
 }
-/* narrow tiles: stack the source and mood lines instead of wrapping either */
 @container (max-width: 420px) {
-  .notes-meta {
+  .note-meta {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35em;
   }
-  .notes-meta span + span {
+  .note-meta span + span {
     text-align: left;
   }
-}
-
-/* Cashier, Design systems: an archive card with a typed label strip */
-.story--file {
-  display: flex;
-  flex-direction: column;
-}
-.file-specimen {
-  position: absolute;
-  left: 8%;
-  top: 9%;
-  right: -4%;
-  bottom: 24%;
-  overflow: hidden;
-}
-.file-specimen--shot {
-  border-radius: 8px;
-  background: #0b1020;
-  box-shadow: 0 18px 30px -18px rgba(0, 0, 0, 0.7);
-}
-.file-specimen--shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.file-specimen--sheet {
-  right: 8%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.3em;
-}
-.file-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 0.9fr;
-  background: #f2e8dc;
-  color: #1c0d11;
-  border-top: 1px solid rgba(28, 13, 17, 0.2);
-}
-.file-label > div {
-  padding: 0.75em 0.9em 0.8em;
-  min-width: 0;
-}
-.file-label > div + div {
-  border-left: 1px solid rgba(28, 13, 17, 0.18);
-}
-.file-label dt {
-  font-size: max(0.58em, 8px);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #6e4a52;
-}
-.file-label dd {
-  margin-top: 0.3em;
-  font-size: max(0.82em, 10px);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-wrap: balance;
-  font-variant-numeric: tabular-nums;
-}
-
-/* DeID: original | redacted on one seam */
-.redact-img {
-  position: absolute;
-  inset: 0;
-  width: 100cqw;
-  height: 100cqh;
-  object-fit: cover;
-  object-position: 30% 50%;
-}
-.redact-before {
-  position: absolute;
-  inset: 0 0 0 auto;
-  width: 46%;
-  overflow: hidden;
-  border-left: 2px solid #f2e8dc;
-  box-shadow: -8px 0 24px -4px rgba(0, 0, 0, 0.55);
-}
-.redact-img--before {
-  left: auto;
-  right: 0;
-}
-.redact-label {
-  position: absolute;
-  bottom: 8%;
-  padding: 0.4em 0.7em;
-  font-size: max(0.62em, 9px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  background: rgba(6, 4, 10, 0.78);
-  color: #f2e8dc;
-}
-.redact-label--l {
-  left: 7%;
-}
-.redact-label--r {
-  right: 7%;
-  color: #f2d7cc;
-}
-.redact-stamp {
-  position: absolute;
-  right: 7%;
-  top: 8%;
-  padding: 0.45em 0.8em;
-  border: 2px solid var(--rose);
-  font-size: max(0.66em, 9px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #f2d7cc;
-  background: #06040a;
-}
-
-/* type ramp and tokens (design systems specimen) */
-.ramp {
-  display: flex;
-  align-items: baseline;
-  gap: 0.45em;
-  font-family: var(--font-serif);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #f2e8dc;
-  border-bottom: 1px solid rgba(242, 232, 220, 0.28);
-  padding-bottom: 0.3em;
-}
-.ramp span:nth-child(1) { font-size: 0.9em; }
-.ramp span:nth-child(2) { font-size: 1.2em; }
-.ramp span:nth-child(3) { font-size: 1.6em; }
-.ramp span:nth-child(4) { font-size: 2.15em; }
-.ramp span:nth-child(5) { font-size: 2.9em; }
-.ramp span:nth-child(6) { font-size: 3.9em; }
-.tokens {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.6em;
-}
-.tokens li {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4em;
-  min-width: 0;
-}
-.tokens i {
-  display: block;
-  height: 1.5em;
-  border-radius: 3px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-}
-.tokens b {
-  font-size: max(0.66em, 9px);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #f2e8dc;
-}
-.tokens span {
-  font-size: max(0.6em, 8px);
-  letter-spacing: 0.04em;
-  color: #e3b5b7;
-  font-variant-numeric: tabular-nums;
 }
 
 .project-copy {
