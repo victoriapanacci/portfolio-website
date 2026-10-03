@@ -104,14 +104,12 @@ export default function AboutPage() {
       <section id="top" className="about-hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="about-hero__copy reveal">
-          <p className="cs-eyebrow">About</p>
           <h1 className="cs-title">
             I make complexity feel invisible
           </h1>
           <p className="cs-summary">
             I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
           </p>
-          <p className="cs-eyebrow about-hero__now">Senior Product Designer based in Toronto</p>
         </div>
       </section>
 

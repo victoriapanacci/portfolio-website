@@ -2515,11 +2515,6 @@ h2 em {
 .about-hero__cta {
   margin-top: 40px;
 }
-/* Eyebrow sitting under the hero description rather than above the title */
-.about-hero__now {
-  margin: 28px 0 0;
-}
-
 .about-section {
   padding: 40px 0;
 }
@@ -2561,25 +2556,18 @@ h2 em {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 22px;
+  gap: 0;
 }
+/* Open entries separated by hairlines, no card container */
 .about-job {
   display: grid;
   grid-template-columns: 5fr 7fr;
   gap: 48px;
-  padding: 40px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  box-shadow: 0 24px 60px rgba(6, 3, 10, 0.45);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s ease;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
 }
-.about-job:hover {
-  transform: translateY(-6px);
-  border-color: rgba(217, 123, 114, 0.35);
-  box-shadow: 0 34px 80px rgba(6, 3, 10, 0.6);
+.about-job:last-child {
+  border-bottom: 1px solid var(--line);
 }
 .about-job__role {
   margin: 0 0 8px;
@@ -2696,7 +2684,7 @@ h2 em {
   .about-job {
     grid-template-columns: 1fr;
     gap: 22px;
-    padding: 28px 24px;
+    padding: 28px 0;
   }
   .about-edu {
     grid-template-columns: 64px 1fr;
