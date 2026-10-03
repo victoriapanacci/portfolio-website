@@ -61,7 +61,7 @@ export function ProjectArt({ type }: { type: ProjectArtType }) {
               how to do this.”
             </p>
             <p className="notes-meta">
-              <span>From the patient journey map, legacy ePRO study</span>
+              <span>Patient journey map, legacy ePRO</span>
               <span>Frustrated, then abandoned</span>
             </p>
           </div>
