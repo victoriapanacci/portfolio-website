@@ -85,9 +85,6 @@ export function CaseStudy({ project }: { project: Project }) {
               <ul className="cs-check-list">
                 {(cs.solution.points ?? []).map((point) => (
                   <li key={point} className="reveal-on-scroll">
-                    <span className="cs-check" aria-hidden="true">
-                      →
-                    </span>
                     {point}
                   </li>
                 ))}
