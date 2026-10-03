@@ -545,85 +545,99 @@ h2 em {
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
   color: #f2d7cc;
 }
-.project-art--cashier .project-art__surface {
-  transform: rotate(-7deg) scale(1.03);
-  padding: 28px;
-  border-radius: 26px 26px 8px 8px;
+/* Phone mock-ups (cashier, ePRO): a real screen inside a CSS iPhone frame. */
+.project-art__stage {
+  position: absolute;
+  inset: 0;
 }
-.mini-label {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: #d59887;
+.project-art__glow {
+  position: absolute;
+  inset: 18% -20% -10%;
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    rgba(233, 162, 125, 0.22),
+    transparent 62%
+  );
+  filter: blur(14px);
 }
-.mini-balance {
-  margin-top: 8px;
-  font-family: var(--font-serif);
-  font-size: 28px;
+.project-art--mobile .project-art__glow {
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    rgba(149, 128, 203, 0.28),
+    transparent 62%
+  );
 }
-.mini-tabs {
-  display: flex;
-  gap: 6px;
-  margin-top: 26px;
+.card-phone {
+  position: absolute;
+  top: 46px;
+  left: 50%;
+  height: 112%;
+  aspect-ratio: 430 / 890;
+  container-type: inline-size;
+  border-radius: 15.8cqw;
+  background: linear-gradient(170deg, #2a2528, #17141a);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 40px 70px -30px rgba(0, 0, 0, 0.8),
+    0 20px 40px -20px rgba(0, 0, 0, 0.55);
+  transform: translateX(-50%) rotate(-6deg);
+  transform-origin: 50% 24%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.mini-tabs span {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 8px 10px;
-  border-radius: 999px;
-  font-size: 8px;
+.project-art--mobile .card-phone {
+  transform: translateX(-50%) rotate(7deg);
 }
-.mini-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 28px;
+.project-card:hover .project-art--cashier .card-phone {
+  transform: translateX(-50%) translateY(-8px) rotate(-5deg);
 }
-.mini-grid i {
-  height: 64px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  background: rgba(217, 123, 114, 0.08);
+.project-card:hover .project-art--mobile .card-phone {
+  transform: translateX(-50%) translateY(-8px) rotate(6deg);
 }
-.project-art--mobile .project-art__surface {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
+.card-phone::before {
+  content: '';
+  position: absolute;
+  inset: 1.2cqw;
+  border-radius: 14.6cqw;
+  background: #08070a;
 }
-.phone-shell {
-  width: 56%;
-  min-width: 210px;
-  aspect-ratio: 9/18.5;
-  margin: 0 auto;
-  border-radius: 38px;
-  padding: 42px 18px 22px;
-  transform: rotate(10deg);
-  background: linear-gradient(160deg, #161019, #09070d);
-  border: 1px solid rgba(236, 197, 177, 0.35);
-  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.55);
+.card-phone__screen {
+  position: absolute;
+  inset: 4.2cqw;
+  border-radius: 12.1cqw;
+  overflow: hidden;
+  background: #080c16;
 }
-.phone-notch {
-  width: 35%;
-  height: 12px;
-  border-radius: 999px;
-  background: #030205;
-  margin: -30px auto 34px;
+.card-phone__shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
-.phone-copy {
-  font-size: 8px;
-  color: #a98984;
+.card-phone__island {
+  position: absolute;
+  top: 6.7cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 29.3cqw;
+  height: 8.6cqw;
+  border-radius: 4.3cqw;
+  background: #000;
 }
-.phone-title {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  line-height: 1.05;
-  margin: 14px 0 30px;
+.card-phone__btn {
+  position: absolute;
+  width: 0.95cqw;
+  border-radius: 0.5cqw;
+  background: #201b1f;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.6);
 }
-.phone-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 9px;
-}
+.card-phone__btn--l1 { left: -0.95cqw; top: 41.4cqw; height: 7.9cqw; }
+.card-phone__btn--l2 { left: -0.95cqw; top: 54.9cqw; height: 15.3cqw; }
+.card-phone__btn--l3 { left: -0.95cqw; top: 74cqw; height: 15.3cqw; }
+.card-phone__btn--r1 { right: -0.95cqw; top: 61cqw; height: 24.2cqw; }
+
 .project-art--system .project-art__surface {
   transform: rotate(-5deg);
   padding: 24px;
@@ -681,27 +695,59 @@ h2 em {
   padding: 11px 12px;
   font-size: 9px;
 }
+/* Redaction viewer mock-up (DeID): the real MRI series inside the Fusion review window. */
 .project-art--imaging .project-art__surface {
   transform: rotate(-6deg) scale(1.02);
-  padding: 20px;
-  border-radius: 18px 18px 8px 8px;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  background: linear-gradient(160deg, #1b1222, #0e0a13 70%);
 }
-.scan-toolbar {
+.scan-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a98984;
+  white-space: nowrap;
+}
+.scan-bar__dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.scan-bar__dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+.scan-body {
+  flex: 1;
+  min-height: 0;
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scan-tabs {
   display: flex;
   gap: 6px;
 }
-.scan-toolbar span {
+.scan-tabs span {
   border: 1px solid rgba(255, 255, 255, 0.09);
-  padding: 7px 12px;
+  padding: 6px 11px;
   border-radius: 999px;
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: #a98984;
 }
-.scan-toolbar span:first-child {
+.scan-tabs .is-active {
   background: rgba(217, 123, 114, 0.16);
   border-color: rgba(217, 123, 114, 0.4);
   color: #f2d7cc;
@@ -709,55 +755,92 @@ h2 em {
 .scan-frame {
   position: relative;
   flex: 1;
-  min-height: 128px;
-  border-radius: 12px;
+  min-height: 118px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: repeating-linear-gradient(
-    118deg,
-    rgba(217, 123, 114, 0.07) 0 7px,
-    rgba(13, 9, 18, 0.55) 7px 17px
-  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
 }
 .scan-image {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 50% 42%,
-    rgba(233, 162, 125, 0.24),
-    transparent 62%
-  );
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 22% 50%;
+  filter: saturate(0.55) contrast(1.05);
+  opacity: 0.92;
 }
 .redaction-box {
   position: absolute;
   background: #050308;
-  border: 1px solid rgba(217, 123, 114, 0.5);
-  border-radius: 3px;
+  border: 1px solid rgba(217, 123, 114, 0.85);
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px rgba(217, 123, 114, 0.18);
 }
 .redaction-box--a {
-  top: 22%;
-  left: 16%;
-  width: 36%;
+  top: 9%;
+  left: 13%;
+  width: 20%;
   height: 13%;
 }
 .redaction-box--b {
-  top: 55%;
-  left: 40%;
-  width: 30%;
-  height: 11%;
+  top: 62%;
+  left: 16%;
+  width: 14%;
+  height: 14%;
 }
-.scan-status {
+.redaction-box--c {
+  top: 62%;
+  left: 38%;
+  width: 13%;
+  height: 8%;
+}
+.scan-tags {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: #a98984;
+}
+.scan-tags li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 9px;
-  letter-spacing: 0.04em;
+  gap: 6px;
+  white-space: nowrap;
+}
+.scan-tags b {
+  width: 30px;
+  height: 7px;
+  border-radius: 2px;
+  background: #050308;
+  border: 1px solid rgba(217, 123, 114, 0.5);
+  flex: none;
+}
+.scan-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+}
+.scan-actions span {
+  flex: 1;
+  text-align: center;
+  padding: 7px 0;
+  border-radius: 8px;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #d59887;
 }
-.scan-status span {
-  color: var(--rose);
-  font-size: 12px;
+.scan-actions .is-primary {
+  background: rgba(217, 123, 114, 0.92);
+  border-color: transparent;
+  color: #1c0d11;
 }
+
 .project-copy {
   /* Copy sits directly under the art so any extra card height falls below it. */
   margin-bottom: auto;
