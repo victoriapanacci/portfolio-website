@@ -153,7 +153,19 @@ export type Project = {
   description: string
   art: ProjectArtType
   /** Optional photographic cover. When present, the card shows it instead of the drawn art. */
-  cover?: { src: string; alt: string }
+  cover?: {
+    src: string
+    alt: string
+    /** Intrinsic pixel size of the file. */
+    width: number
+    height: number
+    /** Frame colour behind the image. Match the illustration's own background when zoom < 1. */
+    bg?: string
+    /** Image size as a fraction of the 3:2 frame (1 = fill). Below 1 the image sits centred on `bg`. */
+    zoom?: number
+    /** Vertical nudge in px from centre; negative moves the image up. */
+    shiftY?: number
+  }
   /** Present when a full case study story exists for this project. */
   caseStudy?: CaseStudy
 }
@@ -162,11 +174,20 @@ export const projects: Project[] = [
   {
     slug: 'epro',
     index: '01',
-    title: 'Building a Mobile Product from a Legacy Platform',
-    category: 'Healthcare / ePRO',
+    title: 'Building a new mobile product from a legacy wrapper',
+    category: 'Mobile UI / 0-1 / Clinical ePRO',
     description:
       'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
     art: 'mobile',
+    cover: {
+      src: '/work/epro/card-cover.jpg',
+      alt: 'Isometric illustration of a clinician beside a phone recording an audio consultation, with patient verification and record cards floating around it.',
+      width: 1264,
+      height: 848,
+      bg: '#5d2d3d',
+      zoom: 0.8,
+      shiftY: -6,
+    },
     caseStudy: {
       summary:
         'ePRO (Electronic Patient Reported Outcomes) data records how a drug or device actually affects the people taking it, which makes it central to every clinical trial. Our EDC could no longer support that work well, so I designed and shipped DribbleCollect: a 21 CFR Part 11 compliant ePRO patients can download from the app store.',
@@ -433,14 +454,16 @@ export const projects: Project[] = [
   {
     slug: 'cashier',
     index: '03',
-    title: 'Designing Trust into Ambiguous Systems',
-    category: 'Sportsbook / Crypto payments / Functional UI',
+    title: 'Designing trust into ambiguous systems: a crypto cashier',
+    category: 'Functional UI / 0-1 / Payments',
     description:
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
     art: 'cashier',
     cover: {
       src: '/work/cashier/card-cover.jpg',
       alt: 'Illustration of a hand tapping a phone showing a Bitcoin tap-to-pay screen against a payment terminal that reads Successful.',
+      width: 1194,
+      height: 796,
     },
     caseStudy: {
       summary: [

@@ -14,12 +14,21 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={href} className="project-card reveal-on-scroll group">
       {project.cover ? (
-        <div className="project-art project-art--cover">
+        <div
+          className="project-art project-art--cover"
+          style={
+            {
+              '--cover-bg': project.cover.bg ?? 'transparent',
+              '--cover-zoom': project.cover.zoom ?? 1,
+              '--cover-shift-y': `${project.cover.shiftY ?? 0}px`,
+            } as React.CSSProperties
+          }
+        >
           <Image
             src={project.cover.src}
             alt={project.cover.alt}
-            width={1194}
-            height={796}
+            width={project.cover.width}
+            height={project.cover.height}
             sizes="(max-width: 900px) 100vw, 50vw"
             className="project-art__cover"
           />

@@ -556,12 +556,20 @@ h2 em {
   height: 42%;
   background: linear-gradient(180deg, transparent, #0d0911);
 }
-/* Photographic cover: fills the art slot edge to edge; the ::after fade above still blends it into the card. */
+/* Photographic cover. --cover-zoom scales the image inside the 3:2 slot and
+   --cover-bg paints the frame behind it (set to the illustration's own
+   background so the edges vanish). The ::after fade above still blends it
+   into the card. */
+.project-art--cover {
+  background: var(--cover-bg, transparent);
+}
 .project-art--cover .project-art__cover {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  margin: auto;
+  width: calc(100% * var(--cover-zoom, 1));
+  height: calc(100% * var(--cover-zoom, 1));
+  translate: 0 var(--cover-shift-y, 0px);
   object-fit: cover;
   object-position: center;
 }
