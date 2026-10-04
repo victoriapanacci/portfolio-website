@@ -1063,21 +1063,31 @@ h2 em {
   .work {
     padding-bottom: 80px;
   }
+  /* Phones: two columns, so the four cards sit as two rows of two. */
   .project-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
   .project-card {
-    padding: 22px 16px;
+    padding: 14px 12px 16px;
+    border-radius: 18px;
   }
   .project-card:nth-child(odd):last-child {
     grid-column: auto;
   }
   .project-art {
-    margin: -10px -16px 12px;
+    margin: -14px -12px 10px;
   }
   .project-copy h3 {
-    font-size: clamp(28px, 8.4vw, 39px);
+    font-size: clamp(16px, 4.6vw, 21px);
+    max-width: 100%;
+  }
+  .project-pills {
+    margin-top: 10px;
+    gap: 6px;
+  }
+  .pill {
+    font-size: 10px;
   }
   .footer h2 {
     font-size: clamp(46px, 13vw, 64px);
