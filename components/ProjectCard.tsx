@@ -8,7 +8,6 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="project-card reveal-on-scroll group">
-      <div className="project-index">{project.index}</div>
       <ProjectArt type={project.art} />
       <div className="project-copy">
         <h3>{project.title}</h3>
