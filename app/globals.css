@@ -488,7 +488,7 @@ h2 em {
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: none;
-  margin-bottom: 28px;
+  margin-bottom: 48px;
 }
 .section-kicker i {
   height: 1px;
@@ -498,30 +498,53 @@ h2 em {
 .project-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 22px;
+  gap: 36px;
+  /* Rows stretch, so every card matches the tallest card in its row. */
+  align-items: stretch;
 }
 .project-card {
-  min-height: 780px;
   padding: 24px;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 24px 60px rgba(6, 3, 10, 0.45);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+  /* Hover uses the standalone translate/scale properties so the scroll-driven
+     reveal animation (which owns transform) can never cancel the lift. */
+  transition: translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  /* The card is an anchor: keep the copy colours and drop the underline. */
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+.project-card:focus-visible {
+  border-color: rgba(217, 123, 114, 0.9);
+  box-shadow: 0 0 0 3px rgba(217, 123, 114, 0.45),
+    0 34px 80px rgba(6, 3, 10, 0.6);
 }
 .project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(217, 123, 114, 0.35);
-  box-shadow: 0 34px 80px rgba(6, 3, 10, 0.6);
+  translate: 0 -3px;
+  /* Same border as the site's pill buttons on hover (Tailwind hover:border-rose). */
+  border-color: var(--rose);
+  box-shadow: 0 34px 80px rgba(6, 3, 10, 0.65);
+}
+/* Artwork eases in slightly on hover; .project-art clips it. */
+.project-card .project-art__cover,
+.project-card .project-art__surface {
+  transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-card:hover .project-art__cover,
+.project-card:hover .project-art__surface {
+  scale: 1.05;
 }
 .project-art {
-  height: 330px;
+  /* Art slot is always 3:2 of the card's full width. */
+  aspect-ratio: 3 / 2;
   position: relative;
   margin: -24px -24px 16px;
   overflow: hidden;
@@ -532,6 +555,15 @@ h2 em {
   inset: auto 0 0;
   height: 42%;
   background: linear-gradient(180deg, transparent, #0d0911);
+}
+/* Photographic cover: fills the art slot edge to edge; the ::after fade above still blends it into the card. */
+.project-art--cover .project-art__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 .project-art__surface {
   position: absolute;
@@ -544,6 +576,10 @@ h2 em {
   );
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
   color: #f2d7cc;
+}
+/* In the 3:2 card slot the drawn art keeps the same top gap it had at 330px (60/330 ≈ 18%). */
+.project-card .project-art__surface {
+  top: 18%;
 }
 .project-art--cashier .project-art__surface {
   transform: rotate(-7deg) scale(1.03);
@@ -795,7 +831,11 @@ h2 em {
   flex-wrap: wrap;
   gap: 8px;
   padding: 0;
-  margin: 18px 0 26px;
+  /* Tags are the last thing in the card, so the card's own padding closes it. */
+  margin: 18px 0 0;
+}
+.pill--soon {
+  color: var(--color-muted-warm, #b9aead);
 }
 .short-rule {
   width: 30px;
@@ -942,14 +982,10 @@ h2 em {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .project-card {
-    min-height: 0;
-    padding: 24px 22px 36px;
+    padding: 24px 22px;
   }
   .project-card:nth-child(odd):last-child {
     grid-column: 1 / -1;
-  }
-  .project-art {
-    height: 360px;
   }
   .project-copy h3 {
     font-size: clamp(27px, 3.78vw, 36px);
@@ -1022,27 +1058,36 @@ h2 em {
     opacity: 0.6;
   }
   .section-kicker {
-    margin-bottom: 18px;
+    margin-bottom: 30px;
   }
   .work {
     padding-bottom: 80px;
   }
+  /* Phones: two columns, so the four cards sit as two rows of two. */
   .project-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
   .project-card {
-    padding: 22px 16px 34px;
+    padding: 14px 12px 16px;
+    border-radius: 18px;
   }
   .project-card:nth-child(odd):last-child {
     grid-column: auto;
   }
   .project-art {
-    height: 340px;
-    margin: -10px -16px 12px;
+    margin: -14px -12px 10px;
   }
   .project-copy h3 {
-    font-size: clamp(28px, 8.4vw, 39px);
+    font-size: clamp(16px, 4.6vw, 21px);
+    max-width: 100%;
+  }
+  .project-pills {
+    margin-top: 10px;
+    gap: 6px;
+  }
+  .pill {
+    font-size: 10px;
   }
   .footer h2 {
     font-size: clamp(46px, 13vw, 64px);
