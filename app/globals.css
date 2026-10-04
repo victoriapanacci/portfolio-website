@@ -805,7 +805,7 @@ h2 em {
   flex-wrap: wrap;
   gap: 8px;
   padding: 0;
-  margin: 18px 0 16px;
+  margin: 18px 0 26px;
 }
 .short-rule {
   width: 30px;
@@ -813,14 +813,6 @@ h2 em {
   background: #de846f;
   margin: 0 0 18px;
 }
-.project-description {
-  color: #d1c6c2;
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 92%;
-  margin: 0 0 26px;
-}
-
 .footer-wrap {
   position: relative;
   border-top: 1px solid var(--line);
@@ -973,10 +965,6 @@ h2 em {
     font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
   }
-  .project-description {
-    font-size: 15px;
-    max-width: 94%;
-  }
   .footer {
     padding-top: 60px;
   }
@@ -1065,9 +1053,6 @@ h2 em {
   }
   .project-copy h3 {
     font-size: clamp(28px, 8.4vw, 39px);
-  }
-  .project-description {
-    font-size: 15px;
   }
   .footer h2 {
     font-size: clamp(46px, 13vw, 64px);
