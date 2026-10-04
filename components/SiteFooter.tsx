@@ -3,6 +3,23 @@ export function SiteFooter() {
     <footer id="contact" className="footer-wrap">
       <div className="footer-light" aria-hidden="true" />
       <div className="footer shell">
+        <div className="footer-cta">
+          <h2>Ready when you are</h2>
+          <div className="footer-message">
+            <a
+              href="mailto:panaccivictoria@gmail.com"
+              className="group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70"
+            >
+              <span>Let&rsquo;s talk</span>
+              <span
+                aria-hidden="true"
+                className="text-base font-light text-rose transition-transform duration-300 group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          </div>
+        </div>
         <div className="footer-meta" id="about">
           <div>
             <span>Email</span>
