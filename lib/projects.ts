@@ -152,6 +152,8 @@ export type Project = {
   category: string
   description: string
   art: ProjectArtType
+  /** Optional photographic cover. When present, the card shows it instead of the drawn art. */
+  cover?: { src: string; alt: string }
   /** Present when a full case study story exists for this project. */
   caseStudy?: CaseStudy
 }
@@ -436,6 +438,10 @@ export const projects: Project[] = [
     description:
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
     art: 'cashier',
+    cover: {
+      src: '/work/cashier/card-cover.jpg',
+      alt: 'Illustration of a hand tapping a phone showing a Bitcoin tap-to-pay screen against a payment terminal that reads Successful.',
+    },
     caseStudy: {
       summary: [
         'A sportsbook and a crypto wallet never explain themselves to each other. The user stands between them with real money.',

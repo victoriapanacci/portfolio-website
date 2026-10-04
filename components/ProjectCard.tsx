@@ -1,14 +1,32 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import type { Project } from '@/lib/projects'
-import { ArrowLink } from './ArrowLink'
 import { ProjectArt } from './ProjectArt'
 
+/**
+ * The whole card is one link; there is no separate call-to-action inside it.
+ * Projects without a case study carry a muted "Coming soon" tag instead.
+ */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
   const hasStudy = Boolean(project.caseStudy)
 
   return (
-    <article className="project-card reveal-on-scroll group">
-      <ProjectArt type={project.art} />
+    <Link href={href} className="project-card reveal-on-scroll group">
+      {project.cover ? (
+        <div className="project-art project-art--cover">
+          <Image
+            src={project.cover.src}
+            alt={project.cover.alt}
+            width={1194}
+            height={796}
+            sizes="(max-width: 900px) 100vw, 50vw"
+            className="project-art__cover"
+          />
+        </div>
+      ) : (
+        <ProjectArt type={project.art} />
+      )}
       <div className="project-copy">
         <h3>{project.title}</h3>
         <ul className="project-pills" aria-label="Categories">
@@ -21,11 +39,9 @@ export function ProjectCard({ project }: { project: Project }) {
                 {tag}
               </li>
             ))}
+          {!hasStudy && <li className="pill pill--soon">Coming soon</li>}
         </ul>
-        <ArrowLink href={href}>
-          {hasStudy ? 'View case study' : 'Coming soon'}
-        </ArrowLink>
       </div>
-    </article>
+    </Link>
   )
 }
