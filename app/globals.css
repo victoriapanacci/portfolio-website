@@ -510,7 +510,7 @@ h2 em {
   border-color: rgba(217, 123, 114, 0.35);
   box-shadow: 0 34px 80px rgba(6, 3, 10, 0.6);
 }
-/* ---------- Project card art: field notes on plum ---------- */
+/* ---------- Project card art: one picture per project ---------- */
 .project-art {
   position: relative;
   aspect-ratio: 3 / 2;
@@ -542,123 +542,51 @@ h2 em {
 .project-card:hover .project-art__stage {
   transform: translateY(-4px);
 }
-.note {
+.art-svg {
   position: absolute;
   inset: 0;
-  padding: 7% 8% 8%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.4em;
-  font-size: clamp(9px, 3.2cqw, 18px);
-  line-height: 1.25;
-  color: #f2e8dc;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.project-art__image {
+  object-fit: cover;
 }
 
-/* instrument line: a numbered ruler that names only the marked step */
-.note-ruler,
-.note-tags {
-  display: flex;
-  gap: 1.6em;
-  padding-top: 0.7em;
-  border-top: 1px solid rgba(242, 232, 220, 0.3);
-  font-size: max(0.6em, 9px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(242, 232, 220, 0.62);
-}
-.note-ruler {
-  counter-reset: step;
-}
-.note-ruler li {
-  position: relative;
-  counter-increment: step;
-  white-space: nowrap;
-}
-.note-ruler li::before {
-  content: counter(step, decimal-leading-zero);
-  color: rgba(242, 232, 220, 0.78);
-}
-.note-ruler li span {
-  display: none;
-}
-.note-ruler li.is-here {
-  color: #f2e8dc;
-}
-.note-ruler li.is-here::before {
-  color: #f2e8dc;
-}
-.note-ruler li.is-here span {
-  display: inline;
-  margin-left: 0.5em;
-}
-.note-ruler li.is-here::after {
-  content: '';
+/* cashier: three real screens layered at depth, cropped by the tile */
+.scene {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(-0.7em - 2px);
-  height: 3px;
-  background: #f2e8dc;
+  inset: 0;
 }
-
-/* instrument line: DICOM tags with their values blacked out */
-.note-tags {
-  gap: 1.4em;
-  flex-wrap: wrap;
-  row-gap: 0.6em;
+.scene-screen {
+  position: absolute;
+  width: 36%;
+  border-radius: clamp(8px, 3.4cqw, 20px);
+  overflow: hidden;
+  background: #0b1020;
+  border: 1px solid rgba(242, 232, 220, 0.18);
+  box-shadow: 0 24px 40px -18px rgba(0, 0, 0, 0.7);
 }
-.note-tags li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-  white-space: nowrap;
+.scene-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.note-tags b {
-  display: inline-block;
-  width: 3.2em;
-  height: 0.85em;
-  background: #06040a;
-  border: 1px solid var(--rose);
-  border-radius: 1px;
+.scene-screen--back {
+  left: 8%;
+  top: 20%;
+  opacity: 0.8;
 }
-.note-tags li:first-child b {
-  width: 4.6em;
+.scene-screen--right {
+  right: 8%;
+  top: 26%;
+  opacity: 0.8;
 }
-
-.note-statement {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.62em;
-  line-height: 1.12;
-  letter-spacing: -0.012em;
-  max-width: 15.5em;
-  text-wrap: pretty;
-}
-.note-meta {
-  margin-top: -0.3em;
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-  font-size: max(0.66em, 9px);
-  letter-spacing: 0.06em;
-  color: rgba(242, 232, 220, 0.72);
-}
-.note-meta span + span {
-  text-align: right;
-  color: #f2e8dc;
-  white-space: nowrap;
-  flex: none;
-}
-@container (max-width: 420px) {
-  .note-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35em;
-  }
-  .note-meta span + span {
-    text-align: left;
-  }
+.scene-screen--front {
+  left: 50%;
+  top: 10%;
+  width: 40%;
+  transform: translateX(-50%);
 }
 
 .project-copy {

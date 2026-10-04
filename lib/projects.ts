@@ -152,6 +152,8 @@ export type Project = {
   category: string
   description: string
   art: ProjectArtType
+  /** Optional supplied image (a photograph or an image made elsewhere) shown full-bleed in the card instead of the built-in art. */
+  artImage?: { src: string; alt: string }
   /** Present when a full case study story exists for this project. */
   caseStudy?: CaseStudy
 }

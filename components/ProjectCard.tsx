@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="project-card reveal-on-scroll group">
-      <ProjectArt type={project.art} />
+      <ProjectArt project={project} />
       <div className="project-copy">
         <h3>{project.title}</h3>
         <ul className="project-pills" aria-label="Categories">

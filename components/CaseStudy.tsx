@@ -203,7 +203,7 @@ export function CaseStudy({ project }: { project: Project }) {
           ) : cs.heroMedia ? (
             <CaseStudyMedia media={cs.heroMedia} className="cs-media--hero" />
           ) : (
-            <ProjectArt type={project.art} />
+            <ProjectArt project={project} />
           )}
         </div>
       </header>
