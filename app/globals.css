@@ -520,20 +520,10 @@ h2 em {
   border-color: rgba(217, 123, 114, 0.35);
   box-shadow: 0 34px 80px rgba(6, 3, 10, 0.6);
 }
-.project-index {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-  position: relative;
-  z-index: 2;
-}
 .project-art {
   height: 330px;
   position: relative;
-  margin: -14px -24px 16px;
+  margin: -24px -24px 16px;
   overflow: hidden;
 }
 .project-art::after {
@@ -805,7 +795,7 @@ h2 em {
   flex-wrap: wrap;
   gap: 8px;
   padding: 0;
-  margin: 18px 0 16px;
+  margin: 18px 0 26px;
 }
 .short-rule {
   width: 30px;
@@ -813,14 +803,6 @@ h2 em {
   background: #de846f;
   margin: 0 0 18px;
 }
-.project-description {
-  color: #d1c6c2;
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 92%;
-  margin: 0 0 26px;
-}
-
 .footer-wrap {
   position: relative;
   border-top: 1px solid var(--line);
@@ -973,10 +955,6 @@ h2 em {
     font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
   }
-  .project-description {
-    font-size: 15px;
-    max-width: 94%;
-  }
   .footer {
     padding-top: 60px;
   }
@@ -1065,9 +1043,6 @@ h2 em {
   }
   .project-copy h3 {
     font-size: clamp(28px, 8.4vw, 39px);
-  }
-  .project-description {
-    font-size: 15px;
   }
   .footer h2 {
     font-size: clamp(46px, 13vw, 64px);
