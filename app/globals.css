@@ -858,11 +858,12 @@ h2 em {
 }
 .footer-light {
   position: absolute;
-  inset: 0 auto auto 0;
+  inset: 0 auto auto 50%;
+  translate: -50% 0;
   width: 55%;
   height: 310px;
   background: radial-gradient(
-    ellipse at 45% 40%,
+    ellipse at 50% 40%,
     rgba(184, 77, 83, 0.36),
     rgba(82, 32, 51, 0.12) 50%,
     transparent 72%
@@ -873,11 +874,13 @@ h2 em {
   padding: 96px 0 28px;
 }
 .footer-cta {
-  /* Same column as .hero-copy: heading on top, buttons underneath. */
+  /* Same column width as .hero-copy, centred: heading on top, buttons underneath. */
   max-width: 780px;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 34px;
   position: relative;
   z-index: 2;
@@ -894,6 +897,7 @@ h2 em {
 .footer-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 .footer-bottom {
@@ -1067,7 +1071,7 @@ h2 em {
   }
   .footer-actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 }
 
