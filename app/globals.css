@@ -186,6 +186,27 @@
   --rose: #d97b72;
   --peach: #e9a27d;
   --line: rgba(242, 232, 220, 0.14);
+
+  /* Vertical rhythm. Every page section uses one of these three steps so
+     hero → work → footer read as one system; the whole scale steps down
+     together at the tablet and phone breakpoints below. */
+  --space-section: 120px; /* between major sections */
+  --space-section-sm: 56px; /* content sitting next to a rule */
+  --space-top: 72px; /* header → first content */
+}
+@media (max-width: 1024px) {
+  :root {
+    --space-section: 96px;
+    --space-section-sm: 48px;
+    --space-top: 56px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --space-section: 72px;
+    --space-section-sm: 40px;
+    --space-top: 48px;
+  }
 }
 
 * {
@@ -385,11 +406,10 @@ main {
 }
 
 .hero {
-  min-height: 620px;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  padding: 76px 0 120px;
+  padding: var(--space-top) 0 var(--space-section);
 }
 .hero-copy {
   max-width: 780px;
@@ -475,7 +495,7 @@ h2 em {
   margin: 0;
 }
 .work {
-  padding: 10px 0 120px;
+  padding: 0 0 var(--space-section);
 }
 .section-kicker {
   display: flex;
@@ -858,11 +878,12 @@ h2 em {
 }
 .footer-light {
   position: absolute;
-  inset: 0 auto auto 0;
+  inset: 0 auto auto 50%;
+  translate: -50% 0;
   width: 55%;
   height: 310px;
   background: radial-gradient(
-    ellipse at 45% 40%,
+    ellipse at 50% 40%,
     rgba(184, 77, 83, 0.36),
     rgba(82, 32, 51, 0.12) 50%,
     transparent 72%
@@ -870,57 +891,38 @@ h2 em {
   filter: blur(12px);
 }
 .footer {
-  padding: 0 0 28px;
+  padding: var(--space-section) 0 28px;
 }
 .footer-cta {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 120px;
-  align-items: end;
+  /* Same column width as .hero-copy, centred: heading on top, buttons underneath. */
+  max-width: 780px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 34px;
   position: relative;
   z-index: 2;
+  padding-bottom: var(--space-section-sm);
 }
+/* Same type as the hero h1 so the opening and closing statements match. */
 .footer h2 {
-  font-size: clamp(54px, 5.2vw, 86px);
-  line-height: 0.95;
-  max-width: 720px;
+  font-size: clamp(46.75px, 6.035vw, 71.4px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  max-width: none;
   margin: 0;
-  letter-spacing: -0.035em;
 }
-.footer-message {
-  max-width: 410px;
-  padding-bottom: 10px;
-}
-.footer-message p {
-  color: #ddd1cb;
-  line-height: 1.7;
-  margin: 0 0 24px;
-}
-.footer-meta {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px;
-  margin-top: 0;
-  padding: 34px 0;
-  border-bottom: 1px solid var(--line);
-}
-.footer-meta span {
-  display: block;
-  font-family: var(--font-serif);
-  color: #f5f0ed;
-  font-size: 20px;
-  line-height: 1.1;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-.footer-meta a,
-.footer-meta p {
-  color: #d7cbc5;
-  margin: 0;
-  font-size: 13px;
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 .footer-bottom {
   min-height: 88px;
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: end;
@@ -956,11 +958,6 @@ h2 em {
   .mobile-menu {
     display: flex;
   }
-  .hero {
-    min-height: 620px;
-    grid-template-columns: 1fr;
-    padding: 68px 0 96px;
-  }
   .hero-copy {
     max-width: 780px;
   }
@@ -983,9 +980,6 @@ h2 em {
     font-size: 16px;
     margin: 30px 0 32px;
   }
-  .work {
-    padding-bottom: 96px;
-  }
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -998,22 +992,6 @@ h2 em {
   .project-copy h3 {
     font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
-  }
-  .footer {
-    padding-top: 60px;
-  }
-  .footer-cta {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .footer h2 {
-    font-size: clamp(54px, 9vw, 80px);
-    max-width: 640px;
-  }
-  .footer-meta {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 30px;
-    margin-top: 0;
   }
   .footer-bottom {
     grid-template-columns: 1fr auto;
@@ -1043,10 +1021,6 @@ h2 em {
     font-size: 10px;
     margin-bottom: 22px;
   }
-  .hero {
-    min-height: 600px;
-    padding: 56px 0 84px;
-  }
   .hero-copy {
     max-width: 100%;
   }
@@ -1067,9 +1041,6 @@ h2 em {
   }
   .section-kicker {
     margin-bottom: 30px;
-  }
-  .work {
-    padding-bottom: 80px;
   }
   /* Phones: two columns, so the four cards sit as two rows of two. */
   .project-grid {
@@ -1097,11 +1068,9 @@ h2 em {
   .pill {
     font-size: 10px;
   }
-  .footer h2 {
-    font-size: clamp(46px, 13vw, 64px);
-  }
-  .footer-meta {
-    grid-template-columns: 1fr;
+  .footer-actions {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -1217,7 +1186,7 @@ h2 em {
   padding: 88px 0 0;
 }
 .cs > .cs-section:last-of-type {
-  padding-bottom: 88px;
+  padding-bottom: var(--space-section);
 }
 .cs-kicker {
   display: flex;
@@ -2533,7 +2502,7 @@ h2 em {
 
 /* About page */
 .about-hero {
-  padding: 68px 0 40px;
+  padding: var(--space-top) 0 40px;
 }
 .about-hero__copy {
   max-width: 780px;
@@ -2547,7 +2516,7 @@ h2 em {
   padding: 40px 0;
 }
 .about-section:last-of-type {
-  padding-bottom: 96px;
+  padding-bottom: var(--space-section);
 }
 
 .about-principles {
