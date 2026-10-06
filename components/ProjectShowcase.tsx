@@ -26,7 +26,10 @@ export function ProjectShowcase({
     : projects
 
   return (
-    <section id="work" className="work shell">
+    <section
+      id="work"
+      className={`work shell ${variant === 'full' ? 'work--grid' : ''}`}
+    >
       <div className="section-kicker">
         <span>{kicker}</span>
         <i />

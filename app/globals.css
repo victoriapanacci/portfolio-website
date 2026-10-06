@@ -190,21 +190,21 @@
   /* Vertical rhythm. Every page section uses one of these three steps so
      hero → work → footer read as one system; the whole scale steps down
      together at the tablet and phone breakpoints below. */
-  --space-section: 120px; /* between major sections */
-  --space-section-sm: 56px; /* content sitting next to a rule */
+  --space-section: 120px; /* between undivided sections (hero → work) */
+  --space-inner: 80px; /* either side of a divider rule, so content sits centred between rules */
   --space-top: 72px; /* header → first content */
 }
 @media (max-width: 1024px) {
   :root {
     --space-section: 96px;
-    --space-section-sm: 48px;
+    --space-inner: 64px;
     --space-top: 56px;
   }
 }
 @media (max-width: 640px) {
   :root {
     --space-section: 72px;
-    --space-section-sm: 40px;
+    --space-inner: 48px;
     --space-top: 48px;
   }
 }
@@ -495,7 +495,13 @@ h2 em {
   margin: 0;
 }
 .work {
-  padding: 0 0 var(--space-section);
+  padding: 0 0 var(--space-inner);
+}
+/* Card grid: the cards sit the same distance below the kicker rule as
+   above the footer rule. The quick-links list has its own top rule, so it
+   keeps the default kicker gap. */
+.work--grid .section-kicker {
+  margin-bottom: var(--space-inner);
 }
 .section-kicker {
   display: flex;
@@ -891,7 +897,7 @@ h2 em {
   filter: blur(12px);
 }
 .footer {
-  padding: var(--space-section) 0 28px;
+  padding: var(--space-inner) 0 28px;
 }
 .footer-cta {
   /* Same column width as .hero-copy, centred: heading on top, buttons underneath. */
@@ -904,7 +910,7 @@ h2 em {
   gap: 34px;
   position: relative;
   z-index: 2;
-  padding-bottom: var(--space-section-sm);
+  padding-bottom: var(--space-inner);
 }
 /* Same type as the hero h1 so the opening and closing statements match. */
 .footer h2 {
@@ -1186,7 +1192,7 @@ h2 em {
   padding: 88px 0 0;
 }
 .cs > .cs-section:last-of-type {
-  padding-bottom: var(--space-section);
+  padding-bottom: var(--space-inner);
 }
 .cs-kicker {
   display: flex;
@@ -2516,7 +2522,7 @@ h2 em {
   padding: 40px 0;
 }
 .about-section:last-of-type {
-  padding-bottom: var(--space-section);
+  padding-bottom: var(--space-inner);
 }
 
 .about-principles {
