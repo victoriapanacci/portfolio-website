@@ -469,13 +469,13 @@ export const projects: Project[] = [
       summary: [
         'A sportsbook and a crypto wallet never explain themselves to each other. The user stands between them with real money.',
         'The cashier that joined them was a vendor iframe nobody in house could change. In three weeks I rebuilt it as functional UI: a system of states, each with a visual indicator, so a user never has to ask where their money is.',
-        'Withdrawal time on the prototype went from ~4 minutes to ~1. [CONFIRM: unmoderated]. The stake: a failed deposit is a support ticket. A failed withdrawal is a chargeback, a one-star review that says “scam,” and a complaint to the regulator.',
+        'Withdrawal time on the prototype went from ~4 minutes to ~1 via unmoderated testing. The stake: a failed deposit is a support ticket. A failed withdrawal is a chargeback, a one-star review that says “scam,” and a complaint to the regulator.',
       ],
       meta: [
         { label: 'Role', value: 'Senior product designer' },
         { label: 'Team', value: '1 designer, 1 PM, leadership' },
         { label: 'Tools', value: 'Figma, Claude, Paper.design, GitHub' },
-        { label: 'Timeline', value: '2 weeks to first handoff; research added ~1 week; 3 weeks to final spec' },
+        { label: 'Timeline', value: '7 weeks total; 3 week design, 4 week engineering' },
       ],
       heroLayout: 'stacked',
       heroDevice: {
@@ -563,7 +563,7 @@ export const projects: Project[] = [
         heading: { lead: 'Four rules, ', em: 'every screen', tail: '.' },
         lead: [
           'Every screen in the new cashier is a state with a visible status, so nobody has to guess what is happening with their money.',
-          'Three calls',
+          'Three decisions',
           'One coin, not six. The brief was “build a better cashier.” The COO wanted the widest payment funnel: more coins, more ways to deposit. I had no access to the vendor and couldn’t verify what they supported or how the coins were used. I made a different bet: we were losing people on completion, not on choice, and one coin with a flow users could finish would move more money than six they abandoned. The cost was funnel breadth, and the COO’s goal, which I couldn’t validate. If drop-off was really about coin availability, this was the wrong call.',
           'MetaMask first, not a coin picker. My first prototypes were the vendor flow with better UI. When I got in front of users, the complaint wasn’t the screens, it was typing everything by hand. Nobody had put a wallet integration on the table. I made the case for it; the COO wanted the picker users already knew, which is a legitimate argument. We tested both. The integration won on time to completion.',
           'Withdrawal before deposit. Someone putting $5 into a sportsbook has already written it off. A deposit that fails is annoying. A withdrawal that fails is the moment the whole product becomes a scam in their head. The risk was asymmetric, so the two weeks went where the downside was unbounded. Deposit came second.',
