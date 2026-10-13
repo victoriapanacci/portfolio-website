@@ -465,10 +465,10 @@ export const projects: Project[] = [
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
     art: 'cashier',
     cover: {
-      src: '/work/cashier/card-cover.jpg',
-      alt: 'Illustration of a hand tapping a phone showing a Bitcoin tap-to-pay screen against a payment terminal that reads Successful.',
-      width: 1194,
-      height: 796,
+      src: '/work/cashier/card-cover.webp',
+      alt: 'Two phones on a sand-coloured surface: one showing a Link a wallet to get paid screen listing MetaMask, Coinbase Wallet, WalletConnect and Phantom, the other a Withdrawal on its way confirmation with a pending transaction status.',
+      width: 1920,
+      height: 1440,
     },
     caseStudy: {
       summary: [
