@@ -19,9 +19,9 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <h1>Senior Product Designer based in Toronto. Specialized in making complex, data-heavy interfaces feel seamless</h1>
+          <h1>Senior Product Designer based in Toronto.</h1>
           <p className="hero-body">
-            Previously at{' '}
+            Specialized in making complex, data-heavy interfaces feel seamless. Previously at{' '}
             <a href="https://madhaus.io/" target="_blank" rel="noopener noreferrer">
               Madhaus.io
             </a>{' '}

@@ -409,11 +409,14 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
+  justify-items: center;
   padding: var(--space-top) 0 var(--space-section);
 }
 .hero-copy {
   max-width: 780px;
   z-index: 2;
+  margin: 0 auto;
+  text-align: center;
 }
 .eyebrow,
 .project-category {
@@ -444,6 +447,7 @@ h1 {
 .hero h1 {
   font-size: clamp(46.75px, 6.035vw, 71.4px);
   max-width: none;
+  margin-inline: auto;
 }
 h1 em,
 h2 em {
@@ -452,7 +456,7 @@ h2 em {
 }
 .hero-body {
   max-width: 480px;
-  margin: 34px 0 34px;
+  margin: 34px auto 34px;
   font-size: 17px;
   line-height: 1.75;
   color: #ded4cf;
@@ -993,7 +997,7 @@ h2 em {
   .hero-body {
     max-width: 440px;
     font-size: 16px;
-    margin: 30px 0 32px;
+    margin: 30px auto 32px;
   }
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1046,7 +1050,7 @@ h2 em {
   .hero-body {
     max-width: 100%;
     font-size: 15px;
-    margin: 26px 0 30px;
+    margin: 26px auto 30px;
   }
   .hero-light {
     width: 460px;
