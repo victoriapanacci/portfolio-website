@@ -10,7 +10,7 @@ export function SiteFooter() {
       <div className="footer-light" aria-hidden="true" />
       <div className="footer shell">
         <div className="footer-cta">
-          <h2>Let&rsquo;s make the complexity disappear</h2>
+          <h2>Let&rsquo;s create something that your customers love</h2>
           <div className="footer-actions">
             <a
               href="https://www.linkedin.com/in/panacci"

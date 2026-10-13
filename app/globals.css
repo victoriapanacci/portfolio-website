@@ -926,9 +926,10 @@ h2 em {
   z-index: 2;
   padding-bottom: var(--space-inner);
 }
-/* Same type as the hero h1 so the opening and closing statements match. */
+/* Same type family as the hero h1, scaled to 75% so the closing statement
+   sits a step below the opening one. */
 .footer h2 {
-  font-size: clamp(46.75px, 6.035vw, 71.4px);
+  font-size: clamp(35.06px, 4.526vw, 53.55px);
   line-height: 0.92;
   letter-spacing: -0.04em;
   max-width: none;
