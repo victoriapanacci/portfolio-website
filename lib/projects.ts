@@ -353,6 +353,12 @@ export const projects: Project[] = [
     description:
       'A new medical-image redaction tool built inside FDA-regulated clinical-trial software. It replaced slow, manual work with auditable automation while keeping reviewers in control.',
     art: 'imaging',
+    cover: {
+      src: '/work/deid/card-cover.jpg',
+      alt: 'Black-and-white sheet of axial brain CT slices on a light box, with patient name, date and scanner details printed in the margins.',
+      width: 2000,
+      height: 1333,
+    },
     caseStudy: {
       summary:
         'Fusion is FDA-regulated clinical-trial software that collects and stores patient data while researching new drugs and devices. Before any of it reaches an external regulatory board, every piece of protected health information (PHI) has to be removed. I designed a new imaging redaction module inside Fusion that turned a slow, manual, error-prone process into an auditable one. It cut review sessions roughly in half while keeping human reviewers in final control.',
