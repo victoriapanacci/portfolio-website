@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/SiteHeader'
 export const metadata: Metadata = {
   title: 'VP: Home',
   description:
-    'I design the parts of money and medicine nobody should have to think about. Senior Product Designer, Toronto. Previously Axiom Real-Time Metrics-Sitero and Madhaus.io.',
+    'I design the parts of money and medicine nobody should have to think about. Senior Product Designer based in Toronto. Previously Axiom Real-Time Metrics-Sitero and Madhaus.io.',
 }
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
         <div className="hero-copy reveal">
           <h1>I design the parts of money and medicine nobody should have to think about</h1>
           <p className="hero-body">
-            Senior Product Designer, Toronto. Previously{' '}
+            Senior Product Designer based in Toronto. Previously{' '}
             <a href="https://sitero.com/" target="_blank" rel="noopener noreferrer">
               Axiom Real-Time Metrics-Sitero
             </a>{' '}
