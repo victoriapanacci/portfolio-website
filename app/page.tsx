@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/SiteHeader'
 export const metadata: Metadata = {
   title: 'VP: Home',
   description:
-    'Senior Product Designer in Toronto turning complex, data-heavy workflows into products that feel simple.',
+    'I design the parts of money and medicine nobody should have to think about. Senior Product Designer, Toronto. Previously Axiom Real-Time Metrics-Sitero, clinical research organization, and Madhaus.io, sportsbook & casino.',
 }
 
 export default function Home() {
@@ -24,12 +24,12 @@ export default function Home() {
             Senior Product Designer, Toronto. Previously{' '}
             <a href="https://sitero.com/" target="_blank" rel="noopener noreferrer">
               Axiom Real-Time Metrics-Sitero
-            </a>{' '}
-            (clinical research organization) and{' '}
+            </a>
+            , clinical research organization, and{' '}
             <a href="https://madhaus.io/" target="_blank" rel="noopener noreferrer">
               Madhaus.io
-            </a>{' '}
-            (sportsbook &amp; casino)
+            </a>
+            , sportsbook &amp; casino
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>
