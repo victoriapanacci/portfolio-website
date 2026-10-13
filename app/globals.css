@@ -510,6 +510,9 @@ h2 em {
 }
 .work {
   padding: 0 0 var(--space-inner);
+  /* Keep the "Featured projects" kicker just off the top edge when the
+     hero arrow (or the Work nav link) scrolls the section into view. */
+  scroll-margin-top: 24px;
 }
 /* Card grid: the cards sit the same distance below the kicker rule as
    above the footer rule. The quick-links list has its own top rule, so it
