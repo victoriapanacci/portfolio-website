@@ -537,15 +537,17 @@ h2 em {
 }
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 36px;
+  /* Two columns of two: each card spans half the shell, so the art and
+     title read at a larger size than the old four-across row. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
   /* Rows stretch, so every card matches the tallest card in its row. */
   align-items: stretch;
 }
 .project-card {
-  padding: 24px;
+  padding: 32px;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 28px;
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 24px 60px rgba(6, 3, 10, 0.45);
   /* Hover uses the standalone translate/scale properties so the scroll-driven
@@ -586,7 +588,7 @@ h2 em {
   /* Art slot is always 3:2 of the card's full width. */
   aspect-ratio: 3 / 2;
   position: relative;
-  margin: -24px -24px 16px;
+  margin: -32px -32px 24px;
   overflow: hidden;
 }
 .project-art::after {
@@ -849,7 +851,7 @@ h2 em {
   z-index: 3;
 }
 .project-copy h3 {
-  font-size: clamp(19px, 1.68vw, 28px);
+  font-size: clamp(28px, 3vw, 40px);
   line-height: 1;
   margin: 0;
   letter-spacing: -0.02em;
@@ -867,7 +869,7 @@ h2 em {
   display: inline-flex;
   align-items: center;
   color: var(--peach);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -877,10 +879,10 @@ h2 em {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   padding: 0;
   /* Tags are the last thing in the card, so the card's own padding closes it. */
-  margin: 18px 0 0;
+  margin: 20px 0 0;
 }
 .pill--soon {
   color: var(--color-muted-warm, #b9aead);
@@ -1002,10 +1004,14 @@ h2 em {
     margin: 30px auto 34px;
   }
   .project-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
   .project-card {
     padding: 24px 22px;
+    border-radius: 24px;
+  }
+  .project-art {
+    margin: -24px -22px 16px;
   }
   .project-card:nth-child(odd):last-child {
     grid-column: 1 / -1;
@@ -1013,6 +1019,13 @@ h2 em {
   .project-copy h3 {
     font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
+  }
+  .pill {
+    font-size: 11px;
+  }
+  .project-pills {
+    gap: 8px;
+    margin-top: 18px;
   }
   .footer-bottom {
     grid-template-columns: 1fr auto;
