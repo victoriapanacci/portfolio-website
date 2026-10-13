@@ -183,13 +183,10 @@ export const projects: Project[] = [
       'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
     art: 'mobile',
     cover: {
-      src: '/work/epro/card-cover.jpg',
-      alt: 'Isometric illustration of a clinician beside a phone recording an audio consultation, with patient verification and record cards floating around it.',
-      width: 1264,
-      height: 848,
-      bg: '#5d2d3d',
-      zoom: 0.8,
-      shiftY: -6,
+      src: '/work/epro/card-cover.webp',
+      alt: 'Three phone screens of the DribbleCollect eDiary over a photo of cupped hands: a diary home listing morning and evening entries, a voice-to-text survey question, and a completed Tuesday Morning entry ready to submit.',
+      width: 1920,
+      height: 1440,
     },
     caseStudy: {
       summary:
