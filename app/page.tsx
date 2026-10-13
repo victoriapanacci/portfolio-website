@@ -5,7 +5,7 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
-  title: 'VP: Home',
+  title: 'Victoria Panacci',
   description:
     'I design the parts of money and medicine nobody should have to think about. Senior Product Designer, Toronto. Previously Axiom Real-Time Metrics-Sitero and Madhaus.io.',
 }
