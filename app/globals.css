@@ -471,55 +471,6 @@ h2 em {
 .hero-body a:hover {
   color: #e07f70;
 }
-/* Scroll cue: a round arrow button under the hero copy that slides the
-   page down to the featured projects. Reuses the old pill's rose border
-   and fill; the arrow drifts down on hover and idles with a slow nudge. */
-.hero-scroll {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--rose) 40%, transparent);
-  background: color-mix(in srgb, var(--rose) 10%, transparent);
-  color: var(--rose);
-  outline: none;
-  transition:
-    border-color 0.25s ease,
-    background-color 0.25s ease;
-}
-.hero-scroll:hover {
-  border-color: var(--rose);
-  background: color-mix(in srgb, var(--rose) 20%, transparent);
-}
-.hero-scroll:focus-visible {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rose) 70%, transparent);
-}
-.hero-scroll__arrow {
-  display: block;
-  transition: transform 0.3s ease;
-}
-.hero-scroll:hover .hero-scroll__arrow {
-  transform: translateY(4px);
-}
-@keyframes vp-nudge {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero-scroll__arrow {
-    animation: vp-nudge 2.2s ease-in-out infinite;
-  }
-  .hero-scroll:hover .hero-scroll__arrow {
-    animation: none;
-  }
-}
 .hero-light {
   position: absolute;
   width: 900px;

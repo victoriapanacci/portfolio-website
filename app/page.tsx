@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { HeroScrollCue } from '@/components/HeroScrollCue'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -30,7 +29,6 @@ export default function Home() {
               Madhaus.io
             </a>
           </p>
-          <HeroScrollCue />
         </div>
       </section>
 
