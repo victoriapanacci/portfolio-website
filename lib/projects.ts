@@ -678,6 +678,12 @@ export const projects: Project[] = [
     description:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
     art: 'system',
+    cover: {
+      src: '/work/system/card-cover.webp',
+      alt: 'A translucent panel over a night-time dune landscape showing a two-column grid of blue-toned button components, each labelled with its numeric style token.',
+      width: 1920,
+      height: 1440,
+    },
   },
 ]
 
