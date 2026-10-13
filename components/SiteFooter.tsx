@@ -4,6 +4,13 @@ const ctaClass =
 const ctaArrowClass =
   'text-base font-light text-rose transition-transform duration-300 group-hover:translate-x-1'
 
+const gmailComposeUrl = `https://mail.google.com/mail/?${new URLSearchParams({
+  view: 'cm',
+  fs: '1',
+  to: 'panaccivictoria@gmail.com',
+  su: "Let's create something together",
+})}`
+
 export function SiteFooter() {
   return (
     <footer id="contact" className="footer-wrap">
@@ -23,7 +30,12 @@ export function SiteFooter() {
                 →
               </span>
             </a>
-            <a href="mailto:panaccivictoria@gmail.com" className={ctaClass}>
+            <a
+              href={gmailComposeUrl}
+              className={ctaClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>Send an email</span>
               <span aria-hidden="true" className={ctaArrowClass}>
                 →
