@@ -457,6 +457,15 @@ h2 em {
   line-height: 1.75;
   color: #ded4cf;
 }
+.hero-body a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: #e07f70;
+}
+.hero-body a:hover {
+  color: #e07f70;
+}
 .hero-light {
   position: absolute;
   width: 900px;

@@ -19,9 +19,16 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <h1>Experienced product designer that makes complexity feel invisible</h1>
+          <h1>Senior Product Designer based in Toronto. Specialized in making complex, data-heavy interfaces feel seamless</h1>
           <p className="hero-body">
-            In a world where anyone can ship, the costliest mistake is shipping the wrong thing. I use design, research, and product strategy to get to the real need fast
+            Previously at{' '}
+            <a href="https://madhaus.io/" target="_blank" rel="noopener noreferrer">
+              Madhaus.io
+            </a>{' '}
+            and{' '}
+            <a href="https://sitero.com/" target="_blank" rel="noopener noreferrer">
+              Axiom Real-Time Metrics-Sitero
+            </a>
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>
