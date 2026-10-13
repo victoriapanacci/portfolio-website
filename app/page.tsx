@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/SiteHeader'
 export const metadata: Metadata = {
   title: 'VP: Home',
   description:
-    'Senior Product Designer in Toronto turning complex, data-heavy workflows into products that feel simple.',
+    'I design the parts of money and medicine nobody should have to think about. Senior Product Designer, Toronto. Previously Axiom Real-Time Metrics-Sitero and Madhaus.io.',
 }
 
 export default function Home() {
@@ -19,9 +19,16 @@ export default function Home() {
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <h1>Experienced product designer that makes complexity feel invisible</h1>
+          <h1>I design the parts of money and medicine nobody should have to think about</h1>
           <p className="hero-body">
-            In a world where anyone can ship, the costliest mistake is shipping the wrong thing. I use design, research, and product strategy to get to the real need fast
+            Senior Product Designer, Toronto. Previously{' '}
+            <a href="https://sitero.com/" target="_blank" rel="noopener noreferrer">
+              Axiom Real-Time Metrics-Sitero
+            </a>{' '}
+            and{' '}
+            <a href="https://madhaus.io/" target="_blank" rel="noopener noreferrer">
+              Madhaus.io
+            </a>
           </p>
           <ArrowLink href="#work">Featured projects</ArrowLink>
         </div>

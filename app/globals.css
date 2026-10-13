@@ -409,11 +409,14 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
+  justify-items: center;
   padding: var(--space-top) 0 var(--space-section);
 }
 .hero-copy {
-  max-width: 780px;
+  max-width: 840px;
   z-index: 2;
+  margin: 0 auto;
+  text-align: center;
 }
 .eyebrow,
 .project-category {
@@ -444,6 +447,7 @@ h1 {
 .hero h1 {
   font-size: clamp(46.75px, 6.035vw, 71.4px);
   max-width: none;
+  margin-inline: auto;
 }
 h1 em,
 h2 em {
@@ -451,11 +455,21 @@ h2 em {
   font-weight: 400;
 }
 .hero-body {
-  max-width: 480px;
-  margin: 34px 0 34px;
-  font-size: 17px;
-  line-height: 1.75;
+  max-width: 680px;
+  margin: 36px auto 40px;
+  font-size: 22px;
+  line-height: 1.55;
   color: #ded4cf;
+  text-wrap: balance;
+}
+.hero-body a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: #e07f70;
+}
+.hero-body a:hover {
+  color: #e07f70;
 }
 .hero-light {
   position: absolute;
@@ -982,9 +996,9 @@ h2 em {
     max-width: 640px;
   }
   .hero-body {
-    max-width: 440px;
-    font-size: 16px;
-    margin: 30px 0 32px;
+    max-width: 600px;
+    font-size: 20px;
+    margin: 30px auto 34px;
   }
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1036,8 +1050,8 @@ h2 em {
   }
   .hero-body {
     max-width: 100%;
-    font-size: 15px;
-    margin: 26px 0 30px;
+    font-size: 18px;
+    margin: 26px auto 30px;
   }
   .hero-light {
     width: 460px;
