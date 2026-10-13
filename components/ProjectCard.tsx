@@ -29,7 +29,7 @@ export function ProjectCard({ project }: { project: Project }) {
             alt={project.cover.alt}
             width={project.cover.width}
             height={project.cover.height}
-            sizes="(max-width: 900px) 100vw, 50vw"
+            sizes="(min-width: 1280px) 600px, 50vw"
             className="project-art__cover"
           />
         </div>
