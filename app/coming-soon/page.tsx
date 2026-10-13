@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ArrowLink } from '@/components/ArrowLink'
 
 export const metadata: Metadata = {
-  title: 'VP: Coming Soon',
+  title: 'Victoria Panacci: Coming Soon',
   description: 'Something new is on the way. Connect with me on LinkedIn in the meantime.',
 }
 
