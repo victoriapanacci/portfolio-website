@@ -149,6 +149,8 @@ export type Project = {
   slug: string
   index: string
   title: string
+  /** Short name used in the browser tab title ("Victoria Panacci: <shortTitle>"). */
+  shortTitle: string
   category: string
   description: string
   art: ProjectArtType
@@ -175,6 +177,7 @@ export const projects: Project[] = [
     slug: 'epro',
     index: '01',
     title: 'Building a new mobile product from a legacy wrapper',
+    shortTitle: 'ePRO',
     category: 'Mobile UI / 0-1 / Clinical ePRO',
     description:
       'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
@@ -345,6 +348,7 @@ export const projects: Project[] = [
     slug: 'deid',
     index: '02',
     title: 'Automating Medical-Image Redaction Without Losing Human Control',
+    shortTitle: 'De-Identification',
     category: 'Clinical Imaging / FDA-Regulated SaaS',
     description:
       'A new medical-image redaction tool built inside FDA-regulated clinical-trial software. It replaced slow, manual work with auditable automation while keeping reviewers in control.',
@@ -455,6 +459,7 @@ export const projects: Project[] = [
     slug: 'cashier',
     index: '03',
     title: 'Designing trust into ambiguous systems: a crypto cashier',
+    shortTitle: 'Cashier',
     category: 'Functional UI / 0-1 / Payments',
     description:
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
@@ -668,6 +673,7 @@ export const projects: Project[] = [
     slug: 'system',
     index: '04',
     title: 'Designing Systems That Scale',
+    shortTitle: 'System',
     category: 'Design System',
     description:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
