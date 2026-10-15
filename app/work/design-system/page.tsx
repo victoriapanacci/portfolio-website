@@ -288,14 +288,14 @@ export default function DesignSystemPage() {
               variant: 'bleed',
             }}
           />
-          <div className="cs-outcomes ds-enabled">
+          <dl className="ds-results">
             {enabled.map((e) => (
-              <div key={e.title} className="card cs-outcome">
-                <h3>{e.title}</h3>
-                <p>{e.body}</p>
+              <div key={e.title} className="ds-result">
+                <dt className="label">{e.title}</dt>
+                <dd>{e.body}</dd>
               </div>
             ))}
-          </div>
+          </dl>
           <p className="lead ds-after">
             My time went to usability testing and the flows that drive conversion, instead of
             policing pixels on every PR.
@@ -324,16 +324,17 @@ export default function DesignSystemPage() {
         {/* What I'd do differently */}
         <Reveal as="section" className="cs-section shell">
           <Kicker>What I’d do differently</Kicker>
-          <div className="cs-findings ds-three">
-            {differently.map((d) => (
-              <div key={d.title} className="card cs-finding">
-                <div className="cs-rich">
+          <ol className="cs-learnings ds-differently">
+            {differently.map((d, i) => (
+              <li key={d.title}>
+                <span className="numeral" aria-hidden="true">{`0${i + 1}`}</span>
+                <div>
                   <h3>{d.title}</h3>
-                  <p>{d.body}</p>
+                  <p className="lead">{d.body}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </Reveal>
 
         {/* Easter egg */}

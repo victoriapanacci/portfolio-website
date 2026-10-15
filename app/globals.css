@@ -1756,18 +1756,38 @@ main {
 /* ================================================================== */
 /* Case study: design system                                           */
 /* ================================================================== */
-/* The interactive pieces of /work/design-system. Every piece is built from
-   the roles above (card, chip, switch, numeral, label, tag, media plate). */
+/* The interactive pieces of /work/design-system. Hairlines, not boxes:
+   every piece is a row or a bordered grid, built from the roles above. */
 
-/* Stats strip: the metrics band, three up, sitting in the hero's art slot. */
+/* Stats strip: three figures between hairlines in the hero's art slot. */
 .ds-stats {
-  margin: 0;
-}
-.ds-stats .cs-metrics {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.ds-stats .cs-metric__value {
+.ds-stat {
+  padding: 36px 32px 36px 0;
+}
+.ds-stat + .ds-stat {
+  padding-left: 32px;
+  border-left: 1px solid var(--line);
+}
+.ds-stat__value {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--text-metric);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cream);
   font-variant-numeric: tabular-nums;
+}
+.ds-stat__label {
+  display: block;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  line-height: 1.5;
 }
 
 /* Section lede and captions that sit under a demo */
@@ -1781,7 +1801,8 @@ main {
   margin-top: var(--gap-lg);
 }
 
-/* States demo: chips above one bet-lines row */
+/* States demo: chips above one bet-lines row. The row is a drawn
+   component, so it keeps the card surface. */
 .ds-demo {
   margin-top: 8px;
 }
@@ -1865,19 +1886,18 @@ main {
   background: transparent;
 }
 
-/* Decision cards: a card whose heading is the toggle */
+/* Decisions: numbered hairline rows whose heading is the toggle */
 .ds-decisions {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: var(--gap-md);
+  border-top: 1px solid var(--line);
 }
 .ds-decisions-more {
   margin-top: var(--gap-lg);
 }
 .ds-decision {
-  padding: 0;
+  border-bottom: 1px solid var(--line);
 }
 .ds-decision .ds-decision__heading {
   margin: 0;
@@ -1886,13 +1906,12 @@ main {
   appearance: none;
   width: 100%;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr) 44px;
-  column-gap: var(--gap-md);
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  column-gap: 28px;
   align-items: start;
   text-align: left;
-  padding: var(--pad-card);
+  padding: 32px 8px;
   border: 0;
-  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text);
   transition: background var(--dur-base) var(--ease-out);
@@ -1902,6 +1921,12 @@ main {
 }
 .ds-decision__toggle .numeral {
   padding-top: 2px;
+  opacity: 0.6;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.ds-decision__toggle:hover .numeral,
+.ds-decision[data-open='true'] .numeral {
+  opacity: 1;
 }
 .ds-decision__copy {
   display: grid;
@@ -1921,36 +1946,24 @@ main {
   max-width: 640px;
 }
 .ds-decision__glyph {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--cream);
+  padding-top: 2px;
+  color: var(--rose);
+  font-family: var(--font-sans);
   font-size: var(--text-subheading);
   font-weight: 300;
   line-height: 1;
-  transition: transform var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out);
-}
-.ds-decision__toggle:hover .ds-decision__glyph {
-  border-color: var(--rose);
+  transition: transform var(--dur-base) var(--ease-out);
 }
 .ds-decision[data-open='true'] .ds-decision__glyph {
   transform: rotate(45deg);
-  border-color: var(--rose);
 }
 .ds-decision__panel {
-  padding: 0 var(--pad-card) var(--pad-card);
-  padding-left: calc(var(--pad-card) + 64px + var(--gap-md));
+  padding: 0 8px 36px calc(8px + 72px + 28px);
 }
 .ds-beats {
   margin: 0;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 .ds-beat {
   display: grid;
@@ -1969,7 +1982,7 @@ main {
   max-width: 640px;
 }
 
-/* Gate demo: a mock pull request card */
+/* Gate demo: a mock pull request. A drawn artifact, so a card. */
 .ds-gate {
   margin-top: var(--gap-lg);
   max-width: 640px;
@@ -2070,51 +2083,37 @@ main {
   color: var(--fail);
 }
 
-/* Workflow stepper: five steps in a row, each revealing one line */
+/* Workflow: the process grid, with each step a button */
 .ds-stepper {
   list-style: none;
   margin: var(--gap-lg) 0 0;
-  padding: 0;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  column-gap: 28px;
-  align-items: start;
 }
 .ds-step {
-  position: relative;
+  border-right: 1px solid var(--line);
 }
-.ds-step + .ds-step::before {
-  content: '→';
-  position: absolute;
-  left: -22px;
-  top: 18px;
-  color: var(--rose);
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1;
+.ds-step:last-child {
+  border-right: 0;
 }
 .ds-step__btn {
   appearance: none;
   width: 100%;
   min-height: 44px;
   display: grid;
-  gap: 10px;
+  gap: 18px;
   text-align: left;
-  padding: 16px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  padding: 28px 24px;
+  border: 0;
   background: transparent;
   color: var(--cream);
-  transition: background var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out);
+  transition: background var(--dur-base) var(--ease-out);
 }
 .ds-step__btn:hover {
   background: var(--rose-6);
-  border-color: var(--rose);
 }
 .ds-step__btn[aria-expanded='true'] {
   background: var(--plum);
-  border-color: var(--rose-35);
 }
 .ds-step__num {
   opacity: 0.6;
@@ -2131,46 +2130,77 @@ main {
 }
 .ds-step__line {
   margin: 0;
-  padding: 12px 18px 0;
+  padding: 0 24px 28px;
   color: var(--text);
   font-size: var(--text-small);
   line-height: 1.6;
 }
-
-/* Outcome cards: four up on wide screens, two on tablet */
-.ds-enabled {
-  grid-template-columns: repeat(4, 1fr);
-  margin-top: var(--gap-lg);
-}
-/* Three cards side by side */
-.ds-three {
-  grid-template-columns: repeat(3, 1fr);
+.ds-step__btn[aria-expanded='true'] + .ds-step__line {
+  background: var(--plum);
 }
 
-/* Token grid: swatches painted with the live custom property */
+/* Results: label and body in hairline rows */
+.ds-results {
+  margin: var(--gap-lg) 0 0;
+  border-top: 1px solid var(--line);
+}
+.ds-result {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 40px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ds-result dt {
+  padding-top: 5px;
+}
+.ds-result dd {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  max-width: 640px;
+}
+
+/* What I'd do differently: numbered rows, title over text */
+.ds-differently li {
+  align-items: start;
+}
+.ds-differently h3 {
+  margin: 4px 0 10px;
+  font-size: var(--text-subheading);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+}
+.ds-differently .lead {
+  max-width: 720px;
+}
+
+/* Token grid: a swatch and its name, nothing around them */
 .ds-tokens {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-  gap: var(--gap-sm);
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: var(--gap-md) var(--gap-sm);
 }
 .ds-token {
   appearance: none;
   width: 100%;
   display: grid;
   gap: 10px;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--fill-soft);
-  color: var(--text);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
   text-align: left;
-  transition: border-color var(--dur-base) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 .ds-token:hover {
-  border-color: var(--rose);
+  color: var(--cream);
 }
 .ds-token__swatch {
   display: block;
@@ -2178,13 +2208,15 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--swatch);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.ds-token:hover .ds-token__swatch {
+  border-color: var(--rose);
 }
 .ds-token__name {
-  min-height: 2.2em;
   font-family: var(--font-mono);
   font-size: var(--text-label);
   line-height: 1.5;
-  color: var(--cream);
   overflow-wrap: anywhere;
 }
 
@@ -2247,38 +2279,61 @@ main {
 }
 
 @media (max-width: 1024px) {
+  .ds-stat {
+    padding: 28px 24px 28px 0;
+  }
+  .ds-stat + .ds-stat {
+    padding-left: 24px;
+  }
   .ds-betline {
     gap: var(--gap-md);
+  }
+  .ds-decision__toggle {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    column-gap: 20px;
+    padding: 28px 4px;
+  }
+  .ds-decision__panel {
+    padding: 0 4px 32px calc(4px + 56px + 20px);
   }
   .ds-beat {
     grid-template-columns: 130px minmax(0, 1fr);
   }
   .ds-stepper {
     grid-template-columns: 1fr;
-    row-gap: 8px;
   }
-  .ds-step + .ds-step::before {
-    content: none;
+  .ds-step {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
-  .ds-enabled {
-    grid-template-columns: repeat(2, 1fr);
+  .ds-step:last-child {
+    border-bottom: 0;
   }
-  .ds-three {
-    grid-template-columns: 1fr;
+  .ds-step__btn {
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    padding: 20px 24px;
+  }
+  .ds-step__line {
+    padding: 0 24px 20px;
+  }
+  .ds-result {
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 24px;
   }
 }
 
 @media (max-width: 640px) {
-  .ds-stats .cs-metrics {
+  .ds-stats {
     grid-template-columns: 1fr;
   }
-  .ds-stats .cs-metrics .cs-metric {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 28px 18px;
+  .ds-stat {
+    padding: 22px 0;
   }
-  .ds-stats .cs-metrics .cs-metric:last-child {
-    border-bottom: 0;
+  .ds-stat + .ds-stat {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
   }
   .ds-betline {
     grid-template-columns: 1fr;
@@ -2287,23 +2342,29 @@ main {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .ds-decision__toggle {
-    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 24px 0;
   }
   .ds-decision__toggle .numeral {
     display: none;
   }
   .ds-decision__panel {
-    padding-left: var(--pad-card);
+    padding: 0 0 28px;
   }
   .ds-beat {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-  .ds-enabled {
+  .ds-result {
     grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 22px 0;
+  }
+  .ds-differently li {
+    gap: 18px;
   }
   .ds-tokens {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

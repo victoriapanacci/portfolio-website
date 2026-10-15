@@ -67,17 +67,16 @@ export function StatsStrip() {
   }, [])
 
   return (
-    <div ref={ref} className="card card--highlight card--grid cs-metrics-wrap ds-stats">
-      <div className="cs-metrics">
+    <div ref={ref} className="ds-stats">
         {stats.map((s) => {
           const value = s.from + (s.to - s.from) * progress
           const label = s.labelFrom && !done ? s.labelFrom : s.label
           return (
-            <div key={s.label} className="cs-metric">
-              <span className="cs-metric__value" aria-hidden="true">
+            <div key={s.label} className="ds-stat">
+              <span className="ds-stat__value" aria-hidden="true">
                 {s.format(value)}
               </span>
-              <span className="cs-metric__label" aria-hidden="true">
+              <span className="ds-stat__label" aria-hidden="true">
                 {label}
               </span>
               <span className="sr-only">
@@ -88,7 +87,6 @@ export function StatsStrip() {
             </div>
           )
         })}
-      </div>
     </div>
   )
 }

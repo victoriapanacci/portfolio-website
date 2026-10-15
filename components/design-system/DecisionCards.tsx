@@ -9,8 +9,8 @@ export type Decision = {
 }
 
 /**
- * Each decision is a card with its title and lead. Activating the card
- * expands it to show the labelled beats. On phones one card is open at a
+ * Each decision is a hairline row with its title and lead. Activating the
+ * row expands it to show the labelled beats. On phones one is open at a
  * time; on larger screens any number can be open.
  */
 export function DecisionCards({
@@ -49,7 +49,7 @@ export function DecisionCards({
         const panelId = `${base}-panel-${i}`
         const n = startIndex + i + 1
         return (
-          <li key={d.title} className="card ds-decision" data-open={isOpen}>
+          <li key={d.title} className="ds-decision" data-open={isOpen}>
             <h3 className="ds-decision__heading">
               <button
                 type="button"

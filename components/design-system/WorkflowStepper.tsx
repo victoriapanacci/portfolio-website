@@ -5,15 +5,16 @@ import { useId, useState } from 'react'
 export type WorkflowStep = { name: string; line: string }
 
 /**
- * Five steps in a row (a column on phones). Activating a step reveals its
- * one line of explanation beneath it. One step is open at a time.
+ * Five steps in the site's bordered process grid (a column on phones).
+ * Activating a step reveals its one line of explanation beneath it. One
+ * step is open at a time.
  */
 export function WorkflowStepper({ steps }: { steps: WorkflowStep[] }) {
   const base = useId()
   const [active, setActive] = useState<number | null>(null)
 
   return (
-    <ol className="ds-stepper" aria-label="Workflow">
+    <ol className="card card--grid ds-stepper" aria-label="Workflow">
       {steps.map((s, i) => {
         const open = active === i
         const id = `${base}-line-${i}`
