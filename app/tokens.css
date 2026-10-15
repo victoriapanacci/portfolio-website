@@ -1,0 +1,114 @@
+/* Generated from lib/tokens.json by scripts/build-tokens.mjs. Do not edit. */
+:root {
+  color-scheme: dark;
+
+  /* Four text steps, two accents, one line. Status colours are for a check result only. */
+  --ink: #0c0810;
+  --ink-2: #100913;
+  --plum: rgba(74, 28, 47, 0.28);
+  --cream: #f2e8dc;
+  --text-strong: #f2e2d9;
+  --text: #d8cdc8;
+  --text-muted: #b9aead;
+  --text-faint: #897e80;
+  --rose: #d97b72;
+  --peach: #e9a27d;
+  --line: rgba(242, 232, 220, 0.14);
+  --fill: rgba(255, 255, 255, 0.02);
+  --fill-soft: rgba(255, 255, 255, 0.015);
+  --plate: linear-gradient(160deg, #f6f2ec, #e9e1d6);
+  --page-gradient: linear-gradient(180deg, #0b0710 0%, #0d0811 58%, #100913 100%);
+  --pass: #7fc49a;
+  --fail: #e3675f;
+
+  /* Derived accent states: a base colour mixed with transparent at a percentage. Never a new hex. */
+  --rose-6: color-mix(in srgb, var(--rose) 6%, transparent);
+  --rose-10: color-mix(in srgb, var(--rose) 10%, transparent);
+  --rose-20: color-mix(in srgb, var(--rose) 20%, transparent);
+  --rose-24: color-mix(in srgb, var(--rose) 24%, transparent);
+  --rose-28: color-mix(in srgb, var(--rose) 28%, transparent);
+  --rose-35: color-mix(in srgb, var(--rose) 35%, transparent);
+  --rose-40: color-mix(in srgb, var(--rose) 40%, transparent);
+  --peach-45: color-mix(in srgb, var(--peach) 45%, transparent);
+  --peach-55: color-mix(in srgb, var(--peach) 55%, transparent);
+  --cream-8: color-mix(in srgb, var(--cream) 8%, transparent);
+  --cream-18: color-mix(in srgb, var(--cream) 18%, transparent);
+  --cream-60: color-mix(in srgb, var(--cream) 60%, transparent);
+  --cream-75: color-mix(in srgb, var(--cream) 75%, transparent);
+  --ink-55: color-mix(in srgb, var(--ink) 55%, transparent);
+  --ink-80: color-mix(in srgb, var(--ink) 80%, transparent);
+  --ink-97: color-mix(in srgb, var(--ink-2) 97%, transparent);
+
+  /* One oversized display size, then clear steps down. font-mono is for code only. */
+  --text-display: clamp(3rem, 1.6rem + 5.2vw, 6rem);
+  --text-title: clamp(2.5rem, 1.5rem + 2.6vw, 4rem);
+  --text-heading: clamp(1.875rem, 1.4rem + 1.2vw, 2.75rem);
+  --text-pull: clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem);
+  --text-subheading: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-numeral-lg: 46px;
+  --text-numeral: 22px;
+  --text-metric: clamp(44px, 5vw, 68px);
+  --text-lead: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+  --text-micro: 0.6875rem;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --leading-display: 0.95;
+  --tracking-display: -0.035em;
+  --tracking-tight: -0.02em;
+  --tracking-caps: 0.16em;
+
+  /* Vertical rhythm. Every section uses one of the three steps; the scale steps down together at each breakpoint. */
+  --space-section: 160px;
+  --space-inner: 104px;
+  --space-top: 88px;
+  --gap-lg: 48px;
+  --gap-md: 24px;
+  --gap-sm: 12px;
+  --pad-card: 32px;
+  --max-width-shell: 1200px;
+
+  /* Four values. The drawn iPhone uses container units of its own. */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Only things that float cast a shadow. */
+  --shadow-card: 0 24px 60px rgba(6, 3, 10, 0.45);
+  --shadow-card-hover: 0 34px 80px rgba(6, 3, 10, 0.65);
+  --shadow-plate: 0 40px 80px -48px rgba(0, 0, 0, 0.75);
+
+  /* One arrival curve; the lights drift on their own. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drift: cubic-bezier(0.45, 0, 0.55, 1);
+  --dur-fast: 200ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
+
+  /* A two-layer ring that reads on any surface. */
+  --focus-ring: 0 0 0 2px var(--ink), 0 0 0 4px var(--rose);
+}
+@media (max-width: 1024px) {
+  :root {
+    --space-section: 120px;
+    --space-inner: 80px;
+    --space-top: 64px;
+    --gap-lg: 28px;
+    --gap-md: 20px;
+    --pad-card: 24px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --space-section: 88px;
+    --space-inner: 56px;
+    --space-top: 48px;
+    --gap-lg: 18px;
+    --gap-md: 16px;
+    --gap-sm: 10px;
+    --pad-card: 20px;
+    --text-numeral-lg: 40px;
+  }
+}

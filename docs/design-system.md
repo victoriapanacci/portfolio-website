@@ -1,6 +1,6 @@
 # Design system
 
-The standard for every page, component, and style on victoriapanacci.com. It is the output of `docs/ux-audit.md`; where the two disagree, this document wins. The implementation lives in `app/globals.css` (tokens, roles, components) and `components/` (behaviour).
+The standard for every page, component, and style on victoriapanacci.com. It is the output of `docs/ux-audit.md`; where the two disagree, this document wins. The implementation lives in `lib/tokens.json` (tokens), `app/globals.css` (roles, components) and `components/` (behaviour).
 
 Rules are written as "always" and "never" on purpose. Add a variant only when an existing one cannot do the job, and record why in the audit's decision log.
 
@@ -20,7 +20,7 @@ Rules are written as "always" and "never" on purpose. Add a variant only when an
 
 ## 2. Tokens
 
-All tokens are declared once in `:root` in `app/globals.css` and used as plain CSS variables (`var(--rose)`). Only the two font families go through Tailwind's `@theme`; no component uses Tailwind utility classes, so nothing else needs to.
+All tokens are declared once in `lib/tokens.json`. `pnpm tokens` (run automatically before `dev` and `build`) writes them to `app/tokens.css` as `:root` custom properties, and components use them as plain CSS variables (`var(--rose)`). Edit the JSON, never the generated file. Only the two font families go through Tailwind's `@theme`; no component uses Tailwind utility classes, so nothing else needs to.
 
 ### 2.1 Colour
 

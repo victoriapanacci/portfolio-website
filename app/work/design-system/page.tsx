@@ -175,9 +175,10 @@ function Kicker({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default async function DesignSystemPage() {
-  const tokens = await getColourTokens()
+export default function DesignSystemPage() {
+  const tokens = getColourTokens()
   const project = getProject(SLUG)
+  const cashier = getProject('cashier')
 
   return (
     <main id="main">
@@ -316,7 +317,7 @@ export default async function DesignSystemPage() {
           />
           <p className="lead cs-rich ds-after">
             The cashier rebuild sits on the same foundation. That story is{' '}
-            <Link href="/work/cashier">here</Link>.
+            <Link href="/work/cashier">{cashier?.title ?? 'the cashier case study'}</Link>.
           </p>
         </Reveal>
 

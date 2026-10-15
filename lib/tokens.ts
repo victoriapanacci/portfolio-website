@@ -1,32 +1,28 @@
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
+import tokens from './tokens.json'
 
 export type ColourToken = { name: string; value: string }
 
-/** A value counts as a colour when it is a hex, an rgb/hsl call, a colour mix or a gradient. */
-const COLOUR_VALUE = /^(#|rgba?\(|hsla?\(|color-mix\(|linear-gradient\()/
+type Alpha = { of: string; percent: number }
+
+/** Token entries of a group, skipping `$` notes. */
+function entries<T>(group: Record<string, T | string>): [string, T][] {
+  return Object.entries(group).filter(([key]) => !key.startsWith('$')) as [string, T][]
+}
+
+/** The same formula scripts/build-tokens.mjs writes to app/tokens.css. */
+const alpha = ({ of, percent }: Alpha) =>
+  `color-mix(in srgb, var(--${of}) ${percent}%, transparent)`
 
 /**
- * Reads the site's live colour tokens from the file it builds from
- * (`app/globals.css`, the `:root` block) at build time. Nothing is
- * hardcoded here: add a token to the stylesheet and it shows up.
+ * The site's colour tokens, read from `lib/tokens.json`: the file the
+ * stylesheet is generated from. Base colours first, then the derived
+ * alpha states, in the order the JSON declares them.
  */
-export async function getColourTokens(): Promise<ColourToken[]> {
-  const file = path.join(process.cwd(), 'app', 'globals.css')
-  const css = await readFile(file, 'utf8')
-
-  // The first `:root { ... }` block holds every token declaration.
-  const start = css.indexOf(':root {')
-  if (start === -1) return []
-  const end = css.indexOf('\n}', start)
-  const block = css.slice(start, end === -1 ? undefined : end)
-
-  const tokens: ColourToken[] = []
-  const declaration = /--([\w-]+):\s*([^;]+);/g
-  for (const match of block.matchAll(declaration)) {
-    const [, name, raw] = match
-    const value = raw.replace(/\s+/g, ' ').trim()
-    if (COLOUR_VALUE.test(value)) tokens.push({ name: `--${name}`, value })
-  }
-  return tokens
+export function getColourTokens(): ColourToken[] {
+  const base = entries<string>(tokens.color).map(([name, value]) => ({ name: `--${name}`, value }))
+  const derived = entries<Alpha>(tokens.alpha).map(([name, value]) => ({
+    name: `--${name}`,
+    value: alpha(value),
+  }))
+  return [...base, ...derived]
 }
