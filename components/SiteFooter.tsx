@@ -20,8 +20,9 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <p>
-            Designed under supervision of Mordecai the cat. He says meow and
-            would like a raise. 2026, All Rights Reserved.
+            Full website design, build, and deployment done by Victoria Panacci
+            using: Figma, VSCode, Claude Code, and Vercel. 2026, All Rights
+            Reserved.
           </p>
           <Button href="#top" direction="up">
             Back to top
