@@ -19,14 +19,14 @@ Rules are written as "always" and "never" on purpose. Add a variant only when an
 
 ## 2. Tokens
 
-All tokens are declared once in `@theme inline` in `app/globals.css` so both plain CSS (`var(--rose)`) and Tailwind utilities (`text-rose`) resolve to the same value.
+All tokens are declared once in `:root` in `app/globals.css` and used as plain CSS variables (`var(--rose)`). Only the two font families go through Tailwind's `@theme`; no component uses Tailwind utility classes, so nothing else needs to.
 
 ### 2.1 Colour
 
 | Token | Value | Use |
 | --- | --- | --- |
 | `--ink` | `#0c0810` | Page background, focus-ring inner layer, text on rose |
-| `--ink-2` | `#130c17` | `main` gradient end, popover fill |
+| `--ink-2` | `#100913` | `main` gradient end, popover fill, card art fade |
 | `--plum` | `rgba(74, 28, 47, 0.28)` | Tinted card and highlight gradients (start colour) |
 | `--cream` | `#f2e8dc` | Brightest text: display, title, numerals, kicker |
 | `--text-strong` | `#f2e2d9` | Card headings, quick-link titles, pull quotes |
@@ -198,7 +198,7 @@ Inline links in prose only. Cream text, 1 px rose underline, 0.2 em offset. Hove
 
 ### 4.3 Icon link (back to top)
 
-44×44 inline-flex, ↑ glyph at 22 px in `#e07f70` → rose on hover. `aria-label="Back to top"`. Focus ring. The only icon-only control on the site besides the mobile menu button.
+44×44 inline-flex, ↑ glyph at 22 px in rose, peach on hover. `aria-label="Back to top"`. Focus ring. The only icon-only control on the site besides the mobile menu button.
 
 ### 4.4 Site header
 

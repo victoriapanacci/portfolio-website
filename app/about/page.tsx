@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Button } from '@/components/Button'
 import { Reveal, StaggerGroup, StaggerItem } from '@/components/motion/Reveal'
 import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
@@ -91,30 +91,20 @@ const education = [
 
 export default function AboutPage() {
   return (
-    <main>
+    <main id="main">
       <SiteHeader />
 
-      {/* Breadcrumb back link, same pattern as the case study pages */}
-      <div className="shell">
-        <Link
-          href="/"
-          className="group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70"
-        >
-          <span
-            aria-hidden="true"
-            className="text-base font-light text-rose transition-transform duration-300 group-hover:-translate-x-1"
-          >
-            ←
-          </span>
-          <span>Back to Home</span>
-        </Link>
+      <div className="shell back-link">
+        <Button href="/" direction="back">
+          Back to home
+        </Button>
       </div>
 
       <section id="top" className="about-hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="about-hero__copy">
           <SplitHeadline text="I make complexity feel invisible" className="cs-title" />
-          <Reveal as="p" className="cs-summary" immediate delay={0.45}>
+          <Reveal as="p" className="cs-summary lead" immediate delay={0.45}>
             I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
           </Reveal>
         </div>
@@ -132,20 +122,20 @@ export default function AboutPage() {
           ) : (
             <div className="about-portrait__slot" role="img" aria-label="Portrait placeholder">
               <span>Portrait</span>
-              <small>4:5 photo, public/about/portrait.jpg</small>
+              <small className="caption">4:5 photo, public/about/portrait.jpg</small>
             </div>
           )}
         </Reveal>
       </section>
 
       <section className="about-section shell" aria-labelledby="how-i-work">
-        <Reveal className="section-kicker">
+        <Reveal className="kicker">
           <span id="how-i-work">How I work</span>
           <i />
         </Reveal>
         <StaggerGroup as="ul" className="about-principles">
           {principles.map((point) => (
-            <StaggerItem key={point} as="li" className="about-principle">
+            <StaggerItem key={point} as="li" className="card card--feature about-principle">
               {point}
             </StaggerItem>
           ))}
@@ -153,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       <Reveal as="section" className="about-section shell" aria-labelledby="experience">
-        <div className="section-kicker">
+        <div className="kicker">
           <span id="experience">Work experience</span>
           <i />
         </div>
@@ -162,10 +152,10 @@ export default function AboutPage() {
             <li key={`${job.company}-${job.period}`} className="about-job">
               <div className="about-job__head">
                 <h3 className="about-job__role">{job.role}</h3>
-                <p className="about-job__company">{job.company}</p>
-                <p className="about-job__period">{job.period}</p>
+                <p className="label about-job__company">{job.company}</p>
+                <p className="tag about-job__period">{job.period}</p>
               </div>
-              <ul className="about-job__points">
+              <ul className="list about-job__points">
                 {job.points.map((point) => (
                   <li key={point}>{point}</li>
                 ))}
@@ -176,16 +166,16 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="about-section shell" aria-labelledby="education">
-        <div className="section-kicker">
+        <div className="kicker">
           <span id="education">Education</span>
           <i />
         </div>
         <ul className="about-education">
           {education.map((item) => (
-            <li key={item.credential + item.detail} className="about-edu">
-              <span className="about-edu__year">{item.year}</span>
+            <li key={item.credential + item.detail} className="card card--feature about-edu">
+              <span className="numeral">{item.year}</span>
               <div className="about-edu__body">
-                <p className="about-edu__credential">{item.credential}</p>
+                <p className="label about-edu__credential">{item.credential}</p>
                 <p className="about-edu__detail">{item.detail}</p>
                 <p className="about-edu__note">{item.note}</p>
               </div>

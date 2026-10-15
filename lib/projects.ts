@@ -1,4 +1,4 @@
-export type ProjectArtType = 'cashier' | 'mobile' | 'system' | 'imaging'
+export type ProjectArtType = 'mobile' | 'imaging'
 
 /** Optional custom section heading: `{lead}<em>{em}</em>{tail}`. */
 export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
@@ -86,8 +86,9 @@ export type CaseStudy = {
   /** Render the research section before the solution. Use when the insight has to land before the decisions. */
   researchFirst?: boolean
   solution: {
-    /** Overrides the default "Meet DribbleCollect." heading. */
-    heading?: CaseStudyHeading
+    /** Overrides the default "The solution" kicker. */
+    kicker?: string
+    heading: CaseStudyHeading
     lead: Prose
     /** Checklist rows. Used when a media artifact accompanies the solution. */
     points?: string[]
@@ -103,24 +104,19 @@ export type CaseStudy = {
     /** Interactive walkthrough shown after the lead, before the decisions. */
     walkthrough?: CaseStudyWalkthrough
   }
-  /** Optional turning-point section rendered between research and solution. */
-  pivot?: {
-    kicker: string
-    body: string | string[]
-    media?: CaseStudyMediaItem | CaseStudyMediaItem[]
-  }
   discovery: {
     /** Overrides the default "The research" kicker. */
     kicker?: string
-    /** Overrides the default "Four voices…" heading. */
-    heading?: CaseStudyHeading
+    heading: CaseStudyHeading
     lead: Prose
     findings: { title: string; body: Prose }[]
     media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   }
   /** Stat band. Omit or leave empty to hide it. */
   metrics?: { value: string; label: string }[]
-  /** Overrides the default "Every objective, delivered." heading. */
+  /** Overrides the default "The outcome" kicker. */
+  outcomesKicker?: string
+  /** Optional heading sentence above the outcome cards. */
   outcomesHeading?: CaseStudyHeading
   /** Outcome cards. Omit or leave empty to hide the section. */
   outcomes?: { objective: string; points: string[] }[]
@@ -136,11 +132,8 @@ export type CaseStudy = {
   learnings?: string[]
   /** Optional sections. Omit any of these to keep a case study tight. */
   process?: { index: string; title: string; body: string }[]
-  objectives?: { label: string; title: string }[]
-  sprints?: {
-    lead: string
-    items: { title: string; body: string }[]
-  }
+  /** Overrides the default "Process" kicker. */
+  processKicker?: string
   launch?: { phase: string; tag: string; body: string; feedback: string }[]
   validation?: string[]
 }
@@ -153,7 +146,8 @@ export type Project = {
   shortTitle: string
   category: string
   description: string
-  art: ProjectArtType
+  /** Drawn illustration for the case-study hero when there is no real media. */
+  art?: ProjectArtType
   /** Optional photographic cover. When present, the card shows it instead of the drawn art. */
   cover?: {
     src: string
@@ -213,6 +207,7 @@ export const projects: Project[] = [
         ],
       },
       solution: {
+        heading: { lead: 'Meet ', em: 'DribbleCollect' },
         lead: 'DribbleCollect answered both failures at once: a rebuilt experience on a rebuilt foundation. The prototype below is the real flow, from secure login through voice-to-text capture. Move through it the way a patient would.',
         prototype: {
           src: 'https://embed.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013&embed-host=share',
@@ -238,6 +233,7 @@ export const projects: Project[] = [
         },
       },
       discovery: {
+        heading: { lead: 'Four voices, one ', em: 'fragile chain', tail: ' of data' },
         lead: 'Questionnaires, interviews, and usability testing surfaced three voices in the same fragile chain of data. Mapping the legacy experience made the stakes undeniable.',
         findings: [
           {
@@ -262,6 +258,7 @@ export const projects: Project[] = [
           variant: 'plate',
         },
       },
+      processKicker: 'Prototyping in sprints',
       process: [
         {
           index: '01',
@@ -422,6 +419,7 @@ export const projects: Project[] = [
         { value: '<3', label: 'clicks to review & redact an image' },
         { value: '100%', label: 'auditable actions, on every page' },
       ],
+      outcomesHeading: { lead: 'Every objective, ', em: 'delivered', tail: '.' },
       outcomes: [
         {
           objective: 'A blind review portal inside Fusion',
@@ -466,7 +464,6 @@ export const projects: Project[] = [
     category: 'Functional UI / 0-1 / Payments',
     description:
       'A sportsbook and a crypto wallet are two systems that never explain themselves to each other, and the user stands between them with real money. I rebuilt the cashier that joins them so every screen answers one question: where is my money right now?',
-    art: 'cashier',
     cover: {
       src: '/work/cashier/card-cover.webp',
       alt: 'Two phones on a sand-coloured surface: one showing a Link a wallet to get paid screen listing MetaMask, Coinbase Wallet, WalletConnect and Phantom, the other a Withdrawal on its way confirmation with a pending transaction status.',
@@ -680,7 +677,6 @@ export const projects: Project[] = [
     category: 'Design System',
     description:
       'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
-    art: 'system',
     cover: {
       src: '/work/system/card-cover.webp',
       alt: 'A translucent panel over a night-time dune landscape showing a two-column grid of blue-toned button components, each labelled with its numeric style token.',

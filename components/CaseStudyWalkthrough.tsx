@@ -85,13 +85,13 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
         </div>
         <button
           type="button"
-          className="cs-walk__toggle"
+          className="switch"
           role="switch"
           aria-checked={annotate}
           onClick={() => setAnnotate((v) => !v)}
         >
-          <span className="cs-walk__toggle-track" aria-hidden="true">
-            <span className="cs-walk__toggle-thumb" />
+          <span className="switch__track" aria-hidden="true">
+            <span className="switch__thumb" />
           </span>
           <span>Annotations {annotate ? 'on' : 'off'}</span>
         </button>
@@ -108,7 +108,7 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
               onClick={() => pick(i)}
               aria-expanded={i === active}
             >
-              <span className="cs-walk__num">{`0${i + 1}`}</span>
+              <span className="numeral cs-walk__num">{`0${i + 1}`}</span>
               <span className="cs-walk__title">{s.title}</span>
             </button>
             <div className="cs-walk__body" hidden={i !== active}>

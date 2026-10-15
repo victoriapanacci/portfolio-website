@@ -6,7 +6,7 @@ import { ProjectArt } from './ProjectArt'
 /**
  * The whole card is one link. On hover the card lifts, the art eases in, and
  * a "Case study" label slides in at the foot of the card. Projects without a
- * case study carry a muted "Coming soon" label in the same slot instead.
+ * case study carry a "Coming soon" tag in the same slot instead.
  */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
@@ -30,22 +30,22 @@ export function ProjectCard({ project }: { project: Project }) {
             alt={project.cover.alt}
             width={project.cover.width}
             height={project.cover.height}
-            sizes="(min-width: 1280px) 600px, 50vw"
+            sizes="(min-width: 1280px) 600px, (min-width: 641px) 50vw, 100vw"
             className="project-art__cover"
           />
         </div>
-      ) : (
+      ) : project.art ? (
         <ProjectArt type={project.art} />
-      )}
+      ) : null}
       <div className="project-copy">
         <h3>{project.title}</h3>
-        <ul className="project-pills" aria-label="Categories">
+        <ul className="project-tags" aria-label="Categories">
           {project.category
             .split('/')
             .map((tag) => tag.trim())
             .filter(Boolean)
             .map((tag) => (
-              <li key={tag} className="pill">
+              <li key={tag} className="label">
                 {tag}
               </li>
             ))}
@@ -56,8 +56,8 @@ export function ProjectCard({ project }: { project: Project }) {
             <i aria-hidden="true">→</i>
           </span>
         ) : (
-          <span className="project-card__cta project-card__cta--soon">
-            Coming soon
+          <span className="project-card__status">
+            <span className="tag">Coming soon</span>
           </span>
         )}
       </div>

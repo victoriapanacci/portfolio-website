@@ -1,10 +1,8 @@
 import type { CaseStudyPrototype as CaseStudyPrototypeType } from '@/lib/projects'
 
 /**
- * Embeds an interactive prototype (e.g. a live Figma proto) inside the
- * case-study design system. Mirrors the CaseStudyMedia plate aesthetic:
- * a hairline-bordered frame with a rose eyebrow tag and caption. The iframe
- * is lazy-loaded and titled for accessibility.
+ * Embeds an interactive prototype (e.g. a live Figma proto) on the media
+ * plate. The iframe is lazy-loaded and titled for accessibility.
  */
 export function CaseStudyPrototype({
   prototype,
@@ -14,13 +12,13 @@ export function CaseStudyPrototype({
   const aspect = prototype.aspect ?? '16 / 10'
 
   return (
-    <figure className="cs-proto">
+    <figure className="media media--proto">
       {prototype.eyebrow ? (
-        <figcaption className="cs-proto__eyebrow">{prototype.eyebrow}</figcaption>
+        <figcaption className="media__label label">{prototype.eyebrow}</figcaption>
       ) : null}
-      <div className="cs-proto__frame" style={{ aspectRatio: aspect }}>
+      <div className="media__frame" style={{ aspectRatio: aspect }}>
         <iframe
-          className="cs-proto__iframe"
+          className="media__iframe"
           src={prototype.src}
           title={prototype.title}
           loading="lazy"
@@ -28,7 +26,7 @@ export function CaseStudyPrototype({
         />
       </div>
       {prototype.caption ? (
-        <figcaption className="cs-proto__caption">{prototype.caption}</figcaption>
+        <figcaption className="media__caption caption">{prototype.caption}</figcaption>
       ) : null}
     </figure>
   )
