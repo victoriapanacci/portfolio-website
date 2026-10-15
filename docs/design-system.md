@@ -12,8 +12,9 @@ Rules are written as "always" and "never" on purpose. Add a variant only when an
 2. **Serif speaks, sans works.** Headlines, numerals and pull quotes are serif at weight 400. Everything functional (body, labels, nav, buttons) is Inter.
 3. **Hairlines, not boxes.** Structure comes from 1 px rules at 14 % cream. Fills stay under 3 % white. Shadows only on things that float (feature cards, media plates, the popover).
 4. **Affordance is honest.** Only links and buttons respond to hover. Static content never lifts, glows, or changes border on hover.
-5. **One arrival, one curve.** Content fades up once with a single ease-out. Nothing loops except the two drifting lights, and they stop under reduced motion.
-6. **Tokens or nothing.** No raw hex, px radius, or cubic-bezier in a component rule. If a value is not a token, it is a mistake.
+5. **One signal per state.** Hover is rose. Selected or current is peach. Nothing is underlined except a link inside prose.
+6. **One arrival, one curve.** Content fades up once with a single ease-out. Nothing loops except the two drifting lights, and they stop under reduced motion.
+7. **Tokens or nothing.** No raw hex, px radius, or cubic-bezier in a component rule. If a value is not a token, it is a mistake.
 
 ---
 
@@ -176,19 +177,19 @@ The site's only button and only link style with a container. Renders `<a>` (inte
 
 Anatomy: pill container · text (Small, Inter 500, cream) · arrow glyph (rose, 300 weight, 16 px).
 
-Props: `direction: 'forward' | 'back'` (arrow after or before the text), `external` (adds `target="_blank" rel="noopener noreferrer"`), `href` or `onClick`.
+Props: `direction: 'forward' | 'back' | 'up'` (arrow after the text, before it, or an up arrow after it), `external` (adds `target="_blank" rel="noopener noreferrer"`), `href` or `onClick`.
 
 | State | Fill | Border | Text | Arrow |
 | --- | --- | --- | --- | --- |
 | Default | rose 10 % | rose 40 % | cream | at rest |
-| Hover | rose 20 % | rose 100 % | cream | +4 px forward / −4 px back, `--dur-fast` |
+| Hover | rose 20 % | rose 100 % | cream | +4 px forward, −4 px back, −3 px up, `--dur-fast` |
 | Focus-visible | as default | as default | | focus ring |
 | Active | rose 24 % | rose 100 % | | arrow stays moved |
 | Disabled | not used. There is nothing on the site to disable. |
 
 Sizing: `min-height: 44px`, padding 12/24 px, gap 12 px. On phones, button rows stack vertically and centre.
 
-Uses: footer CTAs, back links, placeholder "Back to all work". Never: inside a card, inside a paragraph, more than two in a row.
+Uses: footer CTAs, back links, back to top, placeholder "Back to all work". Never: inside a card, inside a paragraph, more than two in a row. There is no icon-only variant: every standalone action carries its words.
 
 Copy: sentence case, verb first ("Connect on LinkedIn", "Send an email", "Back to all work").
 
@@ -196,9 +197,9 @@ Copy: sentence case, verb first ("Connect on LinkedIn", "Send an email", "Back t
 
 Inline links in prose only. Cream text, 1 px rose underline, 0.2 em offset. Hover: rose text. External links carry `rel="noopener noreferrer"`; no icon.
 
-### 4.3 Icon link (back to top)
+### 4.3 Arrows inside links
 
-44×44 inline-flex, ↑ glyph at 22 px in rose, peach on hover. `aria-label="Back to top"`. Focus ring. The only icon-only control on the site besides the mobile menu button.
+The card's "Case study →" and the quick-link row's trailing → are not buttons. The whole card or row is the link; the arrow is its affordance. Both are 16 px, weight 300, rose, and travel 4–6 px on hover. Never wrap one in a pill. The mobile menu button is the only icon-only control on the site, because a header menu toggle is a convention readers already know.
 
 ### 4.4 Site header
 
@@ -207,7 +208,7 @@ Anatomy: monogram (Label size, 600, peach) · desktop nav (`<nav aria-label="Pri
 | Element | Hover | Focus-visible | Current |
 | --- | --- | --- | --- |
 | Monogram | rose | ring | — |
-| Nav link | rose | ring | cream 100 % + 1 px rose underline, 6 px offset (`aria-current="page"`; only `/about` can be current) |
+| Nav link | rose | ring | peach (`aria-current="page"`; only `/about` can be current) |
 | Menu button | hairlines rose | ring | `aria-expanded` |
 | Popover link | rose + cream 8 % wash | ring | as nav |
 
@@ -254,7 +255,7 @@ Uses: problem panels, findings, outcomes, launch phases, sprint-style blocks, wa
 
 A full-width link row between hairlines.
 
-Anatomy: `.numeral` index · title (Subheading serif, `--text-strong`) · category (`.label`, segments joined with ` · `) · arrow (rose, 24 px) · optional `.tag--outlined` "Coming soon".
+Anatomy: `.numeral` index · title (Subheading serif, `--text-strong`) · category (`.label`, segments joined with ` · `) · optional `.tag--outlined` "Coming soon" · arrow (rose, 16 px).
 
 | State | Row | Content | Arrow |
 | --- | --- | --- | --- |
@@ -329,7 +330,7 @@ Kicker copy is data, never hard-coded in a shared component. Defaults: "The prob
 
 ### 4.14 Footer
 
-Hairline above · drifting light · closing statement (Title serif, centred, max 780 px) · up to two Buttons · hairline · colophon (Micro 400, `--text-faint`) · back-to-top icon link. `id="contact"` lives here.
+Hairline above · drifting light · closing statement (Title serif, centred, max 780 px) · up to two Buttons · hairline · colophon (Micro 400, `--text-faint`) · "Back to top" Button (`direction="up"`). `id="contact"` lives here.
 
 ### 4.15 Decorative
 

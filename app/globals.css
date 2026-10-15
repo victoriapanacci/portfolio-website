@@ -410,6 +410,10 @@ main {
 .button--back:active .button__arrow {
   translate: -4px 0;
 }
+.button--up:hover .button__arrow,
+.button--up:active .button__arrow {
+  translate: 0 -3px;
+}
 .back-link {
   display: flex;
 }
@@ -494,10 +498,7 @@ main {
 }
 .desktop-nav a[aria-current='page'] {
   opacity: 1;
-  text-decoration: underline;
-  text-decoration-color: var(--rose);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 6px;
+  color: var(--peach);
 }
 .mobile-nav {
   position: relative;
@@ -573,10 +574,7 @@ main {
   background: var(--cream-8);
 }
 .mobile-nav-menu a[aria-current='page'] {
-  text-decoration: underline;
-  text-decoration-color: var(--rose);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 6px;
+  color: var(--peach);
 }
 @keyframes mobile-nav-in {
   from {
@@ -745,7 +743,7 @@ main {
 .project-card__cta i {
   font-style: normal;
   font-weight: 300;
-  font-size: 1.15em;
+  font-size: 1rem;
   color: var(--rose);
   transition: translate var(--dur-base) var(--ease-out) 80ms;
 }
@@ -978,7 +976,8 @@ main {
   letter-spacing: var(--tracking-tight);
 }
 .quick-link__arrow {
-  font-size: 24px;
+  font-size: 1rem;
+  font-weight: 300;
   color: var(--rose);
 }
 
@@ -1046,20 +1045,8 @@ main {
   color: var(--text-faint);
   margin: 0;
 }
-.to-top {
+.footer-bottom .button {
   justify-self: end;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-pill);
-  font-size: 22px;
-  color: var(--rose);
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.to-top:hover {
-  color: var(--peach);
 }
 
 /* ================================================================== */

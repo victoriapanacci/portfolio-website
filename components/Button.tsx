@@ -3,8 +3,8 @@ import Link from 'next/link'
 type Props = {
   href: string
   children: React.ReactNode
-  /** Arrow after the text (forward, default) or before it (back). */
-  direction?: 'forward' | 'back'
+  /** Arrow after the text (forward, default), before it (back), or pointing up (up). */
+  direction?: 'forward' | 'back' | 'up'
   /** Opens in a new tab with the safe rel attributes. */
   external?: boolean
   className?: string
@@ -22,12 +22,12 @@ export function Button({
   external = false,
   className,
 }: Props) {
-  const classes = ['button', direction === 'back' && 'button--back', className]
+  const classes = ['button', direction !== 'forward' && `button--${direction}`, className]
     .filter(Boolean)
     .join(' ')
   const arrow = (
     <span aria-hidden="true" className="button__arrow">
-      {direction === 'back' ? '←' : '→'}
+      {direction === 'back' ? '←' : direction === 'up' ? '↑' : '→'}
     </span>
   )
   const inner =
