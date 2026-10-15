@@ -45,7 +45,7 @@ export function CaseStudyWalkthrough({ walk }: { walk: Walkthrough }) {
   const step = steps[active]
 
   return (
-    <div className={`cs-walk reveal-on-scroll${annotate ? '' : ' cs-walk--clean'}`}>
+    <div className={`cs-walk${annotate ? '' : ' cs-walk--clean'}`}>
       <div className="cs-walk__device">
         <div className="cs-iphone" aria-hidden="true">
           <span className="cs-iphone__btn cs-iphone__btn--l1" />

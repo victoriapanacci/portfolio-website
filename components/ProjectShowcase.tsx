@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { projects } from '@/lib/projects'
+import { Reveal, StaggerGroup, StaggerItem } from './motion/Reveal'
 import { ProjectCard } from './ProjectCard'
 
 type Props = {
@@ -30,23 +31,25 @@ export function ProjectShowcase({
       id="work"
       className={`work shell ${variant === 'full' ? 'work--grid' : ''}`}
     >
-      <div className="section-kicker">
+      <Reveal className="section-kicker">
         <span>{kicker}</span>
         <i />
-      </div>
+      </Reveal>
 
       {variant === 'full' ? (
-        <div className="project-grid">
+        <StaggerGroup className="project-grid">
           {list.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <StaggerItem key={project.slug} className="project-grid__item">
+              <ProjectCard project={project} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       ) : (
-        <ul className="quick-links">
+        <Reveal as="ul" className="quick-links">
           {list.map((project) => {
             const hasStudy = Boolean(project.caseStudy)
             return (
-              <li key={project.slug} className="quick-link reveal-on-scroll">
+              <li key={project.slug} className="quick-link">
                 <Link href={`/work/${project.slug}`}>
                   <span className="quick-link__index">{project.index}</span>
                   <span className="quick-link__body">
@@ -65,7 +68,7 @@ export function ProjectShowcase({
               </li>
             )
           })}
-        </ul>
+        </Reveal>
       )}
     </section>
   )

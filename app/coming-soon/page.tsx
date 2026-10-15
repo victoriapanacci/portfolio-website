@@ -9,11 +9,9 @@ export const metadata: Metadata = {
 export default function ComingSoon() {
   return (
     <main>
-      <div className="grain" aria-hidden="true" />
-
       <section className="hero shell" style={{ minHeight: '100vh' }}>
         <div className="hero-light" aria-hidden="true" />
-        <div className="hero-copy reveal">
+        <div className="hero-copy">
           <p className="eyebrow">Victoria Panacci</p>
           <h1>
             Scheming <em>in progress</em>.

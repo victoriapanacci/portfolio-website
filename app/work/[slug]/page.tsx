@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArrowLink } from '@/components/ArrowLink'
 import { CaseStudy } from '@/components/CaseStudy'
+import { Reveal } from '@/components/motion/Reveal'
+import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -40,22 +42,21 @@ export default async function ProjectPage({
 
   return (
     <main>
-      <div className="grain" aria-hidden="true" />
       <SiteHeader />
 
       {hasStudy ? (
         <CaseStudy project={project} />
       ) : (
-        <section className="cs-placeholder shell" id="top">
+        <Reveal as="section" className="cs-placeholder shell" id="top" immediate>
           <p className="cs-eyebrow">{project.category}</p>
-          <h1 className="cs-title">{project.title}</h1>
+          <SplitHeadline text={project.title} className="cs-title" />
           <p className="cs-summary">{project.description}</p>
           <p className="cs-placeholder__note">
             This case study is being written. In the meantime, explore my other
             work below.
           </p>
           <ArrowLink href="/#work">Back to all work</ArrowLink>
-        </section>
+        </Reveal>
       )}
 
       {/* Quick links back to the other project cards, same source of truth as home */}

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import { Reveal, StaggerGroup, StaggerItem } from '@/components/motion/Reveal'
+import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -9,6 +12,13 @@ export const metadata: Metadata = {
   description:
     'How I work, where I have worked, and what I studied. Senior Product Designer based in Toronto, designing within real technical, regulatory, and organizational constraints.',
 }
+
+/**
+ * Portrait for the About hero. Drop a 4:5 photo at public/about/portrait.jpg
+ * and set this to '/about/portrait.jpg'. Until then the slot renders as a
+ * labelled plate so the layout can be judged.
+ */
+const portrait: { src: string; width: number; height: number } | null = null
 
 const principles = [
   'I frame ambiguous, high-stakes problems before jumping to solutions.',
@@ -82,7 +92,6 @@ const education = [
 export default function AboutPage() {
   return (
     <main>
-      <div className="grain" aria-hidden="true" />
       <SiteHeader />
 
       {/* Breadcrumb back link, same pattern as the case study pages */}
@@ -103,38 +112,54 @@ export default function AboutPage() {
 
       <section id="top" className="about-hero shell">
         <div className="hero-light" aria-hidden="true" />
-        <div className="about-hero__copy reveal">
-          <h1 className="cs-title">
-            I make complexity feel invisible
-          </h1>
-          <p className="cs-summary">
+        <div className="about-hero__copy">
+          <SplitHeadline text="I make complexity feel invisible" className="cs-title" />
+          <Reveal as="p" className="cs-summary" immediate delay={0.45}>
             I&apos;m Victoria, I&apos;m a senior product designer. I have a knack for turning complex, data-heavy workflows into products that feel simple. I&apos;ve worked across iGaming, clinical research, SaaS, and consumer tech.
-          </p>
+          </Reveal>
         </div>
+        <Reveal as="figure" className="about-portrait" immediate delay={0.3}>
+          {portrait ? (
+            <Image
+              src={portrait.src}
+              alt="Victoria Panacci"
+              width={portrait.width}
+              height={portrait.height}
+              sizes="(max-width: 1024px) 60vw, 420px"
+              className="about-portrait__img"
+              priority
+            />
+          ) : (
+            <div className="about-portrait__slot" role="img" aria-label="Portrait placeholder">
+              <span>Portrait</span>
+              <small>4:5 photo, public/about/portrait.jpg</small>
+            </div>
+          )}
+        </Reveal>
       </section>
 
       <section className="about-section shell" aria-labelledby="how-i-work">
-        <div className="section-kicker">
+        <Reveal className="section-kicker">
           <span id="how-i-work">How I work</span>
           <i />
-        </div>
-        <ul className="about-principles">
+        </Reveal>
+        <StaggerGroup as="ul" className="about-principles">
           {principles.map((point) => (
-            <li key={point} className="about-principle reveal-on-scroll">
+            <StaggerItem key={point} as="li" className="about-principle">
               {point}
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </StaggerGroup>
       </section>
 
-      <section className="about-section shell" aria-labelledby="experience">
+      <Reveal as="section" className="about-section shell" aria-labelledby="experience">
         <div className="section-kicker">
           <span id="experience">Work experience</span>
           <i />
         </div>
         <ol className="about-timeline">
           {experience.map((job) => (
-            <li key={`${job.company}-${job.period}`} className="about-job reveal-on-scroll">
+            <li key={`${job.company}-${job.period}`} className="about-job">
               <div className="about-job__head">
                 <h3 className="about-job__role">{job.role}</h3>
                 <p className="about-job__company">{job.company}</p>
@@ -148,16 +173,16 @@ export default function AboutPage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Reveal>
 
-      <section className="about-section shell" aria-labelledby="education">
+      <Reveal as="section" className="about-section shell" aria-labelledby="education">
         <div className="section-kicker">
           <span id="education">Education</span>
           <i />
         </div>
         <ul className="about-education">
           {education.map((item) => (
-            <li key={item.credential + item.detail} className="about-edu reveal-on-scroll">
+            <li key={item.credential + item.detail} className="about-edu">
               <span className="about-edu__year">{item.year}</span>
               <div className="about-edu__body">
                 <p className="about-edu__credential">{item.credential}</p>
@@ -167,7 +192,7 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Reveal>
 
       <ProjectShowcase variant="quick" kicker="Selected work" />
 

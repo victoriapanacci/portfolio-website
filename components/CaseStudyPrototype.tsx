@@ -14,7 +14,7 @@ export function CaseStudyPrototype({
   const aspect = prototype.aspect ?? '16 / 10'
 
   return (
-    <figure className="cs-proto reveal-on-scroll">
+    <figure className="cs-proto">
       {prototype.eyebrow ? (
         <figcaption className="cs-proto__eyebrow">{prototype.eyebrow}</figcaption>
       ) : null}
