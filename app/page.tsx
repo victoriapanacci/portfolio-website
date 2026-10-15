@@ -3,10 +3,8 @@ import { BuiltByHand } from '@/components/BuiltByHand'
 import { Reveal } from '@/components/motion/Reveal'
 import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
-import { SectorMarquee } from '@/components/SectorMarquee'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
-import { Testimonials } from '@/components/Testimonials'
 
 export const metadata: Metadata = {
   title: 'Victoria Panacci',
@@ -36,13 +34,9 @@ export default function Home() {
         </div>
       </section>
 
-      <SectorMarquee />
-
       <ProjectShowcase variant="full" kicker="Featured projects" />
 
       <BuiltByHand />
-
-      <Testimonials />
 
       <SiteFooter />
     </main>

@@ -13,12 +13,12 @@ export const metadata: Metadata = {
     'How I work, where I have worked, and what I studied. Senior Product Designer based in Toronto, designing within real technical, regulatory, and organizational constraints.',
 }
 
-/**
- * Portrait for the About hero. Drop a 4:5 photo at public/about/portrait.jpg
- * and set this to '/about/portrait.jpg'. Until then the slot renders as a
- * labelled plate so the layout can be judged.
- */
-const portrait: { src: string; width: number; height: number } | null = null
+/** Portrait for the About hero: a 4:5 photo. Set to null to show the empty plate. */
+const portrait: { src: string; width: number; height: number } | null = {
+  src: '/about/portrait.jpg',
+  width: 1200,
+  height: 1500,
+}
 
 const principles = [
   'I frame ambiguous, high-stakes problems before jumping to solutions.',

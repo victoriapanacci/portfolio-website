@@ -436,8 +436,7 @@ main {
   grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
-  /* The sector band follows, so the hero closes with the inner step. */
-  padding: var(--space-top) 0 var(--space-inner);
+  padding: var(--space-top) 0 var(--space-section);
 }
 .hero-copy {
   max-width: 1080px;
@@ -543,9 +542,6 @@ h2 em {
 /* Card grid: the cards sit the same distance below the kicker rule as
    above the footer rule. The quick-links list has its own top rule, so it
    keeps the default kicker gap. */
-.work--grid {
-  padding-top: var(--space-inner);
-}
 .work--grid .section-kicker {
   margin-bottom: var(--space-inner);
 }
@@ -975,197 +971,42 @@ h2 em {
   margin: 0 0 18px;
 }
 /* ------------------------------------------------------------------ */
-/* Sector marquee — a slow band between the hero and the work          */
-/* ------------------------------------------------------------------ */
-.marquee {
-  display: flex;
-  overflow: hidden;
-  padding: 26px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  /* soften both ends so the loop never shows a hard edge */
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.marquee__track {
-  flex: none;
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  animation: vp-marquee 56s linear infinite;
-}
-.marquee:hover .marquee__track {
-  animation-play-state: paused;
-}
-.marquee__track li {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  padding-right: 36px;
-  white-space: nowrap;
-  font-family: var(--font-serif);
-  font-size: var(--text-subheading);
-  letter-spacing: var(--tracking-tight);
-  color: #ded4cf;
-}
-.marquee__track li i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--rose);
-}
-@keyframes vp-marquee {
-  to {
-    translate: -100% 0;
-  }
-}
-/* Reduced motion: the same list, laid out once and wrapping, no loop. */
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    mask-image: none;
-    justify-content: center;
-  }
-  .marquee__track {
-    animation: none;
-    flex: 1 1 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 14px;
-    padding-inline: 24px;
-  }
-  .marquee__track[aria-hidden] {
-    display: none;
-  }
-  .marquee__track li:last-child i {
-    display: none;
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/* Colophon — the site is custom code, said once, under the work       */
+/* Colophon — how the site was made, set like the case-study meta bar     */
 /* ------------------------------------------------------------------ */
 .colophon {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: 48px;
-  align-items: start;
-  padding: var(--space-inner) 0;
-  border-top: 1px solid var(--line);
-}
-.colophon__title {
-  margin: 0;
-  font-size: var(--text-heading);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  max-width: 14ch;
-}
-.colophon__body p {
-  margin: 0;
-  max-width: 54ch;
-  color: #d3c8c3;
-  font-size: var(--text-lead);
-  line-height: 1.65;
-}
-.colophon__body .project-pills {
-  margin-top: 24px;
-}
-
-/* ------------------------------------------------------------------ */
-/* Testimonials — one lead quote, the rest stacked between hairlines   */
-/* ------------------------------------------------------------------ */
-.testimonials {
   padding: 0 0 var(--space-inner);
 }
-.testimonials__grid {
+.colophon__specs {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 64px;
-  align-items: start;
-}
-.testimonial {
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
   margin: 0;
+  padding: 32px 0 0;
 }
-.testimonial blockquote {
-  margin: 0;
-}
-.testimonial blockquote p {
-  margin: 0;
-  color: #d8cdc8;
-  font-size: var(--text-body);
-  line-height: 1.65;
-}
-.testimonial--lead blockquote p {
-  font-family: var(--font-serif);
-  font-size: var(--text-pull);
-  line-height: 1.35;
-  letter-spacing: -0.015em;
-  color: #eadfd8;
-  text-wrap: pretty;
-}
-.testimonial--lead blockquote p::before {
-  content: '\201C';
-  color: var(--rose);
-}
-.testimonial--lead blockquote p::after {
-  content: '\201D';
-  color: var(--rose);
-}
-.testimonial__who {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 22px;
-}
-.testimonial--lead .testimonial__who {
-  margin-top: 32px;
-}
-.testimonial__avatar {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: linear-gradient(160deg, rgba(74, 28, 47, 0.7), rgba(13, 9, 18, 0.9));
+.colophon__item dt {
   color: var(--peach);
   font-size: var(--text-label);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  object-fit: cover;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 10px;
 }
-.testimonial__name,
-.testimonial__role {
-  display: block;
-  line-height: 1.35;
-}
-.testimonial__name {
-  color: var(--cream);
+.colophon__item dd {
+  margin: 0;
+  color: #ddd2cd;
   font-size: var(--text-small);
-  font-weight: 600;
-}
-.testimonial__role {
-  color: #b9aead;
-  font-size: var(--text-label);
-}
-.testimonials__stack {
-  display: grid;
-  border-top: 1px solid var(--line);
-}
-.testimonials__stack .testimonial {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
-  .colophon {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .colophon__specs {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 26px;
   }
-  .testimonials__grid {
+}
+@media (max-width: 640px) {
+  .colophon__specs {
     grid-template-columns: 1fr;
-    gap: 40px;
   }
 }
 
