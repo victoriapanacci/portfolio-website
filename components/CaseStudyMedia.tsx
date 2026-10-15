@@ -2,10 +2,9 @@ import Image from 'next/image'
 import type { CaseStudyImage, CaseStudyMediaItem } from '@/lib/projects'
 
 /**
- * Frames any case-study image inside the design system: a hairline-bordered
- * plate with a rose eyebrow tag and a caption. Keeps real product screenshots
- * and boards feeling native to the warm-ink / rose aesthetic instead of
- * dropping raw white artboards onto the dark background.
+ * The media plate: the one way an artifact is shown. A hairline-bordered
+ * frame with a label above and a caption beneath. `plate` mats the image on
+ * a light surface; `bleed` lets it fill the frame.
  */
 export function CaseStudyMedia({
   media,
@@ -17,24 +16,22 @@ export function CaseStudyMedia({
   const variant = media.variant ?? 'plate'
 
   return (
-    <figure
-      className={`cs-media cs-media--${variant}${className ? ` ${className}` : ''}`}
-    >
+    <figure className={`media media--${variant}${className ? ` ${className}` : ''}`}>
       {media.eyebrow ? (
-        <figcaption className="cs-media__eyebrow">{media.eyebrow}</figcaption>
+        <figcaption className="media__label label">{media.eyebrow}</figcaption>
       ) : null}
-      <div className="cs-media__frame">
+      <div className="media__frame">
         <Image
           src={media.src || '/placeholder.svg'}
           alt={media.alt}
           width={2400}
           height={1400}
           sizes="(max-width: 900px) 100vw, 900px"
-          className="cs-media__img"
+          className="media__img"
         />
       </div>
       {media.caption ? (
-        <figcaption className="cs-media__caption">{media.caption}</figcaption>
+        <figcaption className="media__caption caption">{media.caption}</figcaption>
       ) : null}
     </figure>
   )
@@ -58,16 +55,16 @@ export function CaseStudyMediaGroup({
         'grid' in m ? (
           <figure
             key={m.grid.map((g) => g.src).join('|')}
-            className="cs-media-grid"
-            style={{ '--cs-media-cols': m.columns } as React.CSSProperties}
+            className="media-grid"
+            style={{ '--media-cols': m.columns } as React.CSSProperties}
           >
-            <div className="cs-media-grid__items">
+            <div className="media-grid__items">
               {m.grid.map((g) => (
                 <CaseStudyMedia key={g.src} media={g} />
               ))}
             </div>
             {m.caption ? (
-              <figcaption className="cs-media__caption">{m.caption}</figcaption>
+              <figcaption className="media__caption caption">{m.caption}</figcaption>
             ) : null}
           </figure>
         ) : (

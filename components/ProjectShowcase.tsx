@@ -13,13 +13,13 @@ type Props = {
 }
 
 /**
- * The single source of truth for the project card section.
- * Used on the home page (full grid) and on every project page (quick links),
- * so adding a project to `lib/projects.ts` updates both automatically.
+ * The single source of truth for the project list. Used on the home page
+ * (full grid), the About page and every project page (quick links), so
+ * adding a project to `lib/projects.ts` updates all of them.
  */
 export function ProjectShowcase({
   variant = 'full',
-  kicker = 'Featured work',
+  kicker = 'Selected work',
   excludeSlug,
 }: Props) {
   const list = excludeSlug
@@ -31,7 +31,7 @@ export function ProjectShowcase({
       id="work"
       className={`work shell ${variant === 'full' ? 'work--grid' : ''}`}
     >
-      <Reveal className="section-kicker">
+      <Reveal className="kicker">
         <span>{kicker}</span>
         <i />
       </Reveal>
@@ -48,22 +48,25 @@ export function ProjectShowcase({
         <Reveal as="ul" className="quick-links">
           {list.map((project) => {
             const hasStudy = Boolean(project.caseStudy)
+            const category = project.category
+              .split('/')
+              .map((tag) => tag.trim())
+              .filter(Boolean)
+              .join(' · ')
             return (
               <li key={project.slug} className="quick-link">
                 <Link href={`/work/${project.slug}`}>
-                  <span className="quick-link__index">{project.index}</span>
+                  <span className="numeral">{project.index}</span>
                   <span className="quick-link__body">
                     <span className="quick-link__title">{project.title}</span>
-                    <span className="quick-link__category">
-                      {project.category}
-                    </span>
+                    <span className="label">{category}</span>
                   </span>
+                  {!hasStudy && (
+                    <span className="tag tag--outlined">Coming soon</span>
+                  )}
                   <span className="quick-link__arrow" aria-hidden="true">
                     →
                   </span>
-                  {!hasStudy && (
-                    <span className="quick-link__soon">Soon</span>
-                  )}
                 </Link>
               </li>
             )

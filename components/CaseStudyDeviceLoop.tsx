@@ -64,7 +64,7 @@ export function CaseStudyDeviceLoop({ device }: { device: CaseStudyDevice }) {
             className={i === active ? 'is-active' : undefined}
             aria-current={i === active ? 'step' : undefined}
           >
-            <button type="button" onClick={() => setActive(i)}>
+            <button type="button" className="chip" onClick={() => setActive(i)}>
               {s.label}
             </button>
           </li>

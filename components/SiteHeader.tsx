@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 const navLinks = [
@@ -12,6 +13,7 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     if (!open) return
@@ -33,6 +35,9 @@ export function SiteHeader() {
     }
   }, [open])
 
+  /* Only a real route can be the current page; hash links never are. */
+  const current = (href: string) => (href === pathname ? 'page' : undefined)
+
   return (
     <header className="site-header shell">
       <Link className="monogram" href="/">
@@ -40,7 +45,7 @@ export function SiteHeader() {
       </Link>
       <nav aria-label="Primary navigation" className="desktop-nav">
         {navLinks.map((link) => (
-          <Link key={link.href} href={link.href}>
+          <Link key={link.href} href={link.href} aria-current={current(link.href)}>
             {link.label}
           </Link>
         ))}
@@ -61,11 +66,16 @@ export function SiteHeader() {
         <nav
           id="mobile-nav-menu"
           aria-label="Mobile navigation"
-          className={`mobile-nav-menu${open ? ' is-open' : ''}`}
+          className="mobile-nav-menu"
           hidden={!open}
         >
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={current(link.href)}
+              onClick={() => setOpen(false)}
+            >
               {link.label}
             </Link>
           ))}

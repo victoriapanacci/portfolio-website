@@ -1,7 +1,7 @@
-import Link from 'next/link'
+import { Button } from './Button'
 import { Reveal } from './motion/Reveal'
 import { SplitHeadline } from './motion/SplitHeadline'
-import type { Project } from '@/lib/projects'
+import type { CaseStudyHeading, Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
 import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
@@ -9,129 +9,127 @@ import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
 import { CaseStudyWalkthrough } from './CaseStudyWalkthrough'
 import { RichText } from './RichText'
 
+/** `{lead}<em>{em}</em>{tail}`: every section heading comes from the data. */
+function Heading({ heading }: { heading: CaseStudyHeading }) {
+  return (
+    <>
+      {heading.lead}
+      <em>{heading.em}</em>
+      {heading.tail}
+    </>
+  )
+}
+
+function Kicker({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="kicker">
+      <span>{children}</span>
+      <i />
+    </div>
+  )
+}
+
+function Meta({ items }: { items: { label: string; value: string }[] }) {
+  return (
+    <>
+      {items.map((m) => (
+        <div key={m.label} className="cs-meta__item">
+          <dt className="label">{m.label}</dt>
+          <dd>{m.value}</dd>
+        </div>
+      ))}
+    </>
+  )
+}
+
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
   if (!cs) return null
   const stacked = cs.heroLayout === 'stacked'
-
-  const solutionHeading = cs.solution.heading ? (
-    <>
-      {cs.solution.heading.lead}
-      <em>{cs.solution.heading.em}</em>
-      {cs.solution.heading.tail}
-    </>
-  ) : (
-    <>
-      Meet <em>DribbleCollect</em>
-    </>
-  )
+  const principlesHaveMedia = Boolean(cs.solution.principles?.some((p) => p.media))
 
   const solutionSection = (
-    <>
-      {/* Solution */}
-      <Reveal as="section" className="cs-section shell">
-        <div className="cs-kicker">
-          <span>The solution</span>
-          <i />
-        </div>
-        {cs.solution.principles || cs.solution.walkthrough ? (
-          <div className="cs-principles-block">
-            <h2 className="cs-h2">{solutionHeading}</h2>
-            <div className="cs-section__lead cs-section__lead--wide cs-rich">
-              <RichText text={cs.solution.lead} />
-            </div>
-            {cs.solution.walkthrough ? (
-              <CaseStudyWalkthrough walk={cs.solution.walkthrough} />
-            ) : null}
-            {cs.solution.principles?.some((p) => p.media) ? (
-              <CaseStudyMediaGroup media={cs.solution.media} />
-            ) : null}
-            {!cs.solution.principles ? null : cs.solution.principles.some(
-                (p) => p.media,
-              ) ? (
-              <ol className="cs-decisions">
-                {cs.solution.principles.map((p, i) => (
-                  <li key={p.title} className="cs-decision">
-                    <div className="cs-decision__copy">
-                      <span className="cs-decision__num">{`0${i + 1}`}</span>
-                      <h3>{p.title}</h3>
-                      <p>{p.body}</p>
-                    </div>
-                    {p.media ? (
-                      <div className="cs-decision__media">
-                        <CaseStudyMediaGroup media={p.media} />
-                      </div>
-                    ) : null}
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <ol className="cs-principles">
-                {cs.solution.principles.map((p, i) => (
-                  <li key={p.title} className="cs-principle">
-                    <span className="cs-principle__num">{`0${i + 1}`}</span>
+    <Reveal as="section" className="cs-section shell">
+      <Kicker>{cs.solution.kicker ?? 'The solution'}</Kicker>
+      {cs.solution.principles || cs.solution.walkthrough ? (
+        <div>
+          <h2 className="cs-h2">
+            <Heading heading={cs.solution.heading} />
+          </h2>
+          <div className="lead cs-section__lead cs-section__lead--wide cs-rich">
+            <RichText text={cs.solution.lead} />
+          </div>
+          {cs.solution.walkthrough ? (
+            <CaseStudyWalkthrough walk={cs.solution.walkthrough} />
+          ) : null}
+          {principlesHaveMedia ? <CaseStudyMediaGroup media={cs.solution.media} /> : null}
+          {!cs.solution.principles ? null : principlesHaveMedia ? (
+            <ol className="cs-decisions">
+              {cs.solution.principles.map((p, i) => (
+                <li key={p.title} className="cs-decision">
+                  <div className="cs-decision__copy">
+                    <span className="numeral numeral--lg">{`0${i + 1}`}</span>
                     <h3>{p.title}</h3>
                     <p>{p.body}</p>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </div>
-        ) : (
-          <div className="cs-solution">
-            <h2 className="cs-h2">{solutionHeading}</h2>
-            <div>
-              <div className="cs-section__lead cs-rich">
-                <RichText text={cs.solution.lead} />
-              </div>
-              <ul className="cs-check-list">
-                {(cs.solution.points ?? []).map((point) => (
-                  <li key={point} >
-                    {point}
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                  {p.media ? (
+                    <div className="cs-decision__media">
+                      <CaseStudyMediaGroup media={p.media} />
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <ol className="cs-principles">
+              {cs.solution.principles.map((p, i) => (
+                <li key={p.title} className="card card--tinted cs-principle">
+                  <span className="numeral numeral--lg">{`0${i + 1}`}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      ) : (
+        <div className="cs-solution">
+          <h2 className="cs-h2">
+            <Heading heading={cs.solution.heading} />
+          </h2>
+          <div>
+            <div className="lead cs-section__lead cs-rich">
+              <RichText text={cs.solution.lead} />
             </div>
+            <ul className="list list--rows">
+              {(cs.solution.points ?? []).map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
           </div>
-        )}
-        {cs.solution.prototype ? (
-          <CaseStudyPrototype prototype={cs.solution.prototype} />
-        ) : null}
-        {cs.solution.principles?.some((p) => p.media) ? null : (
-          <CaseStudyMediaGroup media={cs.solution.media} />
-        )}
-      </Reveal>
-    </>
+        </div>
+      )}
+      {cs.solution.prototype ? (
+        <CaseStudyPrototype prototype={cs.solution.prototype} />
+      ) : null}
+      {principlesHaveMedia ? null : <CaseStudyMediaGroup media={cs.solution.media} />}
+    </Reveal>
   )
 
   const discoverySection = (
-    <>
-      {/* Discovery */}
-      <Reveal as="section" className="cs-section shell">
-        <div className="cs-kicker">
-          <span>{cs.discovery.kicker ?? 'The research'}</span>
-          <i />
-        </div>
-        <h2 className="cs-h2">
-          {cs.discovery.heading ? (
-            <>
-              {cs.discovery.heading.lead}
-              <em>{cs.discovery.heading.em}</em>
-              {cs.discovery.heading.tail}
-            </>
-          ) : (
-            <>
-              Four voices, one <em>fragile chain</em> of data
-            </>
-          )}
-        </h2>
-        <div className="cs-section__lead cs-rich">
-          <RichText text={cs.discovery.lead} />
-        </div>
-        <CaseStudyMediaGroup media={cs.discovery.media} />
+    <Reveal as="section" className="cs-section shell">
+      <Kicker>{cs.discovery.kicker ?? 'The research'}</Kicker>
+      <h2 className="cs-h2">
+        <Heading heading={cs.discovery.heading} />
+      </h2>
+      <div className="lead cs-section__lead cs-rich">
+        <RichText text={cs.discovery.lead} />
+      </div>
+      <CaseStudyMediaGroup media={cs.discovery.media} />
+      {cs.discovery.findings.length ? (
         <div className="cs-findings">
           {cs.discovery.findings.map((f) => (
-            <div key={f.title} className="cs-finding">
+            <div key={f.title} className="card cs-finding">
               <div className="cs-rich">
                 <h3>{f.title}</h3>
                 <RichText text={f.body} />
@@ -139,71 +137,39 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
-      </Reveal>
-    </>
-  )
-
-  const pivotSection = cs.pivot ? (
-    <Reveal as="section" className="cs-section shell">
-      <div className="cs-kicker">
-        <span>{cs.pivot.kicker}</span>
-        <i />
-      </div>
-      <div className="cs-pivot">
-        {(Array.isArray(cs.pivot.body) ? cs.pivot.body : [cs.pivot.body]).map(
-          (para) => (
-            <p key={para}>{para}</p>
-          ),
-        )}
-      </div>
-      <CaseStudyMediaGroup media={cs.pivot.media} />
+      ) : null}
     </Reveal>
-  ) : null
+  )
 
   return (
     <article className="cs">
-      {/* Breadcrumb back link */}
-      <div className="shell">
-        <Link
-          href="/#work"
-          className="group inline-flex min-h-11 items-center gap-3 rounded-full border border-rose/40 bg-rose/10 px-6 py-3 text-sm font-medium text-cream outline-none transition-colors hover:border-rose hover:bg-rose/20 focus-visible:ring-2 focus-visible:ring-rose/70"
-        >
-          <span
-            aria-hidden="true"
-            className="text-base font-light text-rose transition-transform duration-300 group-hover:-translate-x-1"
-          >
-            ←
-          </span>
-          <span>Back to All Work</span>
-        </Link>
+      <div className="shell back-link">
+        <Button href="/#work" direction="back">
+          Back to all work
+        </Button>
       </div>
 
       {/* Hero */}
       <header className={`cs-hero shell${stacked ? ' cs-hero--stacked' : ''}`}>
         <div className="cs-hero__copy">
           <SplitHeadline text={project.title} className="cs-title" />
-          <Reveal className="cs-summary cs-rich" immediate delay={0.5}>
+          <Reveal className="cs-summary lead cs-rich" immediate delay={0.5}>
             <RichText text={cs.summary} />
           </Reveal>
         </div>
         {stacked ? (
-          <Reveal as="div" className="cs-meta cs-hero__meta" immediate delay={0.65}>
-            {cs.meta.map((m) => (
-              <div key={m.label} className="cs-meta__item">
-                <dt>{m.label}</dt>
-                <dd>{m.value}</dd>
-              </div>
-            ))}
+          <Reveal as="dl" className="cs-meta cs-hero__meta" immediate delay={0.65}>
+            <Meta items={cs.meta} />
           </Reveal>
         ) : null}
         <Reveal className="cs-hero__art" immediate delay={0.35}>
           {cs.heroDevice ? (
             <CaseStudyDeviceLoop device={cs.heroDevice} />
           ) : cs.heroMedia ? (
-            <CaseStudyMedia media={cs.heroMedia} className="cs-media--hero" />
-          ) : (
+            <CaseStudyMedia media={cs.heroMedia} className="media--hero" />
+          ) : project.art ? (
             <ProjectArt type={project.art} />
-          )}
+          ) : null}
         </Reveal>
       </header>
 
@@ -211,12 +177,7 @@ export function CaseStudy({ project }: { project: Project }) {
       {stacked ? null : (
         <div className="shell">
           <dl className="cs-meta">
-            {cs.meta.map((m) => (
-              <div key={m.label} className="cs-meta__item">
-                <dt>{m.label}</dt>
-                <dd>{m.value}</dd>
-              </div>
-            ))}
+            <Meta items={cs.meta} />
           </dl>
         </div>
       )}
@@ -224,23 +185,20 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Intro / lede (optional) */}
       {cs.intro ? (
         <Reveal as="section" className="cs-section shell">
-          <p className="cs-lede">{cs.intro}</p>
+          <p className="lede">{cs.intro}</p>
         </Reveal>
       ) : null}
 
       {/* Problem */}
       <Reveal as="section" className="cs-section shell">
-        <div className="cs-kicker">
-          <span>{cs.problem.kicker ?? 'The problem'}</span>
-          <i />
-        </div>
-        <div className="cs-section__lead cs-rich">
+        <Kicker>{cs.problem.kicker ?? 'The problem'}</Kicker>
+        <div className="lead cs-section__lead cs-rich">
           <RichText text={cs.problem.lead} />
         </div>
         {cs.problem.points.length ? (
           <div className="cs-two-col">
             {cs.problem.points.map((p) => (
-              <div key={p.title} className="cs-panel">
+              <div key={p.title} className="card cs-panel">
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </div>
@@ -252,20 +210,14 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {cs.researchFirst ? discoverySection : solutionSection}
 
-      {/* Pivot (optional) */}
-      {pivotSection}
-
       {/* Process (optional) */}
       {cs.process ? (
         <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>Prototyping in sprints</span>
-            <i />
-          </div>
-          <ol className="cs-process">
+          <Kicker>{cs.processKicker ?? 'Process'}</Kicker>
+          <ol className="card card--grid cs-process">
             {cs.process.map((step) => (
               <li key={step.index} className="cs-step">
-                <span className="cs-step__index">{step.index}</span>
+                <span className="numeral">{step.index}</span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </li>
@@ -276,46 +228,9 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {cs.researchFirst ? solutionSection : discoverySection}
 
-      {/* Objectives (optional) */}
-      {cs.objectives ? (
-        <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>Defining success</span>
-            <i />
-          </div>
-          <div className="cs-objectives">
-            {cs.objectives.map((o) => (
-              <div key={o.label} className="cs-objective">
-                <span className="cs-objective__label">{o.label}</span>
-                <p>{o.title}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      ) : null}
-
-      {/* Sprints (optional) */}
-      {cs.sprints ? (
-        <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>Prototyping in sprints</span>
-            <i />
-          </div>
-          <p className="cs-section__lead">{cs.sprints.lead}</p>
-          <div className="cs-sprints">
-            {cs.sprints.items.map((s) => (
-              <div key={s.title} className="cs-sprint">
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      ) : null}
-
       {/* Metrics band (optional) */}
       {cs.metrics?.length ? (
-        <Reveal as="section" className="cs-metrics-wrap">
+        <Reveal as="section" className="card card--highlight card--grid cs-metrics-wrap">
           <div className="cs-metrics shell">
             {cs.metrics.map((m) => (
               <div key={m.label} className="cs-metric">
@@ -329,59 +244,47 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {/* Outcomes (optional) */}
       {cs.outcomes?.length ? (
-      <Reveal as="section" className="cs-section shell">
-        <div className="cs-kicker">
-          <span>The outcome</span>
-          <i />
-        </div>
-        <h2 className="cs-h2">
+        <Reveal as="section" className="cs-section shell">
+          <Kicker>{cs.outcomesKicker ?? 'The outcome'}</Kicker>
           {cs.outcomesHeading ? (
-            <>
-              {cs.outcomesHeading.lead}
-              <em>{cs.outcomesHeading.em}</em>
-              {cs.outcomesHeading.tail}
-            </>
-          ) : (
-            <>
-              Every objective, <em>delivered</em>.
-            </>
-          )}
-        </h2>
-        <div className="cs-outcomes">
-          {cs.outcomes.map((o) => (
-            <div key={o.objective} className="cs-outcome">
-              <h3>{o.objective}</h3>
-              <ul>
-                {o.points.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <CaseStudyMediaGroup media={cs.outcomesMedia} />
-      </Reveal>
+            <h2 className="cs-h2">
+              <Heading heading={cs.outcomesHeading} />
+            </h2>
+          ) : null}
+          <div className="cs-outcomes">
+            {cs.outcomes.map((o) => (
+              <div key={o.objective} className="card cs-outcome">
+                <h3>{o.objective}</h3>
+                <ul className="list">
+                  {o.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <CaseStudyMediaGroup media={cs.outcomesMedia} />
+        </Reveal>
       ) : null}
 
       {/* Launch (optional) */}
       {cs.launch ? (
         <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>Build to launch</span>
-            <i />
-          </div>
+          <Kicker>Build to launch</Kicker>
           <div className="cs-launch">
             {cs.launch.map((l) => (
-              <div key={l.phase} className="cs-phase">
+              <div key={l.phase} className="card cs-phase">
                 <div className="cs-phase__head">
-                  <span className="cs-phase__name">{l.phase}</span>
-                  <span className="cs-phase__tag">{l.tag}</span>
+                  <span className="label">{l.phase}</span>
+                  <span className="tag">{l.tag}</span>
                 </div>
-                <p className="cs-phase__body">{l.body}</p>
-                <p className="cs-phase__feedback">
-                  <span>Feedback loop</span>
-                  {l.feedback}
-                </p>
+                <div>
+                  <p className="cs-phase__body">{l.body}</p>
+                  <p className="cs-phase__feedback">
+                    <span className="eyebrow">Feedback loop</span>
+                    {l.feedback}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -391,13 +294,10 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Validation (optional) */}
       {cs.validation ? (
         <Reveal as="section" className="cs-section shell">
-          <div className="cs-validation">
-            <div className="cs-kicker">
-              <span>Outcome &amp; validation</span>
-              <i />
-            </div>
+          <div className="card card--highlight cs-validation">
+            <Kicker>Outcome &amp; validation</Kicker>
             {cs.validation.map((v) => (
-              <p key={v} className="cs-validation__line">
+              <p key={v} className="lede">
                 {v}
               </p>
             ))}
@@ -408,18 +308,15 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Reflection (optional) */}
       {cs.reflection ? (
         <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>{cs.reflection.kicker}</span>
-            <i />
-          </div>
+          <Kicker>{cs.reflection.kicker}</Kicker>
           {cs.reflection.lead ? (
-            <div className="cs-section__lead cs-rich">
+            <div className="lead cs-section__lead cs-rich">
               <RichText text={cs.reflection.lead} />
             </div>
           ) : null}
           <div className="cs-findings">
             {cs.reflection.items.map((f) => (
-              <div key={f.title} className="cs-finding">
+              <div key={f.title} className="card cs-finding">
                 <div className="cs-rich">
                   <h3>{f.title}</h3>
                   <RichText text={f.body} />
@@ -433,15 +330,12 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Learnings (optional) */}
       {cs.learnings?.length ? (
         <Reveal as="section" className="cs-section shell">
-          <div className="cs-kicker">
-            <span>What I took with me</span>
-            <i />
-          </div>
+          <Kicker>What I took with me</Kicker>
           <ol className="cs-learnings">
             {cs.learnings.map((l, i) => (
-              <li key={l} >
-                <span aria-hidden="true">{`0${i + 1}`}</span>
-                <p>{l}</p>
+              <li key={l}>
+                <span className="numeral" aria-hidden="true">{`0${i + 1}`}</span>
+                <p className="lead">{l}</p>
               </li>
             ))}
           </ol>

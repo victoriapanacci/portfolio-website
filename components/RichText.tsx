@@ -24,7 +24,7 @@ export function RichText({ text }: { text: string | string[] }) {
         b.type === 'p' ? (
           <p key={i}>{b.text}</p>
         ) : (
-          <ul key={i} className="cs-rich-list">
+          <ul key={i} className="list">
             {b.items.map((item) => (
               <li key={item}>{item}</li>
             ))}

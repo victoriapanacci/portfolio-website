@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main id="main">
       <SiteHeader />
 
       <section id="top" className="hero shell">
         <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy">
           <SplitHeadline text="I design the parts of money and medicine nobody should have to think about" />
-          <Reveal as="p" className="hero-body" immediate delay={0.55}>
+          <Reveal as="p" className="hero-body lead" immediate delay={0.55}>
             Senior Product Designer, Toronto. Previously{' '}
             <a href="https://sitero.com/" target="_blank" rel="noopener noreferrer">
               Axiom Real-Time Metrics-Sitero
@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ProjectShowcase variant="full" kicker="Featured projects" />
+      <ProjectShowcase variant="full" kicker="Selected work" />
 
       <SiteFooter />
     </main>

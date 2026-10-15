@@ -48,8 +48,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} bg-ink`}>
-      <body className="antialiased font-sans">
+    <html lang="en" className={inter.variable}>
+      <body>
+        {/* First focusable element on every page; visible only on focus. */}
+        <a href="#main" className="button skip-link">
+          Skip to content
+        </a>
         {/* Fixed film grain over every page. Lives here, outside the page
             transition wrapper, so its fixed positioning is never captured. */}
         <div className="grain" aria-hidden="true" />
