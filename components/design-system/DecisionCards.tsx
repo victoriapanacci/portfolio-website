@@ -9,9 +9,10 @@ export type Decision = {
 }
 
 /**
- * Each decision is a hairline row with its title and lead. Activating the
- * row expands it to show the labelled beats. On phones one is open at a
- * time; on larger screens any number can be open.
+ * Each decision is a hairline row with its title and lead. The title is the
+ * disclosure button; its hit area stretches over the whole row head, so the
+ * heading's name stays the title alone. On phones one is open at a time; on
+ * larger screens any number can be open.
  */
 export function DecisionCards({
   decisions,
@@ -50,26 +51,28 @@ export function DecisionCards({
         const n = startIndex + i + 1
         return (
           <li key={d.title} className="ds-decision" data-open={isOpen}>
-            <h3 className="ds-decision__heading">
-              <button
-                type="button"
-                className="ds-decision__toggle"
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-                onClick={() => toggle(i)}
-              >
-                <span className="numeral numeral--lg" aria-hidden="true">
-                  {n < 10 ? `0${n}` : n}
-                </span>
-                <span className="ds-decision__copy">
-                  <span className="ds-decision__title">{d.title}</span>
-                  <span className="ds-decision__lead">{d.lead}</span>
-                </span>
-                <span className="ds-decision__glyph" aria-hidden="true">
-                  +
-                </span>
-              </button>
-            </h3>
+            <div className="ds-decision__head">
+              <span className="numeral numeral--lg" aria-hidden="true">
+                {n < 10 ? `0${n}` : n}
+              </span>
+              <div className="ds-decision__copy">
+                <h3 className="ds-decision__heading">
+                  <button
+                    type="button"
+                    className="ds-decision__toggle"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => toggle(i)}
+                  >
+                    {d.title}
+                  </button>
+                </h3>
+                <p className="ds-decision__lead">{d.lead}</p>
+              </div>
+              <span className="ds-decision__glyph" aria-hidden="true">
+                +
+              </span>
+            </div>
             <div id={panelId} className="ds-decision__panel" hidden={!isOpen}>
               <dl className="ds-beats">
                 {d.beats.map((b) => (

@@ -1899,48 +1899,52 @@ main {
 .ds-decision {
   border-bottom: 1px solid var(--line);
 }
-.ds-decision .ds-decision__heading {
-  margin: 0;
-}
-.ds-decision__toggle {
-  appearance: none;
-  width: 100%;
+.ds-decision__head {
+  position: relative;
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr) auto;
   column-gap: 28px;
   align-items: start;
-  text-align: left;
   padding: 32px 8px;
-  border: 0;
-  background: transparent;
-  color: var(--text);
   transition: background var(--dur-base) var(--ease-out);
 }
-.ds-decision__toggle:hover {
+.ds-decision__head:hover {
   background: var(--rose-6);
 }
-.ds-decision__toggle .numeral {
+.ds-decision__head .numeral {
   padding-top: 2px;
   opacity: 0.6;
   transition: opacity var(--dur-fast) var(--ease-out);
 }
-.ds-decision__toggle:hover .numeral,
+.ds-decision__head:hover .numeral,
 .ds-decision[data-open='true'] .numeral {
   opacity: 1;
 }
-.ds-decision__copy {
-  display: grid;
-  gap: 10px;
-}
-.ds-decision__title {
-  font-family: var(--font-serif);
+.ds-decision .ds-decision__heading {
+  margin: 0;
   font-size: var(--text-subheading);
   line-height: 1.2;
+}
+/* The title is the control. Its hit area stretches over the whole row head. */
+.ds-decision__toggle {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
   letter-spacing: var(--tracking-tight);
   color: var(--text-strong);
+  text-wrap: balance;
+}
+.ds-decision__toggle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 .ds-decision__lead {
-  font-family: var(--font-sans);
+  margin: 10px 0 0;
+  color: var(--text);
   font-size: var(--text-body);
   line-height: 1.65;
   max-width: 640px;
@@ -1948,7 +1952,6 @@ main {
 .ds-decision__glyph {
   padding-top: 2px;
   color: var(--rose);
-  font-family: var(--font-sans);
   font-size: var(--text-subheading);
   font-weight: 300;
   line-height: 1;
@@ -2288,7 +2291,7 @@ main {
   .ds-betline {
     gap: var(--gap-md);
   }
-  .ds-decision__toggle {
+  .ds-decision__head {
     grid-template-columns: 56px minmax(0, 1fr) auto;
     column-gap: 20px;
     padding: 28px 4px;
@@ -2341,12 +2344,15 @@ main {
   .ds-betline__markets {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .ds-decision__toggle {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .ds-decision__head {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    column-gap: 14px;
     padding: 24px 0;
   }
-  .ds-decision__toggle .numeral {
-    display: none;
+  .ds-decision__head .numeral {
+    font-size: var(--text-numeral);
+    letter-spacing: var(--tracking-tight);
+    padding-top: 4px;
   }
   .ds-decision__panel {
     padding: 0 0 28px;

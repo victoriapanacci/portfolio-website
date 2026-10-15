@@ -166,12 +166,13 @@ const differently = [
   },
 ]
 
+/** The section title. A real h2 so the outline runs h1, h2, h3. */
 function Kicker({ children }: { children: React.ReactNode }) {
   return (
-    <div className="kicker">
+    <h2 className="kicker">
       <span>{children}</span>
-      <i />
-    </div>
+      <i aria-hidden="true" />
+    </h2>
   )
 }
 
