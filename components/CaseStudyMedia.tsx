@@ -18,7 +18,7 @@ export function CaseStudyMedia({
 
   return (
     <figure
-      className={`cs-media cs-media--${variant} reveal-on-scroll${className ? ` ${className}` : ''}`}
+      className={`cs-media cs-media--${variant}${className ? ` ${className}` : ''}`}
     >
       {media.eyebrow ? (
         <figcaption className="cs-media__eyebrow">{media.eyebrow}</figcaption>
@@ -58,7 +58,7 @@ export function CaseStudyMediaGroup({
         'grid' in m ? (
           <figure
             key={m.grid.map((g) => g.src).join('|')}
-            className="cs-media-grid reveal-on-scroll"
+            className="cs-media-grid"
             style={{ '--cs-media-cols': m.columns } as React.CSSProperties}
           >
             <div className="cs-media-grid__items">

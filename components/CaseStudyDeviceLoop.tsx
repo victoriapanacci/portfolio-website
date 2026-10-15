@@ -33,7 +33,7 @@ export function CaseStudyDeviceLoop({ device }: { device: CaseStudyDevice }) {
 
   return (
     <figure
-      className="cs-device-stage reveal"
+      className="cs-device-stage"
       style={backdrop ? { backgroundImage: `url(${backdrop})` } : undefined}
     >
       <div className="cs-iphone" aria-hidden="true">

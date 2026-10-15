@@ -189,22 +189,42 @@
 
   /* Vertical rhythm. Every page section uses one of these three steps so
      hero → work → footer read as one system; the whole scale steps down
-     together at the tablet and phone breakpoints below. */
-  --space-section: 120px; /* between undivided sections (hero → work) */
-  --space-inner: 80px; /* either side of a divider rule, so content sits centred between rules */
-  --space-top: 72px; /* header → first content */
+     together at the tablet and phone breakpoints below. Deliberately roomier
+     than feels necessary: sections breathe, the eye rests between them. */
+  --space-section: 160px; /* between undivided sections (hero → work) */
+  --space-inner: 104px; /* either side of a divider rule, so content sits centred between rules */
+  --space-top: 88px; /* header → first content */
+
+  /* Type scale. One oversized display size for the headline, then clear,
+     unmistakable steps down. Every text role in the site maps to one of
+     these, so no two sizes sit close enough to read as the same job. */
+  --text-display: clamp(3rem, 1.6rem + 5.2vw, 6rem); /* 48 → 96 */
+  --text-title: clamp(2.5rem, 1.5rem + 2.6vw, 4rem); /* 40 → 64 */
+  --text-heading: clamp(1.875rem, 1.4rem + 1.2vw, 2.75rem); /* 30 → 44 */
+  --text-pull: clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem); /* 24 → 34 */
+  --text-subheading: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); /* 20 → 24 */
+  --text-lead: clamp(1.125rem, 1rem + 0.4vw, 1.25rem); /* 18 → 20 */
+  --text-body: 1rem; /* 16 */
+  --text-small: 0.875rem; /* 14 */
+  --text-label: 0.75rem; /* 12 */
+  --text-micro: 0.6875rem; /* 11 */
+
+  --leading-display: 0.95;
+  --leading-tight: 1.1;
+  --tracking-display: -0.035em;
+  --tracking-tight: -0.02em;
 }
 @media (max-width: 1024px) {
   :root {
-    --space-section: 96px;
-    --space-inner: 64px;
-    --space-top: 56px;
+    --space-section: 120px;
+    --space-inner: 80px;
+    --space-top: 64px;
   }
 }
 @media (max-width: 640px) {
   :root {
-    --space-section: 72px;
-    --space-inner: 48px;
+    --space-section: 88px;
+    --space-inner: 56px;
     --space-top: 48px;
   }
 }
@@ -263,32 +283,38 @@ main {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
 }
 
-/* Entrance animations — content is visible by default; motion is pure
-   enhancement so nothing depends on client JS to be seen. */
-@keyframes vp-rise {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Motion lives in components/motion (Reveal, StaggerGroup, SplitHeadline),
+   driven by the motion library; CSS here only shapes the pieces it animates. */
+
+/* Split headline: each word is an inline-block so it can rise on its own,
+   and the wrapper keeps the natural word spacing and wrapping. */
+.split-word {
+  display: inline;
+}
+.split-word__inner {
+  display: inline-block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    animation: vp-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* The one moment of texture: the hero and footer light drift very slowly,
+   so the page never feels like a still. Reduced motion freezes it in place. */
+@keyframes vp-drift {
+  from {
+    translate: 0 0;
+    scale: 1;
   }
-
-  /* Scroll-triggered reveal for cards, guarded by @supports so browsers
-     without scroll-driven animations simply show the cards (base state). */
-  @supports (animation-timeline: view()) {
-    .reveal-on-scroll {
-      animation: vp-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 28%;
-    }
+  to {
+    translate: -48px 36px;
+    scale: 1.08;
+  }
+}
+@keyframes vp-drift-soft {
+  from {
+    translate: -50% 0;
+    scale: 1;
+  }
+  to {
+    translate: -46% 6px;
+    scale: 1.06;
   }
 }
 
@@ -413,7 +439,7 @@ main {
   padding: var(--space-top) 0 var(--space-section);
 }
 .hero-copy {
-  max-width: 840px;
+  max-width: 1080px;
   z-index: 2;
   margin: 0 auto;
   text-align: center;
@@ -439,13 +465,11 @@ h3 {
 }
 h1 {
   margin: 0;
-  font-size: clamp(68px, 7.2vw, 118px);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  max-width: 760px;
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
 }
 .hero h1 {
-  font-size: clamp(46.75px, 6.035vw, 71.4px);
   max-width: none;
   margin-inline: auto;
 }
@@ -455,10 +479,10 @@ h2 em {
   font-weight: 400;
 }
 .hero-body {
-  max-width: 680px;
-  margin: 36px auto 40px;
-  font-size: 22px;
-  line-height: 1.55;
+  max-width: 640px;
+  margin: 40px auto 0;
+  font-size: var(--text-lead);
+  line-height: 1.6;
   color: #ded4cf;
   text-wrap: balance;
 }
@@ -496,6 +520,7 @@ h2 em {
     );
   transform: rotate(-8deg) skewX(-6deg);
   mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+  animation: vp-drift 22s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
 }
 
 .about {
@@ -526,10 +551,10 @@ h2 em {
   gap: 22px;
   color: var(--cream);
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: var(--text-subheading);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   text-transform: none;
   margin-bottom: 48px;
 }
@@ -543,20 +568,26 @@ h2 em {
   /* Two columns of two: each card spans half the shell, so the art and
      title read at a larger size than the old four-across row. */
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 40px;
+  gap: 48px;
   /* Rows stretch, so every card matches the tallest card in its row. */
   align-items: stretch;
 }
+/* Stagger wrapper around each card; flex so the card still fills the row. */
+.project-grid__item {
+  display: flex;
+  min-width: 0;
+}
 .project-card {
+  flex: 1;
   padding: 32px;
   border: 1px solid var(--line);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 24px 60px rgba(6, 3, 10, 0.45);
-  /* Hover uses the standalone translate/scale properties so the scroll-driven
-     reveal animation (which owns transform) can never cancel the lift. */
-  transition: translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+  /* Hover uses the standalone translate/scale properties so the motion
+     wrapper (which owns transform) can never cancel the lift. */
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease;
   display: flex;
   flex-direction: column;
@@ -573,7 +604,7 @@ h2 em {
     0 34px 80px rgba(6, 3, 10, 0.6);
 }
 .project-card:hover {
-  translate: 0 -3px;
+  translate: 0 -4px;
   /* Same border as the site's pill buttons on hover (Tailwind hover:border-rose). */
   border-color: var(--rose);
   box-shadow: 0 34px 80px rgba(6, 3, 10, 0.65);
@@ -581,11 +612,57 @@ h2 em {
 /* Artwork eases in slightly on hover; .project-art clips it. */
 .project-card .project-art__cover,
 .project-card .project-art__surface {
-  transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: scale 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .project-card:hover .project-art__cover,
-.project-card:hover .project-art__surface {
-  scale: 1.05;
+.project-card:hover .project-art__surface,
+.project-card:focus-visible .project-art__cover,
+.project-card:focus-visible .project-art__surface {
+  scale: 1.03;
+}
+/* "Case study →" slides in at the foot of the card on hover or focus. The
+   label keeps its layout slot when hidden so the card never changes height. */
+.project-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  opacity: 0;
+  translate: -10px 0;
+  transition: opacity 0.4s ease, translate 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-card__cta i {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.15em;
+  color: var(--rose);
+  transition: translate 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.08s;
+}
+.project-card:hover .project-card__cta,
+.project-card:focus-visible .project-card__cta {
+  opacity: 1;
+  translate: 0 0;
+}
+.project-card:hover .project-card__cta i,
+.project-card:focus-visible .project-card__cta i {
+  translate: 5px 0;
+}
+.project-card__cta--soon {
+  color: var(--color-muted-warm, #b9aead);
+  /* Nothing to reveal on hover, so the status is always readable. */
+  opacity: 1;
+  translate: 0 0;
+}
+/* No hover on touch: the label is simply there. */
+@media (hover: none) {
+  .project-card__cta {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 .project-art {
   /* Art slot is always 3:2 of the card's full width. */
@@ -854,15 +931,15 @@ h2 em {
   z-index: 3;
 }
 .project-copy h3 {
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1;
+  font-size: var(--text-heading);
+  line-height: 1.02;
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   max-width: 95%;
 }
 .project-category {
   color: #e98475;
-  font-size: 11px;
+  font-size: var(--text-micro);
   margin: 18px 0 16px;
   font-weight: 600;
 }
@@ -872,7 +949,7 @@ h2 em {
   display: inline-flex;
   align-items: center;
   color: var(--peach);
-  font-size: 12px;
+  font-size: var(--text-label);
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -886,9 +963,6 @@ h2 em {
   padding: 0;
   /* Tags are the last thing in the card, so the card's own padding closes it. */
   margin: 20px 0 0;
-}
-.pill--soon {
-  color: var(--color-muted-warm, #b9aead);
 }
 .short-rule {
   width: 30px;
@@ -914,6 +988,7 @@ h2 em {
     transparent 72%
   );
   filter: blur(12px);
+  animation: vp-drift-soft 26s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
 }
 .footer {
   padding: var(--space-inner) 0 28px;
@@ -931,12 +1006,11 @@ h2 em {
   z-index: 2;
   padding-bottom: var(--space-inner);
 }
-/* Same type family as the hero h1, scaled to 75% so the closing statement
-   sits a step below the opening one. */
+/* Title role: the closing statement sits one clear step below the hero. */
 .footer h2 {
-  font-size: clamp(35.06px, 4.526vw, 53.55px);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  font-size: var(--text-title);
+  line-height: 1;
+  letter-spacing: -0.03em;
   max-width: none;
   margin: 0;
 }
@@ -955,7 +1029,7 @@ h2 em {
   gap: 24px;
 }
 .footer-bottom p {
-  font-size: 11px;
+  font-size: var(--text-micro);
   color: #897e80;
   margin: 0;
 }
@@ -996,15 +1070,9 @@ h2 em {
     transform: rotate(-5deg);
     mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
   }
-  h1 {
-    font-size: clamp(60px, 10vw, 96px);
-    line-height: 0.92;
-    max-width: 640px;
-  }
   .hero-body {
     max-width: 600px;
-    font-size: 20px;
-    margin: 30px auto 34px;
+    margin-top: 32px;
   }
   .project-grid {
     gap: 28px;
@@ -1016,15 +1084,14 @@ h2 em {
   .project-art {
     margin: -24px -22px 16px;
   }
-  .project-card:nth-child(odd):last-child {
+  .project-grid__item:nth-child(odd):last-child {
     grid-column: 1 / -1;
   }
   .project-copy h3 {
-    font-size: clamp(27px, 3.78vw, 36px);
     max-width: 94%;
   }
   .pill {
-    font-size: 11px;
+    font-size: var(--text-micro);
   }
   .project-pills {
     gap: 8px;
@@ -1062,13 +1129,11 @@ h2 em {
     max-width: 100%;
   }
   h1 {
-    font-size: clamp(52px, 15vw, 72px);
     max-width: 100%;
   }
   .hero-body {
     max-width: 100%;
-    font-size: 18px;
-    margin: 26px auto 30px;
+    margin-top: 28px;
   }
   .hero-light {
     width: 460px;
@@ -1088,14 +1153,14 @@ h2 em {
     padding: 14px 12px 16px;
     border-radius: 18px;
   }
-  .project-card:nth-child(odd):last-child {
+  .project-grid__item:nth-child(odd):last-child {
     grid-column: auto;
   }
   .project-art {
     margin: -14px -12px 10px;
   }
   .project-copy h3 {
-    font-size: clamp(16px, 4.6vw, 21px);
+    font-size: 1.125rem;
     max-width: 100%;
   }
   .project-pills {
@@ -1104,6 +1169,10 @@ h2 em {
   }
   .pill {
     font-size: 10px;
+  }
+  .project-card__cta {
+    margin-top: 14px;
+    font-size: var(--text-label);
   }
   .footer-actions {
     flex-direction: column;
@@ -1137,7 +1206,7 @@ h2 em {
 .cs-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(40px, 4.6vw, 66px);
+  font-size: var(--text-title);
   line-height: 1;
   letter-spacing: -0.03em;
   margin: 0;
@@ -1145,8 +1214,8 @@ h2 em {
 }
 .cs-summary {
   color: #d8cdc8;
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: var(--text-lead);
+  line-height: 1.65;
   letter-spacing: 0.005em;
   margin: 30px 0 0;
   max-width: 560px;
@@ -1220,7 +1289,7 @@ h2 em {
 
 /* Generic section rhythm */
 .cs-section {
-  padding: 88px 0 0;
+  padding: var(--space-inner) 0 0;
 }
 .cs > .cs-section:last-of-type {
   padding-bottom: var(--space-inner);
@@ -1231,10 +1300,10 @@ h2 em {
   gap: 28px;
   color: var(--cream);
   font-family: var(--font-serif);
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: var(--text-subheading);
   font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
   text-transform: none;
   margin-bottom: 36px;
 }
@@ -1253,9 +1322,9 @@ h2 em {
 .cs-h2 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(34px, 4vw, 58px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  font-size: var(--text-heading);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   margin: 0 0 26px;
   max-width: 780px;
 }
@@ -1265,14 +1334,14 @@ h2 em {
 }
 .cs-section__lead {
   color: #d3c8c3;
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: var(--text-lead);
+  line-height: 1.65;
   max-width: 640px;
   margin: 0 0 40px;
 }
 .cs-lede {
   font-family: var(--font-serif);
-  font-size: clamp(24px, 2.7vw, 34px);
+  font-size: var(--text-pull);
   line-height: 1.4;
   letter-spacing: -0.015em;
   color: #eadfd8;
@@ -1295,7 +1364,7 @@ h2 em {
 .cs-panel h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 24px;
+  font-size: var(--text-subheading);
   line-height: 1.15;
   margin: 0 0 14px;
   color: #f2e2d9;
@@ -1303,8 +1372,8 @@ h2 em {
 .cs-panel p {
   margin: 0;
   color: #cabfba;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
 }
 
 /* Solution */
@@ -1392,7 +1461,7 @@ h2 em {
 .cs-principle h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 22px;
+  font-size: var(--text-subheading);
   line-height: 1.2;
   margin: 0 0 14px;
   color: #f5e7de;
@@ -1400,8 +1469,8 @@ h2 em {
 .cs-principle p {
   margin: 0;
   color: #c8bdb8;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
 }
 
 /* Animated device mock-up — an iPhone 15 drawn in CSS, screens crossfading */
@@ -1825,7 +1894,7 @@ h2 em {
 .cs-decision h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 26px;
+  font-size: var(--text-subheading);
   line-height: 1.2;
   margin: 0 0 14px;
   color: #f5e7de;
@@ -1834,8 +1903,8 @@ h2 em {
 .cs-decision p {
   margin: 0;
   color: #c8bdb8;
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
   max-width: 460px;
 }
 .cs-decision__media .cs-media,
@@ -1870,7 +1939,7 @@ h2 em {
 }
 .cs-pivot p {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: var(--text-pull);
   line-height: 1.4;
   letter-spacing: -0.015em;
   color: #eadfd8;
@@ -1926,7 +1995,7 @@ h2 em {
 .cs-step h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 21px;
+  font-size: var(--text-subheading);
   line-height: 1.15;
   margin: 0 0 14px;
   color: #f2e2d9;
@@ -1934,7 +2003,7 @@ h2 em {
 .cs-step p {
   margin: 0;
   color: #c4b9b4;
-  font-size: 14px;
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -2042,7 +2111,7 @@ h2 em {
 .cs-finding h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 21px;
+  font-size: var(--text-subheading);
   line-height: 1.2;
   margin: 0 0 12px;
   color: #f2e2d9;
@@ -2050,8 +2119,8 @@ h2 em {
 .cs-finding p {
   margin: 0;
   color: #c4b9b4;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
 }
 
 /* Objectives */
@@ -2073,7 +2142,7 @@ h2 em {
 .cs-objective__label {
   display: block;
   color: #e98c7a;
-  font-size: 10px;
+  font-size: var(--text-micro);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -2102,7 +2171,7 @@ h2 em {
 .cs-sprint h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 19px;
+  font-size: var(--text-subheading);
   line-height: 1.2;
   margin: 0 0 12px;
   color: #f2e2d9;
@@ -2110,7 +2179,7 @@ h2 em {
 .cs-sprint p {
   margin: 0;
   color: #c4b9b4;
-  font-size: 14px;
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -2150,7 +2219,7 @@ h2 em {
   display: block;
   margin-top: 14px;
   color: #cabfba;
-  font-size: 13px;
+  font-size: var(--text-small);
   line-height: 1.5;
 }
 
@@ -2169,7 +2238,7 @@ h2 em {
 .cs-outcome h3 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 23px;
+  font-size: var(--text-subheading);
   line-height: 1.15;
   margin: 0 0 20px;
   color: #f2e2d9;
@@ -2183,7 +2252,7 @@ h2 em {
   position: relative;
   padding: 0 0 14px 22px;
   color: #c8bdb8;
-  font-size: 14px;
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 .cs-outcome li::before {
@@ -2225,7 +2294,7 @@ h2 em {
   line-height: 1;
 }
 .cs-phase__tag {
-  font-size: 10px;
+  font-size: var(--text-micro);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -2234,13 +2303,13 @@ h2 em {
 .cs-phase__body {
   margin: 0 0 18px;
   color: #d1c6c1;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
 }
 .cs-phase__feedback {
   margin: 0;
   color: #b7aca7;
-  font-size: 13px;
+  font-size: var(--text-small);
   line-height: 1.6;
   padding-top: 16px;
   border-top: 1px solid var(--line);
@@ -2248,7 +2317,7 @@ h2 em {
 .cs-phase__feedback span {
   display: block;
   color: #e98c7a;
-  font-size: 10px;
+  font-size: var(--text-micro);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -2306,7 +2375,7 @@ h2 em {
 .cs-learnings li p {
   margin: 0;
   color: #ddd2cd;
-  font-size: clamp(17px, 1.8vw, 21px);
+  font-size: var(--text-lead);
   line-height: 1.5;
 }
 
@@ -2359,7 +2428,7 @@ h2 em {
 }
 .quick-link__title {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.4vw, 32px);
+  font-size: var(--text-subheading);
   line-height: 1.1;
   color: #f2e2d9;
   letter-spacing: -0.02em;
@@ -2408,9 +2477,6 @@ h2 em {
   .cs-meta {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 26px;
-  }
-  .cs-section {
-    padding-top: 60px;
   }
   .cs-process {
     grid-template-columns: repeat(2, 1fr);
@@ -2539,18 +2605,59 @@ h2 em {
 
 /* About page */
 .about-hero {
-  padding: var(--space-top) 0 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 64px;
+  align-items: center;
+  padding: var(--space-top) 0 calc(var(--space-inner) / 2);
 }
 .about-hero__copy {
   max-width: 780px;
   position: relative;
   z-index: 2;
 }
-.about-hero__cta {
-  margin-top: 40px;
+/* Portrait: a 4:5 plate framed like the case-study media. */
+.about-portrait {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  justify-self: end;
+  width: min(100%, 420px);
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(74, 28, 47, 0.5), rgba(13, 9, 18, 0.9));
+  box-shadow: 0 40px 80px -48px rgba(0, 0, 0, 0.75);
+}
+.about-portrait__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-portrait__slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 24px;
+  color: #d8cdc8;
+}
+.about-portrait__slot span {
+  font-family: var(--font-serif);
+  font-size: var(--text-subheading);
+}
+.about-portrait__slot small {
+  font-size: var(--text-label);
+  color: #b9aead;
 }
 .about-section {
-  padding: 40px 0;
+  padding: calc(var(--space-inner) / 2) 0;
 }
 .about-section:last-of-type {
   padding-bottom: var(--space-inner);
@@ -2570,7 +2677,7 @@ h2 em {
   border-radius: 24px;
   padding: 34px 30px;
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: var(--text-subheading);
   line-height: 1.35;
   letter-spacing: -0.01em;
   color: #ede2d9;
@@ -2605,9 +2712,9 @@ h2 em {
 }
 .about-job__role {
   margin: 0 0 8px;
-  font-size: 26px;
+  font-size: var(--text-subheading);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   color: var(--cream);
 }
 /* Same eyebrow treatment as .cs-eyebrow */
@@ -2638,8 +2745,8 @@ h2 em {
   position: relative;
   padding-left: 24px;
   max-width: 62ch;
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: 1.65;
   letter-spacing: 0.005em;
   color: #d8cdc8;
 }
@@ -2696,23 +2803,32 @@ h2 em {
 }
 .about-edu__detail {
   margin: 0 0 8px;
-  font-size: 18px;
+  font-size: var(--text-lead);
   color: var(--cream);
 }
 .about-edu__note {
   margin: 0;
-  font-size: 15px;
+  font-size: var(--text-small);
   line-height: 1.65;
   letter-spacing: 0.005em;
   color: #cfc4bf;
 }
 
+@media (max-width: 1024px) {
+  .about-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-portrait {
+    justify-self: start;
+    width: min(100%, 320px);
+  }
+}
 @media (max-width: 860px) {
   .about-principles {
     grid-template-columns: 1fr;
   }
   .about-principle {
-    font-size: 20px;
     padding: 28px 24px;
   }
   .about-job {
@@ -2727,6 +2843,9 @@ h2 em {
   }
 }
 
+/* Reduced motion. Spatial movement is removed and loops stop; the motion
+   components keep their opacity fades (MotionConfig reducedMotion="user"),
+   so state changes stay legible. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2738,5 +2857,9 @@ h2 em {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .hero-light,
+  .footer-light {
+    animation: none;
   }
 }

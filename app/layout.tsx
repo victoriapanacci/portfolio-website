@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { MotionProvider } from '@/components/motion/MotionProvider'
 import './globals.css'
 
 const inter = Inter({
@@ -49,7 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} bg-ink`}>
       <body className="antialiased font-sans">
-        {children}
+        {/* Fixed film grain over every page. Lives here, outside the page
+            transition wrapper, so its fixed positioning is never captured. */}
+        <div className="grain" aria-hidden="true" />
+        <MotionProvider>{children}</MotionProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

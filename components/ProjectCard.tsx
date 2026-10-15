@@ -4,15 +4,16 @@ import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
 
 /**
- * The whole card is one link; there is no separate call-to-action inside it.
- * Projects without a case study carry a muted "Coming soon" tag instead.
+ * The whole card is one link. On hover the card lifts, the art eases in, and
+ * a "Case study" label slides in at the foot of the card. Projects without a
+ * case study carry a muted "Coming soon" label in the same slot instead.
  */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
   const hasStudy = Boolean(project.caseStudy)
 
   return (
-    <Link href={href} className="project-card reveal-on-scroll group">
+    <Link href={href} className="project-card">
       {project.cover ? (
         <div
           className="project-art project-art--cover"
@@ -48,8 +49,17 @@ export function ProjectCard({ project }: { project: Project }) {
                 {tag}
               </li>
             ))}
-          {!hasStudy && <li className="pill pill--soon">Coming soon</li>}
         </ul>
+        {hasStudy ? (
+          <span className="project-card__cta">
+            Case study
+            <i aria-hidden="true">→</i>
+          </span>
+        ) : (
+          <span className="project-card__cta project-card__cta--soon">
+            Coming soon
+          </span>
+        )}
       </div>
     </Link>
   )

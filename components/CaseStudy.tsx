@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { Reveal } from './motion/Reveal'
+import { SplitHeadline } from './motion/SplitHeadline'
 import type { Project } from '@/lib/projects'
 import { ProjectArt } from './ProjectArt'
 import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
@@ -27,7 +29,7 @@ export function CaseStudy({ project }: { project: Project }) {
   const solutionSection = (
     <>
       {/* Solution */}
-      <section className="cs-section shell">
+      <Reveal as="section" className="cs-section shell">
         <div className="cs-kicker">
           <span>The solution</span>
           <i />
@@ -49,7 +51,7 @@ export function CaseStudy({ project }: { project: Project }) {
               ) ? (
               <ol className="cs-decisions">
                 {cs.solution.principles.map((p, i) => (
-                  <li key={p.title} className="cs-decision reveal-on-scroll">
+                  <li key={p.title} className="cs-decision">
                     <div className="cs-decision__copy">
                       <span className="cs-decision__num">{`0${i + 1}`}</span>
                       <h3>{p.title}</h3>
@@ -66,7 +68,7 @@ export function CaseStudy({ project }: { project: Project }) {
             ) : (
               <ol className="cs-principles">
                 {cs.solution.principles.map((p, i) => (
-                  <li key={p.title} className="cs-principle reveal-on-scroll">
+                  <li key={p.title} className="cs-principle">
                     <span className="cs-principle__num">{`0${i + 1}`}</span>
                     <h3>{p.title}</h3>
                     <p>{p.body}</p>
@@ -84,7 +86,7 @@ export function CaseStudy({ project }: { project: Project }) {
               </div>
               <ul className="cs-check-list">
                 {(cs.solution.points ?? []).map((point) => (
-                  <li key={point} className="reveal-on-scroll">
+                  <li key={point} >
                     {point}
                   </li>
                 ))}
@@ -98,14 +100,14 @@ export function CaseStudy({ project }: { project: Project }) {
         {cs.solution.principles?.some((p) => p.media) ? null : (
           <CaseStudyMediaGroup media={cs.solution.media} />
         )}
-      </section>
+      </Reveal>
     </>
   )
 
   const discoverySection = (
     <>
       {/* Discovery */}
-      <section className="cs-section shell">
+      <Reveal as="section" className="cs-section shell">
         <div className="cs-kicker">
           <span>{cs.discovery.kicker ?? 'The research'}</span>
           <i />
@@ -129,7 +131,7 @@ export function CaseStudy({ project }: { project: Project }) {
         <CaseStudyMediaGroup media={cs.discovery.media} />
         <div className="cs-findings">
           {cs.discovery.findings.map((f) => (
-            <div key={f.title} className="cs-finding reveal-on-scroll">
+            <div key={f.title} className="cs-finding">
               <div className="cs-rich">
                 <h3>{f.title}</h3>
                 <RichText text={f.body} />
@@ -137,17 +139,17 @@ export function CaseStudy({ project }: { project: Project }) {
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
     </>
   )
 
   const pivotSection = cs.pivot ? (
-    <section className="cs-section shell">
+    <Reveal as="section" className="cs-section shell">
       <div className="cs-kicker">
         <span>{cs.pivot.kicker}</span>
         <i />
       </div>
-      <div className="cs-pivot reveal-on-scroll">
+      <div className="cs-pivot">
         {(Array.isArray(cs.pivot.body) ? cs.pivot.body : [cs.pivot.body]).map(
           (para) => (
             <p key={para}>{para}</p>
@@ -155,7 +157,7 @@ export function CaseStudy({ project }: { project: Project }) {
         )}
       </div>
       <CaseStudyMediaGroup media={cs.pivot.media} />
-    </section>
+    </Reveal>
   ) : null
 
   return (
@@ -178,23 +180,23 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {/* Hero */}
       <header className={`cs-hero shell${stacked ? ' cs-hero--stacked' : ''}`}>
-        <div className="cs-hero__copy reveal">
-          <h1 className="cs-title">{project.title}</h1>
-          <div className="cs-summary cs-rich">
+        <div className="cs-hero__copy">
+          <SplitHeadline text={project.title} className="cs-title" />
+          <Reveal className="cs-summary cs-rich" immediate delay={0.5}>
             <RichText text={cs.summary} />
-          </div>
+          </Reveal>
         </div>
         {stacked ? (
-          <dl className="cs-meta cs-hero__meta reveal">
+          <Reveal as="div" className="cs-meta cs-hero__meta" immediate delay={0.65}>
             {cs.meta.map((m) => (
               <div key={m.label} className="cs-meta__item">
                 <dt>{m.label}</dt>
                 <dd>{m.value}</dd>
               </div>
             ))}
-          </dl>
+          </Reveal>
         ) : null}
-        <div className="cs-hero__art reveal">
+        <Reveal className="cs-hero__art" immediate delay={0.35}>
           {cs.heroDevice ? (
             <CaseStudyDeviceLoop device={cs.heroDevice} />
           ) : cs.heroMedia ? (
@@ -202,7 +204,7 @@ export function CaseStudy({ project }: { project: Project }) {
           ) : (
             <ProjectArt type={project.art} />
           )}
-        </div>
+        </Reveal>
       </header>
 
       {/* Meta bar (side layout only; the stacked hero carries it inline) */}
@@ -221,13 +223,13 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {/* Intro / lede (optional) */}
       {cs.intro ? (
-        <section className="cs-section shell">
-          <p className="cs-lede reveal-on-scroll">{cs.intro}</p>
-        </section>
+        <Reveal as="section" className="cs-section shell">
+          <p className="cs-lede">{cs.intro}</p>
+        </Reveal>
       ) : null}
 
       {/* Problem */}
-      <section className="cs-section shell">
+      <Reveal as="section" className="cs-section shell">
         <div className="cs-kicker">
           <span>{cs.problem.kicker ?? 'The problem'}</span>
           <i />
@@ -238,7 +240,7 @@ export function CaseStudy({ project }: { project: Project }) {
         {cs.problem.points.length ? (
           <div className="cs-two-col">
             {cs.problem.points.map((p) => (
-              <div key={p.title} className="cs-panel reveal-on-scroll">
+              <div key={p.title} className="cs-panel">
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </div>
@@ -246,7 +248,7 @@ export function CaseStudy({ project }: { project: Project }) {
           </div>
         ) : null}
         <CaseStudyMediaGroup media={cs.problem.media} />
-      </section>
+      </Reveal>
 
       {cs.researchFirst ? discoverySection : solutionSection}
 
@@ -255,46 +257,46 @@ export function CaseStudy({ project }: { project: Project }) {
 
       {/* Process (optional) */}
       {cs.process ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>Prototyping in sprints</span>
             <i />
           </div>
           <ol className="cs-process">
             {cs.process.map((step) => (
-              <li key={step.index} className="cs-step reveal-on-scroll">
+              <li key={step.index} className="cs-step">
                 <span className="cs-step__index">{step.index}</span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </Reveal>
       ) : null}
 
       {cs.researchFirst ? solutionSection : discoverySection}
 
       {/* Objectives (optional) */}
       {cs.objectives ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>Defining success</span>
             <i />
           </div>
           <div className="cs-objectives">
             {cs.objectives.map((o) => (
-              <div key={o.label} className="cs-objective reveal-on-scroll">
+              <div key={o.label} className="cs-objective">
                 <span className="cs-objective__label">{o.label}</span>
                 <p>{o.title}</p>
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Sprints (optional) */}
       {cs.sprints ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>Prototyping in sprints</span>
             <i />
@@ -302,32 +304,32 @@ export function CaseStudy({ project }: { project: Project }) {
           <p className="cs-section__lead">{cs.sprints.lead}</p>
           <div className="cs-sprints">
             {cs.sprints.items.map((s) => (
-              <div key={s.title} className="cs-sprint reveal-on-scroll">
+              <div key={s.title} className="cs-sprint">
                 <h3>{s.title}</h3>
                 <p>{s.body}</p>
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Metrics band (optional) */}
       {cs.metrics?.length ? (
-        <section className="cs-metrics-wrap">
+        <Reveal as="section" className="cs-metrics-wrap">
           <div className="cs-metrics shell">
             {cs.metrics.map((m) => (
-              <div key={m.label} className="cs-metric reveal-on-scroll">
+              <div key={m.label} className="cs-metric">
                 <span className="cs-metric__value">{m.value}</span>
                 <span className="cs-metric__label">{m.label}</span>
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Outcomes (optional) */}
       {cs.outcomes?.length ? (
-      <section className="cs-section shell">
+      <Reveal as="section" className="cs-section shell">
         <div className="cs-kicker">
           <span>The outcome</span>
           <i />
@@ -347,7 +349,7 @@ export function CaseStudy({ project }: { project: Project }) {
         </h2>
         <div className="cs-outcomes">
           {cs.outcomes.map((o) => (
-            <div key={o.objective} className="cs-outcome reveal-on-scroll">
+            <div key={o.objective} className="cs-outcome">
               <h3>{o.objective}</h3>
               <ul>
                 {o.points.map((p) => (
@@ -358,19 +360,19 @@ export function CaseStudy({ project }: { project: Project }) {
           ))}
         </div>
         <CaseStudyMediaGroup media={cs.outcomesMedia} />
-      </section>
+      </Reveal>
       ) : null}
 
       {/* Launch (optional) */}
       {cs.launch ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>Build to launch</span>
             <i />
           </div>
           <div className="cs-launch">
             {cs.launch.map((l) => (
-              <div key={l.phase} className="cs-phase reveal-on-scroll">
+              <div key={l.phase} className="cs-phase">
                 <div className="cs-phase__head">
                   <span className="cs-phase__name">{l.phase}</span>
                   <span className="cs-phase__tag">{l.tag}</span>
@@ -383,13 +385,13 @@ export function CaseStudy({ project }: { project: Project }) {
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Validation (optional) */}
       {cs.validation ? (
-        <section className="cs-section shell">
-          <div className="cs-validation reveal-on-scroll">
+        <Reveal as="section" className="cs-section shell">
+          <div className="cs-validation">
             <div className="cs-kicker">
               <span>Outcome &amp; validation</span>
               <i />
@@ -400,12 +402,12 @@ export function CaseStudy({ project }: { project: Project }) {
               </p>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Reflection (optional) */}
       {cs.reflection ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>{cs.reflection.kicker}</span>
             <i />
@@ -417,7 +419,7 @@ export function CaseStudy({ project }: { project: Project }) {
           ) : null}
           <div className="cs-findings">
             {cs.reflection.items.map((f) => (
-              <div key={f.title} className="cs-finding reveal-on-scroll">
+              <div key={f.title} className="cs-finding">
                 <div className="cs-rich">
                   <h3>{f.title}</h3>
                   <RichText text={f.body} />
@@ -425,25 +427,25 @@ export function CaseStudy({ project }: { project: Project }) {
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {/* Learnings (optional) */}
       {cs.learnings?.length ? (
-        <section className="cs-section shell">
+        <Reveal as="section" className="cs-section shell">
           <div className="cs-kicker">
             <span>What I took with me</span>
             <i />
           </div>
           <ol className="cs-learnings">
             {cs.learnings.map((l, i) => (
-              <li key={l} className="reveal-on-scroll">
+              <li key={l} >
                 <span aria-hidden="true">{`0${i + 1}`}</span>
                 <p>{l}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </Reveal>
       ) : null}
     </article>
   )
