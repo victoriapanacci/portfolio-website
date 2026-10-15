@@ -164,6 +164,8 @@ export type Project = {
   }
   /** Present when a full case study story exists for this project. */
   caseStudy?: CaseStudy
+  /** True when the case study is a hand-built route at `app/work/<slug>/page.tsx` instead of data. */
+  studyPage?: boolean
 }
 
 export const projects: Project[] = [
@@ -670,13 +672,13 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'system',
+    slug: 'design-system',
     index: '04',
-    title: 'Designing Systems That Scale',
-    shortTitle: 'System',
+    title: 'Bet105 design system',
+    shortTitle: 'Design system',
     category: 'Design System',
-    description:
-      'Creating scalable design systems and workflows that enable teams to move faster and build with confidence.',
+    description: 'A rule book for a team that ships by prompt.',
+    studyPage: true,
     cover: {
       src: '/work/system/card-cover.webp',
       alt: 'A translucent panel over a night-time dune landscape showing a two-column grid of blue-toned button components, each labelled with its numeric style token.',

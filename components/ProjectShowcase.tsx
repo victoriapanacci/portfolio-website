@@ -47,7 +47,7 @@ export function ProjectShowcase({
       ) : (
         <Reveal as="ul" className="quick-links">
           {list.map((project) => {
-            const hasStudy = Boolean(project.caseStudy)
+            const hasStudy = Boolean(project.caseStudy || project.studyPage)
             const category = project.category
               .split('/')
               .map((tag) => tag.trim())

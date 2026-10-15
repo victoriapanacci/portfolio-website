@@ -10,7 +10,10 @@ import { SiteHeader } from '@/components/SiteHeader'
 import { getProject, projects } from '@/lib/projects'
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }))
+  // Hand-built case studies have their own static route under app/work/.
+  return projects
+    .filter((project) => !project.studyPage)
+    .map((project) => ({ slug: project.slug }))
 }
 
 export async function generateMetadata({

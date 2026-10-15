@@ -10,7 +10,7 @@ import { ProjectArt } from './ProjectArt'
  */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
-  const hasStudy = Boolean(project.caseStudy)
+  const hasStudy = Boolean(project.caseStudy || project.studyPage)
 
   return (
     <Link href={href} className="project-card">
