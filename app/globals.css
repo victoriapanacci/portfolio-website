@@ -970,46 +970,6 @@ h2 em {
   background: #de846f;
   margin: 0 0 18px;
 }
-/* ------------------------------------------------------------------ */
-/* Colophon — how the site was made, set like the case-study meta bar     */
-/* ------------------------------------------------------------------ */
-.colophon {
-  padding: 0 0 var(--space-inner);
-}
-.colophon__specs {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 28px;
-  margin: 0;
-  padding: 32px 0 0;
-}
-.colophon__item dt {
-  color: var(--peach);
-  font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.colophon__item dd {
-  margin: 0;
-  color: #ddd2cd;
-  font-size: var(--text-small);
-  line-height: 1.6;
-}
-
-@media (max-width: 1024px) {
-  .colophon__specs {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 26px;
-  }
-}
-@media (max-width: 640px) {
-  .colophon__specs {
-    grid-template-columns: 1fr;
-  }
-}
-
 .footer-wrap {
   position: relative;
   border-top: 1px solid var(--line);

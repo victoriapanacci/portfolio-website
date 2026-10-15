@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { BuiltByHand } from '@/components/BuiltByHand'
 import { Reveal } from '@/components/motion/Reveal'
 import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
@@ -35,8 +34,6 @@ export default function Home() {
       </section>
 
       <ProjectShowcase variant="full" kicker="Featured projects" />
-
-      <BuiltByHand />
 
       <SiteFooter />
     </main>
