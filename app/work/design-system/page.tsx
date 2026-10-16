@@ -31,60 +31,30 @@ const meta = [
 const decisions: Decision[] = [
   {
     title: 'Foundation first, UI second.',
-    lead: 'The visible problem was ugly screens. The real problem was that nothing constrained what the AI generated.',
+    lead: 'Ugly screens were the symptom. Nothing constrained what the AI generated.',
     beats: [
-      {
-        label: 'What I chose',
-        body: 'Build the token layer and patterns before touching any UI. Fixing screens without fixing tokens meant the next prompt would break them again. A real system takes months, not weeks, and I said so at the start.',
-      },
-      {
-        label: 'What I rejected',
-        body: 'A visual refresh first. It would have looked like progress for exactly one PR.',
-      },
-      {
-        label: 'What it cost',
-        body: 'Six weeks before anything looked different, and real friction with leadership who wanted a new face on the product immediately. I knew that was the trade and took it.',
-      },
-      {
-        label: 'What I’d change',
-        body: 'See “Ship one screen by week two” below.',
-      },
+      { label: 'What I chose', body: 'Tokens and patterns before any UI. Fix the screens first and the next prompt breaks them again.' },
+      { label: 'What I rejected', body: 'A visual refresh. It would have looked like progress for one PR.' },
+      { label: 'What it cost', body: 'Six weeks with nothing visibly different, and friction with leadership.' },
+      { label: 'What I’d change', body: 'Ship one screen on the new tokens by week two. More below.' },
     ],
   },
   {
     title: 'Make myself unnecessary at the gate.',
-    lead: 'With everyone pushing PRs, every PR came to me for a manual check. I became the bottleneck on the team’s output.',
+    lead: 'Every PR came to me for a manual check. I was the bottleneck.',
     beats: [
-      {
-        label: 'What I chose',
-        body: 'Put the rules into the tool. Claude was handed the token JSON and a short set of rules: master components in the root were locked, every build went through settings passes against the tokens, and nothing could be pushed as a PR until it cleared a hard pass/fail check. Same idea as a test suite. The rules ran whether or not I was in the room.',
-      },
-      {
-        label: 'What I rejected',
-        body: 'Reviewing faster. It doesn’t scale past one person.',
-      },
-      {
-        label: 'What it cost',
-        body: 'I gave up first look at every screen, and some things shipped that I’d have caught earlier.',
-      },
-      {
-        label: 'What it bought',
-        body: 'The team’s throughput stopped depending on my calendar. I stopped being an approver and worked as a design engineer, reviewing after the fact.',
-      },
+      { label: 'What I chose', body: 'Put the rules in the tool. Claude got the token JSON, locked master components, and a hard pass/fail check before any PR.' },
+      { label: 'What I rejected', body: 'Reviewing faster. It doesn’t scale past one person.' },
+      { label: 'What it cost', body: 'First look at every screen.' },
+      { label: 'What it bought', body: 'Throughput stopped depending on my calendar. I reviewed after the fact, as a design engineer.' },
     ],
   },
   {
     title: 'A gallery, not Storybook.',
     lead: 'People still needed a human-readable view of the system.',
     beats: [
-      {
-        label: 'What I chose',
-        body: 'A small page, built with the engineer in Claude, that re-reads the token JSON on every refresh and renders the current components, named by the page they live on: bet slip, bet lines, page header. About a day of work.',
-      },
-      {
-        label: 'What I rejected',
-        body: 'Storybook. Right answer for a team of twenty. For us, every story was a second thing to maintain, and the maintenance would land on me.',
-      },
+      { label: 'What I chose', body: 'A one-day page that re-reads the token JSON on every refresh and renders the current components.' },
+      { label: 'What I rejected', body: 'Storybook. Every story is a second thing to maintain, and it lands on me.' },
       { label: 'What it cost', body: 'It was plain to the point of ugly.' },
       { label: 'What it bought', body: 'A reference that was true by construction.' },
     ],
@@ -96,22 +66,10 @@ const lastDecision: Decision[] = [
     title: 'Keep the existing interaction patterns.',
     lead: 'Leadership wanted something new and flashy.',
     beats: [
-      {
-        label: 'What I chose',
-        body: 'Keep the navigation and interaction structure wherever it worked and spend the budget on standardisation.',
-      },
-      {
-        label: 'What I rejected',
-        body: 'A redesign. I said that was a different, longer project and asked whether they’d fund the time. They said no.',
-      },
-      {
-        label: 'What it cost',
-        body: 'The system launched looking evolutionary, not revolutionary.',
-      },
-      {
-        label: 'Why it was right',
-        body: 'A team that size can’t afford a redesign and a rebuild at once.',
-      },
+      { label: 'What I chose', body: 'Keep the navigation and interaction structure. Spend the budget on standardisation.' },
+      { label: 'What I rejected', body: 'A redesign. I asked whether they’d fund the time. They said no.' },
+      { label: 'What it cost', body: 'The system launched looking evolutionary.' },
+      { label: 'Why it was right', body: 'A team of three can’t afford a redesign and a rebuild at once.' },
     ],
   },
 ]
@@ -138,15 +96,15 @@ const enabled = [
 const differently = [
   {
     title: 'Ship one screen on the new tokens by week two.',
-    body: 'The foundation was right, but it had no face, and for six weeks the people paying for it couldn’t see it working. A visible slice would have bought the trust the rest of the build needed. Sequence foundation work so it’s legible to the people who have to believe in it.',
+    body: 'The foundation was right but had no face. For six weeks the people paying for it couldn’t see it working.',
   },
   {
     title: 'Start on a headless component library.',
-    body: 'The cashier was later built on Base UI and it would have saved time here. Next time the token work goes on top of a library like that from day one, instead of building primitives by hand.',
+    body: 'The cashier was later built on Base UI. Next time the token work goes on top of a library like that from day one.',
   },
   {
     title: 'Give the human layer a day of design.',
-    body: 'I treated the gallery as plumbing, and the people deciding whether the system was worth it were looking at the plumbing.',
+    body: 'I treated the gallery as plumbing. That is what the people judging the system were looking at.',
   },
 ]
 
@@ -300,11 +258,10 @@ export default function DesignSystemPage() {
         {/* What I'd do differently */}
         <Reveal as="section" className="cs-section shell">
           <Kicker>What I’d do differently</Kicker>
-          <ul className="ds-differently">
+          <ul className="list ds-differently">
             {differently.map((d) => (
               <li key={d.title}>
-                <h3>{d.title}</h3>
-                <p className="lead">{d.body}</p>
+                <strong>{d.title}</strong> {d.body}
               </li>
             ))}
           </ul>
