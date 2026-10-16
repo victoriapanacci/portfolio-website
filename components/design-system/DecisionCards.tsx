@@ -14,14 +14,7 @@ export type Decision = {
  * heading's name stays the title alone. On phones one is open at a time; on
  * larger screens any number can be open.
  */
-export function DecisionCards({
-  decisions,
-  startIndex = 0,
-}: {
-  decisions: Decision[]
-  /** Numbering offset, so a list split around other content keeps counting. */
-  startIndex?: number
-}) {
+export function DecisionCards({ decisions }: { decisions: Decision[] }) {
   const base = useId()
   const [open, setOpen] = useState<Set<number>>(() => new Set())
   const [phone, setPhone] = useState(false)
@@ -44,17 +37,13 @@ export function DecisionCards({
   }
 
   return (
-    <ol className="ds-decisions" start={startIndex + 1}>
+    <ul className="ds-decisions">
       {decisions.map((d, i) => {
         const isOpen = open.has(i)
         const panelId = `${base}-panel-${i}`
-        const n = startIndex + i + 1
         return (
           <li key={d.title} className="ds-decision" data-open={isOpen}>
             <div className="ds-decision__head">
-              <span className="numeral numeral--lg" aria-hidden="true">
-                {n < 10 ? `0${n}` : n}
-              </span>
               <div className="ds-decision__copy">
                 <h3 className="ds-decision__heading">
                   <button
@@ -86,6 +75,6 @@ export function DecisionCards({
           </li>
         )
       })}
-    </ol>
+    </ul>
   )
 }

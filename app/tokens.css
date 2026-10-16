@@ -2,7 +2,7 @@
 :root {
   color-scheme: dark;
 
-  /* Four text steps, two accents, one line. Status colours are for a check result only. */
+  /* Four text steps, two accents, one line. */
   --ink: #0c0810;
   --ink-2: #100913;
   --plum: rgba(74, 28, 47, 0.28);
@@ -18,8 +18,6 @@
   --fill-soft: rgba(255, 255, 255, 0.015);
   --plate: linear-gradient(160deg, #f6f2ec, #e9e1d6);
   --page-gradient: linear-gradient(180deg, #0b0710 0%, #0d0811 58%, #100913 100%);
-  --pass: #7fc49a;
-  --fail: #e3675f;
 
   /* Derived accent states: a base colour mixed with transparent at a percentage. Never a new hex. */
   --rose-6: color-mix(in srgb, var(--rose) 6%, transparent);
@@ -39,7 +37,7 @@
   --ink-80: color-mix(in srgb, var(--ink) 80%, transparent);
   --ink-97: color-mix(in srgb, var(--ink-2) 97%, transparent);
 
-  /* One oversized display size, then clear steps down. font-mono is for code only. */
+  /* One oversized display size, then clear steps down. font-mono is for token names and code only. */
   --text-display: clamp(3rem, 1.6rem + 5.2vw, 6rem);
   --text-title: clamp(2.5rem, 1.5rem + 2.6vw, 4rem);
   --text-heading: clamp(1.875rem, 1.4rem + 1.2vw, 2.75rem);

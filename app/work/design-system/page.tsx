@@ -2,12 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/Button'
 import { DecisionCards, type Decision } from '@/components/design-system/DecisionCards'
-import { GateDemo } from '@/components/design-system/GateDemo'
 import { LightboxMedia } from '@/components/design-system/LightboxMedia'
 import { StatesDemo } from '@/components/design-system/StatesDemo'
-import { StatsStrip } from '@/components/design-system/StatsStrip'
 import { TokenGrid } from '@/components/design-system/TokenGrid'
-import { WorkflowStepper } from '@/components/design-system/WorkflowStepper'
 import { Reveal } from '@/components/motion/Reveal'
 import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
@@ -78,9 +75,6 @@ const decisions: Decision[] = [
       },
     ],
   },
-]
-
-const laterDecisions: Decision[] = [
   {
     title: 'A gallery, not Storybook.',
     lead: 'People still needed a human-readable view of the system.',
@@ -122,14 +116,6 @@ const lastDecision: Decision[] = [
       },
     ],
   },
-]
-
-const workflow = [
-  { name: 'Figma', line: 'Exploration. Where I think and compare against Mobbin.' },
-  { name: 'Claude build', line: 'A rapid build wired to the same JSON the codebase uses.' },
-  { name: 'Settings passes', line: 'Every build checked against the tokens, pass by pass.' },
-  { name: 'Pass/fail check', line: 'A hard gate. Off-system values fail here.' },
-  { name: 'PR', line: 'Only what passed gets pushed. Reviewed after the fact, not before.' },
 ]
 
 const enabled = [
@@ -208,9 +194,6 @@ export default function DesignSystemPage() {
               </div>
             ))}
           </Reveal>
-          <Reveal className="cs-hero__art" immediate delay={0.35}>
-            <StatsStrip />
-          </Reveal>
         </header>
 
         {/* The situation */}
@@ -224,7 +207,7 @@ export default function DesignSystemPage() {
                 '- The core palette wasn’t standardised, so the codebase had over 200 duplicate or hardcoded values for colour, spacing and type.',
                 '- Engineers were prompting a generic Claude Code with screenshots and asking it to build around the picture.',
                 '- Claude reached for whichever value it found first, the PR shipped, and a page came out wrong. “Why does this page look different?” had no answer.',
-                'The brief was “build a design system in two weeks.” The team was me, one engineer and a PM. That headcount decided most of what follows.',
+                'The brief was “You decide what’s important, and do it.” The team was me, one engineer and a PM. That headcount decided most of what follows.',
               ]}
             />
           </div>
@@ -261,11 +244,6 @@ export default function DesignSystemPage() {
         <Reveal as="section" className="cs-section shell">
           <Kicker>What I decided</Kicker>
           <DecisionCards decisions={decisions} />
-          <GateDemo />
-          <WorkflowStepper steps={workflow} />
-          <div className="ds-decisions-more">
-            <DecisionCards decisions={laterDecisions} startIndex={2} />
-          </div>
           <LightboxMedia
             media={{
               src: '/work/design-system/gallery.png',
@@ -274,7 +252,7 @@ export default function DesignSystemPage() {
             }}
           />
           <div className="ds-decisions-more">
-            <DecisionCards decisions={lastDecision} startIndex={3} />
+            <DecisionCards decisions={lastDecision} />
           </div>
         </Reveal>
 
@@ -325,17 +303,14 @@ export default function DesignSystemPage() {
         {/* What I'd do differently */}
         <Reveal as="section" className="cs-section shell">
           <Kicker>What I’d do differently</Kicker>
-          <ol className="cs-learnings ds-differently">
-            {differently.map((d, i) => (
+          <ul className="ds-differently">
+            {differently.map((d) => (
               <li key={d.title}>
-                <span className="numeral" aria-hidden="true">{`0${i + 1}`}</span>
-                <div>
-                  <h3>{d.title}</h3>
-                  <p className="lead">{d.body}</p>
-                </div>
+                <h3>{d.title}</h3>
+                <p className="lead">{d.body}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </Reveal>
 
         {/* Easter egg */}

@@ -1759,37 +1759,6 @@ main {
 /* The interactive pieces of /work/design-system. Hairlines, not boxes:
    every piece is a row or a bordered grid, built from the roles above. */
 
-/* Stats strip: three figures between hairlines in the hero's art slot. */
-.ds-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.ds-stat {
-  padding: 36px 32px 36px 0;
-}
-.ds-stat + .ds-stat {
-  padding-left: 32px;
-  border-left: 1px solid var(--line);
-}
-.ds-stat__value {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: var(--text-metric);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--cream);
-  font-variant-numeric: tabular-nums;
-}
-.ds-stat__label {
-  display: block;
-  margin-top: 14px;
-  color: var(--text-muted);
-  font-size: var(--text-small);
-  line-height: 1.5;
-}
-
 /* Section lede and captions that sit under a demo */
 .ds-lede {
   margin-bottom: 28px;
@@ -1886,7 +1855,7 @@ main {
   background: transparent;
 }
 
-/* Decisions: numbered hairline rows whose heading is the toggle */
+/* Decisions: hairline rows whose heading is the toggle */
 .ds-decisions {
   list-style: none;
   margin: 0;
@@ -1902,7 +1871,7 @@ main {
 .ds-decision__head {
   position: relative;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 28px;
   align-items: start;
   padding: 32px 8px;
@@ -1910,15 +1879,6 @@ main {
 }
 .ds-decision__head:hover {
   background: var(--rose-6);
-}
-.ds-decision__head .numeral {
-  padding-top: 2px;
-  opacity: 0.6;
-  transition: opacity var(--dur-fast) var(--ease-out);
-}
-.ds-decision__head:hover .numeral,
-.ds-decision[data-open='true'] .numeral {
-  opacity: 1;
 }
 .ds-decision .ds-decision__heading {
   margin: 0;
@@ -1961,7 +1921,7 @@ main {
   transform: rotate(45deg);
 }
 .ds-decision__panel {
-  padding: 0 8px 36px calc(8px + 72px + 28px);
+  padding: 0 8px 36px;
 }
 .ds-beats {
   margin: 0;
@@ -1983,163 +1943,6 @@ main {
   font-size: var(--text-body);
   line-height: 1.65;
   max-width: 640px;
-}
-
-/* Gate demo: a mock pull request. A drawn artifact, so a card. */
-.ds-gate {
-  margin-top: var(--gap-lg);
-  max-width: 640px;
-  padding: 0;
-  overflow: hidden;
-}
-.ds-gate__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--gap-sm);
-  padding: 22px var(--pad-card);
-  border-bottom: 1px solid var(--line);
-}
-.ds-gate__head .eyebrow {
-  display: block;
-  margin-bottom: 10px;
-}
-.ds-gate .ds-gate__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: var(--text-subheading);
-  line-height: 1.2;
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-strong);
-}
-.ds-gate__diff {
-  margin: 0;
-  padding: 18px var(--pad-card);
-  border-bottom: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  line-height: 1.7;
-  color: var(--text-muted);
-  overflow-x: auto;
-}
-.ds-gate__ln {
-  display: block;
-  white-space: pre;
-}
-.ds-gate__ln.is-add {
-  color: var(--cream);
-  background: var(--rose-10);
-  margin-inline: calc(-1 * var(--pad-card));
-  padding-inline: var(--pad-card);
-}
-.ds-gate__controls {
-  padding: 18px var(--pad-card);
-  border-bottom: 1px solid var(--line);
-}
-.ds-gate__controls .switch {
-  min-height: 44px;
-}
-.ds-gate__check {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--gap-sm);
-  padding: 18px var(--pad-card);
-}
-.ds-gate__name {
-  font-size: var(--text-small);
-  color: var(--text);
-}
-.ds-gate__status {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  transition: color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    background var(--dur-fast) var(--ease-out);
-}
-.ds-gate__status[data-state='pass'] {
-  color: var(--pass);
-  border-color: color-mix(in srgb, var(--pass) 45%, transparent);
-  background: color-mix(in srgb, var(--pass) 10%, transparent);
-}
-.ds-gate__status[data-state='fail'] {
-  color: var(--fail);
-  border-color: color-mix(in srgb, var(--fail) 45%, transparent);
-  background: color-mix(in srgb, var(--fail) 10%, transparent);
-}
-.ds-gate .ds-gate__reason {
-  flex-basis: 100%;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  line-height: 1.6;
-  color: var(--fail);
-}
-
-/* Workflow: the process grid, with each step a button */
-.ds-stepper {
-  list-style: none;
-  margin: var(--gap-lg) 0 0;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-.ds-step {
-  border-right: 1px solid var(--line);
-}
-.ds-step:last-child {
-  border-right: 0;
-}
-.ds-step__btn {
-  appearance: none;
-  width: 100%;
-  min-height: 44px;
-  display: grid;
-  gap: 18px;
-  text-align: left;
-  padding: 28px 24px;
-  border: 0;
-  background: transparent;
-  color: var(--cream);
-  transition: background var(--dur-base) var(--ease-out);
-}
-.ds-step__btn:hover {
-  background: var(--rose-6);
-}
-.ds-step__btn[aria-expanded='true'] {
-  background: var(--plum);
-}
-.ds-step__num {
-  opacity: 0.6;
-}
-.ds-step__btn[aria-expanded='true'] .ds-step__num {
-  opacity: 1;
-}
-.ds-step__name {
-  font-family: var(--font-serif);
-  font-size: var(--text-subheading);
-  line-height: 1.2;
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-strong);
-}
-.ds-step__line {
-  margin: 0;
-  padding: 0 24px 28px;
-  color: var(--text);
-  font-size: var(--text-small);
-  line-height: 1.6;
-}
-.ds-step__btn[aria-expanded='true'] + .ds-step__line {
-  background: var(--plum);
 }
 
 /* Results: label and body in hairline rows */
@@ -2165,12 +1968,19 @@ main {
   max-width: 640px;
 }
 
-/* What I'd do differently: numbered rows, title over text */
+/* What I'd do differently: hairline rows, title over text */
+.ds-differently {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
 .ds-differently li {
-  align-items: start;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
 }
 .ds-differently h3 {
-  margin: 4px 0 10px;
+  margin: 0 0 10px;
   font-size: var(--text-subheading);
   line-height: 1.2;
   letter-spacing: var(--tracking-tight);
@@ -2282,43 +2092,18 @@ main {
 }
 
 @media (max-width: 1024px) {
-  .ds-stat {
-    padding: 28px 24px 28px 0;
-  }
-  .ds-stat + .ds-stat {
-    padding-left: 24px;
-  }
   .ds-betline {
     gap: var(--gap-md);
   }
   .ds-decision__head {
-    grid-template-columns: 56px minmax(0, 1fr) auto;
     column-gap: 20px;
     padding: 28px 4px;
   }
   .ds-decision__panel {
-    padding: 0 4px 32px calc(4px + 56px + 20px);
+    padding: 0 4px 32px;
   }
   .ds-beat {
     grid-template-columns: 130px minmax(0, 1fr);
-  }
-  .ds-stepper {
-    grid-template-columns: 1fr;
-  }
-  .ds-step {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .ds-step:last-child {
-    border-bottom: 0;
-  }
-  .ds-step__btn {
-    grid-template-columns: auto 1fr;
-    align-items: baseline;
-    padding: 20px 24px;
-  }
-  .ds-step__line {
-    padding: 0 24px 20px;
   }
   .ds-result {
     grid-template-columns: 140px minmax(0, 1fr);
@@ -2327,17 +2112,6 @@ main {
 }
 
 @media (max-width: 640px) {
-  .ds-stats {
-    grid-template-columns: 1fr;
-  }
-  .ds-stat {
-    padding: 22px 0;
-  }
-  .ds-stat + .ds-stat {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
   .ds-betline {
     grid-template-columns: 1fr;
   }
@@ -2345,14 +2119,8 @@ main {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .ds-decision__head {
-    grid-template-columns: 36px minmax(0, 1fr) auto;
     column-gap: 14px;
     padding: 24px 0;
-  }
-  .ds-decision__head .numeral {
-    font-size: var(--text-numeral);
-    letter-spacing: var(--tracking-tight);
-    padding-top: 4px;
   }
   .ds-decision__panel {
     padding: 0 0 28px;
@@ -2365,9 +2133,6 @@ main {
     grid-template-columns: 1fr;
     gap: 10px;
     padding: 22px 0;
-  }
-  .ds-differently li {
-    gap: 18px;
   }
   .ds-tokens {
     grid-template-columns: repeat(3, minmax(0, 1fr));
