@@ -4,7 +4,6 @@ import { Button } from '@/components/Button'
 import { DecisionCards, type Decision } from '@/components/design-system/DecisionCards'
 import { LightboxMedia } from '@/components/design-system/LightboxMedia'
 import { StatesDemo } from '@/components/design-system/StatesDemo'
-import { TokenGrid } from '@/components/design-system/TokenGrid'
 import { Reveal } from '@/components/motion/Reveal'
 import { SplitHeadline } from '@/components/motion/SplitHeadline'
 import { ProjectShowcase } from '@/components/ProjectShowcase'
@@ -12,7 +11,6 @@ import { RichText } from '@/components/RichText'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { getProject } from '@/lib/projects'
-import { getColourTokens } from '@/lib/tokens'
 
 const SLUG = 'design-system'
 
@@ -163,7 +161,6 @@ function Kicker({ children }: { children: React.ReactNode }) {
 }
 
 export default function DesignSystemPage() {
-  const tokens = getColourTokens()
   const project = getProject(SLUG)
   const cashier = getProject('cashier')
 
@@ -311,16 +308,6 @@ export default function DesignSystemPage() {
               </li>
             ))}
           </ul>
-        </Reveal>
-
-        {/* Easter egg */}
-        <Reveal as="section" className="cs-section shell">
-          <Kicker>Easter egg</Kicker>
-          <TokenGrid tokens={tokens} />
-          <p className="caption ds-caption">
-            This site runs on the same approach, JSON tokens first. These are its live colour
-            tokens, read from the file the site builds from. Click one to copy its name.
-          </p>
         </Reveal>
       </article>
 
