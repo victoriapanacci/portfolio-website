@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ePRO prototype: Maria’s evening diary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<!-- A functional prototype of the ePRO rebuild, exported from the design
+     canvas. support.js is the Design Component runtime (it bundles React and
+     loads React DOM and Babel from cdn.jsdelivr.net with integrity hashes),
+     ds/ is the Dribble Collect design system, and the artboard below is as
+     authored. -->
+<style>html,body{margin:0;background:#fff;overflow:hidden}#dc-root{transform-origin:0 0}</style>
+<script>
+/* Serve the runtime's CDN dependencies from this folder instead. */
+window.__resources = {
+  "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js": "./vendor/react.production.min.js",
+  "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js": "./vendor/react-dom.production.min.js",
+  "https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.0/babel.min.js": "./vendor/babel.min.js"
+};
+</script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/dribblecollect/tokens.css">
+<link rel="stylesheet" href="ds/dribblecollect/components/bundle.css">
+<script src="ds/dribblecollect/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;padding:56px 20px 34px;display:flex;flex-direction:column;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen>*{flex-shrink:0}
+.card-btn{display:block;width:100%;padding:0;border:none;background:transparent;text-align:left;font:inherit;color:inherit;cursor:pointer;border-radius:var(--radius-card)}
+.card-btn:focus-visible,.pen:focus-visible,.edit:focus-visible,button.set-row:focus-visible,.tile:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.tile{box-sizing:border-box;height:64px;border:2px solid transparent;border-radius:var(--radius-inner);background:var(--canvas);color:var(--ink);font-family:var(--font-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.tile-on{background:var(--primary);color:var(--on-dark)}
+.note{box-sizing:border-box;width:100%;min-height:140px;border:none;resize:none;background:transparent;padding:0;font-family:var(--font-text);font-size:18px;line-height:1.4;color:var(--ink)}
+.note:focus{outline:none}
+.note::placeholder{color:var(--ink-soft)}
+.pen{width:48px;height:48px;margin-right:-16px;flex-shrink:0;border:none;background:transparent;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--primary);cursor:pointer}
+.edit{min-height:48px;padding:0 4px;margin-right:-6px;border:none;background:transparent;display:flex;align-items:center;gap:6px;font-family:inherit;font-size:15px;font-weight:600;color:var(--primary);cursor:pointer}
+.set-card{display:flex;flex-direction:column}
+.set-card .dc-card-title{margin-bottom:4px}
+.set-row{box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:8px 0;border:none;background:transparent;font-family:inherit;text-align:left;color:inherit}
+.set-row + .set-row{border-top:1px solid var(--line)}
+button.set-row{cursor:pointer}
+button.set-row:disabled{cursor:not-allowed}
+button.set-row:disabled .set-name,button.set-row:disabled .set-value{color:var(--ink-soft)}
+.set-name{font-size:18px;line-height:1.3;color:var(--ink)}
+.set-sub{margin-top:2px;font-size:15px;line-height:1.35;color:var(--ink-soft)}
+.set-value{display:flex;align-items:center;gap:4px;flex-shrink:0;font-size:18px;color:var(--ink-soft)}
+.set-chev{display:flex;margin-right:-6px;color:var(--ink-soft)}
+.set-focus{box-shadow:0 0 0 3px var(--primary)}
+.tile-proposed{border-color:var(--primary);border-style:dashed}
+.listen{box-sizing:border-box;border-radius:var(--radius-inner);background:var(--surface);padding:14px 18px;display:flex;flex-direction:column;gap:6px}
+.listen-head{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--alert)}
+.pulse{width:12px;height:12px;border-radius:999px;background:var(--alert);animation:dcpulse 1.4s ease-in-out infinite}
+@keyframes dcpulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+.dc-easy .listen-head{font-size:18px}
+.dc-easy .set-name,.dc-easy .set-value{font-size:22px}
+.dc-easy .set-sub{font-size:18px}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--canvas); color: var(--ink); font-family: var(--font-text)">
+
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{true}}">
+    <div class="screen" style="gap: 16px" onScroll="{{onScroll}}">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span class="dc-rail" style="font-size: 15px; font-weight: 500; color: var(--ink-soft)">Monday, October 19</span>
+        <x-import component-from-global-scope="DribbleCollect.IconButton" icon="settings" label="Settings" on-click="{{openSettings}}"></x-import>
+      </div>
+      <h1 class="dc-rail" style="margin: 0; font-family: var(--font-display); font-size: 28px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em">Good evening, Maria.</h1>
+      <x-import component-from-global-scope="DribbleCollect.DateStrip" days="{{days}}" style="margin-top: 4px"></x-import>
+      <x-import component-from-global-scope="DribbleCollect.DiaryCard" state="{{diaryState}}" slot="Evening" time-left="5:48" minutes="{{n3}}" answered="{{answered}}" total="{{n3}}" name="Maria" editable-until="7:30 pm tomorrow" on-start="{{start}}" style="margin-top: 4px"></x-import>
+      <x-import component-from-global-scope="DribbleCollect.StudyProgressCard" day="{{n23}}" of="{{n84}}" started="Sep 27"></x-import>
+      <button type="button" class="card-btn" aria-label="Tomorrow's morning diary opens at 7:00 am, reminder on. Open reminder settings." onClick="{{openReminders}}">
+        <x-import component-from-global-scope="DribbleCollect.UpNextCard" opens-at="7:00 am" reminder="{{notif}}"></x-import>
+      </button>
+      <x-import component-from-global-scope="DribbleCollect.CareTeamCard"></x-import>
+      <div style="margin-top: -8px; display: flex; justify-content: center">
+        <x-import component-from-global-scope="DribbleCollect.Button" variant="quiet" icon="help" block="{{no}}">How to answer</x-import>
+      </div>
+      <sc-if value="{{submitted}}" hint-placeholder-val="{{false}}">
+        <x-import component-from-global-scope="DribbleCollect.Button" variant="quiet" on-click="{{restart}}" block="{{no}}" style="align-self: center">Restart prototype</x-import>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isQ1}}" hint-placeholder-val="{{false}}">
+    <div class="screen">
+      <x-import component-from-global-scope="DribbleCollect.QuestionHeader" current="{{n1}}" total="{{n3}}" on-back="{{back}}" on-mic="{{listen}}"></x-import>
+      <div class="dc-rail" style="margin-top: 40px; display: flex; flex-direction: column; gap: 8px">
+        <h1 class="dc-question">How much pain do you feel overall?</h1>
+      </div>
+      <div style="padding: 8px 0 24px">
+        <x-import component-from-global-scope="DribbleCollect.OptionList" options="{{five}}" value="{{a1}}" proposed="{{proposed}}" on-change="{{setA1}}" label="How much pain do you feel overall?"></x-import>
+      </div>
+      <div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+        <sc-if value="{{listening}}" hint-placeholder-val="{{false}}">
+          <div class="listen" aria-live="polite">
+            <div class="listen-head"><span class="pulse" aria-hidden="true"></span>Listening…</div>
+            <span style="font-size: 18px; line-height: 1.35; color: var(--ink)">{{heardText}}</span>
+            <span style="font-size: 15px; color: var(--ink-soft)">{{heardHint}}</span>
+          </div>
+          <x-import component-from-global-scope="DribbleCollect.Button" variant="stop" icon="stop" on-click="{{stopListen}}">Stop listening</x-import>
+        </sc-if>
+        <sc-if value="{{notListening}}" hint-placeholder-val="{{true}}">
+          <x-import component-from-global-scope="DribbleCollect.Button" disabled="{{noA1}}" on-click="{{next}}">{{nextLabel}}</x-import>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isQ2}}" hint-placeholder-val="{{false}}">
+    <div class="screen">
+      <x-import component-from-global-scope="DribbleCollect.QuestionHeader" current="{{n2}}" total="{{n3}}" on-back="{{back}}" on-mic="{{listen}}"></x-import>
+      <div class="dc-rail" style="margin-top: 40px; display: flex; flex-direction: column; gap: 8px">
+        <h1 class="dc-question">How much pain do you have right now?</h1>
+      </div>
+      <section style="margin-top: 8px; box-sizing: border-box; border-radius: var(--radius-card); background: var(--surface); padding: 24px 20px 20px; display: flex; flex-direction: column">
+        <div aria-live="polite" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 92px">
+          <sc-if value="{{a2set}}" hint-placeholder-val="{{false}}">
+            <span style="font-family: var(--font-display); font-size: 64px; font-weight: 700; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums">{{a2}}</span>
+            <span style="font-size: 20px; font-weight: 500">{{a2word}}</span>
+          </sc-if>
+          <sc-if value="{{noA2}}" hint-placeholder-val="{{true}}">
+            <span style="font-size: 18px; color: var(--ink-soft)">Tap a number</span>
+          </sc-if>
+        </div>
+        <div role="radiogroup" aria-label="Pain right now, 1 to 10" style="margin-top: 20px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{tiles}}" as="t" hint-placeholder-count="10">
+            <button type="button" role="radio" aria-checked="{{t.on}}" aria-label="{{t.label}}" class="{{t.cls}}" onClick="{{t.pick}}">{{t.n}}</button>
+          </sc-for>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 15px; font-weight: 500; color: var(--ink-soft)">
+          <span>1 · No pain</span>
+          <span>Worst pain · 10</span>
+        </div>
+      </section>
+      <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 12px">
+        <sc-if value="{{listening}}" hint-placeholder-val="{{false}}">
+          <div class="listen" aria-live="polite">
+            <div class="listen-head"><span class="pulse" aria-hidden="true"></span>Listening…</div>
+            <span style="font-size: 18px; line-height: 1.35; color: var(--ink)">{{heardText}}</span>
+            <span style="font-size: 15px; color: var(--ink-soft)">{{heardHint}}</span>
+          </div>
+          <x-import component-from-global-scope="DribbleCollect.Button" variant="stop" icon="stop" on-click="{{stopListen}}">Stop listening</x-import>
+        </sc-if>
+        <sc-if value="{{notListening}}" hint-placeholder-val="{{true}}">
+          <x-import component-from-global-scope="DribbleCollect.Button" disabled="{{noA2}}" on-click="{{next}}">{{nextLabel}}</x-import>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isQ3}}" hint-placeholder-val="{{false}}">
+    <div class="screen">
+      <x-import component-from-global-scope="DribbleCollect.QuestionHeader" current="{{n3}}" total="{{n3}}" on-back="{{back}}" on-mic="{{listen}}"></x-import>
+      <div class="dc-rail" style="margin-top: 40px; display: flex; flex-direction: column; gap: 8px">
+        <h1 class="dc-question">Anything else your care team should know?</h1>
+      </div>
+      <div style="margin-top: 8px; box-sizing: border-box; border-radius: var(--radius-card); border: 2px solid {{fieldBorder}}; background: var(--canvas); padding: 18px; display: flex; flex-direction: column; gap: 12px">
+        <sc-if value="{{listening}}" hint-placeholder-val="{{false}}">
+          <div class="listen-head" aria-live="polite"><span class="pulse" aria-hidden="true"></span>Listening…</div>
+          <p style="margin: 0; min-height: 140px; font-size: 18px; line-height: 1.4">{{a3}}<span aria-hidden="true" style="display: inline-block; width: 2px; height: 20px; margin-left: 2px; vertical-align: -3px; background: var(--primary)"></span></p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.4; color: var(--ink-soft)">Say “period” or “new line” to add punctuation.</p>
+        </sc-if>
+        <sc-if value="{{notListening}}" hint-placeholder-val="{{true}}">
+          <textarea id="pm-note" class="note" aria-label="Anything else your care team should know?" placeholder="Type here, or tap the microphone to speak." value="{{a3}}" onChange="{{setA3}}"></textarea>
+          <div style="display: flex; align-items: center; justify-content: flex-end; min-height: 24px">
+            <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}"><span style="font-size: 15px; color: var(--ink-soft)">Saved</span></sc-if>
+          </div>
+        </sc-if>
+      </div>
+      <div style="margin-top: auto; padding-top: 24px">
+        <sc-if value="{{listening}}" hint-placeholder-val="{{false}}">
+          <x-import component-from-global-scope="DribbleCollect.Button" variant="stop" icon="stop" on-click="{{stopListen}}">Stop listening</x-import>
+        </sc-if>
+        <sc-if value="{{notListening}}" hint-placeholder-val="{{true}}">
+          <x-import component-from-global-scope="DribbleCollect.Button" on-click="{{next}}">{{nextLabel}}</x-import>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isReview}}" hint-placeholder-val="{{false}}">
+    <div class="screen" style="gap: 16px" onScroll="{{onScroll}}">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <x-import component-from-global-scope="DribbleCollect.IconButton" icon="back" label="Back to the last question" on-click="{{backFromReview}}"></x-import>
+      </div>
+      <div class="dc-rail" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px">
+        <h1 style="margin: 0; font-family: var(--font-display); font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em">Your evening diary</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.4; color: var(--ink-soft)">Check your answers, then submit.</p>
+      </div>
+      <section class="dc-card" style="display: flex; flex-direction: column; padding-bottom: 4px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--line)">
+          <h2 class="dc-card-title">How you feel</h2>
+          <span style="font-size: 15px; color: var(--ink-soft)">Scale of 1 to 5</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0">
+          <span style="flex: 1; min-width: 0; font-size: 18px; line-height: 1.3">Pain overall</span>
+          <span style="display: flex; align-items: center; gap: 8px; flex-shrink: 0">
+            <span style="font-size: 18px; font-weight: 600; line-height: 1.3; text-align: right">{{a1word}}<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, {{a1}} out of 5</span></span>
+            <button class="pen" type="button" aria-label="Edit Pain overall" onClick="{{edit1}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"></path><path d="M14.5 5.5l3 3"></path></svg></button>
+          </span>
+        </div>
+      </section>
+      <section class="dc-card" style="display: flex; flex-direction: column">
+        <h2 class="dc-card-title">Symptoms, 1 to 10</h2>
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 16px">
+          <x-import component-from-global-scope="DribbleCollect.ProgressRing" tone="onLight" value="{{a2}}" max="{{n10}}" size="{{n72}}" label="{{a2label}}" aria-label="{{a2aria}}"></x-import>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 18px; font-weight: 600">Pain now</span>
+            <span style="font-size: 15px; color: var(--ink-soft)">{{a2word}}</span>
+          </div>
+        </div>
+      </section>
+      <section class="dc-card" style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <h2 class="dc-card-title">Your note</h2>
+          <button class="edit" type="button" aria-label="Edit your note" onClick="{{edit3}}">Edit<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"></path><path d="M14.5 5.5l3 3"></path></svg></button>
+        </div>
+        <p style="margin: 0; font-size: 18px; line-height: 1.4; {{noteStyle}}">{{noteText}}</p>
+      </section>
+      <div style="margin-top: auto; padding-top: 8px">
+        <x-import component-from-global-scope="DribbleCollect.Button" on-click="{{submit}}">Submit</x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
+    <div class="screen">
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 24px">
+        <div role="img" aria-label="Evening" style="width: 120px; height: 120px; border-radius: 999px; background: linear-gradient(160deg, var(--hero-start) 0%, var(--hero-end) 100%); color: var(--on-dark); display: flex; align-items: center; justify-content: center">
+          <x-import component-from-global-scope="DribbleCollect.Icon" name="moon" size="{{n52}}" stroke-width="{{w18}}"></x-import>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; max-width: 320px">
+          <h1 style="margin: 0; font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -0.01em">Thank you, Maria.</h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.4; color: var(--ink-soft)">Your evening diary is submitted to your care team.</p>
+        </div>
+        <div role="status" style="width: 100%; box-sizing: border-box; border-radius: var(--radius-card); background: var(--success-bg); padding: 16px 20px; text-align: center">
+          <span style="font-size: 15px; color: var(--ink-soft)">You can edit answers until 7:30 pm tomorrow.</span>
+        </div>
+      </div>
+      <x-import component-from-global-scope="DribbleCollect.Button" on-click="{{goHome}}">Done</x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isSettings}}" hint-placeholder-val="{{false}}">
+    <div id="pm-settings" class="screen" style="gap: 16px" onScroll="{{onScroll}}">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <x-import component-from-global-scope="DribbleCollect.IconButton" icon="back" label="Back to Home" on-click="{{goHome}}"></x-import>
+      </div>
+      <h1 class="dc-rail" style="margin: 8px 0 0; font-family: var(--font-display); font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em">Settings</h1>
+      <section class="dc-card set-card" aria-label="Your details" style="margin-top: 8px">
+        <div class="set-row" style="justify-content: flex-start; gap: 14px; padding-top: 0">
+          <span aria-hidden="true" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; background: var(--canvas); color: var(--primary); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; font-weight: 700">M</span>
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+            <h2 class="dc-card-title">Maria Santos</h2>
+            <span class="set-sub" style="margin: 0">Participant SUN-0142 · SUNRISE Study</span>
+          </div>
+        </div>
+          <button type="button" class="set-row"><span class="set-name">Phone</span><span class="set-value">(416) 555-0142<span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+          <button type="button" class="set-row"><span class="set-name">Email</span><span class="set-value">maria.s@example.com<span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+      </section>
+      <section id="pm-reminders" class="{{remClass}}" aria-labelledby="pm-sec-rem">
+        <h2 id="pm-sec-rem" class="dc-card-title">Reminders</h2>
+          <div class="set-row"><div><div id="pm-lbl-notif" class="set-name">Diary reminders</div><div class="set-sub">A gentle nudge when a diary opens</div></div><x-import component-from-global-scope="DribbleCollect.Switch" checked="{{notif}}" labelled-by="pm-lbl-notif" on-change="{{setNotif}}"></x-import></div>
+          <button type="button" class="set-row" disabled="{{notifOff}}"><span class="set-name">Morning diary</span><span class="set-value">{{morningText}}<span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+          <button type="button" class="set-row" disabled="{{notifOff}}"><span class="set-name">Evening diary</span><span class="set-value">{{eveningText}}<span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+          <div class="set-row"><div><div id="pm-lbl-sound" class="set-name">Reminder sound</div></div><x-import component-from-global-scope="DribbleCollect.Switch" checked="{{soundOn}}" labelled-by="pm-lbl-sound" on-change="{{setSound}}" disabled="{{notifOff}}"></x-import></div>
+      </section>
+      <section class="dc-card set-card" aria-labelledby="pm-sec-display">
+        <h2 id="pm-sec-display" class="dc-card-title">Display and reading</h2>
+          <div class="set-row"><div><div id="pm-lbl-easy" class="set-name">Easy mode</div><div class="set-sub">Bigger text and buttons, and Speak your answer on every question</div></div><x-import component-from-global-scope="DribbleCollect.Switch" checked="{{easy}}" labelled-by="pm-lbl-easy" on-change="{{setEasy}}"></x-import></div>
+          <div class="set-row"><div><div id="pm-lbl-aloud" class="set-name">Read questions aloud</div><div class="set-sub">Each question is spoken when it opens</div></div><x-import component-from-global-scope="DribbleCollect.Switch" checked="{{aloud}}" labelled-by="pm-lbl-aloud" on-change="{{setAloud}}"></x-import></div>
+          <button type="button" class="set-row"><span class="set-name">Language</span><span class="set-value">English<span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+      </section>
+      <x-import component-from-global-scope="DribbleCollect.CareTeamCard"></x-import>
+      <section class="dc-card set-card" aria-labelledby="pm-sec-study">
+        <h2 id="pm-sec-study" class="dc-card-title">About the study</h2>
+          <button type="button" class="set-row"><span class="set-name">Study information</span><span class="set-value"><span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+          <button type="button" class="set-row"><span class="set-name">Your data and privacy</span><span class="set-value"><span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+          <button type="button" class="set-row"><span class="set-name">How to answer</span><span class="set-value"><span class="set-chev" aria-hidden="true"><x-import component-from-global-scope="DribbleCollect.Icon" name="chevron" size="{{n22}}"></x-import></span></span></button>
+      </section>
+      <div style="margin-top: 16px">
+        <x-import component-from-global-scope="DribbleCollect.Button" variant="outline">Sign out</x-import>
+      </div>
+      <p style="margin: 0; text-align: center; font-size: 15px; color: var(--ink-soft)">Dribble Collect 1.0 · Northlake Clinical Research</p>
+    </div>
+  </sc-if>
+
+    <sc-if value="{{thumb.show}}" hint-placeholder-val="{{false}}"><span class="dc-scroll-thumb" aria-hidden="true" style="{{thumb.style}}"></span></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const INIT = { screen: 'home', a1: null, a2: null, a3: '', fromReview: false, submitted: false, notif: true, sound: true, easy: false, aloud: false, focusRem: false, sc: null, listening: false, heard: null };
+    const s = Object.assign({}, INIT, this.state || {});
+    const set = (patch) => this.setState(Object.assign({}, s, { sc: null, listening: false, heard: null }, patch));
+    const FIVE = ['Not at all', 'A little', 'Somewhat', 'Quite a bit', 'Extremely'];
+    const PAIN = ['No pain', 'Very mild', 'Mild', 'Some', 'Moderate', 'Fairly strong', 'Quite a lot', 'Strong', 'Very strong', 'Worst pain'];
+    const ORDER = ['q1', 'q2', 'q3'];
+    const qi = ORDER.indexOf(s.screen);
+    const toggle = (k) => (v) => this.setState(Object.assign({}, s, { [k]: !!v }));
+
+    // Scroll indicator: estimated page heights until the first scroll reports the real one.
+    const EST = { home: 1130, review: 1080, settings: 1720 };
+    const sc = s.sc || { top: 0, h: EST[s.screen] || 844 };
+    let thumb = { show: false, style: '' };
+    if (sc.h > 846) {
+      const track = 758, th = Math.max(48, Math.round(track * 844 / sc.h));
+      const frac = Math.min(1, Math.max(0, sc.top / (sc.h - 844)));
+      thumb = { show: true, style: 'height: ' + th + 'px; top: ' + Math.round(52 + frac * (track - th)) + 'px' };
+    }
+
+    const answered = (s.a1 != null ? 1 : 0) + (s.a2 != null ? 1 : 0) + (s.a3.trim() ? 1 : 0);
+    const days = [
+      { dow: 'Fri', day: 'Friday', num: 16, am: 'done', pm: 'done' },
+      { dow: 'Sat', day: 'Saturday', num: 17, am: 'done', pm: 'missed' },
+      { dow: 'Sun', day: 'Sunday', num: 18, am: 'done', pm: 'done' },
+      { dow: 'Mon', day: 'Monday', num: 19, am: 'done', pm: s.submitted ? 'done' : 'open', today: true },
+      { dow: 'Tue', day: 'Tuesday', num: 20, am: 'upcoming', pm: 'upcoming' },
+      { dow: 'Wed', day: 'Wednesday', num: 21, am: 'upcoming', pm: 'upcoming' },
+      { dow: 'Thu', day: 'Thursday', num: 22, am: 'upcoming', pm: 'upcoming' }
+    ];
+    const tiles = PAIN.map((w, i) => {
+      const n = i + 1, on = n === s.a2;
+      return { n, on: on ? 'true' : 'false', label: n + ', ' + w, cls: on ? 'tile tile-on' : (s.listening && s.heard && s.heard.n === n ? 'tile tile-proposed' : 'tile'), pick: () => set({ a2: n }) };
+    });
+    const note = s.a3.trim();
+    // Voice: the header mic starts a simulated listening session for the current question.
+    const cur = () => Object.assign({}, INIT, this.state || {});
+    const HEARD = { q1: { text: 'Somewhat', n: 3 }, q2: { text: 'Seven', n: 7 } };
+    const SPOKEN = ['My knee was sore', ' after the walk to the shops,', ' but it eased after dinner.'];
+    const listen = () => {
+      const screen = s.screen;
+      this.setState(Object.assign({}, s, { listening: true, heard: null }));
+      if (screen === 'q3') {
+        SPOKEN.forEach((chunk, i) => setTimeout(() => {
+          const c = cur();
+          if (c.listening && c.screen === 'q3') this.setState(Object.assign({}, c, { a3: (i === 0 && c.a3.trim() ? c.a3.trim() + ' ' : c.a3) + chunk }));
+        }, 900 * (i + 1)));
+      } else {
+        setTimeout(() => {
+          const c = cur();
+          if (c.listening && c.screen === screen) this.setState(Object.assign({}, c, { heard: HEARD[screen] }));
+        }, 1600);
+      }
+    };
+    const stopListen = () => {
+      const patch = { listening: false, heard: null };
+      if (s.heard && s.screen === 'q1') patch.a1 = s.heard.n;
+      if (s.heard && s.screen === 'q2') patch.a2 = s.heard.n;
+      this.setState(Object.assign({}, s, patch));
+    };
+    const proposed = s.listening && s.heard ? s.heard.n : null;
+
+    return {
+      rootClass: 'dc-root' + (s.easy ? ' dc-easy' : ''),
+      isHome: s.screen === 'home', isQ1: s.screen === 'q1', isQ2: s.screen === 'q2', isQ3: s.screen === 'q3',
+      isReview: s.screen === 'review', isDone: s.screen === 'done', isSettings: s.screen === 'settings',
+      n1: 1, n2: 2, n3: 3, n10: 10, n22: 22, n23: 23, n52: 52, n72: 72, n84: 84, w18: 1.8, no: false, yes: true,
+      thumb, days, five: FIVE, tiles, submitted: s.submitted, answered,
+      diaryState: s.submitted ? 'submitted' : (answered > 0 ? 'inProgress' : 'open'),
+      a1: s.a1, noA1: s.a1 == null, a1word: s.a1 ? FIVE[s.a1 - 1] : 'Not answered',
+      a2: s.a2 || 0, a2set: s.a2 != null, noA2: s.a2 == null, a2word: s.a2 ? PAIN[s.a2 - 1] : 'Not answered',
+      a2label: s.a2 ? String(s.a2) : '–', a2aria: s.a2 ? 'Pain now: ' + s.a2 + ' out of 10, ' + PAIN[s.a2 - 1] : 'Pain now: not answered',
+      a3: s.a3, hasNote: !!note,
+      noteText: note || 'No note added', noteStyle: note ? '' : 'color: var(--ink-soft)',
+      nextLabel: s.fromReview ? 'Back to review' : (s.screen === 'q3' ? 'Review answers' : 'Next'),
+      notif: s.notif, notifOff: !s.notif, soundOn: s.notif && s.sound, easy: s.easy, aloud: s.aloud,
+      morningText: s.notif ? '7:00 am' : 'Off', eveningText: s.notif ? '7:00 pm' : 'Off',
+      remClass: 'dc-card set-card' + (s.focusRem ? ' set-focus' : ''),
+      listening: s.listening, notListening: !s.listening, proposed, listen, stopListen,
+      heardText: s.heard ? 'I heard “' + s.heard.text + '”.' : 'Say your answer, like “somewhat” or a number.',
+      heardHint: s.heard ? 'Tap Stop listening to use it, or tap a different answer.' : 'Speak when you’re ready.',
+      fieldBorder: s.listening || note ? 'var(--primary)' : 'var(--line)',
+      setA1: (v) => set({ a1: v }),
+      setA3: (e) => this.setState(Object.assign({}, s, { a3: e.target.value })),
+      setNotif: toggle('notif'), setSound: toggle('sound'), setEasy: toggle('easy'), setAloud: toggle('aloud'),
+      onScroll: (e) => { const el = e.currentTarget; this.setState(Object.assign({}, s, { sc: { top: el.scrollTop, h: el.scrollHeight } })); },
+      start: () => set({ screen: s.a1 == null ? 'q1' : s.a2 == null ? 'q2' : 'q3', fromReview: false }),
+      next: () => set(s.fromReview || s.screen === 'q3' ? { screen: 'review', fromReview: false } : { screen: ORDER[qi + 1] }),
+      back: () => set(s.fromReview ? { screen: 'review', fromReview: false } : { screen: qi > 0 ? ORDER[qi - 1] : 'home' }),
+      backFromReview: () => set({ screen: 'q3', fromReview: false }),
+      edit1: () => set({ screen: 'q1', fromReview: true }),
+      edit3: () => set({ screen: 'q3', fromReview: true }),
+      submit: () => set({ screen: 'done', submitted: true }),
+      goHome: () => set({ screen: 'home', focusRem: false }),
+      openSettings: () => set({ screen: 'settings', focusRem: false }),
+      openReminders: () => {
+        set({ screen: 'settings', focusRem: true });
+        setTimeout(() => {
+          const box = document.getElementById('pm-settings'), card = document.getElementById('pm-reminders');
+          if (box && card) box.scrollTop = Math.max(0, card.offsetTop - 64);
+        }, 30);
+      },
+      restart: () => this.setState(Object.assign({}, INIT))
+    };
+  }
+}
+</script>
+<script>
+/* Scale the 390px artboard to the width it is embedded at. */
+(function () {
+  var W = 390;
+  function fit() {
+    var root = document.getElementById('dc-root');
+    if (!root) return false;
+    root.style.zoom = document.documentElement.clientWidth / W;
+    return true;
+  }
+  var mo = new MutationObserver(function () { if (fit()) mo.disconnect(); });
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

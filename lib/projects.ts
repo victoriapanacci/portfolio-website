@@ -22,6 +22,8 @@ export type CaseStudyImage = {
   variant?: 'plate' | 'bleed' | 'phone'
   /** CSS aspect-ratio for the placeholder frame, e.g. "16 / 9". Ignored once `src` is set. */
   aspect?: string
+  /** In a story section: 'full' (default) spans the whole field, 'text' narrows the frame to the text columns. */
+  span?: 'full' | 'text'
 }
 
 /** Several small artifacts side by side under one caption. */
@@ -207,7 +209,6 @@ export const projects: Project[] = [
     category: 'Native iOS / 0-1 / Clinical ePRO',
     description:
       'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
-    art: 'mobile',
     cover: {
       src: '/work/epro/card-cover.webp',
       alt: 'Three phone screens of the ePRO app over a photo of cupped hands: a diary home listing morning and evening entries, a questionnaire question, and a completed Tuesday Morning entry ready to submit.',
@@ -222,7 +223,13 @@ export const projects: Project[] = [
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         { label: 'Result', value: 'Completion 40% to 80%. Success rate 60% to 95%.' },
       ],
-      // Visuals 1 to 5 are placeholders: set each `src` to the finished
+      heroLayout: 'stacked',
+      heroMedia: {
+        src: '/work/epro/hero.webp',
+        alt: 'Three screens of the rebuilt ePRO app fanned on a grey surface: the last of three questions asking “Anything else your care team should know?” with a saved note and a Review answers button, the home screen greeting Maria with an Evening diary card and study progress, and a submitted evening diary listing her answers.',
+        variant: 'bleed',
+      },
+      // Visual 1 is still a placeholder: set its `src` to the finished
       // artifact under /public and rewrite its `alt` to describe the image.
       story: [
         {
@@ -241,14 +248,22 @@ export const projects: Project[] = [
             '- At that price, design lost every argument',
             'None of these numbers existed when I started. There was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
           ],
-          media: {
-            src: '',
-            alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
-            eyebrow: 'Visual 1: Baseline metrics',
-            caption: 'Every one of these numbers was counted manually. That was the first finding.',
-            variant: 'bleed',
-            aspect: '16 / 9',
-          },
+          media: [
+            {
+              src: '/work/epro/legacy-app.webp',
+              alt: 'Three screens of the legacy Axiom eDiary app: a welcome card for the ACME201 study over a purple gradient, a “Did this event just occur?” dialog with typed date and time fields and red Cancel and blue Next buttons, and a Confirm Entry Summary table.',
+              caption: 'These are real images of the before that were pitched and sold to clients. The UI functioned in a way that it wasn’t able to scrape data and everything had to be manually entered. On single screens, at the summary page, the complete button was lost.',
+              span: 'text',
+              variant: 'bleed',
+            },
+            {
+              src: '',
+              alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
+              caption: 'Every one of these numbers was counted manually. That was the first finding.',
+              variant: 'bleed',
+              aspect: '16 / 9',
+            },
+          ],
         },
         {
           kicker: 'Who I was and what I did',
@@ -275,10 +290,9 @@ export const projects: Project[] = [
           body: 'The colours were legacy and stayed. The components were where the work happened. I built them first to find the feel of the app before drawing a single full screen.',
           layout: 'side',
           media: {
-            src: '',
-            alt: 'Visual 2: the single-select question in its standard view, in a phone frame.',
-            eyebrow: 'Visual 2: Single select, standard view',
-            caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
+            src: '/work/epro/single-select-standard.webp',
+            alt: 'A single-select question in the standard view: “How much pain do you feel overall?” above five numbered options, with “3, Somewhat” selected in navy and a Next button at the bottom.',
+            caption: 'Single select allows for one selection and one answer. At every point in the entry, you know what question you’re at with a status bar, and you know if you’re ready to proceed to the next stage. If you need to leave, you can go back, and if you want to turn on speech dictation, there’s always a microphone available.',
             variant: 'phone',
           },
         },
@@ -301,24 +315,36 @@ export const projects: Project[] = [
             'Taste had no place in the decision to rebuild. Once the data said both options worked, taste was the only thing left to decide, and I let it.',
           ],
           media: {
-            src: '',
-            alt: 'Visual 3: the four pain-scale variants side by side, with the shipped one marked.',
-            eyebrow: 'Visual 3: The four pain-scale variants',
+            src: '/work/epro/pain-scale-variants.webp',
+            alt: 'Three phones showing the same question, “How much pain do you have right now?”, answered with 7, Quite a lot: a horizontal slider, a vertical list from Worst pain 10 down to No pain 1, and a grid of number buttons 1 to 10.',
             caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
             variant: 'bleed',
-            aspect: '16 / 9',
           },
         },
         {
           kicker: 'Decision 4',
           heading: 'One switch instead of a settings menu',
           body: 'Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
+          media: {
+            src: '/work/epro/easy-mode.webp',
+            alt: 'A single-select question in the standard view on the left, the Display and reading settings card in the middle with the Easy mode and Read questions aloud switches, and the same question in Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and a “Speak your answer” button under Next.',
+            caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+            variant: 'bleed',
+          },
+        },
+        {
+          // Draft copy: written from the prototype, to be replaced with the author's own.
+          kicker: 'Decision 5',
+          heading: 'Let people say the answer',
+          body: [
+            'Every question has a microphone in the header. Tap it and the app listens, then shows what it heard as a proposed answer with a dashed outline. Nothing is chosen until the person taps Stop listening, or taps a different answer instead.',
+            'In Easy Mode the same thing sits under every question as a Speak your answer button, so nobody has to find the icon.',
+          ],
           layout: 'side',
           media: {
-            src: '',
-            alt: 'Visual 4: the same single-select question with Easy Mode on, in a phone frame, for comparison with Visual 2.',
-            eyebrow: 'Visual 4: Single select, Easy Mode',
-            caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+            src: '/work/epro/voice-input.webp',
+            alt: 'A single-select question while listening: option 3, Somewhat, has a dashed outline, a card below reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, and a red Stop listening button sits at the bottom.',
+            caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
             variant: 'phone',
           },
         },
@@ -332,15 +358,13 @@ export const projects: Project[] = [
             '- New question types: about 10 fewer engineering hours each, because the interface was modular instead of custom every time',
             'The participants who had been giving up halfway through were now finishing, and finishing correctly. And the cost of a design decision dropped far enough that design started winning arguments it used to lose by default.',
           ],
-          // To embed the live prototype instead of a still, replace `media`
-          // with `prototype: { src: '<embed.figma.com/proto/... URL>', title: 'Interactive ePRO prototype', eyebrow: 'Visual 5: Prototype', aspect: '9 / 16', caption: '...' }`.
-          media: {
-            src: '',
-            alt: 'Visual 5: the interactive prototype, embedded or linked.',
-            eyebrow: 'Visual 5: Prototype',
-            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change.',
-            variant: 'bleed',
-            aspect: '16 / 9',
+          // The functional prototype lives in /public/work/epro/prototype,
+          // exported from the design canvas with its runtime and design system.
+          prototype: {
+            src: '/work/epro/prototype/index.html',
+            title: 'Interactive ePRO prototype: Maria’s evening diary. Tap Start on the diary card to walk through the questionnaire.',
+            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change. Tap Start to answer Maria’s evening diary; the settings gear turns on Easy Mode.',
+            aspect: '390 / 844',
           },
         },
         {

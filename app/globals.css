@@ -1442,7 +1442,7 @@ main {
 .cs-story__media .media-grid + .media {
   margin-top: var(--gap-lg);
 }
-/* Full-field media: the label in the margin column, the caption on the text axis. */
+/* Full-field media: label and caption on the text axis, the frame across the field. */
 .cs-story__media .media:not(.media--phone),
 .cs-story__media .media--proto {
   display: grid;
@@ -1450,17 +1450,20 @@ main {
   column-gap: var(--gap-md);
 }
 .cs-story__media .media:not(.media--phone) .media__label {
-  grid-column: 1 / 4;
+  grid-column: 4 / 11;
 }
 .cs-story__media .media:not(.media--phone) .media__frame {
   grid-column: 1 / -1;
 }
+.cs-story__media .media--span-text:not(.media--phone) .media__frame {
+  grid-column: 4 / 11;
+}
 .cs-story__media .media:not(.media--phone) .media__caption {
   grid-column: 4 / 11;
 }
-.cs-story__media .media--proto .media__frame {
+.cs-story__media .media--proto:not(.media--phone) .media__frame {
   grid-column: 4 / 10;
-  max-width: none;
+  max-width: 420px;
   margin: 0;
 }
 /* Side layout: copy in five columns, the phone in the last four. */
@@ -2319,7 +2322,8 @@ main {
   }
   .cs-story__media .media:not(.media--phone) .media__label,
   .cs-story__media .media:not(.media--phone) .media__caption,
-  .cs-story__media .media--proto .media__frame {
+  .cs-story__media .media--span-text:not(.media--phone) .media__frame,
+  .cs-story__media .media--proto:not(.media--phone) .media__frame {
     grid-column: 1 / -1;
   }
   .cs-story {

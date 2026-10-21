@@ -19,7 +19,9 @@ export function CaseStudyMedia({
   const variant = media.variant ?? 'plate'
 
   return (
-    <figure className={`media media--${variant}${className ? ` ${className}` : ''}`}>
+    <figure
+      className={`media media--${variant}${media.span === 'text' ? ' media--span-text' : ''}${className ? ` ${className}` : ''}`}
+    >
       {media.eyebrow ? (
         <figcaption className="media__label label">{media.eyebrow}</figcaption>
       ) : null}
