@@ -1442,16 +1442,6 @@ main {
 .cs-story__media .media-grid + .media {
   margin-top: var(--gap-lg);
 }
-/* In a story the label above a frame is a plain sentence on the text axis, not a tag. */
-.cs-story__media .media__label {
-  font-size: var(--text-small);
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.7;
-  color: var(--text-muted);
-  max-width: 760px;
-  margin-bottom: 20px;
-}
 /* Full-field media: label and caption on the text axis, the frame across the field. */
 .cs-story__media .media:not(.media--phone),
 .cs-story__media .media--proto {

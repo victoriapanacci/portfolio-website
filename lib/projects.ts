@@ -253,14 +253,14 @@ export const projects: Project[] = [
               src: '/work/epro/legacy-app.webp',
               alt: 'Three screens of the legacy Axiom eDiary app: a welcome card for the ACME201 study over a purple gradient, a “Did this event just occur?” dialog with typed date and time fields and red Cancel and blue Next buttons, and a Confirm Entry Summary table.',
               // Draft text: to be replaced with the author's own.
-              eyebrow: 'The app participants were trained on. One question per dialog, a date to type in dd/mm/yyyy, and a summary table to confirm it all.',
+              caption: 'The app participants were trained on. One question per dialog, a date to type in dd/mm/yyyy, and a summary table to confirm it all.',
               span: 'text',
               variant: 'bleed',
             },
             {
               src: '',
               alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
-              eyebrow: 'Every one of these numbers was counted manually. That was the first finding.',
+              caption: 'Every one of these numbers was counted manually. That was the first finding.',
               variant: 'bleed',
               aspect: '16 / 9',
             },
@@ -293,7 +293,7 @@ export const projects: Project[] = [
           media: {
             src: '/work/epro/single-select-standard.webp',
             alt: 'A single-select question in the standard view: “How much pain do you feel overall?” above five numbered options, with “3, Somewhat” selected in navy and a Next button at the bottom.',
-            eyebrow: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
+            caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
             variant: 'phone',
           },
         },
@@ -318,7 +318,7 @@ export const projects: Project[] = [
           media: {
             src: '/work/epro/pain-scale-variants.webp',
             alt: 'Three phones showing the same question, “How much pain do you have right now?”, answered with 7, Quite a lot: a horizontal slider, a vertical list from Worst pain 10 down to No pain 1, and a grid of number buttons 1 to 10.',
-            eyebrow: 'The one I assumed would win finished third. The one that shipped won on a tie.',
+            caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
             variant: 'bleed',
           },
         },
@@ -329,7 +329,7 @@ export const projects: Project[] = [
           media: {
             src: '/work/epro/easy-mode.webp',
             alt: 'A single-select question in the standard view on the left, the Display and reading settings card in the middle with the Easy mode and Read questions aloud switches, and the same question in Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and a “Speak your answer” button under Next.',
-            eyebrow: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+            caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
             variant: 'bleed',
           },
         },
@@ -345,7 +345,7 @@ export const projects: Project[] = [
           media: {
             src: '/work/epro/voice-input.webp',
             alt: 'A single-select question while listening: option 3, Somewhat, has a dashed outline, a card below reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, and a red Stop listening button sits at the bottom.',
-            eyebrow: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
+            caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
             variant: 'phone',
           },
         },
@@ -364,7 +364,7 @@ export const projects: Project[] = [
           prototype: {
             src: '/work/epro/prototype/index.html',
             title: 'Interactive ePRO prototype: Maria’s evening diary. Tap Start on the diary card to walk through the questionnaire.',
-            eyebrow: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change. Tap Start to answer Maria’s evening diary; the settings gear turns on Easy Mode.',
+            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change. Tap Start to answer Maria’s evening diary; the settings gear turns on Easy Mode.',
             aspect: '390 / 844',
           },
         },
