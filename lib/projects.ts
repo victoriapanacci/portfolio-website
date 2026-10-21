@@ -252,8 +252,7 @@ export const projects: Project[] = [
             {
               src: '/work/epro/legacy-app.webp',
               alt: 'Three screens of the legacy Axiom eDiary app: a welcome card for the ACME201 study over a purple gradient, a “Did this event just occur?” dialog with typed date and time fields and red Cancel and blue Next buttons, and a Confirm Entry Summary table.',
-              // Draft text: to be replaced with the author's own.
-              caption: 'The app participants were trained on. One question per dialog, a date to type in dd/mm/yyyy, and a summary table to confirm it all.',
+              caption: 'These are real images of the before that were pitched and sold to clients. The UI functioned in a way that it wasn’t able to scrape data and everything had to be manually entered. On single screens, at the summary page, the complete button was lost.',
               span: 'text',
               variant: 'bleed',
             },
