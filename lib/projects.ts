@@ -246,14 +246,24 @@ export const projects: Project[] = [
             '- At that price, design lost every argument',
             'None of these numbers existed when I started. There was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
           ],
-          media: {
-            src: '',
-            alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
-            eyebrow: 'Visual 1: Baseline metrics',
-            caption: 'Every one of these numbers was counted manually. That was the first finding.',
-            variant: 'bleed',
-            aspect: '16 / 9',
-          },
+          media: [
+            {
+              src: '/work/epro/legacy-app.webp',
+              alt: 'Three screens of the legacy Axiom eDiary app: a welcome card for the ACME201 study over a purple gradient, a “Did this event just occur?” dialog with typed date and time fields and red Cancel and blue Next buttons, and a Confirm Entry Summary table.',
+              eyebrow: 'The app before',
+              // Draft caption: to be replaced with the author's own.
+              caption: 'The app participants were trained on. One question per dialog, a date to type in dd/mm/yyyy, and a summary table to confirm it all.',
+              variant: 'bleed',
+            },
+            {
+              src: '',
+              alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
+              eyebrow: 'Visual 1: Baseline metrics',
+              caption: 'Every one of these numbers was counted manually. That was the first finding.',
+              variant: 'bleed',
+              aspect: '16 / 9',
+            },
+          ],
         },
         {
           kicker: 'Who I was and what I did',
