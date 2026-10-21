@@ -1458,9 +1458,9 @@ main {
 .cs-story__media .media:not(.media--phone) .media__caption {
   grid-column: 4 / 11;
 }
-.cs-story__media .media--proto .media__frame {
+.cs-story__media .media--proto:not(.media--phone) .media__frame {
   grid-column: 4 / 10;
-  max-width: none;
+  max-width: 420px;
   margin: 0;
 }
 /* Side layout: copy in five columns, the phone in the last four. */
@@ -2319,7 +2319,7 @@ main {
   }
   .cs-story__media .media:not(.media--phone) .media__label,
   .cs-story__media .media:not(.media--phone) .media__caption,
-  .cs-story__media .media--proto .media__frame {
+  .cs-story__media .media--proto:not(.media--phone) .media__frame {
     grid-column: 1 / -1;
   }
   .cs-story {

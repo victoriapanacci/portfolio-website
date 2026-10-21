@@ -207,7 +207,6 @@ export const projects: Project[] = [
     category: 'Native iOS / 0-1 / Clinical ePRO',
     description:
       'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
-    art: 'mobile',
     cover: {
       src: '/work/epro/card-cover.webp',
       alt: 'Three phone screens of the ePRO app over a photo of cupped hands: a diary home listing morning and evening entries, a questionnaire question, and a completed Tuesday Morning entry ready to submit.',
@@ -222,7 +221,13 @@ export const projects: Project[] = [
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         { label: 'Result', value: 'Completion 40% to 80%. Success rate 60% to 95%.' },
       ],
-      // Visuals 1 to 5 are placeholders: set each `src` to the finished
+      heroLayout: 'stacked',
+      heroMedia: {
+        src: '/work/epro/hero.webp',
+        alt: 'Three screens of the rebuilt ePRO app fanned on a grey surface: the last question asking “Anything else your care team should know?” with a typed note, the home screen greeting Maria with a week strip and an Evening diary card, and a submitted evening diary listing her answers.',
+        variant: 'bleed',
+      },
+      // Visual 1 is still a placeholder: set its `src` to the finished
       // artifact under /public and rewrite its `alt` to describe the image.
       story: [
         {
@@ -275,8 +280,8 @@ export const projects: Project[] = [
           body: 'The colours were legacy and stayed. The components were where the work happened. I built them first to find the feel of the app before drawing a single full screen.',
           layout: 'side',
           media: {
-            src: '',
-            alt: 'Visual 2: the single-select question in its standard view, in a phone frame.',
+            src: '/work/epro/single-select-standard.webp',
+            alt: 'A single-select question in the standard view: “Take your time. How tired do you feel right now?” above five numbered options, with “2, A little” selected in navy and a Next button at the bottom.',
             eyebrow: 'Visual 2: Single select, standard view',
             caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
             variant: 'phone',
@@ -301,25 +306,23 @@ export const projects: Project[] = [
             'Taste had no place in the decision to rebuild. Once the data said both options worked, taste was the only thing left to decide, and I let it.',
           ],
           media: {
-            src: '',
-            alt: 'Visual 3: the four pain-scale variants side by side, with the shipped one marked.',
-            eyebrow: 'Visual 3: The four pain-scale variants',
+            src: '/work/epro/pain-scale-variants.webp',
+            alt: 'Three phones showing the same question, “How much pain do you have right now?”, answered with 7, Quite a lot: a horizontal slider, a vertical list from Worst pain 10 down to No pain 1, and a grid of number buttons 1 to 10.',
+            eyebrow: 'Visual 3: The pain-scale variants',
             caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
             variant: 'bleed',
-            aspect: '16 / 9',
           },
         },
         {
           kicker: 'Decision 4',
           heading: 'One switch instead of a settings menu',
           body: 'Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
-          layout: 'side',
           media: {
-            src: '',
-            alt: 'Visual 4: the same single-select question with Easy Mode on, in a phone frame, for comparison with Visual 2.',
-            eyebrow: 'Visual 4: Single select, Easy Mode',
+            src: '/work/epro/easy-mode.webp',
+            alt: 'The same single-select question side by side: the standard view on the left, and Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and an added “Speak your answer” button under Next.',
+            eyebrow: 'Visual 4: Standard beside Easy Mode',
             caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
-            variant: 'phone',
+            variant: 'bleed',
           },
         },
         {
@@ -332,15 +335,14 @@ export const projects: Project[] = [
             '- New question types: about 10 fewer engineering hours each, because the interface was modular instead of custom every time',
             'The participants who had been giving up halfway through were now finishing, and finishing correctly. And the cost of a design decision dropped far enough that design started winning arguments it used to lose by default.',
           ],
-          // To embed the live prototype instead of a still, replace `media`
-          // with `prototype: { src: '<embed.figma.com/proto/... URL>', title: 'Interactive ePRO prototype', eyebrow: 'Visual 5: Prototype', aspect: '9 / 16', caption: '...' }`.
-          media: {
-            src: '',
-            alt: 'Visual 5: the interactive prototype, embedded or linked.',
+          // The functional prototype lives in /public/work/epro/prototype,
+          // exported from the design canvas with its runtime and design system.
+          prototype: {
+            src: '/work/epro/prototype/index.html',
+            title: 'Interactive ePRO prototype: Maria’s evening diary. Tap Start on the diary card to walk through the questionnaire.',
             eyebrow: 'Visual 5: Prototype',
-            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change.',
-            variant: 'bleed',
-            aspect: '16 / 9',
+            aspect: '390 / 844',
+            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change. Tap Start to answer Maria’s evening diary; the settings gear turns on Easy Mode.',
           },
         },
         {
