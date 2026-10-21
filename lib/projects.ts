@@ -292,7 +292,7 @@ export const projects: Project[] = [
           media: {
             src: '/work/epro/single-select-standard.webp',
             alt: 'A single-select question in the standard view: “How much pain do you feel overall?” above five numbered options, with “3, Somewhat” selected in navy and a Next button at the bottom.',
-            caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
+            caption: 'Single select allows for one selection and one answer. At every point in the entry, you know what question you’re at with a status bar, and you know if you’re ready to proceed to the next stage. If you need to leave, you can go back, and if you want to turn on speech dictation, there’s always a microphone available.',
             variant: 'phone',
           },
         },
