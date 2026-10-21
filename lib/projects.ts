@@ -281,7 +281,7 @@ export const projects: Project[] = [
           layout: 'side',
           media: {
             src: '/work/epro/single-select-standard.webp',
-            alt: 'A single-select question in the standard view: “Take your time. How tired do you feel right now?” above five numbered options, with “2, A little” selected in navy and a Next button at the bottom.',
+            alt: 'A single-select question in the standard view: “How much pain do you feel overall?” above five numbered options, with “3, Somewhat” selected in navy and a Next button at the bottom.',
             eyebrow: 'Visual 2: Single select, standard view',
             caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
             variant: 'phone',
