@@ -176,7 +176,7 @@ export function CaseStudy({ project }: { project: Project }) {
       {/* Meta bar (side layout only; the stacked hero carries it inline) */}
       {stacked ? null : (
         <div className="shell">
-          <dl className="cs-meta">
+          <dl className={`cs-meta${cs.story ? ' cs-meta--open' : ''}`}>
             <Meta items={cs.meta} />
           </dl>
         </div>
@@ -196,11 +196,13 @@ export function CaseStudy({ project }: { project: Project }) {
           as="section"
           className={`cs-section cs-story shell${section.layout === 'side' ? ' cs-story--side' : ''}`}
         >
-          <Kicker>{section.kicker}</Kicker>
-          <div className="cs-story__grid">
+          <div className="cs-grid cs-story__grid">
+            <div className="cs-story__kicker">
+              <Kicker>{section.kicker}</Kicker>
+            </div>
             <div className="cs-story__copy">
               {section.heading ? <h2 className="cs-h2">{section.heading}</h2> : null}
-              <div className="lead cs-section__lead--wide cs-rich cs-story__body">
+              <div className="lead cs-rich cs-story__body">
                 <RichText text={section.body} />
               </div>
             </div>

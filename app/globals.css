@@ -1222,12 +1222,27 @@ main {
   position: relative;
   padding-top: 8px;
 }
+/* The grid: twelve columns and one gutter. Every case-study block hangs
+   from it. Copy sits on the fourth column; labels live in the first three. */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-md);
+}
 .cs-hero {
   display: grid;
-  grid-template-columns: 6fr 5fr;
-  gap: 64px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-md);
   align-items: center;
   padding: 40px 0 64px;
+}
+.cs-hero__copy {
+  grid-column: 1 / 8;
+  min-width: 0;
+}
+.cs-hero:not(.cs-hero--stacked) .cs-hero__art {
+  grid-column: 8 / 13;
+  min-width: 0;
 }
 .cs-title {
   font-family: var(--font-serif);
@@ -1247,10 +1262,14 @@ main {
 }
 /* Stacked hero: copy and meta side by side on top, artifact full width beneath */
 .cs-hero--stacked {
-  grid-template-columns: 7fr 4fr;
-  column-gap: 64px;
   row-gap: 56px;
   align-items: start;
+}
+.cs-hero--stacked .cs-hero__copy {
+  grid-column: 1 / 8;
+}
+.cs-hero--stacked .cs-hero__meta {
+  grid-column: 9 / 13;
 }
 .cs-hero--stacked .cs-hero__meta {
   margin-top: 14px;
@@ -1267,11 +1286,14 @@ main {
   border: 0;
 }
 .cs-hero .cs-hero__meta .cs-meta__item {
+  grid-column: auto;
   padding-top: 18px;
   border-top: 1px solid var(--line);
 }
 .cs-hero__art .project-art {
-  height: 440px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
   margin: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -1280,12 +1302,20 @@ main {
 /* Meta bar */
 .cs-meta {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 28px var(--gap-md);
   margin: 0;
   padding: 32px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+.cs-meta__item {
+  grid-column: span 3;
+  min-width: 0;
+}
+/* A story follows: its own rule opens the first section. */
+.cs-meta--open {
+  border-bottom: 0;
 }
 .cs-meta__item dt {
   margin-bottom: 10px;
@@ -1359,31 +1389,97 @@ main {
   margin-top: 24px;
 }
 
-/* Story: free-form sections, prose stacked over media or beside it */
+/* Story: free-form sections on the grid. A hairline opens each section;
+   the label holds the first three columns, the copy hangs from the fourth,
+   and media takes the whole field (or the last four columns, beside the
+   copy, in the side layout). */
+.cs-story {
+  padding: 48px 0 96px;
+  border-top: 1px solid var(--line);
+}
+.cs-story + .cs-story {
+  padding-top: 48px;
+}
 .cs-story__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--gap-md);
+  row-gap: var(--gap-lg);
+  align-items: start;
+}
+.cs-story__kicker {
+  grid-column: 1 / 4;
+  min-width: 0;
+}
+.cs-story .kicker {
+  margin: 0;
+  font-size: var(--text-lead);
+  line-height: 1.65;
+  letter-spacing: 0;
+  color: var(--cream);
+}
+.cs-story .kicker i {
+  display: none;
+}
+.cs-story__copy {
+  grid-column: 4 / 11;
+  min-width: 0;
+}
+.cs-story__copy .cs-h2 {
+  margin-bottom: 32px;
 }
 .cs-story__body {
+  max-width: none;
   margin-bottom: 0;
+}
+.cs-story__media {
+  grid-column: 1 / -1;
+  min-width: 0;
 }
 .cs-story__media .media,
 .cs-story__media .media-grid {
-  margin-top: var(--gap-md);
+  margin: 0;
 }
-.cs-story--side .cs-story__grid {
-  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-  gap: var(--gap-lg);
-  align-items: start;
+.cs-story__media .media + .media,
+.cs-story__media .media + .media-grid,
+.cs-story__media .media-grid + .media {
+  margin-top: var(--gap-lg);
 }
+/* Full-field media: the label in the margin column, the caption on the text axis. */
+.cs-story__media .media:not(.media--phone),
+.cs-story__media .media--proto {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-md);
+}
+.cs-story__media .media:not(.media--phone) .media__label {
+  grid-column: 1 / 4;
+}
+.cs-story__media .media:not(.media--phone) .media__frame {
+  grid-column: 1 / -1;
+}
+.cs-story__media .media:not(.media--phone) .media__caption {
+  grid-column: 4 / 11;
+}
+.cs-story__media .media--proto .media__frame {
+  grid-column: 4 / 10;
+  max-width: none;
+  margin: 0;
+}
+/* Side layout: copy in five columns, the phone in the last four. */
 .cs-story--side .cs-story__copy {
+  grid-column: 4 / 9;
   position: sticky;
   top: 96px;
 }
-.cs-story--side .cs-story__media .media,
-.cs-story--side .cs-story__media .media-grid {
-  margin-top: 0;
+.cs-story--side .cs-story__media {
+  grid-column: 9 / 13;
+}
+.cs-story--side .media--phone .media__frame {
+  margin: 0;
+}
+.cs-story--side .media--phone .media__label,
+.cs-story--side .media--phone .media__caption {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* Problem: two panels */
@@ -2158,21 +2254,27 @@ main {
 
   /* Case study */
   .cs-hero {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    row-gap: 40px;
     padding-bottom: 48px;
   }
+  .cs-hero__copy,
+  .cs-hero:not(.cs-hero--stacked) .cs-hero__art,
+  .cs-hero--stacked .cs-hero__copy,
+  .cs-hero--stacked .cs-hero__meta {
+    grid-column: 1 / -1;
+  }
   .cs-hero--stacked {
-    grid-template-columns: 1fr;
     row-gap: 40px;
     align-items: start;
   }
   .cs-hero__art .project-art {
-    height: 380px;
+    aspect-ratio: 4 / 3;
   }
   .cs-meta {
-    grid-template-columns: repeat(2, 1fr);
     row-gap: 26px;
+  }
+  .cs-meta__item {
+    grid-column: span 6;
   }
   .cs-process {
     grid-template-columns: repeat(2, 1fr);
@@ -2202,12 +2304,26 @@ main {
   .cs-decision__copy {
     position: static;
   }
-  .cs-story--side .cs-story__grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .cs-story__grid {
+    row-gap: 32px;
+  }
+  .cs-story__kicker,
+  .cs-story__copy,
+  .cs-story__media,
+  .cs-story--side .cs-story__copy,
+  .cs-story--side .cs-story__media {
+    grid-column: 1 / -1;
   }
   .cs-story--side .cs-story__copy {
     position: static;
+  }
+  .cs-story__media .media:not(.media--phone) .media__label,
+  .cs-story__media .media:not(.media--phone) .media__caption,
+  .cs-story__media .media--proto .media__frame {
+    grid-column: 1 / -1;
+  }
+  .cs-story {
+    padding: 40px 0 72px;
   }
   .media-grid__items {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2311,6 +2427,9 @@ main {
   .cs-meta,
   .cs-process {
     grid-template-columns: 1fr;
+  }
+  .cs-meta__item {
+    grid-column: 1 / -1;
   }
   .cs-step {
     border-right: 0 !important;
