@@ -326,6 +326,23 @@ export const projects: Project[] = [
           },
         },
         {
+          // Draft copy: written from the prototype, to be replaced with the author's own.
+          kicker: 'Decision 5',
+          heading: 'Let people say the answer',
+          body: [
+            'Every question has a microphone in the header. Tap it and the app listens, then shows what it heard as a proposed answer with a dashed outline. Nothing is chosen until the person taps Stop listening, or taps a different answer instead.',
+            'In Easy Mode the same thing sits under every question as a Speak your answer button, so nobody has to find the icon.',
+          ],
+          layout: 'side',
+          media: {
+            src: '/work/epro/voice-input.webp',
+            alt: 'A single-select question while listening: option 3, Somewhat, has a dashed outline, a card below reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, and a red Stop listening button sits at the bottom.',
+            eyebrow: 'Visual 6: Voice input',
+            caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
+            variant: 'phone',
+          },
+        },
+        {
           kicker: 'The solution',
           body: [
             'A SwiftUI app, built native because every participant was using a site-issued iPhone. It did seven things and nothing else.',
