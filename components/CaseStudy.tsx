@@ -46,9 +46,9 @@ export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
   if (!cs) return null
   const stacked = cs.heroLayout === 'stacked'
-  const principlesHaveMedia = Boolean(cs.solution.principles?.some((p) => p.media))
+  const principlesHaveMedia = Boolean(cs.solution?.principles?.some((p) => p.media))
 
-  const solutionSection = (
+  const solutionSection = !cs.solution ? null : (
     <Reveal as="section" className="cs-section shell">
       <Kicker>{cs.solution.kicker ?? 'The solution'}</Kicker>
       {cs.solution.principles || cs.solution.walkthrough ? (
@@ -116,7 +116,7 @@ export function CaseStudy({ project }: { project: Project }) {
     </Reveal>
   )
 
-  const discoverySection = (
+  const discoverySection = !cs.discovery ? null : (
     <Reveal as="section" className="cs-section shell">
       <Kicker>{cs.discovery.kicker ?? 'The research'}</Kicker>
       <h2 className="cs-h2">
@@ -189,24 +189,51 @@ export function CaseStudy({ project }: { project: Project }) {
         </Reveal>
       ) : null}
 
-      {/* Problem */}
-      <Reveal as="section" className="cs-section shell">
-        <Kicker>{cs.problem.kicker ?? 'The problem'}</Kicker>
-        <div className="lead cs-section__lead cs-rich">
-          <RichText text={cs.problem.lead} />
-        </div>
-        {cs.problem.points.length ? (
-          <div className="cs-two-col">
-            {cs.problem.points.map((p) => (
-              <div key={p.title} className="card cs-panel">
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
+      {/* Story (optional): free-form sections in the order they are written */}
+      {cs.story?.map((section) => (
+        <Reveal
+          key={section.kicker}
+          as="section"
+          className={`cs-section cs-story shell${section.layout === 'side' ? ' cs-story--side' : ''}`}
+        >
+          <Kicker>{section.kicker}</Kicker>
+          <div className="cs-story__grid">
+            <div className="cs-story__copy">
+              {section.heading ? <h2 className="cs-h2">{section.heading}</h2> : null}
+              <div className="lead cs-section__lead--wide cs-rich cs-story__body">
+                <RichText text={section.body} />
               </div>
-            ))}
+            </div>
+            {section.prototype || section.media ? (
+              <div className="cs-story__media">
+                {section.prototype ? <CaseStudyPrototype prototype={section.prototype} /> : null}
+                <CaseStudyMediaGroup media={section.media} />
+              </div>
+            ) : null}
           </div>
-        ) : null}
-        <CaseStudyMediaGroup media={cs.problem.media} />
-      </Reveal>
+        </Reveal>
+      ))}
+
+      {/* Problem (optional) */}
+      {cs.problem ? (
+        <Reveal as="section" className="cs-section shell">
+          <Kicker>{cs.problem.kicker ?? 'The problem'}</Kicker>
+          <div className="lead cs-section__lead cs-rich">
+            <RichText text={cs.problem.lead} />
+          </div>
+          {cs.problem.points.length ? (
+            <div className="cs-two-col">
+              {cs.problem.points.map((p) => (
+                <div key={p.title} className="card cs-panel">
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <CaseStudyMediaGroup media={cs.problem.media} />
+        </Reveal>
+      ) : null}
 
       {cs.researchFirst ? discoverySection : solutionSection}
 

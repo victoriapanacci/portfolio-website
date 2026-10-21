@@ -4,14 +4,24 @@ export type ProjectArtType = 'mobile' | 'imaging'
 export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
 
 export type CaseStudyImage = {
+  /**
+   * Path under /public. Leave empty ('') to render a labelled placeholder
+   * frame in its place until the real artifact is ready; `alt` is then shown
+   * as the note inside the frame.
+   */
   src: string
   alt: string
   /** Short rose eyebrow tag shown above the frame, e.g. "User journey map". */
   eyebrow?: string
   /** Descriptive caption shown beneath the frame. */
   caption?: string
-  /** 'plate' = light matted artifact (screens, boards). 'bleed' = wide framed panel. */
-  variant?: 'plate' | 'bleed'
+  /**
+   * 'plate' = light matted artifact (screens, boards). 'bleed' = wide framed
+   * panel. 'phone' = a single portrait screen, centred at phone width.
+   */
+  variant?: 'plate' | 'bleed' | 'phone'
+  /** CSS aspect-ratio for the placeholder frame, e.g. "16 / 9". Ignored once `src` is set. */
+  aspect?: string
 }
 
 /** Several small artifacts side by side under one caption. */
@@ -64,6 +74,22 @@ export type CaseStudyPrototype = {
 /** Prose: one paragraph, or several. Items starting with "- " become bullets. */
 export type Prose = string | string[]
 
+/**
+ * One section of a free-form narrative: a kicker, an optional heading, prose
+ * (with "## " subheadings, "- " bullets and "> " pull quotes) and the
+ * artifact(s) that belong with it.
+ */
+export type CaseStudyStorySection = {
+  kicker: string
+  heading?: string
+  body: Prose
+  media?: CaseStudyMediaItem | CaseStudyMediaItem[]
+  /** Interactive prototype shown after the prose, before `media`. */
+  prototype?: CaseStudyPrototype
+  /** 'stacked' (default) runs media full width beneath the prose. 'side' puts it beside the prose. */
+  layout?: 'stacked' | 'side'
+}
+
 export type CaseStudy = {
   summary: Prose
   meta: { label: string; value: string }[]
@@ -75,7 +101,13 @@ export type CaseStudy = {
   heroLayout?: 'side' | 'stacked'
   /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
   intro?: string
-  problem: {
+  /**
+   * Free-form narrative, rendered in order after the hero and intro. Use it
+   * when the story has its own shape; the structured problem / solution /
+   * research sections below are then usually omitted.
+   */
+  story?: CaseStudyStorySection[]
+  problem?: {
     /** Overrides the default "The problem" kicker. */
     kicker?: string
     lead: Prose
@@ -85,7 +117,7 @@ export type CaseStudy = {
   }
   /** Render the research section before the solution. Use when the insight has to land before the decisions. */
   researchFirst?: boolean
-  solution: {
+  solution?: {
     /** Overrides the default "The solution" kicker. */
     kicker?: string
     heading: CaseStudyHeading
@@ -104,7 +136,7 @@ export type CaseStudy = {
     /** Interactive walkthrough shown after the lead, before the decisions. */
     walkthrough?: CaseStudyWalkthrough
   }
-  discovery: {
+  discovery?: {
     /** Overrides the default "The research" kicker. */
     kicker?: string
     heading: CaseStudyHeading
@@ -170,171 +202,158 @@ export const projects: Project[] = [
   {
     slug: 'epro',
     index: '01',
-    title: 'Building a new mobile product from a legacy wrapper',
+    title: 'ePRO rebuild: doubling questionnaire completion for participants over 60',
     shortTitle: 'ePRO',
-    category: 'Mobile UI / 0-1 / Clinical ePRO',
+    category: 'Native iOS / 0-1 / Clinical ePRO',
     description:
-      'Rebuilding a legacy ePRO platform into a mobile product patients and researchers could rely on.',
+      'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
     art: 'mobile',
     cover: {
       src: '/work/epro/card-cover.webp',
-      alt: 'Three phone screens of the DribbleCollect eDiary over a photo of cupped hands: a diary home listing morning and evening entries, a voice-to-text survey question, and a completed Tuesday Morning entry ready to submit.',
+      alt: 'Three phone screens of the ePRO app over a photo of cupped hands: a diary home listing morning and evening entries, a questionnaire question, and a completed Tuesday Morning entry ready to submit.',
       width: 1920,
       height: 1440,
     },
     caseStudy: {
       summary:
-        'ePRO (Electronic Patient Reported Outcomes) data records how a drug or device actually affects the people taking it, which makes it central to every clinical trial. Our EDC could no longer support that work well, so I designed and shipped DribbleCollect: a 21 CFR Part 11 compliant ePRO patients can download from the app store.',
+        'A native iOS rebuild of the questionnaire app study participants used to tell us how they felt each day. Most of them were over 60, and the old tool kept getting in the way.',
       meta: [
-        { label: 'Role', value: 'Lead Product Designer + PM' },
-        { label: 'Team', value: '1 Designer/PM, 1 Full-stack & Mobile Eng, 1 QA' },
-        { label: 'Tools', value: 'Figma, Axosoft, Capacitor, AWS' },
-        { label: 'Timeline', value: '6 Months, MVP to GA' },
+        { label: 'Role', value: 'Sole product designer, Axiom Real-Time Metrics' },
+        { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
+        { label: 'Result', value: 'Completion 40% to 80%. Success rate 60% to 95%.' },
       ],
-      intro:
-        'ClearQ was an established EDC for running clinical trials, and it was steadily losing clients. The interface fought the people using it, and the architecture had no room left to grow. I owned both the product and the design, so I could not treat those as separate problems. A brittle experience produced bad data, and a rigid back-end made the experience impossible to fix without a rebuild.',
-      problem: {
-        lead: 'Two failures compounded each other, in exactly the place a clinical trial can least afford it: the data itself.',
-        points: [
-          {
-            title: 'An interface working against its users',
-            body: 'Error rates and drop-offs were high, and the instructions were hard to follow. Every point of friction was another chance to lose reliable data.',
-          },
-          {
-            title: 'A back-end with no room to move',
-            body: 'Limited scalability, no independent operation, and no API. The platform could not integrate with other systems or grow alongside the trials it supported.',
-          },
-        ],
-      },
-      solution: {
-        heading: { lead: 'Meet ', em: 'DribbleCollect' },
-        lead: 'DribbleCollect answered both failures at once: a rebuilt experience on a rebuilt foundation. The prototype below is the real flow, from secure login through voice-to-text capture. Move through it the way a patient would.',
-        prototype: {
-          src: 'https://embed.figma.com/proto/Okrztm0qQfLlTIPRwVsMRT?content-scaling=fixed&kind=proto&node-id=613-1013&page-id=509%3A1016&scaling=scale-down&starting-point-node-id=613%3A1013&embed-host=share',
-          title: 'Interactive DribbleCollect prototype',
-          eyebrow: 'Interactive prototype',
-          aspect: '9 / 16',
-          caption:
-            'The DribbleCollect prototype: a 3-step login and reporting flow with LLM-powered voice-to-text entry, built 21 CFR Part 11 compliant. Tap through it live.',
-        },
-        points: [
-          'AI voice-to-text data entry, built 21 CFR Part 11 compliant',
-          'A 3-step login and reporting flow that cut task time',
-          'A modular back-end that runs independently, with its own API',
-          'An accessible UI, localized for multinational trials',
-        ],
-        media: {
-          src: '/figma/epro-voice-to-text.webp',
-          alt: 'Two annotated DribbleCollect questionnaire screens (transcription pane closed and open) with accessibility, interaction, and content callouts documenting the voice-to-text flow.',
-          eyebrow: 'Voice-to-text: annotated flow',
-          caption:
-            'The signature feature, annotated. An LLM-powered pane reads questions aloud, listens for a spoken answer, and clarifies low-literacy responses against the questionnaire. I tested Siri, ChatGPT, and Amazon Transcribe Medical; Siri gave the best balance of usability and cost for this audience.',
-          variant: 'plate',
-        },
-      },
-      discovery: {
-        heading: { lead: 'Four voices, one ', em: 'fragile chain', tail: ' of data' },
-        lead: 'Questionnaires, interviews, and usability testing surfaced three voices in the same fragile chain of data. Mapping the legacy experience made the stakes undeniable.',
-        findings: [
-          {
-            title: 'Patients abandon tools that waste their time',
-            body: 'Each questionnaire meant stopping to give ten minutes of undivided attention by hand. When it felt invasive, patients simply stopped responding.',
-          },
-          {
-            title: 'Site staff need to spend time on care, not tech support',
-            body: 'Staff burned hours troubleshooting errors for patients who could not get the tool to work, time taken directly from patient care.',
-          },
-          {
-            title: 'Data has to be reliable the first time',
-            body: 'Data managers wrestled with lost, incomplete, and non-compliant entries. Capture had to be near-effortless without sacrificing accuracy.',
-          },
-        ],
-        media: {
-          src: '/figma/epro-journey-map.webp',
-          alt: 'Experience map of the legacy ePRO across five stages (Onboarding, First Use, Daily Use, Missed Entry, and End of Study) with an emotion curve declining from confident to abandoned.',
-          eyebrow: 'Experience map: the legacy tool',
-          caption:
-            'Confidence at onboarding decayed into frustration at the first error and abandonment by the end of the study. Every dip on that curve was a data point at risk.',
-          variant: 'plate',
-        },
-      },
-      processKicker: 'Prototyping in sprints',
-      process: [
+      // Visuals 1 to 5 are placeholders: set each `src` to the finished
+      // artifact under /public and rewrite its `alt` to describe the image.
+      story: [
         {
-          index: '01',
-          title: 'Onboarding & secure login',
-          body: 'Weighed Okta 2FA and Google Authenticator to earn trust at the first step, then simplified the path down to a 3-step login and reporting flow.',
+          kicker: 'The problem',
+          body: [
+            'Every training session ended the same way. I’d walk a room of study participants through the questionnaire on their study iPhones, and the same hands went up at the same screens.',
+            '> Which side is high? Did that save? Where do I go now?',
+            'Most of them were over 60. All of them were trying to tell us how they felt that day. The tool kept getting in the way.',
+            '## What it was costing',
+            '- 4 in 10 participants finished a questionnaire',
+            '- 6 in 10 of those finished without an error',
+            '- Every missing answer was a gap in evidence a sponsor was paying millions to collect',
+            '## Why nobody had fixed it',
+            '- The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
+            '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
+            '- At that price, design lost every argument',
+            'None of these numbers existed when I started. There was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
+          ],
+          media: {
+            src: '',
+            alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
+            eyebrow: 'Visual 1: Baseline metrics',
+            caption: 'Every one of these numbers was counted manually. That was the first finding.',
+            variant: 'bleed',
+            aspect: '16 / 9',
+          },
         },
         {
-          index: '02',
-          title: 'Voice-to-text capture',
-          body: 'Tested Siri, ChatGPT, and Amazon Transcribe Medical against usability and cost. Siri won for this audience and became the core of natural-language entry.',
+          kicker: 'Who I was and what I did',
+          body: 'I was the only designer at the company, and I was also the person training participants on the app I wanted to replace. That second role is why I trusted the 40%.',
         },
         {
-          index: '03',
-          title: 'Autosave, progress & sync',
-          body: 'Built a sync process that saved data accurately and showed users their progress, resolving longstanding fears about lost entries.',
-        },
-        {
-          index: '04',
-          title: 'Accessibility & onboarding support',
-          body: 'Iterated the UI against WCAG 2.1 AA and added an introductory video, so low-tech-literacy patients felt at ease from day one.',
-        },
-      ],
-      metrics: [
-        { value: '40%', label: 'reduction in average task time' },
-        { value: '3-step', label: 'login & reporting flow' },
-        { value: '<24hrs', label: 'to add a new PRO module' },
-        { value: '80%', label: 'client satisfaction at launch' },
-      ],
-      outcomesHeading: { lead: 'Every objective, ', em: 'delivered' },
-      outcomes: [
-        {
-          objective: 'Compliant by design',
-          points: [
-            'Built audit trails, time-stamped entries, and e-signature validation into the workflow',
-            'Ran mock FDA inspections during QA to prove 21 CFR Part 11 compliance before any client release',
+          kicker: 'Decision 1',
+          heading: 'Build seven things, not thirty',
+          body: [
+            'This was never going to be the study. It was the thing that asks the questions. So the scope was:',
+            '- Progress bar for all entries',
+            '- Clear prompt to start a questionnaire',
+            '- Notifications',
+            '- A way to reach support',
+            '- One linear path through each questionnaire, with status along the way',
+            '- Review screen for completed entries',
+            '- Settings for accessibility and troubleshooting',
+            'Sponsors wanted more. The recurring ask was in-app messaging with the study coordinator. I got a group of coordinators on a call and asked them. Immediate no: every message in the app was one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
           ],
         },
         {
-          objective: 'Usable & inclusive',
-          points: [
-            'Cut average task time 40% with a 3-step flow, validated with low-tech-literacy patients',
-            'Applied WCAG 2.1 AA and localized into English, French, and Spanish for multinational trials',
+          kicker: 'Decision 2',
+          heading: 'Keep the brand, rebuild the components',
+          body: 'The colours were legacy and stayed. The components were where the work happened. I built them first to find the feel of the app before drawing a single full screen.',
+          layout: 'side',
+          media: {
+            src: '',
+            alt: 'Visual 2: the single-select question in its standard view, in a phone frame.',
+            eyebrow: 'Visual 2: Single select, standard view',
+            caption: 'One question, one answer, one way forward. The old version offered three ways to get lost.',
+            variant: 'phone',
+          },
+        },
+        {
+          kicker: 'Decision 3',
+          heading: 'Test the pain scale instead of trusting my eye',
+          body: [
+            'The pain scale was the hardest component and the one that taught me the most. I built four versions and put them in front of about 20 people, half of them over 60.',
+            '## What I asked',
+            '- What do you think you’re supposed to do here?',
+            '- Where would you tap first?',
+            '- Which end is high?',
+            '- Then I watched them do it',
+            'Each session was scored out of 100, with comprehension and completed interaction weighted highest.',
+            '## What happened',
+            '- I walked in expecting to choose a slider. I walked out without one. Smallest target on the screen, most ways to overshoot it.',
+            '- Number buttons and the vertical list scored well above the rest',
+            '- I ran those two on live data for two weeks, expecting a winner. There wasn’t one.',
+            '- So I asked sponsors and leadership which they liked. They picked the vertical list because it was more fun to use.',
+            'Taste had no place in the decision to rebuild. Once the data said both options worked, taste was the only thing left to decide, and I let it.',
+          ],
+          media: {
+            src: '',
+            alt: 'Visual 3: the four pain-scale variants side by side, with the shipped one marked.',
+            eyebrow: 'Visual 3: The four pain-scale variants',
+            caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
+            variant: 'bleed',
+            aspect: '16 / 9',
+          },
+        },
+        {
+          kicker: 'Decision 4',
+          heading: 'One switch instead of a settings menu',
+          body: 'Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
+          layout: 'side',
+          media: {
+            src: '',
+            alt: 'Visual 4: the same single-select question with Easy Mode on, in a phone frame, for comparison with Visual 2.',
+            eyebrow: 'Visual 4: Single select, Easy Mode',
+            caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+            variant: 'phone',
+          },
+        },
+        {
+          kicker: 'The solution',
+          body: [
+            'A SwiftUI app, built native because every participant was using a site-issued iPhone. It did seven things and nothing else.',
+            '## What changed',
+            '- Completion: 40% to roughly 80%',
+            '- Success rate: 60% to about 95%',
+            '- New question types: about 10 fewer engineering hours each, because the interface was modular instead of custom every time',
+            'The participants who had been giving up halfway through were now finishing, and finishing correctly. And the cost of a design decision dropped far enough that design started winning arguments it used to lose by default.',
+          ],
+          // To embed the live prototype instead of a still, replace `media`
+          // with `prototype: { src: '<embed.figma.com/proto/... URL>', title: 'Interactive ePRO prototype', eyebrow: 'Visual 5: Prototype', aspect: '9 / 16', caption: '...' }`.
+          media: {
+            src: '',
+            alt: 'Visual 5: the interactive prototype, embedded or linked.',
+            eyebrow: 'Visual 5: Prototype',
+            caption: 'The prototype is the easy part to show. The part that mattered is how cheap it became to change.',
+            variant: 'bleed',
+            aspect: '16 / 9',
+          },
+        },
+        {
+          kicker: 'What surprised me',
+          body: [
+            'Easy Mode was used far less than I expected. People didn’t go looking for it. When a coordinator or a family member turned it on for them, they kept it on and were glad of it, but almost nobody found it alone.',
+            'I had designed accessibility as a setting. It turned out to be a handoff. Moving it into onboarding, where someone else is already in the room, is the next piece of work.',
           ],
         },
         {
-          objective: 'Built to scale',
-          points: [
-            'Shipped a microservices back-end with real-time API connections to major EDC systems',
-            'Added a questionnaire builder so sponsors could stand up a new PRO module in under 24 hours',
-          ],
+          kicker: 'What it meant',
+          body: 'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
         },
-      ],
-      launch: [
-        {
-          phase: 'MVP',
-          tag: 'One client',
-          body: 'Shipped to one dedicated client to confirm the need was real. Since the need came from a direct client request, this stage felt redundant, a candid lesson that skipping it could have saved time.',
-          feedback: 'In-flow micro-surveys and a report-a-bug option',
-        },
-        {
-          phase: 'Beta',
-          tag: 'Three therapeutic areas',
-          body: 'Widened to three clients across therapeutic areas. This is where the product got resilient: it uncovered edge cases we had not anticipated.',
-          feedback: 'Tagged micro-surveys, an embedded widget, and user-panel testing',
-        },
-        {
-          phase: 'GA',
-          tag: 'General availability',
-          body: 'Launched publicly at 80% client satisfaction, with continuous monitoring so we could respond to real usage quickly.',
-          feedback: 'Randomized thumbs-up / thumbs-down ratings on every rollout',
-        },
-      ],
-      learnings: [
-        'On a project this complex, clear communication mattered more than I expected. Small misreadings were expensive to fix later.',
-        'Prioritization and trade-offs were not optional. They were how the team actually met the deadline.',
-        'Designing for accessibility from the start made the product better for everyone, not only for users with disabilities.',
       ],
     },
   },

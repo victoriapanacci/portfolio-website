@@ -1162,6 +1162,46 @@ main {
   border-radius: var(--radius-sm);
   background: var(--ink-2);
 }
+/* Phone: one portrait screen, centred at phone width. */
+.media--phone .media__frame {
+  width: min(100%, 360px);
+  margin: 0 auto;
+  padding: 0;
+  background: var(--fill-soft);
+}
+.media--phone .media__img {
+  border-radius: calc(var(--radius-md) - 1px);
+  box-shadow: none;
+}
+.media--phone .media__label,
+.media--phone .media__caption {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Placeholder: a dashed frame holding the note for the artifact to come. */
+.media__frame--placeholder {
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 40px);
+  border-style: dashed;
+  border-color: var(--rose-40);
+  background: var(--rose-6);
+  box-shadow: none;
+}
+.media__placeholder {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+  max-width: 420px;
+}
+.media__placeholder .label {
+  color: var(--rose);
+}
+.media__placeholder .caption {
+  color: var(--text);
+}
 /* Several small artifacts side by side under one caption. */
 .media-grid {
   margin: var(--gap-lg) 0 0;
@@ -1292,6 +1332,57 @@ main {
   margin-top: 14px;
 }
 .cs-rich > h3 + :not(:first-child) {
+  margin-top: 0;
+}
+
+/* Rich prose: small subheadings and pull quotes inside a story section */
+.cs-rich > .cs-rich__sub {
+  margin-top: 36px;
+  margin-bottom: 14px;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-subheading);
+  line-height: 1.2;
+  color: var(--text-strong);
+}
+.cs-rich > .cs-rich__quote {
+  margin: 24px 0 0;
+  padding-left: 22px;
+  border-left: 2px solid var(--rose);
+  font-family: var(--font-serif);
+  font-size: var(--text-pull);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--text-strong);
+}
+.cs-rich > .cs-rich__quote + :not(:first-child) {
+  margin-top: 24px;
+}
+
+/* Story: free-form sections, prose stacked over media or beside it */
+.cs-story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap-md);
+}
+.cs-story__body {
+  margin-bottom: 0;
+}
+.cs-story__media .media,
+.cs-story__media .media-grid {
+  margin-top: var(--gap-md);
+}
+.cs-story--side .cs-story__grid {
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: var(--gap-lg);
+  align-items: start;
+}
+.cs-story--side .cs-story__copy {
+  position: sticky;
+  top: 96px;
+}
+.cs-story--side .cs-story__media .media,
+.cs-story--side .cs-story__media .media-grid {
   margin-top: 0;
 }
 
@@ -2109,6 +2200,13 @@ main {
     padding: 40px 0;
   }
   .cs-decision__copy {
+    position: static;
+  }
+  .cs-story--side .cs-story__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .cs-story--side .cs-story__copy {
     position: static;
   }
   .media-grid__items {
