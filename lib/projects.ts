@@ -224,7 +224,7 @@ export const projects: Project[] = [
       heroLayout: 'stacked',
       heroMedia: {
         src: '/work/epro/hero.webp',
-        alt: 'Three screens of the rebuilt ePRO app fanned on a grey surface: the last question asking “Anything else your care team should know?” with a typed note, the home screen greeting Maria with a week strip and an Evening diary card, and a submitted evening diary listing her answers.',
+        alt: 'Three screens of the rebuilt ePRO app fanned on a grey surface: the last of three questions asking “Anything else your care team should know?” with a saved note and a Review answers button, the home screen greeting Maria with an Evening diary card and study progress, and a submitted evening diary listing her answers.',
         variant: 'bleed',
       },
       // Visual 1 is still a placeholder: set its `src` to the finished
