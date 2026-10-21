@@ -1442,7 +1442,17 @@ main {
 .cs-story__media .media-grid + .media {
   margin-top: var(--gap-lg);
 }
-/* Full-field media: the label in the margin column, the caption on the text axis. */
+/* In a story the label above a frame is a plain sentence on the text axis, not a tag. */
+.cs-story__media .media__label {
+  font-size: var(--text-small);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 760px;
+  margin-bottom: 20px;
+}
+/* Full-field media: label and caption on the text axis, the frame across the field. */
 .cs-story__media .media:not(.media--phone),
 .cs-story__media .media--proto {
   display: grid;
@@ -1450,10 +1460,13 @@ main {
   column-gap: var(--gap-md);
 }
 .cs-story__media .media:not(.media--phone) .media__label {
-  grid-column: 1 / 4;
+  grid-column: 4 / 11;
 }
 .cs-story__media .media:not(.media--phone) .media__frame {
   grid-column: 1 / -1;
+}
+.cs-story__media .media--span-text:not(.media--phone) .media__frame {
+  grid-column: 4 / 11;
 }
 .cs-story__media .media:not(.media--phone) .media__caption {
   grid-column: 4 / 11;
@@ -2319,6 +2332,7 @@ main {
   }
   .cs-story__media .media:not(.media--phone) .media__label,
   .cs-story__media .media:not(.media--phone) .media__caption,
+  .cs-story__media .media--span-text:not(.media--phone) .media__frame,
   .cs-story__media .media--proto:not(.media--phone) .media__frame {
     grid-column: 1 / -1;
   }
