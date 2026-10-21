@@ -319,7 +319,7 @@ export const projects: Project[] = [
           body: 'Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
           media: {
             src: '/work/epro/easy-mode.webp',
-            alt: 'The same single-select question side by side: the standard view on the left, and Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and an added “Speak your answer” button under Next.',
+            alt: 'A single-select question in the standard view on the left, the Display and reading settings card in the middle with the Easy mode and Read questions aloud switches, and the same question in Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and a “Speak your answer” button under Next.',
             eyebrow: 'Visual 4: Standard beside Easy Mode',
             caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
             variant: 'bleed',
