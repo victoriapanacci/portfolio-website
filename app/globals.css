@@ -1184,10 +1184,15 @@ main {
 }
 .cs-hero {
   display: grid;
-  grid-template-columns: 6fr 5fr;
+  /* minmax(0, …) so a column can shrink below its content's intrinsic width;
+     plain `Nfr` is minmax(auto, Nfr) and lets the art push the copy off-screen. */
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   gap: 64px;
   align-items: center;
   padding: 40px 0 64px;
+}
+.cs-hero > * {
+  min-width: 0;
 }
 .cs-title {
   font-family: var(--font-serif);
@@ -1207,7 +1212,7 @@ main {
 }
 /* Stacked hero: copy and meta side by side on top, artifact full width beneath */
 .cs-hero--stacked {
-  grid-template-columns: 7fr 4fr;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
   column-gap: 64px;
   row-gap: 56px;
   align-items: start;
@@ -1231,6 +1236,11 @@ main {
   border-top: 1px solid var(--line);
 }
 .cs-hero__art .project-art {
+  /* The hero sizes the art itself (full column width, fixed height), so drop
+     the card's 3:2 ratio: with a fixed height it would otherwise give the art
+     a 660px intrinsic width that the grid track cannot shrink below. */
+  aspect-ratio: auto;
+  width: 100%;
   height: 440px;
   margin: 0;
   border: 1px solid var(--line);
@@ -2067,12 +2077,12 @@ main {
 
   /* Case study */
   .cs-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
     padding-bottom: 48px;
   }
   .cs-hero--stacked {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 40px;
     align-items: start;
   }
