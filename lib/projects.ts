@@ -217,90 +217,112 @@ export const projects: Project[] = [
     },
     caseStudy: {
       summary:
-        'A native iOS rebuild of the questionnaire app study participants used to tell us how they felt each day. Most of them were over 60, and the old tool kept getting in the way.',
+        'As the designer and product manager at DribbleCollect* on the ePRO team, the old app\'s build infrastructure and UI caused ePRO diary completion to be extremely low. I was tasked with building a new tool to ease the completion burden when most users are 60+ and have low tech literacy.',
       meta: [
-        { label: 'Role', value: 'Sole product designer, Axiom Real-Time Metrics' },
+        { label: 'Role', value: 'Sole product designer, DribbleCollect*' },
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         { label: 'Result', value: 'Completion 40% to 80%. Success rate 60% to 95%.' },
       ],
       heroLayout: 'stacked',
       heroMedia: {
-        src: '/work/epro/hero.webp',
-        alt: 'Three screens of the rebuilt ePRO app fanned on a grey surface: the last of three questions asking “Anything else your care team should know?” with a saved note and a Review answers button, the home screen greeting Maria with an Evening diary card and study progress, and a submitted evening diary listing her answers.',
+        src: '/work/epro/hero-hands.webp',
+        alt: 'A clinician in a white coat with a stethoscope holds a phone in both hands.',
         variant: 'bleed',
       },
-      // Visual 1 is still a placeholder: set its `src` to the finished
-      // artifact under /public and rewrite its `alt` to describe the image.
       story: [
         {
           kicker: 'The problem',
           body: [
-            'Every training session ended the same way. I’d walk a room of study participants through the questionnaire on their study iPhones, and the same hands went up at the same screens.',
-            '> Which side is high? Did that save? Where do I go now?',
-            'Most of them were over 60. All of them were trying to tell us how they felt that day. The tool kept getting in the way.',
-            '## What it was costing',
-            '- 4 in 10 participants finished a questionnaire',
-            '- 6 in 10 of those finished without an error',
-            '- Every missing answer was a gap in evidence a sponsor was paying millions to collect',
-            '## Why nobody had fixed it',
-            '- The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
-            '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
-            '- At that price, design lost every argument',
-            'None of these numbers existed when I started. There was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
+            'Every training session I ran ended the same way. I’d walk a room of study participants, and study monitors through the questionnaire on their study iPhones. It was not coincidental that the same questions were repeated:',
+            '> Where do I press? Is 10 good or bad? Did that save? Where do I go now?',
+            'When you have a user group that is both not using a tool of their own volition (this is something that clinical trial participants are told by the study to use to track their data) and low tech literacy, any friction will cut off the chance to complete the task.',
           ],
           media: [
             {
-              src: '/work/epro/legacy-app.webp',
-              alt: 'Three screens of the legacy Axiom eDiary app: a welcome card for the ACME201 study over a purple gradient, a “Did this event just occur?” dialog with typed date and time fields and red Cancel and blue Next buttons, and a Confirm Entry Summary table.',
+              src: '/work/epro/before-after-summary.webp',
+              alt: 'Before and after of the entry summary. Before: the legacy Confirm Entry Summary screen, a plain two-column list of questions and answers with small Ok and Cancel links in the corner. After: the rebuilt Your evening diary review, marked Submitted 7:30 pm and editable until 7:30 pm tomorrow, with answers grouped under How you feel and symptom rings for pain, nausea and overall.',
               caption: 'These are real images of the before that were pitched and sold to clients. The UI functioned in a way that it wasn’t able to scrape data and everything had to be manually entered. On single screens, at the summary page, the complete button was lost.',
-              span: 'text',
               variant: 'bleed',
             },
+          ],
+        },
+        {
+          kicker: 'What it was costing',
+          body: [
+            '- ~20% of participants actually run their study to full diary completion',
+            '- Of started diaries, completion rate is around 60%',
+            '- Error rate for completed entries is ~30%',
+            '## Why nobody had fixed it',
+            '- On the technical side: The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
+            '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
+            '- On the business side: There was no visibility of where the deficiencies were and often the product got lumped as a whole as being "bad" which fundamentally isn\'t true',
+            '- Any time it was pitched to make a big change, leadership was not willing to entertain the investment because they did not understand the deficiency',
+            'My first and biggest task was drawing visibility to all of the above concerns. None of these numbers existed when I started- there was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
+          ],
+          media: [
             {
-              src: '',
-              alt: 'Visual 1: a simple table or graphic of the six baseline numbers.',
+              src: '/work/epro/baseline-numbers.webp',
+              alt: 'Four baseline number cards: 4 in 10 participants finished a questionnaire; 6 in 10 of those finished without an error; about 15 hours of engineering per new question type; plus 2 hours of validation on top of each one.',
               caption: 'Every one of these numbers was counted manually. That was the first finding.',
               variant: 'bleed',
-              aspect: '16 / 9',
             },
           ],
         },
         {
           kicker: 'Who I was and what I did',
-          body: 'I was the only designer at the company, and I was also the person training participants on the app I wanted to replace. That second role is why I trusted the 40%.',
-        },
-        {
-          kicker: 'Decision 1',
-          heading: 'Build seven things, not thirty',
           body: [
-            'This was never going to be the study. It was the thing that asks the questions. So the scope was:',
-            '- Progress bar for all entries',
-            '- Clear prompt to start a questionnaire',
-            '- Notifications',
-            '- A way to reach support',
-            '- One linear path through each questionnaire, with status along the way',
-            '- Review screen for completed entries',
-            '- Settings for accessibility and troubleshooting',
-            'Sponsors wanted more. The recurring ask was in-app messaging with the study coordinator. I got a group of coordinators on a call and asked them. Immediate no: every message in the app was one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
+            'I was the only person on a team of 12 product managers at the company that had a design and user experience background. I was also the person at the company responsible for training users on the app I wanted to replace. That second role is why I trusted the 40%.',
           ],
         },
         {
-          kicker: 'Decision 2',
-          heading: 'Keep the brand, rebuild the components',
-          body: 'The colours were legacy and stayed. The components were where the work happened. I built them first to find the feel of the app before drawing a single full screen.',
-          layout: 'side',
-          media: {
-            src: '/work/epro/single-select-standard.webp',
-            alt: 'A single-select question in the standard view: “How much pain do you feel overall?” above five numbered options, with “3, Somewhat” selected in navy and a Next button at the bottom.',
-            caption: 'Single select allows for one selection and one answer. At every point in the entry, you know what question you’re at with a status bar, and you know if you’re ready to proceed to the next stage. If you need to leave, you can go back, and if you want to turn on speech dictation, there’s always a microphone available.',
-            variant: 'phone',
-          },
+          kicker: 'Decision 1 · The frame for every decision',
+          heading: 'Five priorities',
+          body: [
+            'This project is the tool for executing already validated study documentation. For this to work, the following should be executed at a minimum (scope reference):',
+            '- Make daily completion effortless: One tap in, as quick as possible. One question per screen and big targets for cognitive overload',
+            '- Respect the instrument: Faithfully design around existing questionnaires, no paraphrasing or changing documentation',
+            '- Design for compliance: Gentle diary reminders, clear open and closed windows if time bound, done states, offline sync',
+            '- Build trust and transparency: Say what is collected and who sees it, calm acknowledgement, no gamification',
+            '- Embed invisible requirements: Audit trail and timestamps, translations, and strong coordinator tooling suite (not included in this case study)',
+            'Sponsors wanted more. The recurring ask was in-app messaging with the study coordinator. I got a group of coordinators on a call and asked them. Immediate no: every message in the app was one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
+            'Every decision that follows traces back to one of these priorities.',
+          ],
         },
         {
-          kicker: 'Decision 3',
-          heading: 'Test the pain scale instead of trusting my eye',
+          kicker: 'Decision 2 · Priority 1 · Make daily completion effortless',
+          heading: 'Keep the brand, rebuild the components',
           body: [
-            'The pain scale was the hardest component and the one that taught me the most. I built four versions and put them in front of about 20 people, half of them over 60.',
+            'Effortless completion lives in the components, so that’s where the work happened. The colours were legacy and stayed. Everything else was rebuilt around one question per screen, big targets that cut cognitive load, and a single obvious next step. I built the components first to find the feel of the app before drawing a single full screen.',
+          ],
+          media: [
+            {
+              src: '/work/epro/single-select-annotated.webp',
+              alt: 'The single-select question “How much pain do you feel overall?” with “3, Somewhat” selected, annotated: you can always go back; status and a microphone, always; one selection, one answer; visual completion indicators; and Next as the only primary action.',
+              caption: 'Single select allows for one selection and one answer. At every point in the entry, you know what question you’re at with a status bar, and you know if you’re ready to proceed to the next stage. If you need to leave, you can go back, and if you want to turn on speech dictation, there’s always a microphone available.',
+              variant: 'bleed',
+            },
+          ],
+        },
+        {
+          kicker: 'Decision 3 · Priority 1 · Make daily completion effortless',
+          heading: 'One switch instead of a settings menu',
+          body: [
+            'Effortless has to hold for every participant, not just the confident ones. Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
+          ],
+          media: [
+            {
+              src: '/work/epro/easy-mode-switch.webp',
+              alt: 'Easy Mode switched on: a question in Easy Mode with larger type, a “Pick one” hint, bigger option rows and a “Speak your answer” button, beside the Display and reading settings card with Easy mode on and Read questions aloud off.',
+              caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+              variant: 'bleed',
+            },
+          ],
+        },
+        {
+          kicker: 'Decision 4 · Priority 2 · Respect the instrument',
+          heading: 'Respect the scale, test the presentation',
+          body: [
+            'The questionnaire was validated before it reached me, so the words and the anchors couldn’t change. What I could change was how the scale sat on the screen. The pain scale was the hardest component and the one that taught me the most. I built four versions and put them in front of about 20 people, half of them over 60.',
             '## What I asked',
             '- What do you think you’re supposed to do here?',
             '- Where would you tap first?',
@@ -314,44 +336,51 @@ export const projects: Project[] = [
             '- So I asked sponsors and leadership which they liked. They picked the vertical list because it was more fun to use.',
             'Taste had no place in the decision to rebuild. Once the data said both options worked, taste was the only thing left to decide, and I let it.',
           ],
-          media: {
-            src: '/work/epro/pain-scale-variants.webp',
-            alt: 'Three phones showing the same question, “How much pain do you have right now?”, answered with 7, Quite a lot: a horizontal slider, a vertical list from Worst pain 10 down to No pain 1, and a grid of number buttons 1 to 10.',
-            caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
-            variant: 'bleed',
-          },
+          media: [
+            {
+              src: '/work/epro/pain-scale-results.webp',
+              alt: 'Three versions of “How much pain do you have right now?” answered with 7, Quite a lot: a slider labelled finished third, a vertical list from Worst pain 10 to No pain 1 labelled shipped, and a grid of number buttons labelled tied.',
+              caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
+              variant: 'bleed',
+            },
+          ],
         },
         {
-          kicker: 'Decision 4',
-          heading: 'One switch instead of a settings menu',
-          body: 'Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
-          media: {
-            src: '/work/epro/easy-mode.webp',
-            alt: 'A single-select question in the standard view on the left, the Display and reading settings card in the middle with the Easy mode and Read questions aloud switches, and the same question in Easy Mode on the right with larger type, a “Pick one” hint, bigger option rows, and a “Speak your answer” button under Next.',
-            caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
-            variant: 'bleed',
-          },
+          kicker: 'Decision 5 · Priority 3 · Design for compliance',
+          heading: 'Make the diary window impossible to miss',
+          body: [
+            'An entry only counts if it lands inside its window, so compliance had to be visible without nagging. Home leads with the diary that’s open right now and how far through the study you are. Tomorrow’s diary shows when it opens, with a gentle reminder already on.',
+            'When an entry is done, the app says so: submitted, timestamped, and editable until the same time the next day. Nobody has to wonder whether it counted.',
+          ],
+          media: [
+            {
+              src: '/work/epro/diary-window-and-done.webp',
+              alt: 'Two screens. Open now, and what’s next: the home screen greeting Maria with an Evening diary card and Start button, Day 23 of 84 in the SUNRISE Study, and tomorrow’s morning diary opening at 7:00 am with a reminder on. Done, with a timestamp: the evening diary marked Submitted 7:30 pm and editable until 7:30 pm tomorrow.',
+              caption: 'Clear open and closed windows, gentle reminders and a real done state.',
+              variant: 'bleed',
+            },
+          ],
         },
         {
-          // Draft copy: written from the prototype, to be replaced with the author's own.
-          kicker: 'Decision 5',
+          kicker: 'Decision 6 · Priority 4 · Build trust and transparency',
           heading: 'Let people say the answer',
           body: [
-            'Every question has a microphone in the header. Tap it and the app listens, then shows what it heard as a proposed answer with a dashed outline. Nothing is chosen until the person taps Stop listening, or taps a different answer instead.',
+            'Speaking is the easiest way in for many participants, but only if the app is open about what it heard. Every question has a microphone in the header. Tap it and the app listens, then shows what it heard as a proposed answer with a dashed outline. Nothing is chosen until the person taps Stop listening, or taps a different answer instead.',
             'In Easy Mode the same thing sits under every question as a Speak your answer button, so nobody has to find the icon.',
           ],
-          layout: 'side',
-          media: {
-            src: '/work/epro/voice-input.webp',
-            alt: 'A single-select question while listening: option 3, Somewhat, has a dashed outline, a card below reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, and a red Stop listening button sits at the bottom.',
-            caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
-            variant: 'phone',
-          },
+          media: [
+            {
+              src: '/work/epro/voice-input-detail.webp',
+              alt: 'A question while listening: option 3, Somewhat, has a dashed outline and a magnified card reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, above a red Stop listening button.',
+              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
+              variant: 'bleed',
+            },
+          ],
         },
         {
           kicker: 'The solution',
           body: [
-            'A SwiftUI app, built native because every participant was using a site-issued iPhone. It did seven things and nothing else.',
+            'A SwiftUI app, built native because every participant was using a site-issued iPhone. It did what the first four priorities asked, and nothing else.',
             '## What changed',
             '- Completion: 40% to roughly 80%',
             '- Success rate: 60% to about 95%',
