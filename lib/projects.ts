@@ -256,7 +256,7 @@ export const projects: Project[] = [
             '- On the technical side: The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
             '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
             '- On the business side: There was no visibility of where the deficiencies were and often the product got lumped as a whole as being "bad" which fundamentally isn\'t true',
-            '- Any time it was pitched to make a big change, leadership was not willing to entertain the investment because they',
+            '- Any time it was pitched to make a big change, leadership was not willing to entertain the investment because they did not understand the deficiency',
             'My first and biggest task was drawing visibility to all of the above concerns. None of these numbers existed when I started- there was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
           ],
           media: [
