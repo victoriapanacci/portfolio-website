@@ -1418,6 +1418,12 @@ main {
 .cs-story .kicker i {
   display: none;
 }
+/* Decision kickers name their priority, so they run long: let them wrap
+   in the column instead of running under the heading. */
+.cs-story .kicker span {
+  flex-shrink: 1;
+  min-width: 0;
+}
 .cs-story__copy {
   grid-column: 4 / 11;
   min-width: 0;
