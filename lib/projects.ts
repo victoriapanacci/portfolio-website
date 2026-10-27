@@ -94,7 +94,8 @@ export type CaseStudyStorySection = {
 
 export type CaseStudy = {
   summary: Prose
-  meta: { label: string; value: string }[]
+  /** Each item may carry a muted `note` rendered beneath its value, e.g. a footnote or how a result was measured. */
+  meta: { label: string; value: string; note?: string }[]
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
   /** Animated device mock-up in the hero. Takes precedence over heroMedia. */
@@ -217,11 +218,19 @@ export const projects: Project[] = [
     },
     caseStudy: {
       summary:
-        'As the designer and product manager at DribbleCollect* on the ePRO team, the old app\'s build infrastructure and UI caused ePRO diary completion to be extremely low. I was tasked with building a new tool to ease the completion burden when most users are 60+ and have low tech literacy.',
+        'A native iOS rebuild of the questionnaire app study participants used to tell us how they felt each day. Most of them were over 60, and the old tool kept getting in the way.',
       meta: [
-        { label: 'Role', value: 'Sole product designer, DribbleCollect*' },
+        {
+          label: 'Role',
+          value: 'Product Designer and Product Manager (sole designer), DribbleCollect*',
+          note: '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
+        },
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
-        { label: 'Result', value: 'Completion 40% to 80%. Success rate 60% to 95%.' },
+        {
+          label: 'Result',
+          value: 'Completion 40% to 80%. Success rate 60% to 95%.',
+          note: 'Before: counted by hand across live studies. After: event tracking in the new app, first on two studies with about 200 participants, then every client that migrated.',
+        },
       ],
       heroLayout: 'stacked',
       heroMedia: {
@@ -241,7 +250,7 @@ export const projects: Project[] = [
             {
               src: '/work/epro/before-after-summary.webp',
               alt: 'Before and after of the entry summary. Before: the legacy Confirm Entry Summary screen, a plain two-column list of questions and answers with small Ok and Cancel links in the corner. After: the rebuilt Your evening diary review, marked Submitted 7:30 pm and editable until 7:30 pm tomorrow, with answers grouped under How you feel and symptom rings for pain, nausea and overall.',
-              caption: 'These are real images of the before that were pitched and sold to clients. The UI functioned in a way that it wasn’t able to scrape data and everything had to be manually entered. On single screens, at the summary page, the complete button was lost.',
+              caption: 'The entry summary, before and after. The legacy screen was pitched and sold to clients exactly like this. Nothing could be read from the database automatically, so every answer was typed in by hand, and the button that completed the entry was easy to lose on the summary screen.',
               variant: 'bleed',
             },
           ],
@@ -249,15 +258,16 @@ export const projects: Project[] = [
         {
           kicker: 'What it was costing',
           body: [
-            '- ~20% of participants actually run their study to full diary completion',
-            '- Of started diaries, completion rate is around 60%',
-            '- Error rate for completed entries is ~30%',
+            '- 4 in 10 participants finished a questionnaire',
+            '- 6 in 10 of those finished without an error',
+            '- Every missing answer was a gap in evidence a sponsor was paying millions to collect',
             '## Why nobody had fixed it',
             '- On the technical side: The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
             '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
             '- On the business side: There was no visibility of where the deficiencies were and often the product got lumped as a whole as being "bad" which fundamentally isn\'t true',
             '- Any time it was pitched to make a big change, leadership was not willing to entertain the investment because they did not understand the deficiency',
             'My first and biggest task was drawing visibility to all of the above concerns. None of these numbers existed when I started- there was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
+            'There was a second cost on top of the hours. Every change to the app, down to a single new question type, had to pass a separate validation team before it could touch a live study. That’s where the 15-plus-2 came from, and why a small design request could lose to almost anything. The rebuild was modular on purpose. A new question type now reused components that had already been validated instead of triggering a review from scratch. That’s where ten hours came back, and why design started winning.',
           ],
           media: [
             {
@@ -278,12 +288,12 @@ export const projects: Project[] = [
           kicker: 'Decision 1 · The frame for every decision',
           heading: 'Five priorities',
           body: [
-            'This project is the tool for executing already validated study documentation. For this to work, the following should be executed at a minimum (scope reference):',
-            '- Make daily completion effortless: One tap in, as quick as possible. One question per screen and big targets for cognitive overload',
+            'This project is the tool for executing already validated study documentation. For this to work, the following should be executed at a minimum:',
+            '- Make daily completion effortless: One tap in, as quick as possible. One question per screen and big targets to reduce cognitive load',
             '- Respect the instrument: Faithfully design around existing questionnaires, no paraphrasing or changing documentation',
             '- Design for compliance: Gentle diary reminders, clear open and closed windows if time bound, done states, offline sync',
             '- Build trust and transparency: Say what is collected and who sees it, calm acknowledgement, no gamification',
-            '- Embed invisible requirements: Audit trail and timestamps, translations, and strong coordinator tooling suite (not included in this case study)',
+            '- Embed invisible requirements: Audit trail and timestamps, translations, and strong coordinator tooling suite (out of scope for this case study)',
             'Sponsors wanted more. The recurring ask was in-app messaging with the study coordinator. I got a group of coordinators on a call and asked them. Immediate no: every message in the app was one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
             'Every decision that follows traces back to one of these priorities.',
           ],
@@ -293,6 +303,7 @@ export const projects: Project[] = [
           heading: 'Keep the brand, rebuild the components',
           body: [
             'Effortless completion lives in the components, so that’s where the work happened. The colours were legacy and stayed. Everything else was rebuilt around one question per screen, big targets that cut cognitive load, and a single obvious next step. I built the components first to find the feel of the app before drawing a single full screen.',
+            'I considered a full visual refresh and rejected it. New colours meant a brand review with every live sponsor and a second round of training for participants who had just learned the old look. The components were where the completion problem lived, so the budget went there. The cost was shipping with a palette I didn’t love. I’d make the same call.',
           ],
           media: [
             {
@@ -313,7 +324,7 @@ export const projects: Project[] = [
             {
               src: '/work/epro/easy-mode-switch.webp',
               alt: 'Easy Mode switched on: a question in Easy Mode with larger type, a “Pick one” hint, bigger option rows and a “Speak your answer” button, beside the Display and reading settings card with Easy mode on and Read questions aloud off.',
-              caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it.',
+              caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it. The alternative was a standard settings menu: text size, contrast, reduce motion, each its own control. More flexible, and nobody over 60 was going to find any of it. Easy Mode cost one toggle and a second set of component states. What I’d change is where it lives, and that’s at the end of this page.',
               variant: 'bleed',
             },
           ],
@@ -356,7 +367,7 @@ export const projects: Project[] = [
             {
               src: '/work/epro/diary-window-and-done.webp',
               alt: 'Two screens. Open now, and what’s next: the home screen greeting Maria with an Evening diary card and Start button, Day 23 of 84 in the SUNRISE Study, and tomorrow’s morning diary opening at 7:00 am with a reminder on. Done, with a timestamp: the evening diary marked Submitted 7:30 pm and editable until 7:30 pm tomorrow.',
-              caption: 'Clear open and closed windows, gentle reminders and a real done state.',
+              caption: 'Clear open and closed windows, gentle reminders and a real done state. I rejected two things sponsors asked for: escalating reminders that get louder the longer you wait, and a hard lock when a window closes. Both would have raised compliance on paper by annoying people into quitting. One reminder, a visible window, and a done state that says exactly when it counted. If I did it again I’d test the reminder timing by study rather than default to one schedule.',
               variant: 'bleed',
             },
           ],
@@ -372,9 +383,18 @@ export const projects: Project[] = [
             {
               src: '/work/epro/voice-input-detail.webp',
               alt: 'A question while listening: option 3, Somewhat, has a dashed outline and a magnified card reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, above a red Stop listening button.',
-              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer.',
+              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer. The faster version was to select whatever the app heard and move on. It tested well with confident users and badly with everyone else, because a wrong answer in a clinical diary is worse than a slow one. Confirm-before-act cost one more screen state. Hindsight: the dashed outline was subtle for some participants. A stronger highlight would have been cheap.',
               variant: 'bleed',
             },
+          ],
+        },
+        {
+          kicker: 'Decision 7 · Priority 3 · Design for compliance',
+          heading: 'Run two systems rather than force a cutover',
+          body: [
+            'Not every client migrated. Studies closing within the year had already trained their participants, and a retraining cycle would have cost them more than the new app could return before close-out. The project teams were right about that.',
+            'I proposed the parallel run as the compromise, and leadership backed it. The cost was real: two systems to maintain, two training tracks, and validation on both for about a year. The alternative was disrupting evidence already being collected to make a migration chart look clean.',
+            'In hindsight I’d have set a migration cut-off at the contract level, so the choice got made at signing instead of mid-study.',
           ],
         },
         {
@@ -405,7 +425,10 @@ export const projects: Project[] = [
         },
         {
           kicker: 'What it meant',
-          body: 'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
+          body: [
+            'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
+            'For sponsors, it meant hundreds fewer data queries at database lock, and the hours of chasing that went with them. The exact number varied a lot from study to study. For the company, it meant the app went from the slide we skipped in demos to the one we led with, and support tickets fell by more than half. For the roadmap, a new question type stopped being a negotiation.',
+          ],
         },
       ],
     },

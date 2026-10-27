@@ -29,13 +29,14 @@ function Kicker({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Meta({ items }: { items: { label: string; value: string }[] }) {
+function Meta({ items }: { items: { label: string; value: string; note?: string }[] }) {
   return (
     <>
       {items.map((m) => (
         <div key={m.label} className="cs-meta__item">
           <dt className="label">{m.label}</dt>
           <dd>{m.value}</dd>
+          {m.note ? <dd className="cs-meta__note">{m.note}</dd> : null}
         </div>
       ))}
     </>
