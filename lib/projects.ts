@@ -386,7 +386,7 @@ export const projects: Project[] = [
             {
               src: '/work/epro/voice-input-detail.webp',
               alt: 'A question while listening: option 3, Somewhat, has a dashed outline and a magnified card reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, above a red Stop listening button.',
-              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer. The faster version was to select whatever the app heard and move on. It tested well with confident users and badly with everyone else, because a wrong answer in a clinical diary is worse than a slow one. Confirm-before-act cost [X] extra engineering hours and one more screen state. Hindsight: the dashed outline was subtle for some participants. A stronger highlight would have been cheap.',
+              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer. The faster version was to select whatever the app heard and move on. It tested well with confident users and badly with everyone else, because a wrong answer in a clinical diary is worse than a slow one. Confirm-before-act cost one more screen state. Hindsight: the dashed outline was subtle for some participants. A stronger highlight would have been cheap.',
               variant: 'bleed',
             },
           ],
@@ -396,7 +396,7 @@ export const projects: Project[] = [
           heading: 'Run two systems rather than force a cutover',
           body: [
             'Not every client migrated. Studies closing within the year had already trained their participants, and a retraining cycle would have cost them more than the new app could return before close-out. The project teams were right about that.',
-            'I proposed the parallel run as the compromise, and leadership backed it. The cost was real: two systems to maintain, two training tracks, and validation on both for about [N months]. The alternative was disrupting evidence already being collected to make a migration chart look clean.',
+            'I proposed the parallel run as the compromise, and leadership backed it. The cost was real: two systems to maintain, two training tracks, and validation on both for about a year. The alternative was disrupting evidence already being collected to make a migration chart look clean.',
             'In hindsight I’d have set a migration cut-off at the contract level, so the choice got made at signing instead of mid-study.',
           ],
         },
