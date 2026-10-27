@@ -29,17 +29,24 @@ function Kicker({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Meta({ items }: { items: { label: string; value: string }[] }) {
+function Meta({ items }: { items: { label: string; value: string; note?: string }[] }) {
   return (
     <>
       {items.map((m) => (
         <div key={m.label} className="cs-meta__item">
           <dt className="label">{m.label}</dt>
           <dd>{m.value}</dd>
+          {m.note ? <dd className="cs-meta__note">{m.note}</dd> : null}
         </div>
       ))}
     </>
   )
+}
+
+/** Muted footnote beneath the meta block, e.g. an NDA disclaimer. */
+function MetaNote({ note }: { note?: string }) {
+  if (!note) return null
+  return <p className="cs-meta__footnote caption">{note}</p>
 }
 
 export function CaseStudy({ project }: { project: Project }) {
@@ -158,8 +165,11 @@ export function CaseStudy({ project }: { project: Project }) {
           </Reveal>
         </div>
         {stacked ? (
-          <Reveal as="dl" className="cs-meta cs-hero__meta" immediate delay={0.65}>
-            <Meta items={cs.meta} />
+          <Reveal className="cs-hero__meta" immediate delay={0.65}>
+            <dl className="cs-meta">
+              <Meta items={cs.meta} />
+            </dl>
+            <MetaNote note={cs.metaNote} />
           </Reveal>
         ) : null}
         <Reveal className="cs-hero__art" immediate delay={0.35}>
@@ -179,6 +189,7 @@ export function CaseStudy({ project }: { project: Project }) {
           <dl className={`cs-meta${cs.story ? ' cs-meta--open' : ''}`}>
             <Meta items={cs.meta} />
           </dl>
+          <MetaNote note={cs.metaNote} />
         </div>
       )}
 
