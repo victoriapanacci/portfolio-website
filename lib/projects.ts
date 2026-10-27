@@ -77,6 +77,20 @@ export type CaseStudyPrototype = {
 export type Prose = string | string[]
 
 /**
+ * One decision as a repeated four-beat card: what I chose, what I rejected,
+ * what it cost, and what I'd do now. Give it an `image` to show the
+ * artifact beside the lines.
+ */
+export type CaseStudyDecision = {
+  title: string
+  image?: { src: string; alt: string }
+  chose: string
+  rejected: string
+  cost: string
+  now: string
+}
+
+/**
  * One section of a free-form narrative: a kicker, an optional heading, prose
  * (with "## " subheadings, "- " bullets and "> " pull quotes) and the
  * artifact(s) that belong with it.
@@ -84,7 +98,10 @@ export type Prose = string | string[]
 export type CaseStudyStorySection = {
   kicker: string
   heading?: string
-  body: Prose
+  /** Omit when the section is only its decisions. */
+  body?: Prose
+  /** Decision cards shown after the prose, before `prototype` and `media`. */
+  decisions?: CaseStudyDecision[]
   media?: CaseStudyMediaItem | CaseStudyMediaItem[]
   /** Interactive prototype shown after the prose, before `media`. */
   prototype?: CaseStudyPrototype
@@ -218,17 +235,18 @@ export const projects: Project[] = [
     },
     caseStudy: {
       summary:
-        'A native iOS rebuild of the questionnaire app study participants used to tell us how they felt each day. Most of them were over 60, and the old tool kept getting in the way.',
+        'Four in ten participants finished the daily questionnaire. Nobody knew that, because nobody had counted. I counted, and then I rebuilt the app.',
       meta: [
         {
           label: 'Role',
-          value: 'Product Designer and Product Manager (sole designer), DribbleCollect*',
+          value:
+            'Product Designer and Product Manager. Sole designer on a team of 12 PMs; also ran participant training. DribbleCollect*',
           note: '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
         },
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         {
           label: 'Result',
-          value: 'Completion 40% to 80%. Success rate 60% to 95%.',
+          value: 'Completion 40% → 80%. Error-free entries 60% → 95%. Support tickets down by half.',
           note: 'Before: counted by hand across live studies. After: event tracking in the new app, first on two studies with about 200 participants, then every client that migrated.',
         },
       ],
@@ -242,9 +260,9 @@ export const projects: Project[] = [
         {
           kicker: 'The problem',
           body: [
-            'Every training session I ran ended the same way. I’d walk a room of study participants, and study monitors through the questionnaire on their study iPhones. It was not coincidental that the same questions were repeated:',
+            'Every training session I ran ended the same way.',
             '> Where do I press? Is 10 good or bad? Did that save? Where do I go now?',
-            'When you have a user group that is both not using a tool of their own volition (this is something that clinical trial participants are told by the study to use to track their data) and low tech literacy, any friction will cut off the chance to complete the task.',
+            'These were people over 60, using a tool a study told them to use, on a phone the site handed them. Every bit of friction was a missing data point.',
           ],
           media: [
             {
@@ -256,18 +274,11 @@ export const projects: Project[] = [
           ],
         },
         {
-          kicker: 'What it was costing',
+          kicker: 'The number nobody had',
           body: [
-            '- 4 in 10 participants finished a questionnaire',
-            '- 6 in 10 of those finished without an error',
-            '- Every missing answer was a gap in evidence a sponsor was paying millions to collect',
-            '## Why nobody had fixed it',
-            '- On the technical side: The app was a Webflow wrapper on a legacy database the engineers called “the scrolls”: millions of lines of old code that live studies depended on',
-            '- One new question type cost about 15 engineering hours plus 2 hours of validation, with no backlog in the way',
-            '- On the business side: There was no visibility of where the deficiencies were and often the product got lumped as a whole as being "bad" which fundamentally isn\'t true',
-            '- Any time it was pitched to make a big change, leadership was not willing to entertain the investment because they did not understand the deficiency',
-            'My first and biggest task was drawing visibility to all of the above concerns. None of these numbers existed when I started- there was no analytics tooling, so I pulled them by hand, one study at a time. A pitch built on taste would die in the room. The pitch that got approved was built on hours.',
-            'There was a second cost on top of the hours. Every change to the app, down to a single new question type, had to pass a separate validation team before it could touch a live study. That’s where the 15-plus-2 came from, and why a small design request could lose to almost anything. The rebuild was modular on purpose. A new question type now reused components that had already been validated instead of triggering a review from scratch. That’s where ten hours came back, and why design started winning.',
+            '- There was no analytics tooling. I pulled the numbers by hand, one live study at a time.',
+            '- The app was a web wrapper on a legacy database engineers called “the scrolls.” One new question type: 15 engineering hours plus 2 of validation.',
+            '- Leadership had heard “the app is bad” for years. They’d never heard “the app costs 17 hours per question.” A pitch built on taste would have died in the room. This one was built on hours.',
           ],
           media: [
             {
@@ -279,133 +290,69 @@ export const projects: Project[] = [
           ],
         },
         {
-          kicker: 'Who I was and what I did',
+          kicker: 'The rules',
+          heading:
+            'Effortless daily completion · Respect the validated instrument · Visible compliance, no nagging · Trust over speed',
           body: [
-            'I was the only person on a team of 12 product managers at the company that had a design and user experience background. I was also the person at the company responsible for training users on the app I wanted to replace. That second role is why I trusted the 40%.',
+            'The colours stayed because a palette change meant a brand review with every live sponsor and retraining people who had just learned the old look. The budget went to components, where the completion problem lived. I’d make the same call.',
+            '> Sponsors kept asking for in-app messaging with coordinators. I asked the coordinators. Immediate no: one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
           ],
         },
         {
-          kicker: 'Decision 1 · The frame for every decision',
-          heading: 'Five priorities',
-          body: [
-            'This project is the tool for executing already validated study documentation. For this to work, the following should be executed at a minimum:',
-            '- Make daily completion effortless: One tap in, as quick as possible. One question per screen and big targets to reduce cognitive load',
-            '- Respect the instrument: Faithfully design around existing questionnaires, no paraphrasing or changing documentation',
-            '- Design for compliance: Gentle diary reminders, clear open and closed windows if time bound, done states, offline sync',
-            '- Build trust and transparency: Say what is collected and who sees it, calm acknowledgement, no gamification',
-            '- Embed invisible requirements: Audit trail and timestamps, translations, and strong coordinator tooling suite (out of scope for this case study)',
-            'Sponsors wanted more. The recurring ask was in-app messaging with the study coordinator. I got a group of coordinators on a call and asked them. Immediate no: every message in the app was one more inbox on a job that already had too many. The sponsor saw a feature. The coordinators saw their evening. I sided with the coordinators.',
-            'Every decision that follows traces back to one of these priorities.',
-          ],
-        },
-        {
-          kicker: 'Decision 2 · Priority 1 · Make daily completion effortless',
-          heading: 'Keep the brand, rebuild the components',
-          body: [
-            'Effortless completion lives in the components, so that’s where the work happened. The colours were legacy and stayed. Everything else was rebuilt around one question per screen, big targets that cut cognitive load, and a single obvious next step. I built the components first to find the feel of the app before drawing a single full screen.',
-            'I considered a full visual refresh and rejected it. New colours meant a brand review with every live sponsor and a second round of training for participants who had just learned the old look. The components were where the completion problem lived, so the budget went there. The cost was shipping with a palette I didn’t love. I’d make the same call.',
-          ],
-          media: [
+          kicker: 'Four decisions',
+          decisions: [
             {
-              src: '/work/epro/single-select-annotated.webp',
-              alt: 'The single-select question “How much pain do you feel overall?” with “3, Somewhat” selected, annotated: you can always go back; status and a microphone, always; one selection, one answer; visual completion indicators; and Next as the only primary action.',
-              caption: 'Single select allows for one selection and one answer. At every point in the entry, you know what question you’re at with a status bar, and you know if you’re ready to proceed to the next stage. If you need to leave, you can go back, and if you want to turn on speech dictation, there’s always a microphone available.',
-              variant: 'bleed',
+              title: 'The pain scale',
+              image: {
+                src: '/work/epro/pain-scale-results.webp',
+                alt: 'Three versions of “How much pain do you have right now?” answered with 7, Quite a lot: a slider labelled finished third, a vertical list from Worst pain 10 to No pain 1 labelled shipped, and a grid of number buttons labelled tied.',
+              },
+              chose: 'A vertical list of numbers.',
+              rejected:
+                'The slider I walked in expecting to pick. Smallest target on the screen, most ways to overshoot it. Finished third with 20 testers, half over 60.',
+              cost: 'Two weeks of live data on the two finalists, which produced a tie. Leadership broke it on taste. Once the data said both worked, taste was the only thing left.',
+              now: 'I’d make the same call.',
+            },
+            {
+              title: 'The diary window',
+              image: {
+                src: '/work/epro/diary-window-and-done.webp',
+                alt: 'Two screens. Open now, and what’s next: the home screen greeting Maria with an Evening diary card and Start button, Day 23 of 84 in the SUNRISE Study, and tomorrow’s morning diary opening at 7:00 am with a reminder on. Done, with a timestamp: the evening diary marked Submitted 7:30 pm and editable until 7:30 pm tomorrow.',
+              },
+              chose: 'One reminder, a visible open/closed window, a done state that says exactly when the entry counted.',
+              rejected:
+                'Escalating reminders and a hard lock at window close. Both sponsor asks. Both would have raised compliance on paper by annoying people into quitting.',
+              cost: 'A harder conversation with sponsors than a “yes.”',
+              now: 'Test reminder timing per study instead of one default schedule.',
+            },
+            {
+              title: 'Two systems for a year',
+              chose: 'Run old and new in parallel so studies closing within the year didn’t retrain mid-study.',
+              rejected: 'A forced cutover that made the migration chart look clean.',
+              cost: 'Two codebases, two training tracks, validation on both, for about a year.',
+              now: 'Set the migration cut-off in the contract, so the choice happens at signing.',
+            },
+            {
+              title: 'Easy Mode',
+              image: {
+                src: '/work/epro/easy-mode-switch.webp',
+                alt: 'Easy Mode switched on: a question in Easy Mode with larger type, a “Pick one” hint, bigger option rows and a “Speak your answer” button, beside the Display and reading settings card with Easy mode on and Read questions aloud off.',
+              },
+              chose: 'One switch that turns on high contrast and larger text together.',
+              rejected:
+                'A settings menu of contrast, text size, reduce motion. More flexible, and nobody over 60 was going to find it.',
+              cost: 'A second set of component states.',
+              now: 'Almost nobody found the switch alone. When a coordinator or family member turned it on, they kept it. I’d designed accessibility as a setting; it turned out to be a handoff. It belongs in onboarding.',
             },
           ],
         },
         {
-          kicker: 'Decision 3 · Priority 1 · Make daily completion effortless',
-          heading: 'One switch instead of a settings menu',
+          kicker: 'What changed',
           body: [
-            'Effortless has to hold for every participant, not just the confident ones. Research before this project had already told us who our participants were. I didn’t want a menu full of terms like contrast ratio. Easy Mode is one toggle that turns on high contrast and larger text together.',
-          ],
-          media: [
-            {
-              src: '/work/epro/easy-mode-switch.webp',
-              alt: 'Easy Mode switched on: a question in Easy Mode with larger type, a “Pick one” hint, bigger option rows and a “Speak your answer” button, beside the Display and reading settings card with Easy mode on and Read questions aloud off.',
-              caption: 'One switch, two changes. Nobody should need to know the word “accessibility” to get it. The alternative was a standard settings menu: text size, contrast, reduce motion, each its own control. More flexible, and nobody over 60 was going to find any of it. Easy Mode cost one toggle and a second set of component states. What I’d change is where it lives, and that’s at the end of this page.',
-              variant: 'bleed',
-            },
-          ],
-        },
-        {
-          kicker: 'Decision 4 · Priority 2 · Respect the instrument',
-          heading: 'Respect the scale, test the presentation',
-          body: [
-            'The questionnaire was validated before it reached me, so the words and the anchors couldn’t change. What I could change was how the scale sat on the screen. The pain scale was the hardest component and the one that taught me the most. I built four versions and put them in front of about 20 people, half of them over 60.',
-            '## What I asked',
-            '- What do you think you’re supposed to do here?',
-            '- Where would you tap first?',
-            '- Which end is high?',
-            '- Then I watched them do it',
-            'Each session was scored out of 100, with comprehension and completed interaction weighted highest.',
-            '## What happened',
-            '- I walked in expecting to choose a slider. I walked out without one. Smallest target on the screen, most ways to overshoot it.',
-            '- Number buttons and the vertical list scored well above the rest',
-            '- I ran those two on live data for two weeks, expecting a winner. There wasn’t one.',
-            '- So I asked sponsors and leadership which they liked. They picked the vertical list because it was more fun to use.',
-            'Taste had no place in the decision to rebuild. Once the data said both options worked, taste was the only thing left to decide, and I let it.',
-          ],
-          media: [
-            {
-              src: '/work/epro/pain-scale-results.webp',
-              alt: 'Three versions of “How much pain do you have right now?” answered with 7, Quite a lot: a slider labelled finished third, a vertical list from Worst pain 10 to No pain 1 labelled shipped, and a grid of number buttons labelled tied.',
-              caption: 'The one I assumed would win finished third. The one that shipped won on a tie.',
-              variant: 'bleed',
-            },
-          ],
-        },
-        {
-          kicker: 'Decision 5 · Priority 3 · Design for compliance',
-          heading: 'Make the diary window impossible to miss',
-          body: [
-            'An entry only counts if it lands inside its window, so compliance had to be visible without nagging. Home leads with the diary that’s open right now and how far through the study you are. Tomorrow’s diary shows when it opens, with a gentle reminder already on.',
-            'When an entry is done, the app says so: submitted, timestamped, and editable until the same time the next day. Nobody has to wonder whether it counted.',
-          ],
-          media: [
-            {
-              src: '/work/epro/diary-window-and-done.webp',
-              alt: 'Two screens. Open now, and what’s next: the home screen greeting Maria with an Evening diary card and Start button, Day 23 of 84 in the SUNRISE Study, and tomorrow’s morning diary opening at 7:00 am with a reminder on. Done, with a timestamp: the evening diary marked Submitted 7:30 pm and editable until 7:30 pm tomorrow.',
-              caption: 'Clear open and closed windows, gentle reminders and a real done state. I rejected two things sponsors asked for: escalating reminders that get louder the longer you wait, and a hard lock when a window closes. Both would have raised compliance on paper by annoying people into quitting. One reminder, a visible window, and a done state that says exactly when it counted. If I did it again I’d test the reminder timing by study rather than default to one schedule.',
-              variant: 'bleed',
-            },
-          ],
-        },
-        {
-          kicker: 'Decision 6 · Priority 4 · Build trust and transparency',
-          heading: 'Let people say the answer',
-          body: [
-            'Speaking is the easiest way in for many participants, but only if the app is open about what it heard. Every question has a microphone in the header. Tap it and the app listens, then shows what it heard as a proposed answer with a dashed outline. Nothing is chosen until the person taps Stop listening, or taps a different answer instead.',
-            'In Easy Mode the same thing sits under every question as a Speak your answer button, so nobody has to find the icon.',
-          ],
-          media: [
-            {
-              src: '/work/epro/voice-input-detail.webp',
-              alt: 'A question while listening: option 3, Somewhat, has a dashed outline and a magnified card reads “Listening… I heard ‘Somewhat’. Tap Stop listening to use it, or tap a different answer”, above a red Stop listening button.',
-              caption: 'The app says what it heard before it acts on it. The person stays in charge of the answer. The faster version was to select whatever the app heard and move on. It tested well with confident users and badly with everyone else, because a wrong answer in a clinical diary is worse than a slow one. Confirm-before-act cost one more screen state. Hindsight: the dashed outline was subtle for some participants. A stronger highlight would have been cheap.',
-              variant: 'bleed',
-            },
-          ],
-        },
-        {
-          kicker: 'Decision 7 · Priority 3 · Design for compliance',
-          heading: 'Run two systems rather than force a cutover',
-          body: [
-            'Not every client migrated. Studies closing within the year had already trained their participants, and a retraining cycle would have cost them more than the new app could return before close-out. The project teams were right about that.',
-            'I proposed the parallel run as the compromise, and leadership backed it. The cost was real: two systems to maintain, two training tracks, and validation on both for about a year. The alternative was disrupting evidence already being collected to make a migration chart look clean.',
-            'In hindsight I’d have set a migration cut-off at the contract level, so the choice got made at signing instead of mid-study.',
-          ],
-        },
-        {
-          kicker: 'The solution',
-          body: [
-            'A SwiftUI app, built native because every participant was using a site-issued iPhone. It did what the first four priorities asked, and nothing else.',
-            '## What changed',
-            '- Completion: 40% to roughly 80%',
-            '- Success rate: 60% to about 95%',
-            '- New question types: about 10 fewer engineering hours each, because the interface was modular instead of custom every time',
-            'The participants who had been giving up halfway through were now finishing, and finishing correctly. And the cost of a design decision dropped far enough that design started winning arguments it used to lose by default.',
+            '- Completion: 40% → 80%',
+            '- Error-free entries: 60% → 95%',
+            '- New question type: about 10 fewer engineering hours',
+            '- The app went from the slide we skipped in demos to the one we led with',
           ],
           // The functional prototype lives in /public/work/epro/prototype,
           // exported from the design canvas with its runtime and design system.
@@ -417,18 +364,8 @@ export const projects: Project[] = [
           },
         },
         {
-          kicker: 'What surprised me',
-          body: [
-            'Easy Mode was used far less than I expected. People didn’t go looking for it. When a coordinator or a family member turned it on for them, they kept it on and were glad of it, but almost nobody found it alone.',
-            'I had designed accessibility as a setting. It turned out to be a handoff. Moving it into onboarding, where someone else is already in the room, is the next piece of work.',
-          ],
-        },
-        {
-          kicker: 'What it meant',
-          body: [
-            'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
-            'For sponsors, it meant hundreds fewer data queries at database lock, and the hours of chasing that went with them. The exact number varied a lot from study to study. For the company, it meant the app went from the slide we skipped in demos to the one we led with, and support tickets fell by more than half. For the roadmap, a new question type stopped being a negotiation.',
-          ],
+          kicker: 'The training room',
+          body: 'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
         },
       ],
     },

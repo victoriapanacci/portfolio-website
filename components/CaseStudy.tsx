@@ -7,6 +7,7 @@ import { CaseStudyMedia, CaseStudyMediaGroup } from './CaseStudyMedia'
 import { CaseStudyPrototype } from './CaseStudyPrototype'
 import { CaseStudyDeviceLoop } from './CaseStudyDeviceLoop'
 import { CaseStudyWalkthrough } from './CaseStudyWalkthrough'
+import { DecisionCard } from './DecisionCard'
 import { RichText } from './RichText'
 
 /** `{lead}<em>{em}</em>{tail}`: every section heading comes from the data. */
@@ -201,12 +202,23 @@ export function CaseStudy({ project }: { project: Project }) {
             <div className="cs-story__kicker">
               <Kicker>{section.kicker}</Kicker>
             </div>
-            <div className="cs-story__copy">
-              {section.heading ? <h2 className="cs-h2">{section.heading}</h2> : null}
-              <div className="lead cs-rich cs-story__body">
-                <RichText text={section.body} />
+            {section.heading || section.body ? (
+              <div className="cs-story__copy">
+                {section.heading ? <h2 className="cs-h2">{section.heading}</h2> : null}
+                {section.body ? (
+                  <div className="lead cs-rich cs-story__body">
+                    <RichText text={section.body} />
+                  </div>
+                ) : null}
               </div>
-            </div>
+            ) : null}
+            {section.decisions?.length ? (
+              <ol className="cs-decisions cs-story__decisions">
+                {section.decisions.map((decision) => (
+                  <DecisionCard key={decision.title} {...decision} />
+                ))}
+              </ol>
+            ) : null}
             {section.prototype || section.media ? (
               <div className="cs-story__media">
                 {section.prototype ? <CaseStudyPrototype prototype={section.prototype} /> : null}
