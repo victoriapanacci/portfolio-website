@@ -1589,6 +1589,50 @@ main {
   padding: clamp(16px, 2vw, 28px);
 }
 
+/* Decision cards: a story section's decisions as repeated four-beat rows on
+   the decision layout. The title and the labelled lines (chose, rejected,
+   cost, now) sit beside the artifact; a card without one runs its lines
+   across the field. */
+.cs-story__decisions {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0;
+}
+.cs-decision-card h3 {
+  margin-bottom: 24px;
+}
+.cs-decision-card--text .cs-decision__copy {
+  grid-column: 1 / -1;
+  position: static;
+}
+.cs-decision-card__lines {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: var(--gap-md);
+  margin: 0;
+}
+.cs-decision-card--text .cs-decision-card__lines {
+  max-width: 760px;
+}
+.cs-decision-card__lines > div {
+  display: contents;
+}
+.cs-decision-card__lines dt,
+.cs-decision-card__lines dd {
+  margin: 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+/* Sit the label on the first line of its value. */
+.cs-decision-card__lines dt {
+  padding-top: 21px;
+}
+.cs-decision-card__lines dd {
+  color: var(--text);
+  font-size: var(--text-body);
+  line-height: 1.65;
+}
+
 /* Device mock-up: an iPhone drawn in CSS, screens crossfading. The chrome
    colours are illustration constants. */
 .cs-device-stage {
