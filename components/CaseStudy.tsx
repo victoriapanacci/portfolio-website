@@ -43,12 +43,6 @@ function Meta({ items }: { items: { label: string; value: string; note?: string 
   )
 }
 
-/** Muted footnote beneath the meta block, e.g. an NDA disclaimer. */
-function MetaNote({ note }: { note?: string }) {
-  if (!note) return null
-  return <p className="cs-meta__footnote caption">{note}</p>
-}
-
 export function CaseStudy({ project }: { project: Project }) {
   const cs = project.caseStudy
   if (!cs) return null
@@ -165,11 +159,8 @@ export function CaseStudy({ project }: { project: Project }) {
           </Reveal>
         </div>
         {stacked ? (
-          <Reveal className="cs-hero__meta" immediate delay={0.65}>
-            <dl className="cs-meta">
-              <Meta items={cs.meta} />
-            </dl>
-            <MetaNote note={cs.metaNote} />
+          <Reveal as="dl" className="cs-meta cs-hero__meta" immediate delay={0.65}>
+            <Meta items={cs.meta} />
           </Reveal>
         ) : null}
         <Reveal className="cs-hero__art" immediate delay={0.35}>
@@ -189,7 +180,6 @@ export function CaseStudy({ project }: { project: Project }) {
           <dl className={`cs-meta${cs.story ? ' cs-meta--open' : ''}`}>
             <Meta items={cs.meta} />
           </dl>
-          <MetaNote note={cs.metaNote} />
         </div>
       )}
 

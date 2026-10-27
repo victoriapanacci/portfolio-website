@@ -94,10 +94,8 @@ export type CaseStudyStorySection = {
 
 export type CaseStudy = {
   summary: Prose
-  /** Each item may carry a muted `note` rendered beneath its value. */
+  /** Each item may carry a muted `note` rendered beneath its value, e.g. a footnote or how a result was measured. */
   meta: { label: string; value: string; note?: string }[]
-  /** Muted footnote shown directly under the meta block, e.g. an NDA disclaimer. */
-  metaNote?: string
   /** Optional framed artifact shown in the hero, in place of the generated art. */
   heroMedia?: CaseStudyImage
   /** Animated device mock-up in the hero. Takes precedence over heroMedia. */
@@ -225,6 +223,7 @@ export const projects: Project[] = [
         {
           label: 'Role',
           value: 'Product Designer and Product Manager (sole designer), DribbleCollect*',
+          note: '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
         },
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         {
@@ -233,8 +232,6 @@ export const projects: Project[] = [
           note: 'Before: counted by hand across live studies. After: event tracking in the new app, first on two studies with about 200 participants, then every client that migrated.',
         },
       ],
-      metaNote:
-        '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
       heroLayout: 'stacked',
       heroMedia: {
         src: '/work/epro/hero-hands.webp',
