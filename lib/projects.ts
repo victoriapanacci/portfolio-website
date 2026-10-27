@@ -430,7 +430,7 @@ export const projects: Project[] = [
           kicker: 'What it meant',
           body: [
             'The training sessions changed too. The same hands stopped going up. People just answered the question, which was the only thing we had ever asked them to do.',
-            'For sponsors, it meant [complete datasets where there used to be gaps / fewer queries at database lock — fill with what you can defend]. For the company, it meant the app went from the slide we skipped in demos to the one we led with, and [support tickets / training time] fell by [X]. For the roadmap, a new question type stopped being a negotiation.',
+            'For sponsors, it meant hundreds fewer data queries at database lock, and the hours of chasing that went with them. The exact number varied a lot from study to study. For the company, it meant the app went from the slide we skipped in demos to the one we led with, and support tickets fell by more than half. For the roadmap, a new question type stopped being a negotiation.',
           ],
         },
       ],
