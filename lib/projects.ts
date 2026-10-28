@@ -227,11 +227,13 @@ export const projects: Project[] = [
     category: 'Native iOS / 0-1 / Clinical ePRO',
     description:
       'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
+    // Fifteen rendered options live in /public/work/epro/covers (built by
+    // scripts/epro-cover). Swap the file name here to change the card.
     cover: {
-      src: '/work/epro/card-cover.webp',
-      alt: 'Three phone screens of the ePRO app over a photo of cupped hands: a diary home listing morning and evening entries, a questionnaire question, and a completed Tuesday Morning entry ready to submit.',
+      src: '/work/epro/covers/v02-overlap-stat.webp',
+      alt: 'Questionnaire completion, 40% struck through and 80% beneath it, beside the entry summary before and after: the legacy Confirm Entry Summary list behind, and the rebuilt Your evening diary review in front, marked Submitted 7:30 pm with answers grouped under How you feel and symptom rings.',
       width: 1920,
-      height: 1440,
+      height: 1280,
     },
     caseStudy: {
       summary:
