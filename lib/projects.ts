@@ -247,7 +247,6 @@ export const projects: Project[] = [
         {
           label: 'Result',
           value: 'Completion 40% → 80%. Error-free entries 60% → 95%. Support tickets down by half.',
-          note: 'Before: counted by hand across live studies. After: event tracking in the new app, first on two studies with about 200 participants, then every client that migrated.',
         },
       ],
       heroLayout: 'stacked',
