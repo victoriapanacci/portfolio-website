@@ -16,6 +16,7 @@ const tags = {
   figure: motion.figure,
   p: motion.p,
   dl: motion.dl,
+  h2: motion.h2,
 } as const
 
 type Tag = keyof typeof tags

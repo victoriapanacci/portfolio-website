@@ -196,7 +196,7 @@ main {
 
 /* One focus style for every interactive element. Components that already
    carry a shadow append the ring to it instead (see .project-card). */
-:where(a, button, [tabindex]):focus-visible {
+:where(a, button, iframe, [tabindex]):focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
@@ -1146,18 +1146,48 @@ main {
 .media--hero {
   margin: 0;
 }
-/* Prototype: the plate with an iframe in it. */
+/* Prototype: the plate with an iframe in it. The iframe keeps the
+   artboard's aspect ratio (set per prototype in the data) and the plate
+   sizes itself to the screen: never wider than the field or the artboard's
+   true size, never taller than the viewport less a gutter, and never
+   narrower than the point where the artboard's smallest type (12px on a
+   390px artboard) would render under 8px. Always centred. */
 .media--proto .media__frame {
+  --proto-aspect: 390 / 844;
+  --proto-ratio: 0.462; /* width / height of --proto-aspect, as a number */
+  --proto-pad: clamp(10px, 2vw, 16px);
+  --proto-max: 420px;
+  --proto-min: calc(262px + 2 * var(--proto-pad)); /* 260px of iframe + the plate's hairlines */
+  --proto-gutter: 48px;
+  --proto-fit: calc(
+    (100vh - var(--proto-gutter) - 2 * var(--proto-pad)) * var(--proto-ratio) +
+      2 * var(--proto-pad)
+  );
   position: relative;
-  width: 100%;
-  max-width: 420px;
+  width: max(
+    min(100%, var(--proto-min)),
+    min(100%, var(--proto-max), var(--proto-fit))
+  );
   margin: 0 auto;
-  padding: clamp(10px, 2vw, 16px);
+  padding: var(--proto-pad);
+}
+@supports (height: 100svh) {
+  .media--proto .media__frame {
+    --proto-fit: calc(
+      (100svh - var(--proto-gutter) - 2 * var(--proto-pad)) * var(--proto-ratio) +
+        2 * var(--proto-pad)
+    );
+  }
+}
+/* Keyboard focus is inside the prototype: the plate wears the focus ring. */
+.media--proto .media__frame--focused {
+  box-shadow: var(--focus-ring), var(--shadow-plate);
 }
 .media__iframe {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: var(--proto-aspect, 390 / 844);
   border: 0;
   border-radius: var(--radius-sm);
   background: var(--ink-2);
@@ -1476,9 +1506,15 @@ main {
   grid-column: 4 / 11;
 }
 .cs-story__media .media--proto:not(.media--phone) .media__frame {
-  grid-column: 4 / 10;
-  max-width: 420px;
-  margin: 0;
+  grid-column: 1 / -1;
+  margin: 0 auto;
+}
+.cs-story__media .media--proto:not(.media--phone) .media__label,
+.cs-story__media .media--proto:not(.media--phone) .media__caption {
+  grid-column: 1 / -1;
+  max-width: 560px;
+  margin-inline: auto;
+  text-align: center;
 }
 /* Side layout: copy in five columns, the phone in the last four. */
 .cs-story--side .cs-story__copy {
@@ -1589,14 +1625,30 @@ main {
   padding: clamp(16px, 2vw, 28px);
 }
 
-/* Decision cards: a story section's decisions as repeated four-beat rows on
-   the decision layout. The title and the labelled lines (chose, rejected,
-   cost, now) sit beside the artifact; a card without one runs its lines
-   across the field. */
+/* Decision cards: a story section's decisions as repeated four-beat rows.
+   The title and the labelled lines (chose, rejected, cost, now) hang from
+   the text axis like the rest of the story, and the artifact takes the
+   whole field beneath them: the mock-ups carry the evidence, and beside the
+   copy they rendered at a third of the size, with their type under 5px. */
 .cs-story__decisions {
   grid-column: 1 / -1;
   min-width: 0;
   margin: 0;
+}
+.cs-story__decisions .cs-decision-card {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-md);
+  row-gap: var(--gap-lg);
+}
+.cs-story__decisions .cs-decision-card .cs-decision__copy {
+  grid-column: 4 / 11;
+  position: static;
+}
+.cs-story__decisions .cs-decision-card .cs-decision__media {
+  grid-column: 1 / -1;
+}
+.cs-story__decisions .cs-decision-card .media--bleed .media__img {
+  max-height: none;
 }
 .cs-decision-card h3 {
   margin-bottom: 24px;
@@ -2382,6 +2434,12 @@ main {
   .cs-story__media .media:not(.media--phone) .media__caption,
   .cs-story__media .media--span-text:not(.media--phone) .media__frame,
   .cs-story__media .media--proto:not(.media--phone) .media__frame {
+    grid-column: 1 / -1;
+  }
+  .cs-story__decisions .cs-decision-card {
+    grid-template-columns: 1fr;
+  }
+  .cs-story__decisions .cs-decision-card .cs-decision__copy {
     grid-column: 1 / -1;
   }
   .cs-story {
