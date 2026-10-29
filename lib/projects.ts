@@ -237,7 +237,7 @@ export const projects: Project[] = [
     index: '01',
     title: 'ePRO rebuild: doubling questionnaire completion for participants over 60',
     shortTitle: 'ePRO',
-    category: 'Native iOS / 0-1 / Clinical ePRO',
+    category: '0-1 / Regulated Clinical Research / Design & Product Management',
     description:
       'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
     // The card is a working before/after slider over the entry summary. The

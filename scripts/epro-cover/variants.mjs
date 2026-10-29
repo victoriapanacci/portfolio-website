@@ -279,6 +279,6 @@ const wipeStage = (screen, cls) => `
   ${ph(screen, { x: 646, y: 90, z: 1.5, cls })}`
 
 export const layers = [
-  { id: 'wipe-before', html: () => `${wipeStage(B(), 'dim')}${tag('before', 110, 72)}` },
-  { id: 'wipe-after', html: () => `${wipeStage(A())}${tag('after', 1650, 72)}` },
+  { id: 'wipe-before', html: () => wipeStage(B(), 'dim') },
+  { id: 'wipe-after', html: () => wipeStage(A()) },
 ]
