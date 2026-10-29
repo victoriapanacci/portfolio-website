@@ -11,7 +11,7 @@ import { execFileSync } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { variants } from './variants.mjs'
+import { variants, layers } from './variants.mjs'
 import { screenCss } from './screens.mjs'
 
 const require = createRequire(import.meta.url)
@@ -69,12 +69,13 @@ const siteCss = `
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 })
 
-const list = only ? variants.filter((v) => v.id === only || String(v.n) === only) : variants
+const all = [...variants, ...layers]
+const list = only ? all.filter((v) => v.id === only || String(v.n) === only) : all
 for (const v of list) {
   const html = `<!doctype html><html><head><meta charset="utf-8">
     <style>${fontCss}${siteCss}${screenCss}${v.css ?? ''}</style></head>
     <body><div class="canvas">${v.html({ root })}</div></body></html>`
-  const file = `v${String(v.n).padStart(2, '0')}-${v.id}`
+  const file = v.n ? `v${String(v.n).padStart(2, '0')}-${v.id}` : v.id
   const htmlPath = resolve(outDir, `${file}.html`)
   writeFileSync(htmlPath, html)
   // Load from disk rather than setContent: file:// images only resolve from a file:// page.

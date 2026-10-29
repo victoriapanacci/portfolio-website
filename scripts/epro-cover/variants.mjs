@@ -268,3 +268,17 @@ export const variants = [
       ${ph(A(), { x: 1040, y: 250, z: 1.28, r: -12 })}`,
   },
 ]
+
+/**
+ * The two layers behind the functional slider on the homepage card
+ * (components/CompareCover.tsx). Same framing as variant 3, one screen
+ * each, no divider: the card draws the divider and handle itself.
+ */
+const wipeStage = (screen, cls) => `
+  ${light(520, -120, 1200, 1200, 0.9)}
+  ${ph(screen, { x: 646, y: 90, z: 1.5, cls })}`
+
+export const layers = [
+  { id: 'wipe-before', html: () => `${wipeStage(B(), 'dim')}${tag('before', 110, 72)}` },
+  { id: 'wipe-after', html: () => `${wipeStage(A())}${tag('after', 1650, 72)}` },
+]

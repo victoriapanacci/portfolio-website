@@ -801,6 +801,55 @@ main {
   object-position: center;
 }
 
+/* Before/after slider (CompareCover). Two full-frame layers; the after
+   layer is clipped at --split, which the pointer moves. The clip sits on an
+   unscaled wrapper so the hover zoom never drifts it off the divider. */
+.project-art--compare {
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+.compare-layer {
+  position: absolute;
+  inset: 0;
+}
+.compare-layer--after {
+  clip-path: inset(0 0 0 var(--split, 50%));
+}
+.compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split, 50%);
+  width: 2px;
+  translate: -1px 0;
+  background: var(--rose);
+  box-shadow: 0 0 20px var(--rose-40);
+}
+.compare-handle {
+  position: absolute;
+  top: 44%;
+  left: 1px;
+  width: 40px;
+  height: 40px;
+  translate: -50% -50%;
+  border-radius: var(--radius-pill);
+  background: var(--rose);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+}
+/* Under the pointer the split tracks it almost directly; released, it eases home. */
+.project-art--compare .compare-layer--after,
+.project-art--compare .compare-divider {
+  transition: clip-path var(--dur-slow) var(--ease-out), left var(--dur-slow) var(--ease-out);
+}
+.project-art--compare[data-following='true'] .compare-layer--after,
+.project-art--compare[data-following='true'] .compare-divider {
+  transition-duration: 60ms;
+}
+
 /* Drawn illustrations (mobile, imaging). Still used by the ePRO and DeID
    case-study heroes until those get real media. The colours inside the
    drawings are illustration constants, not system tokens. */
@@ -2550,6 +2599,10 @@ main {
 /* Spatial movement is removed and loops stop; the motion components keep
    their opacity fades (MotionConfig reducedMotion="user"). */
 @media (prefers-reduced-motion: reduce) {
+  .project-art--compare .compare-layer--after,
+  .project-art--compare .compare-divider {
+    transition: none;
+  }
   html {
     scroll-behavior: auto;
   }
