@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Project } from '@/lib/projects'
+import { CompareCover } from './CompareCover'
 import { ProjectArt } from './ProjectArt'
 
 /**
  * The whole card is one link. On hover the card lifts, the art eases in, and
  * a "Case study" label slides in at the foot of the card. Projects without a
- * case study carry a "Coming soon" tag in the same slot instead.
+ * case study carry a "Coming soon" tag in the same slot instead. A project
+ * with `compare` gets the working before/after slider as its art.
  */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
@@ -14,7 +16,9 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={href} className="project-card">
-      {project.cover ? (
+      {project.compare ? (
+        <CompareCover compare={project.compare} />
+      ) : project.cover ? (
         <div
           className="project-art project-art--cover"
           style={

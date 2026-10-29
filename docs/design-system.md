@@ -224,6 +224,8 @@ Anatomy: 3:2 cover art (bleeds to the card edge, 42 % bottom fade into the card)
 
 Surface: `--radius-lg`, `--fill`, `--line` border, `--shadow-card`, `--pad-card`.
 
+Slider art (`compare` on a project, `CompareCover`): two full-frame layers, the after one clipped at a rose 2 px divider with a 40 px rose handle at 44 % height. A mouse moves the divider by hovering; a finger drags it (`touch-action: pan-y`, a drag never follows the link). On release it eases back to the middle over `--dur-slow`; while following, 60 ms. Nothing moves on its own, and reduced motion drops the easing.
+
 | State | Card | Art | CTA |
 | --- | --- | --- | --- |
 | Default | at rest | at rest | hidden (opacity 0, −10 px) |

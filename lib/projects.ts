@@ -1,5 +1,16 @@
 export type ProjectArtType = 'mobile' | 'imaging'
 
+/**
+ * Card art as a working before/after slider: two full-frame layers at the
+ * same 3:2 size, the after one revealed from the left as the pointer moves.
+ */
+export type ProjectCompare = {
+  before: { src: string; alt: string }
+  after: { src: string; alt: string }
+  width: number
+  height: number
+}
+
 /** Optional custom section heading: `{lead}<em>{em}</em>{tail}`. */
 export type CaseStudyHeading = { lead?: string; em: string; tail?: string }
 
@@ -214,6 +225,8 @@ export type Project = {
     /** Vertical nudge in px from centre; negative moves the image up. */
     shiftY?: number
   }
+  /** Working before/after slider in the card. Takes precedence over `cover`. */
+  compare?: ProjectCompare
   /** Present when a full case study story exists for this project. */
   caseStudy?: CaseStudy
 }
@@ -224,14 +237,23 @@ export const projects: Project[] = [
     index: '01',
     title: 'ePRO rebuild: doubling questionnaire completion for participants over 60',
     shortTitle: 'ePRO',
-    category: 'Native iOS / 0-1 / Clinical ePRO',
+    category: '0-1 / Regulated Clinical Research / Design & Product Management',
     description:
       'Rebuilding a legacy ePRO app as a native iOS product for study participants over 60. Completion went from 40% to 80%.',
-    cover: {
-      src: '/work/epro/card-cover.webp',
-      alt: 'Three phone screens of the ePRO app over a photo of cupped hands: a diary home listing morning and evening entries, a questionnaire question, and a completed Tuesday Morning entry ready to submit.',
+    // The card is a working before/after slider over the entry summary. The
+    // two layers, and fifteen still alternatives (v01 to v15), live in
+    // /public/work/epro/covers, built by scripts/epro-cover.
+    compare: {
+      before: {
+        src: '/work/epro/covers/wipe-before.webp',
+        alt: 'Before: the legacy Confirm Entry Summary screen, a plain two-column list of questions and answers with small Ok and Cancel links in the corner.',
+      },
+      after: {
+        src: '/work/epro/covers/wipe-after.webp',
+        alt: 'After: the rebuilt Your evening diary review, marked Submitted 7:30 pm and editable until tomorrow, with answers grouped under How you feel and symptom rings for pain, nausea and overall.',
+      },
       width: 1920,
-      height: 1440,
+      height: 1280,
     },
     caseStudy: {
       summary:
