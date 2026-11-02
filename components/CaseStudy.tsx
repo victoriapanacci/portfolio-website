@@ -170,7 +170,19 @@ export function CaseStudy({ project }: { project: Project }) {
             <RichText text={cs.summary} />
           </Reveal>
         </div>
-        {stacked ? (
+        {stacked && cs.heroMetaLayout === 'split' ? (
+          /* Two stacks: the lead item alone on the left, the rest on the right. */
+          <Reveal className="cs-hero__meta cs-hero__meta--split" immediate delay={0.65}>
+            <dl className="cs-meta">
+              <Meta items={cs.meta.slice(0, 1)} />
+            </dl>
+            {cs.meta.length > 1 ? (
+              <dl className="cs-meta">
+                <Meta items={cs.meta.slice(1)} />
+              </dl>
+            ) : null}
+          </Reveal>
+        ) : stacked ? (
           <Reveal as="dl" className="cs-meta cs-hero__meta" immediate delay={0.65}>
             <Meta items={cs.meta} />
           </Reveal>

@@ -130,6 +130,12 @@ export type CaseStudy = {
   heroDevice?: CaseStudyDevice
   /** 'side' (default) puts the hero art beside the copy; 'stacked' runs it full width beneath. */
   heroLayout?: 'side' | 'stacked'
+  /**
+   * How the stacked hero lays out its meta items. 'grid' (default) flows them
+   * through a two-column grid; 'split' keeps the first item alone on the left
+   * and stacks the rest on the right.
+   */
+  heroMetaLayout?: 'grid' | 'split'
   /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
   intro?: string
   /**
@@ -265,14 +271,14 @@ export const projects: Project[] = [
             'Product Designer and Product Manager. Sole designer on a team of 12 PMs; also ran participant training. DribbleCollect*',
           note: '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
         },
-        { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         {
           label: 'Result',
           value: 'Completion 40% → 80%. Error-free entries 60% → 95%. Support tickets down by half.',
-          note: 'Before: counted by hand across live studies. After: event tracking in the new app, first on two studies with about 200 participants, then every client that migrated.',
         },
+        { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
       ],
       heroLayout: 'stacked',
+      heroMetaLayout: 'split',
       heroMedia: {
         src: '/work/epro/hero-hands.webp',
         alt: 'A clinician in a white coat with a stethoscope holds a phone in both hands.',
