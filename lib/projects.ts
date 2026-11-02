@@ -243,11 +243,11 @@ export const projects: Project[] = [
             'Product Designer and Product Manager. Sole designer on a team of 12 PMs; also ran participant training. DribbleCollect*',
           note: '*DribbleCollect isn’t a real company. This work comes from a real project under NDA. The client name is the only thing that changed.',
         },
-        { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
         {
           label: 'Result',
           value: 'Completion 40% → 80%. Error-free entries 60% → 95%. Support tickets down by half.',
         },
+        { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
       ],
       heroLayout: 'stacked',
       heroMedia: {
