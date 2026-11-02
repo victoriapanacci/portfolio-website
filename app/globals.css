@@ -1279,8 +1279,15 @@ main {
   width: 100%;
 }
 .cs-hero .cs-hero__meta {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px 24px;
+  gap: 24px;
+  align-items: start;
+}
+.cs-hero .cs-hero__meta .cs-meta {
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 28px;
   padding: 0;
   margin: 0;
   border: 0;
