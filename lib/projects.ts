@@ -119,6 +119,12 @@ export type CaseStudy = {
   heroDevice?: CaseStudyDevice
   /** 'side' (default) puts the hero art beside the copy; 'stacked' runs it full width beneath. */
   heroLayout?: 'side' | 'stacked'
+  /**
+   * How the stacked hero lays out its meta items. 'grid' (default) flows them
+   * through a two-column grid; 'split' keeps the first item alone on the left
+   * and stacks the rest on the right.
+   */
+  heroMetaLayout?: 'grid' | 'split'
   /** Lede paragraph under the meta bar. Omit to go straight to the problem. */
   intro?: string
   /**
@@ -250,6 +256,7 @@ export const projects: Project[] = [
         { label: 'Platform', value: 'Native iOS (SwiftUI), site-issued iPhones' },
       ],
       heroLayout: 'stacked',
+      heroMetaLayout: 'split',
       heroMedia: {
         src: '/work/epro/hero-hands.webp',
         alt: 'A clinician in a white coat with a stethoscope holds a phone in both hands.',
