@@ -31,7 +31,7 @@ export function ProjectShowcase({
       id="work"
       className={`work shell ${variant === 'full' ? 'work--grid' : ''}`}
     >
-      <Reveal className="kicker">
+      <Reveal as="h2" className="kicker">
         <span>{kicker}</span>
         <i />
       </Reveal>

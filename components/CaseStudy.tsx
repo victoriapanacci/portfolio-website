@@ -21,12 +21,23 @@ function Heading({ heading }: { heading: CaseStudyHeading }) {
   )
 }
 
-function Kicker({ children }: { children: React.ReactNode }) {
+/**
+ * The label that opens a section. Plain by default (the section's h2
+ * follows it); `as="h2"` where the kicker is the section's only title, so
+ * assistive tech can navigate the page by section.
+ */
+function Kicker({
+  children,
+  as: Tag = 'div',
+}: {
+  children: React.ReactNode
+  as?: 'div' | 'h2'
+}) {
   return (
-    <div className="kicker">
+    <Tag className="kicker">
       <span>{children}</span>
       <i />
-    </div>
+    </Tag>
   )
 }
 
@@ -200,11 +211,11 @@ export function CaseStudy({ project }: { project: Project }) {
         >
           <div className="cs-grid cs-story__grid">
             <div className="cs-story__kicker">
-              <Kicker>{section.kicker}</Kicker>
+              <Kicker as="h2">{section.kicker}</Kicker>
             </div>
             {section.heading || section.body ? (
               <div className="cs-story__copy">
-                {section.heading ? <h2 className="cs-h2">{section.heading}</h2> : null}
+                {section.heading ? <h3 className="cs-h2">{section.heading}</h3> : null}
                 {section.body ? (
                   <div className="lead cs-rich cs-story__body">
                     <RichText text={section.body} />
