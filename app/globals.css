@@ -453,19 +453,6 @@ main {
   justify-content: space-between;
   z-index: 10;
 }
-.site-brand {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 16px;
-  padding: 16px 0;
-}
-.site-role {
-  margin: 0;
-  color: var(--text);
-  font-size: var(--text-lead);
-  line-height: 1.65;
-}
 .monogram {
   display: inline-flex;
   align-items: center;
@@ -498,7 +485,6 @@ main {
   transition: color var(--dur-fast) var(--ease-out);
 }
 .desktop-nav a:hover {
-  color: var(--rose);
   text-decoration: underline;
   text-decoration-color: var(--rose);
   text-underline-offset: 0.2em;
