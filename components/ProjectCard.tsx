@@ -5,10 +5,10 @@ import { CompareCover } from './CompareCover'
 import { ProjectArt } from './ProjectArt'
 
 /**
- * The whole card is one link. On hover the card lifts, the art eases in, and
- * a "Case study" label slides in at the foot of the card. Projects without a
- * case study carry a "Coming soon" tag in the same slot instead. A project
- * with `compare` gets the working before/after slider as its art.
+ * The whole card is one link. On hover the card lifts and the art eases in.
+ * Projects without a case study carry a "Coming soon" tag at the foot of the
+ * card. A project with `compare` gets the working before/after slider as its
+ * art.
  */
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}`
@@ -49,17 +49,10 @@ export function ProjectCard({ project }: { project: Project }) {
             .map((tag) => tag.trim())
             .filter(Boolean)
             .map((tag) => (
-              <li key={tag} className="label">
-                {tag}
-              </li>
+              <li key={tag}>{tag}</li>
             ))}
         </ul>
-        {hasStudy ? (
-          <span className="project-card__cta">
-            Case study
-            <i aria-hidden="true">→</i>
-          </span>
-        ) : (
+        {!hasStudy && (
           <span className="project-card__status">
             <span className="tag">Coming soon</span>
           </span>

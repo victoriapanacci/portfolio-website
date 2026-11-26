@@ -13,7 +13,7 @@ Rules are written as "always" and "never" on purpose. Add a variant only when an
 3. **Hairlines, not boxes.** Structure comes from 1 px rules at 14 % cream. Fills stay under 3 % white. Shadows only on things that float (feature cards, media plates, the popover).
 4. **Affordance is honest.** Only links and buttons respond to hover. Static content never lifts, glows, or changes border on hover.
 5. **One signal per state.** Hover is rose. Selected or current is peach. Nothing is underlined except a link inside prose.
-6. **One arrival, one curve.** Content fades up once with a single ease-out. Nothing loops except the two drifting lights, and they stop under reduced motion.
+6. **One arrival, one curve.** Content fades up once with a single ease-out. Nothing loops except the drifting hero light on the About page, and it stops under reduced motion.
 7. **Tokens or nothing.** No raw hex, px radius, or cubic-bezier in a component rule. If a value is not a token, it is a mistake.
 
 ---
@@ -30,6 +30,7 @@ All tokens are declared once in `:root` in `app/globals.css` and used as plain C
 | `--ink-2` | `#100913` | `main` gradient end, popover fill, card art fade |
 | `--plum` | `rgba(74, 28, 47, 0.28)` | Tinted card and highlight gradients (start colour) |
 | `--cream` | `#f2e8dc` | Brightest text: display, title, numerals, kicker |
+| `--white` | `#ffffff` | Monogram only |
 | `--text-strong` | `#f2e2d9` | Card headings, quick-link titles, pull quotes |
 | `--text` | `#d8cdc8` | Body copy, lead paragraphs, meta values |
 | `--text-muted` | `#b9aead` | Captions, tags, "Coming soon", notes |
@@ -68,11 +69,12 @@ Families: `--font-sans` (Inter, optical sizing on) and `--font-serif` (Georgia s
 | Numeral, large | `--text-numeral-lg` | 46 (40 on phone) | serif | 1 | −0.03 em | Principle and decision numbers |
 | Numeral | `--text-numeral` | 22 | serif | 1 | −0.02 em | Step, learning, walkthrough, quick-link index, education year |
 | Metric | `--text-metric` | 44→68 | serif | 1 | −0.03 em | Metric band value only |
-| Lead | `--text-lead` | 18→20 | sans | 1.6 | 0 | Hero body, summary, section lead, learnings, education detail |
+| Lead | `--text-lead` | 18→20 | sans | 1.6 | 0 | Hero body, summary, section lead, learnings, education detail, header role line, nav |
 | Body | `--text-body` | 16 | sans | 1.65 | 0 | Card copy, lists, walkthrough body |
+| Category | `--text-category` | 14→16 | sans | 1.65 | 0 | Project card categories |
 | Small | `--text-small` | 14 | sans | 1.6 | 0 | Captions, meta values, metric labels, feedback, button text |
 | Label | `--text-label` | 12 | sans 600 | 1 | 0.04 em | Label role |
-| Micro | `--text-micro` | 11 | sans 600 | 1 | 0.16 em | Eyebrow, Tag, Nav, colophon (colophon at 400) |
+| Micro | `--text-micro` | 11 | sans 600 | 1 | 0.16 em | Eyebrow, Tag, colophon (colophon at 400) |
 
 Tracking tokens: `--tracking-display` −0.035 em, `--tracking-tight` −0.02 em, `--tracking-caps` 0.16 em (replaces `--tracking-nav`; the only uppercase tracking on the site).
 
@@ -199,16 +201,16 @@ Inline links in prose only. Cream text, 1 px rose underline, 0.2 em offset. Hove
 
 ### 4.3 Arrows inside links
 
-The card's "Case study →" and the quick-link row's trailing → are not buttons. The whole card or row is the link; the arrow is its affordance. Both are 16 px, weight 300, rose, and travel 4–6 px on hover. Never wrap one in a pill. The mobile menu button is the only icon-only control on the site, because a header menu toggle is a convention readers already know.
+The quick-link row's trailing → is not a button. The whole row is the link; the arrow is its affordance. It is 16 px, weight 300, rose, and travels 4–6 px on hover. Project cards carry no arrow: the whole card is the link. Never wrap one in a pill. The mobile menu button is the only icon-only control on the site, because a header menu toggle is a convention readers already know.
 
 ### 4.4 Site header
 
-Anatomy: monogram (Label size, 600, peach) · desktop nav (`<nav aria-label="Primary">`, three links, Micro uppercase, cream at 95 %, 48 px gap, 44 px tall) · mobile menu button (44×44, three 24×1 px cream hairlines; morphs to × when open) · mobile popover (`--radius-lg`, ink-2 at 97 %, `--line` border, `--shadow-card`, 6 px blur).
+Anatomy: monogram (Subheading serif, 400, `--white`) with the role line "Senior Product Designer" beside it on the same baseline (Lead, `--text`; wraps under the name when space runs out) · desktop nav (`<nav aria-label="Primary">`, three links, Lead, sentence case, `--text`, 48 px gap, 44 px tall) · mobile menu button (44×44, three 24×1 px cream hairlines; morphs to × when open) · mobile popover (`--radius-lg`, ink-2 at 97 %, `--line` border, `--shadow-card`, 6 px blur).
 
 | Element | Hover | Focus-visible | Current |
 | --- | --- | --- | --- |
 | Monogram | rose | ring | — |
-| Nav link | rose | ring | peach (`aria-current="page"`; only `/about` can be current) |
+| Nav link | rose + rose underline | ring | peach (`aria-current="page"`; only `/about` can be current) |
 | Menu button | hairlines rose | ring | `aria-expanded` |
 | Popover link | rose + cream 8 % wash | ring | as nav |
 
@@ -220,19 +222,18 @@ A "Skip to content" link precedes the monogram in DOM order, visually hidden unt
 
 The reference interaction for the site. The whole card is one `<a>`.
 
-Anatomy: 3:2 cover art (bleeds to the card edge, 42 % bottom fade into the card) · title (Heading serif, max 95 %) · category labels (`.label` in a wrapping list, 10 px gap) · CTA line ("Case study →" Small 600, or `.tag` "Coming soon").
+Anatomy: 3:2 cover art (bleeds to the card edge, 42 % bottom fade into the card) · title (Heading serif, max 95 %) · categories (Category size, `--text`, in a wrapping list, 20 px gap) · `.tag` "Coming soon" on projects without a case study.
 
 Surface: `--radius-lg`, `--fill`, `--line` border, `--shadow-card`, `--pad-card`.
 
 Slider art (`compare` on a project, `CompareCover`): two full-frame layers, the after one clipped at a rose 2 px divider with a 40 px rose handle at 44 % height. A mouse moves the divider by hovering; a finger drags it (`touch-action: pan-y`, a drag never follows the link). On release it eases back to the middle over `--dur-slow`; while following, 60 ms. Nothing moves on its own, and reduced motion drops the easing.
 
-| State | Card | Art | CTA |
-| --- | --- | --- | --- |
-| Default | at rest | at rest | hidden (opacity 0, −10 px) |
-| Hover | `translate: 0 −4px`, rose border, `--shadow-card-hover`, `--dur-base` | scale 1.03, `--dur-slow` | slides in, arrow +5 px |
-| Focus-visible | as hover + focus ring | as hover | as hover |
-| Touch (`hover: none`) | at rest | at rest | always visible |
-| Coming soon | as above | as above | `.tag` "Coming soon", always visible, no arrow |
+| State | Card | Art |
+| --- | --- | --- |
+| Default | at rest | at rest |
+| Hover | `translate: 0 −4px`, rose border, `--shadow-card-hover`, `--dur-base` | scale 1.03, `--dur-slow` |
+| Focus-visible | as hover + focus ring | as hover |
+| Coming soon | as above, with `.tag` "Coming soon" always visible | as above |
 
 Lift uses the `translate` property, never `transform`, so the motion wrapper that owns `transform` cannot cancel it.
 
@@ -332,11 +333,11 @@ Kicker copy is data, never hard-coded in a shared component. Defaults: "The prob
 
 ### 4.14 Footer
 
-Hairline above · drifting light · closing statement (Title serif, centred, max 780 px) · up to two Buttons · hairline · colophon (Micro 400, `--text-faint`) · "Back to top" Button (`direction="up"`). `id="contact"` lives here.
+Hairline above · closing statement (Title serif, centred, max 780 px) · up to two Buttons · hairline · colophon (Micro 400, `--text-faint`) · "Top" Button (`direction="up"`). `id="contact"` lives here.
 
 ### 4.15 Decorative
 
-Film grain (fixed, 5.5 %, soft-light, outside the page-transition wrapper). Hero light and footer light drift on 22 s / 26 s loops with `--ease-drift`, `aria-hidden`, frozen under reduced motion.
+Film grain (fixed, 5.5 %, soft-light, outside the page-transition wrapper). The About page's hero light drifts on a 22 s loop with `--ease-drift`, `aria-hidden`, frozen under reduced motion. The home hero and the footer carry no light.
 
 ---
 
@@ -347,7 +348,7 @@ Film grain (fixed, 5.5 %, soft-light, outside the page-transition wrapper). Hero
 3. Headline arrival: `SplitHeadline` on every `h1`; words rise 0.4 em and unblur, 60 ms apart, 0.6 s in total. The full sentence stays one accessible label.
 4. Hover: colour and opacity at `--dur-fast`; lift, border and wash at `--dur-base`; art scale and crossfade at `--dur-slow`. All with `--ease-out`.
 5. Reduced motion: `MotionConfig reducedMotion="user"` keeps opacity fades and drops transforms; CSS zeroes every transition and animation; loops hold on their first frame; auto-advancing controls stop.
-6. Never: a loop other than the two lights, a bounce or spring, an animation longer than `--dur-slow` that is not a crossfade, animating `padding`, `margin`, `width` or `height`.
+6. Never: a loop other than the hero light, a bounce or spring, an animation longer than `--dur-slow` that is not a crossfade, animating `padding`, `margin`, `width` or `height`.
 
 ---
 
