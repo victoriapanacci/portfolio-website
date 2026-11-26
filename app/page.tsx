@@ -17,7 +17,6 @@ export default function Home() {
       <SiteHeader />
 
       <section id="top" className="hero shell">
-        <div className="hero-light" aria-hidden="true" />
         <div className="hero-copy">
           <SplitHeadline text="I design the parts of money and medicine nobody should have to think about" />
           <Reveal as="p" className="hero-body lead" immediate delay={0.55}>

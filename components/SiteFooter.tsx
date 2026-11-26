@@ -7,7 +7,6 @@ const mailto = `mailto:panaccivictoria@gmail.com?subject=${encodeURIComponent(
 export function SiteFooter() {
   return (
     <footer id="contact" className="footer-wrap">
-      <div className="footer-light" aria-hidden="true" />
       <div className="footer shell">
         <div className="footer-cta">
           <h2>Let&rsquo;s create something that your customers love</h2>
@@ -20,12 +19,11 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <p>
-            Full website design, build, and deployment done by Victoria Panacci
-            using: Figma, VSCode, Claude Code, and Vercel. 2026, All Rights
-            Reserved.
+            Website built end to end by Victoria Panacci. Self hosted, 2026.
+            All rights reserved.
           </p>
           <Button href="#top" direction="up">
-            Back to top
+            Top
           </Button>
         </div>
       </div>
