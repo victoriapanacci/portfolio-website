@@ -69,7 +69,7 @@ Families: `--font-sans` (Inter, optical sizing on) and `--font-serif` (Georgia s
 | Numeral, large | `--text-numeral-lg` | 46 (40 on phone) | serif | 1 | −0.03 em | Principle and decision numbers |
 | Numeral | `--text-numeral` | 22 | serif | 1 | −0.02 em | Step, learning, walkthrough, quick-link index, education year |
 | Metric | `--text-metric` | 44→68 | serif | 1 | −0.03 em | Metric band value only |
-| Lead | `--text-lead` | 18→20 | sans | 1.6 | 0 | Hero body, summary, section lead, learnings, education detail, header role line, nav |
+| Lead | `--text-lead` | 18→20 | sans | 1.6 | 0 | Hero body, summary, section lead, learnings, education detail, nav |
 | Body | `--text-body` | 16 | sans | 1.65 | 0 | Card copy, lists, walkthrough body |
 | Category | `--text-category` | 14→16 | sans | 1.65 | 0 | Project card categories |
 | Small | `--text-small` | 14 | sans | 1.6 | 0 | Captions, meta values, metric labels, feedback, button text |
@@ -205,12 +205,12 @@ The quick-link row's trailing → is not a button. The whole row is the link; th
 
 ### 4.4 Site header
 
-Anatomy: monogram (Subheading serif, 400, `--white`) with the role line "Senior Product Designer" beside it on the same baseline (Lead, `--text`; wraps under the name when space runs out) · desktop nav (`<nav aria-label="Primary">`, three links, Lead, sentence case, `--text`, 48 px gap, 44 px tall) · mobile menu button (44×44, three 24×1 px cream hairlines; morphs to × when open) · mobile popover (`--radius-lg`, ink-2 at 97 %, `--line` border, `--shadow-card`, 6 px blur).
+Anatomy: monogram (Subheading serif, 400, `--white`) · desktop nav (`<nav aria-label="Primary">`, three links, Lead, sentence case, `--text`, 48 px gap, 44 px tall) · mobile menu button (44×44, three 24×1 px cream hairlines; morphs to × when open) · mobile popover (`--radius-lg`, ink-2 at 97 %, `--line` border, `--shadow-card`, 6 px blur).
 
 | Element | Hover | Focus-visible | Current |
 | --- | --- | --- | --- |
 | Monogram | rose | ring | — |
-| Nav link | rose + rose underline | ring | peach (`aria-current="page"`; only `/about` can be current) |
+| Nav link | rose underline, text colour unchanged | ring | peach (`aria-current="page"`; only `/about` can be current) |
 | Menu button | hairlines rose | ring | `aria-expanded` |
 | Popover link | rose + cream 8 % wash | ring | as nav |
 

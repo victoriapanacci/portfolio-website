@@ -40,12 +40,9 @@ export function SiteHeader() {
 
   return (
     <header className="site-header shell">
-      <div className="site-brand">
-        <Link className="monogram" href="/">
-          Victoria Panacci
-        </Link>
-        <p className="site-role">Senior Product Designer</p>
-      </div>
+      <Link className="monogram" href="/">
+        Victoria Panacci
+      </Link>
       <nav aria-label="Primary navigation" className="desktop-nav">
         {navLinks.map((link) => (
           <Link key={link.href} href={link.href} aria-current={current(link.href)}>
